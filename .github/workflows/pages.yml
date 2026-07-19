@@ -24,6 +24,10 @@ jobs:
       - name: Generate site docs (front matter injected here, docs/ stays untouched)
         run: python3 scripts/generate_site_docs.py
 
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -33,7 +37,7 @@ jobs:
 
       - name: Build with Jekyll
         working-directory: site
-        run: bundle exec jekyll build -d _site
+        run: bundle exec jekyll build -d _site --baseurl "${{ steps.pages.outputs.base_path }}"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
