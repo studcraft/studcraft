@@ -31,7 +31,29 @@ TITLES = {
 }
 
 
+def check_titles_match_source() -> None:
+    actual = {p.name for p in SOURCE_DIR.glob("[0-9][0-9]-*.md")}
+    expected = set(TITLES)
+
+    missing = actual - expected
+    stale = expected - actual
+
+    if missing or stale:
+        problems = []
+        if missing:
+            problems.append(f"in docs/ but missing from TITLES: {sorted(missing)}")
+        if stale:
+            problems.append(f"in TITLES but missing from docs/: {sorted(stale)}")
+        raise SystemExit(
+            "generate_site_docs.py: TITLES is out of sync with docs/ ("
+            + "; ".join(problems)
+            + "). Update TITLES in scripts/generate_site_docs.py."
+        )
+
+
 def main() -> None:
+    check_titles_match_source()
+
     if DEST_DIR.exists():
         shutil.rmtree(DEST_DIR)
     DEST_DIR.mkdir(parents=True)
