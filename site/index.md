@@ -1,6 +1,7 @@
 ---
 title: Home
 nav_order: 0
+layout: default
 ---
 
 # StudCraft

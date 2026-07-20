@@ -67,6 +67,7 @@ def main() -> None:
             "---\n"
             f"title: {title}\n"
             f"nav_order: {nav_order}\n"
+            "layout: default\n"
             "---\n\n"
         )
 
