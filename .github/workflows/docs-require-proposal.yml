@@ -1,0 +1,31 @@
+name: Docs require OpenSpec proposal
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check:
+    name: Docs require OpenSpec proposal
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify ruleset changes include an OpenSpec proposal
+        run: |
+          set -euo pipefail
+
+          changed=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}")
+
+          echo "Changed files:"
+          echo "$changed"
+
+          if echo "$changed" | grep -qE '^docs/.*\.md$'; then
+            if ! echo "$changed" | grep -qE '^openspec/changes/'; then
+              echo "::error::This PR changes files under docs/ (the ruleset) but does not include an OpenSpec proposal under openspec/changes/. See system/workflow.md."
+              exit 1
+            fi
+          fi
