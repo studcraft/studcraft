@@ -23,11 +23,15 @@ Every weapon SHALL have exactly one Weapon Front, which is the only face from wh
 - **THEN** the construction is invalid
 
 ### Requirement: Weapon Length Determines Range
-Weapon Length SHALL be measured as the longest dimension of the Weapon Body. Range SHALL be derived as `Range = 2 × Weapon Length`.
+Weapon Length SHALL be measured as the longest dimension of the functional Weapon Body, excluding decorative elements. Range SHALL be derived as `Range = 2 × Weapon Length`.
 
 #### Scenario: Range computed from length
 - **WHEN** a weapon has a Weapon Length of N
 - **THEN** its Range is 2 × N
+
+#### Scenario: Decorative overhang excluded from length
+- **WHEN** a decorative element extends beyond the functional Weapon Body
+- **THEN** that decorative element is not counted when measuring Weapon Length
 
 ### Requirement: Weapon Proportion Constraint
 Weapon Length SHALL be at least twice the Weapon Width (`Length ≥ 2 × Width`). Weapon Width is the smallest dimension of the Weapon Body.
@@ -69,6 +73,10 @@ Every muzzle SHALL be square and SHALL fit entirely inside the Weapon Front Foot
 #### Scenario: Partial footprint coverage accepted
 - **WHEN** a weapon's muzzles occupy fewer cells than the total Weapon Front Footprint
 - **THEN** the construction remains valid
+
+#### Scenario: Directly adjacent muzzles accepted
+- **WHEN** two square muzzles share an edge with no gap of Weapon Body between them
+- **THEN** the placement is valid, since only overlap is forbidden, not adjacency
 
 ### Requirement: Attack Dice From Muzzle Count
 Every muzzle SHALL generate exactly one attack die. Attack Dice SHALL equal the number of muzzles on the Weapon Front.
