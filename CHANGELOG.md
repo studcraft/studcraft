@@ -20,6 +20,32 @@ for why.
 
 # [Unreleased]
 
+## Weapon Construction System
+
+Reworked `docs/10-weapons.md` so every offensive property is derived from
+geometry instead of fixed parts:
+
+- Functional muzzles are now square (1×1 through 4×4) instead of a fixed
+  round 1×1 piece (WPN-002). Muzzle size determines a new Impact
+  Strength value (WPN-021).
+- Weapon Length is now the longest dimension of the functional Weapon
+  Body, excluding decorative elements (WPN-003) — replaces the previous
+  "rear of body to foremost muzzle" measurement.
+- **BREAKING**: Removed the mandatory 1-stud muzzle separation rule.
+  Muzzles may now be placed directly adjacent, as long as they don't
+  overlap (WPN-007, WPN-020).
+- Added the Weapon Front Footprint and Muzzle Placement rules governing
+  how a weapon's front face is partitioned into muzzles (WPN-019,
+  WPN-020).
+- Added the Weapon Proportion constraint, `Length ≥ 2 × Width` (WPN-018).
+- Generalized the single-weapon maximum length rule into a Weapon
+  Capacity constraint, `Σ(Weapon Length) ≤ Platform Length` (WPN-004).
+- Added glossary entries for Weapon Body, Weapon Front, Weapon Front
+  Footprint, Muzzle Size, Impact Strength, Weapon Capacity, and Platform
+  Length.
+
+**Bump:** major
+
 ---
 
 # [0.1.0] - Initial Core Rule Set

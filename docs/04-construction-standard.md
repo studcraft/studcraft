@@ -241,9 +241,9 @@ Decoration does not count.
 
 ---
 
-# SCS-018 — Muzzle Separation Standard
+# SCS-018 — Muzzle Adjacency Standard
 
-Muzzle separation requirements are defined in `10-weapons.md` (WPN-007).
+Muzzle adjacency rules (muzzles may be placed directly adjacent; only overlap is forbidden) are defined in `10-weapons.md` (WPN-007, WPN-020).
 
 ---
 
@@ -255,7 +255,7 @@ Weapon length measurement is defined in `10-weapons.md` (WPN-003).
 
 # SCS-020 — Weapon Size Limit
 
-Maximum weapon length is defined in `10-weapons.md` (WPN-004).
+Weapon Capacity (the total mounted weapon length a platform may carry) is defined in `10-weapons.md` (WPN-004).
 
 ---
 
