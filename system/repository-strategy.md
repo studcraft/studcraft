@@ -13,6 +13,14 @@ BLOCKER rules. No exceptions, ever — not for "my own branch," not to fix an ou
 
 ---
 
+# Creating a new branch
+
+- Before creating any new branch, update local `main` first: `git fetch origin` then `git checkout main` then `git pull origin main --ff-only` (or branch directly off `origin/main`). Never branch off a stale local `main`.
+- Every new branch is created from `main`. Not from another feature branch, not from an old local checkout — from current `main`, every time.
+- Skipping this step is exactly what causes the "out-of-date with the base branch" state this document already tells you not to fix with rebase + force-push. Doing it right the first time avoids needing the fix at all.
+
+---
+
 # Keeping a branch up to date with main/develop
 
 If GitHub shows "This branch is out-of-date with the base branch":
