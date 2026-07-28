@@ -13,6 +13,24 @@ The `/docs` directory stores only the current accepted rules — the ruleset. Ev
 
 See `openspec/config.yaml` for per-artifact rules.
 
+## Ruleset linter
+
+`scripts/lint_ruleset.py` runs on every PR touching `docs/**` (see
+`Docs ruleset linter`). It is a **structural** check only:
+
+- Rule IDs (`WPN-001`, `CORE-007`, ...) are unique and strictly
+  increasing within their document.
+- Cross-document rule references (e.g. `` `10-weapons.md` (WPN-002) ``)
+  point at an ID that actually exists in the target document.
+- Every `docs/*.md` file that defines rule IDs has a `**Version:**`
+  header, and all such headers agree with each other.
+
+It does **not** catch semantic problems — contradicting rules, dangling
+narrative references, a rule that quietly invalidates another. That
+still requires a human (or an explicit review pass) reading the diff
+against the existing ruleset, the way the `weapon-construction-system`
+proposal was reviewed before being applied.
+
 ---
 
 # Git Workflow
