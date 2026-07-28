@@ -36,4 +36,4 @@
 
 - [x] 5.1 Add a `CHANGELOG.md` entry under `[Unreleased]` summarizing the weapon construction/capacity rule update, including a `**Bump:** major` line (required by the `Docs require changelog bump` CI check — this is a breaking change: it removes WPN-007 and redefines WPN-003's measurement method).
 - [x] 5.2 Remove `delete-me.md` from the repo root now that its content has been formalized into this OpenSpec change.
-- [ ] 5.3 Open a PR from the `weapon-construction-system` branch for review before archiving this change.
+- [x] 5.3 Open a PR from the `weapon-construction-system` branch for review before archiving this change.
