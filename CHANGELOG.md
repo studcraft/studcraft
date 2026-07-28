@@ -12,6 +12,14 @@ Example:
 
 0.1.0
 
+Merged proposals land here first, without a version number. A version
+number is assigned only at release-cut time — see `system/workflow.md`
+for why.
+
+---
+
+# [Unreleased]
+
 ---
 
 # [0.1.0] - Initial Core Rule Set

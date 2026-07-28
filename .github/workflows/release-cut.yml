@@ -1,0 +1,50 @@
+name: Release cut
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-cut:
+    name: Release cut
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compute next version and update docs
+        id: bump
+        run: |
+          set -euo pipefail
+          version=$(python3 scripts/release_cut.py)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Open release PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          version="${{ steps.bump.outputs.version }}"
+          branch="release/v$version"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$branch"
+          git add CHANGELOG.md docs/*.md
+          git commit -m "Release v$version"
+          git push origin "$branch"
+
+          gh pr create \
+            --title "Release v$version" \
+            --body "Automated release cut: moves accumulated [Unreleased] changelog entries under [v$version] and updates the **Version:** header in every docs/*.md file. See system/workflow.md for the release process." \
+            --base main \
+            --head "$branch"
