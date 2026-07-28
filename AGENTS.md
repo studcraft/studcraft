@@ -62,6 +62,7 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 | [`system/design-process.md`](system/design-process.md) | Design Process, Rule Hierarchy, Preferred Design Patterns, Decision Filter |
 | [`system/documentation-standards.md`](system/documentation-standards.md) | Repository Structure, Documentation Guidelines, Naming Conventions, Versioning |
 | [`system/workflow.md`](system/workflow.md) | OpenSpec Workflow, Git Workflow (branch rules, proposal requirements) |
+| [`system/repository-strategy.md`](system/repository-strategy.md) | BLOCKER git history rules: no force-push, no rewriting history, linear-only |
 | [`system/communication.md`](system/communication.md) | Language, tone, proposal framing |
 | [`system/vision.md`](system/vision.md) | Long-term direction |
 
