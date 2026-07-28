@@ -1,0 +1,43 @@
+name: Docs require changelog bump
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check:
+    name: Docs require changelog bump
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify ruleset changes declare a version bump
+        run: |
+          set -euo pipefail
+
+          changed=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}")
+
+          echo "Changed files:"
+          echo "$changed"
+
+          if ! echo "$changed" | grep -qE '^docs/.*\.md$'; then
+            echo "No docs/*.md changes in this PR — skipping."
+            exit 0
+          fi
+
+          if ! echo "$changed" | grep -qx 'CHANGELOG.md'; then
+            echo "::error::This PR changes files under docs/ but does not update CHANGELOG.md. See system/workflow.md."
+            exit 1
+          fi
+
+          unreleased=$(awk '/^# \[Unreleased\]/{flag=1; next} /^# \[/{flag=0} flag' CHANGELOG.md)
+
+          if ! echo "$unreleased" | grep -qE '^\*\*Bump:\*\* (major|minor|patch)$'; then
+            echo "::error::CHANGELOG.md [Unreleased] section is missing a '**Bump:** major|minor|patch' entry. See system/workflow.md."
+            exit 1
+          fi
+
+          echo "Bump entry found. OK."
