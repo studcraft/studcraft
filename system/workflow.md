@@ -151,3 +151,18 @@ change's `docs/*.md` edits**:
   archived yet, wait. Don't force it — see `weapon-construction-system`
   (PR #7) / `gameplay-visual-geometry` (PR #11) for a real example of
   this dependency.
+
+This isn't just policy — it's enforced. Push the archive result from a
+branch named `archive/<name>` (mirrors `release/v*`). The `OpenSpec
+archive must be separate from apply` GitHub Action then requires:
+
+- Any PR touching `openspec/specs/` **must** come from an `archive/*`
+  branch, and must not touch `docs/*.md`.
+- Any PR **not** from an `archive/*` branch must not touch
+  `openspec/specs/` at all.
+
+So an apply PR that also tries to archive gets rejected, and an archive
+PR that also tries to sneak in a ruleset edit gets rejected too. For this
+to actually block a merge, `OpenSpec archive must be separate from
+apply` must be added to the **required status checks** in branch
+protection for `main`/`develop`, alongside the other required checks.
