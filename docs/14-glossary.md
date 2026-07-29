@@ -112,11 +112,53 @@ A full round in which every unit on the battlefield is activated once.
 
 ---
 
+## Weapon Body
+
+The continuous physical structure of a weapon. Defines Weapon Length and Weapon Width.
+
+---
+
+## Weapon Front
+
+The single face of a weapon from which it may fire. Muzzles may not be placed on any other face.
+
+---
+
+## Weapon Front Footprint
+
+The square construction area (Weapon Width × Weapon Width) on the Weapon Front available for muzzle placement.
+
+---
+
 ## Muzzle
 
-A functional LEGO element (Round Plate 1×1 or Round Brick 1×1) representing one firing barrel.
+A square functional construction area (1×1 through 4×4) on the Weapon Front Footprint, representing one firing barrel.
 
-Each functional muzzle grants one Attack Die.
+Each functional muzzle grants one Attack Die. Muzzles may be placed directly adjacent to one another.
+
+---
+
+## Muzzle Size
+
+The size of a functional muzzle (1×1 through 4×4). Determines the Impact Strength of the Attack Die it generates.
+
+---
+
+## Impact Strength
+
+The strength value carried by an Attack Die, equal to the Muzzle Size of the muzzle that generated it.
+
+---
+
+## Weapon Capacity
+
+The limit on total mounted Weapon Length a platform may carry, equal to its Platform Length.
+
+---
+
+## Platform Length
+
+The largest dimension of a platform's Unit Base or vehicle bounding box.
 
 ---
 
