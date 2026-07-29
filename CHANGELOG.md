@@ -13,10 +13,10 @@ Example:
 0.1.0
 
 This file is written only by the `Release cut` workflow — no PR should
-edit it by hand. Each PR instead adds a `**Bump:** major|minor|patch`
-line to one of its commit messages; `Release cut` reads those messages
-back out of git history and writes the entry here. See
-`system/workflow.md` for why.
+edit it by hand, ever. Nothing needs to be declared to get a release:
+any `docs/*.md` change since the last release tag defaults to a minor
+bump automatically. See `system/workflow.md` for why, and for the
+optional escape hatches if a change is actually breaking.
 
 ---
 

@@ -1,0 +1,37 @@
+name: Docs must not edit CHANGELOG.md directly
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check:
+    name: Docs must not edit CHANGELOG.md directly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify CHANGELOG.md is untouched
+        run: |
+          set -euo pipefail
+
+          branch="${{ github.head_ref }}"
+          if [[ "$branch" == release/v* ]]; then
+            echo "Release-cut branch ($branch) — skipping, it's expected to edit CHANGELOG.md."
+            exit 0
+          fi
+
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+
+          changed=$(git diff --name-only "$base" "$head")
+
+          if echo "$changed" | grep -qx 'CHANGELOG.md'; then
+            echo "::error::This PR edits CHANGELOG.md directly. CHANGELOG.md is written only by the Release cut workflow, never by individual PRs — this is what prevents concurrent proposal branches from colliding on it. No PR needs to declare a version bump either: docs/*.md changes default to a minor release automatically. See system/workflow.md."
+            exit 1
+          fi
+
+          echo "CHANGELOG.md untouched. OK."
