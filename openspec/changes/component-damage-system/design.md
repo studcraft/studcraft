@@ -17,7 +17,7 @@ Neither `docs/11-combat.md` nor `docs/13-materials.md` has ever been captured as
 **Non-Goals:**
 - Changing Range, Attack Dice, or Impact Strength (`10-weapons.md` WPN-005/006/021) — this proposal consumes those values, it doesn't touch their definitions.
 - Cover (`13-materials.md` MAT-016) — explicitly deferred, unaffected by this change.
-- Construction rules for rebuilding/repairing a `DESTROYED` component — `DMG-023`-equivalent Repairs only covers `TOUCHED → OK`; rebuilding is future work.
+- Construction rules for rebuilding/repairing a `DESTROYED` component — Repairs (`specs/damage-resolution/spec.md`) only covers `TOUCHED → OK`; rebuilding is future work.
 
 ## Decisions
 

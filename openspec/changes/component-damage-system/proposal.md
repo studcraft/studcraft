@@ -7,7 +7,8 @@ StudCraft's weapons already derive Range, Attack Dice, and Impact Strength from 
 - Every object on the battlefield is a collection of independent **Components** (Minifig, Shield, Door, Cannon, Wheel, Engine, ...), each with its own state — never a single unit-level health pool.
 - Introduces **Component Resistance**: a component's resistance is the smallest structural cross-section an Impact must cross, read directly from its construction (bricks/plates, not a stat).
 - Introduces the universal three-state **Component State** machine (`OK → TOUCHED → DESTROYED`) — every component, regardless of type, uses exactly these three states.
-- Introduces the combat resolution sequence: **Attack Roll** (existing 4+/D6 threshold, per CBT-005) generates a valid Impact → **Geometry Check** (Impact Strength vs. Component Resistance; below resistance, the Impact ends immediately) → **Damage Roll** (a second D6; on 1-3 the component advances one state) → **Penetration** (remaining strength continues to the next component behind it).
+- Introduces the combat resolution sequence: **Attack Roll** (existing 4+/D6 threshold, per CBT-005) generates a valid Impact → **Select Target Component** (assigned to exactly one visible component, never a whole vehicle) → **Geometry Check** (Impact Strength vs. Component Resistance; below resistance, the Impact ends immediately) → **Damage Roll** (a second D6; on 1-3 the component advances one state) → **Penetration** (remaining strength continues to the next component behind it). A player may choose which visible component of a composite target to attack (**Composite Vehicle Targeting**); destroying one component never changes any other component's state.
+- Introduces **Internal Components**: a component (e.g. Armor) may protect another positioned behind it (e.g. Engine); the protected component is unaffected until the protecting one is penetrated or destroyed.
 - Introduces **Weapon Distribution**: multi-muzzle weapons on a free-rotating mount (turntable, ball joint, swivel) may split their impacts across different target units; fixed mounts still cannot (per existing CBT-007).
 - Introduces **Repairs**: consumes Action Points, restores exactly one state (`TOUCHED → OK`); `DESTROYED` is not repairable.
 - **BREAKING**: Replaces the fixed, material-specific hit-count assumptions in `13-materials.md` (MAT-003's "first Impact breaks glass", MAT-004's "first/second unresolved Impact" for infantry) with the geometry-derived Resistance + Geometry Check + Damage Roll mechanism. The *outcome* for a typical minifig is unchanged (still two hits), but the *mechanism* is now construction-driven rather than a fixed per-material rule.
@@ -18,7 +19,7 @@ StudCraft's weapons already derive Range, Attack Dice, and Impact Strength from 
 
 ### New Capabilities
 - `component-damage`: The structural model — components, geometry-derived Resistance, the universal Component State machine, Composite Objects, and internal/layered protection.
-- `damage-resolution`: The dice-based combat sequence that resolves an Impact against a component — Attack Roll, Geometry Check, Damage Roll, Penetration, Weapon Distribution, and Repairs.
+- `damage-resolution`: The dice-based combat sequence that resolves an Impact against a component — Attack Roll, Select Target Component, Composite Vehicle Targeting, Geometry Check, Damage Roll, Penetration, Weapon Distribution, and Repairs.
 
 ### Modified Capabilities
 (none — `docs/11-combat.md` and `docs/13-materials.md` predate OpenSpec and were never captured as formal capabilities in `openspec/specs/`; their wording changes are tracked as direct doc edits in Impact below, not as spec deltas)
