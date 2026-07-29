@@ -1,0 +1,48 @@
+name: OpenSpec archive must be separate from apply
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check:
+    name: OpenSpec archive must be separate from apply
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify archive and apply never land in the same PR
+        run: |
+          set -euo pipefail
+
+          branch="${{ github.head_ref }}"
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+
+          changed=$(git diff --name-only "$base" "$head")
+
+          touches_docs=$(echo "$changed" | grep -qE '^docs/.*\.md$' && echo yes || echo no)
+          touches_specs=$(echo "$changed" | grep -qE '^openspec/specs/' && echo yes || echo no)
+
+          if [[ "$branch" == archive/* ]]; then
+            if [[ "$touches_docs" == "yes" ]]; then
+              echo "::error::Archive branch ($branch) changes docs/*.md. Archive PRs must only touch openspec/specs/** and openspec/changes/**, never the ruleset itself. See system/workflow.md (Archiving)."
+              exit 1
+            fi
+            if [[ "$touches_specs" == "no" ]]; then
+              echo "::error::Archive branch ($branch) doesn't touch openspec/specs/. Nothing to archive here — check the branch name/PR."
+              exit 1
+            fi
+            echo "Archive-only PR. OK."
+            exit 0
+          fi
+
+          if [[ "$touches_specs" == "yes" ]]; then
+            echo "::error::This PR changes openspec/specs/ but isn't from an archive/* branch. Archiving must happen in its own PR, separate from the change that applies docs/*.md — see system/workflow.md (Archiving). Run 'openspec archive <name>' from a branch named archive/<name> instead."
+            exit 1
+          fi
+
+          echo "No openspec/specs/ changes outside an archive/* branch. OK."
