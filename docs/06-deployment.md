@@ -32,11 +32,7 @@ Larger models provide greater capabilities but consume more deployment capacity.
 
 Before the game begins, players agree on a Deployment Area.
 
-A Deployment Area is measured in **Unit Bases (UB)**.
-
-One Unit Base equals:
-
-**4 × 3 studs**
+A Deployment Area is measured in **Unit Bases (UB)** — see `02-core-rules.md` (CORE-001) for the Unit Base definition (4 × 3 studs).
 
 Deployment Areas may have any dimensions agreed upon by the players.
 

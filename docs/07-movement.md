@@ -46,9 +46,7 @@ Diagonal movement is never allowed.
 
 # MOVE-002 — Infantry Base
 
-All infantry are mounted on a standard Unit Base (UB):
-
-4 × 3 studs
+All infantry are mounted on a standard Unit Base (UB) — see `02-core-rules.md` (CORE-001) for the definition (4 × 3 studs).
 
 The 4-stud edge is always considered the front.
 
