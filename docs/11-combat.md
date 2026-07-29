@@ -139,7 +139,7 @@ Unless restricted by a scenario,
 
 independent weapon systems may attack different targets.
 
-Individual attack dice from the same weapon system cannot be split between multiple targets.
+Individual attack dice from the same weapon system cannot be split between multiple targets, unless the weapon mount can physically rotate to re-aim independently of the platform carrying it (e.g. a turntable, ball joint, or swivel mount). See `16-damage-system.md` (DMG-018, Weapon Distribution) for the full rule. Fixed mounts follow the no-split rule above with no exception.
 
 ---
 
@@ -149,43 +149,21 @@ After counting Impacts,
 
 the defender becomes responsible for resolving them.
 
-The defender uses the appropriate rules.
+Resolution is defined in `16-damage-system.md`: each Impact is assigned to one visible component (DMG-012), checked against that component's Resistance (DMG-014, Geometry Check), and — if capable of causing damage — resolved with a Damage Roll (DMG-015) that advances the Component State.
+
+Materials (`13-materials.md`) then describe the physical/cosmetic result once a component's state has changed — e.g. how a destroyed window, wheel, or minifig should look on the model.
 
 Examples
 
-Infantry
+Infantry, Vehicles, Structures
 
-13-materials.md
-
-Vehicles
-
-08-vehicles.md
-
-Structures
-
-13-materials.md
+All use the same `16-damage-system.md` resolution sequence, followed by the appropriate `13-materials.md` physical response.
 
 ---
 
 # CBT-009 — Physical State Changes
 
-Whenever possible,
-
-combat results should modify the LEGO model itself.
-
-Examples
-
-Minifigure sits.
-
-Weapon removed.
-
-Door opened.
-
-Window removed.
-
-Wheel detached.
-
-Physical representation always takes priority over tokens.
+Combat results are always represented physically. This is the same rule as `16-damage-system.md` (DMG-006) and `13-materials.md` (MAT-017) — a destroyed component is physically removed; see DMG-006, Universal Destruction, for the canonical statement and examples.
 
 ---
 
@@ -208,14 +186,16 @@ Both may become casualties.
 Weapons never possess:
 
 - Damage
-- Strength
 - Armour Penetration
 
 Weapons only define:
 
 - Range
 - Number of Attack Dice
+- Impact Strength
 - Firing Position
+
+Impact Strength (`10-weapons.md` WPN-021) is a geometrically-derived property — determined by muzzle size, not a hidden statistic — and is consumed by `16-damage-system.md`'s Geometry Check (DMG-014). This updates the original version of this rule, which predated Impact Strength and Muzzle Size (WPN-021) and stated that weapons possess no "Strength" at all.
 
 Everything else belongs to the target.
 
@@ -239,7 +219,7 @@ Armour is never a weapon property.
 
 Armour belongs to the defending model.
 
-Armour determines how impacts are resolved.
+Armour determines how impacts are resolved: specifically, via the Geometry Check and Damage Roll defined in `16-damage-system.md` (DMG-014, DMG-015) — see also `13-materials.md` MAT-011.
 
 ---
 

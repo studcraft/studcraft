@@ -28,19 +28,7 @@ Targets resolve Impacts according to their Material.
 
 ## Component
 
-A physical LEGO element with gameplay functionality.
-
-Examples:
-
-Engine
-
-Door
-
-Wheel
-
-Weapon
-
-Track
+A single visible physical part of a model that combat targets independently (Engine, Door, Wheel, Weapon, Track, and similar). Components have no Hit Points — only a Component State and a Resistance, both read from the model. See `16-damage-system.md` (DMG-001, DMG-002).
 
 ---
 
@@ -195,3 +183,33 @@ A valid build of a model using only the Gameplay Geometry required by the rules,
 ## Detailed Representation
 
 A model built with Visual Geometry added on top of a valid Minimum Representation, remaining valid as long as its Gameplay Geometry is unchanged. See `15-geometry-layers.md` (GEO-007).
+
+---
+
+## Resistance
+
+The smallest structural cross-section a component's construction requires an Impact to cross, read directly from the model (bricks/plates), not assigned as a statistic. See `16-damage-system.md` (DMG-003, DMG-004).
+
+---
+
+## Component State
+
+The three-state progression every component uses: `OK`, `TOUCHED`, `DESTROYED`. Universal — no component type has an exception. See `16-damage-system.md` (DMG-005).
+
+---
+
+## Geometry Check
+
+The step in damage resolution that compares an Impact's Strength against a component's Resistance; below Resistance, the Impact ends immediately with no further roll. See `16-damage-system.md` (DMG-014).
+
+---
+
+## Damage Roll
+
+The die roll that follows a passed Geometry Check; on a 1, 2, or 3 the component's state advances by one step. See `16-damage-system.md` (DMG-015).
+
+---
+
+## Penetration
+
+Also called Overrun. When an Impact's strength exceeds a component's Resistance, the remaining strength (`Impact Strength − Component Resistance`) continues toward the next component behind it. See `16-damage-system.md` (DMG-017).
