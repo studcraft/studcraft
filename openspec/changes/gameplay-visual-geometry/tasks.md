@@ -1,3 +1,7 @@
+## 0. Sequencing Dependency
+
+- [ ] 0.1 Confirm `weapon-construction-system` (PR #7) has merged to `main` before archiving this change — this change's `MODIFIED Requirements` delta on `weapon-construction` needs that capability to already exist in `openspec/specs/weapon-construction/spec.md`. Applying/writing the ruleset doc (tasks below) can proceed in parallel; only the archive step has this hard dependency.
+
 ## 1. Resolve Document Placement
 
 - [ ] 1.1 Decide between a new `docs/15-geometry-layers.md` versus appending a section to `docs/01-foundations.md` (see design.md Open Questions). Default to the new file unless there's a strong reason not to, per `system/documentation-standards.md` ("large systems should receive their own document").
@@ -14,8 +18,8 @@
 
 ## 3. Glossary and Cross-References
 
-- [ ] 3.1 Add entries to `docs/14-glossary.md` for: Gameplay Geometry, Visual Geometry, Functional Equivalence, Minimum Representation.
-- [ ] 3.2 Check `docs/10-weapons.md` (WPN-003, WPN-015) and `docs/08-vehicles.md` (VEH-003) for opportunities to cross-reference the new doc where they already say "decorative elements are ignored" — no rule text needs to change, only add a pointer if it improves clarity.
+- [ ] 3.1 Add entries to `docs/14-glossary.md` for: Gameplay Geometry, Visual Geometry, Functional Equivalence, Minimum Representation, Detailed Representation.
+- [ ] 3.2 Update `docs/10-weapons.md` WPN-003 per the `MODIFIED Requirements` delta in `specs/weapon-construction/spec.md`: reword "excluding decorative elements" to reference Visual Geometry / the new doc by name. Check WPN-015 and `docs/08-vehicles.md` (VEH-003) for the same kind of optional cross-reference (no rule text change needed there, just a pointer if it improves clarity).
 - [ ] 3.3 Check `docs/02-core-rules.md` (CORE-008, CORE-009, CORE-010) for the same kind of cross-reference back to the new doc's Line of Sight/Cover carve-out.
 
 ## 4. Validation
@@ -25,6 +29,6 @@
 
 ## 5. Housekeeping
 
-- [ ] 5.1 Add a `CHANGELOG.md` entry under `[Unreleased]` summarizing the new geometry-layers doc, including a `**Bump:** minor` line (additive/clarifying, not breaking — required by the `Docs require changelog bump` CI check).
+- [ ] 5.1 Do not edit `CHANGELOG.md` — `Release cut` computes the bump automatically from git history and defaults to minor, which is correct here (see `system/workflow.md`). No commit-message marker is needed either; this isn't a breaking change.
 - [ ] 5.2 Remove `delete-me-spec.md` from the repo root now that its (reviewed and corrected) content has been formalized into this OpenSpec change.
 - [ ] 5.3 Open a PR from the `gameplay-visual-geometry` branch for review before archiving this change.
