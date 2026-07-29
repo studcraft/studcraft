@@ -18,7 +18,16 @@ jobs:
         run: |
           set -euo pipefail
 
-          changed=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}")
+          branch="${{ github.head_ref }}"
+          if [[ "$branch" == release/v* ]]; then
+            echo "Release-cut branch ($branch) — skipping, it's expected to edit CHANGELOG.md."
+            exit 0
+          fi
+
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+
+          changed=$(git diff --name-only "$base" "$head")
 
           echo "Changed files:"
           echo "$changed"
@@ -28,16 +37,16 @@ jobs:
             exit 0
           fi
 
-          if ! echo "$changed" | grep -qx 'CHANGELOG.md'; then
-            echo "::error::This PR changes files under docs/ but does not update CHANGELOG.md. See system/workflow.md."
+          if echo "$changed" | grep -qx 'CHANGELOG.md'; then
+            echo "::error::This PR changes files under docs/ and also edits CHANGELOG.md directly. CHANGELOG.md is now written only by the Release cut workflow, never by individual PRs (this is what prevents concurrent proposal branches from colliding on it) — add a '**Bump:** major|minor|patch' line to a commit message instead. See system/workflow.md."
             exit 1
           fi
 
-          unreleased=$(awk '/^# \[Unreleased\]/{flag=1; next} /^# \[/{flag=0} flag' CHANGELOG.md)
+          commit_messages=$(git log --format=%B "$base".."$head")
 
-          if ! echo "$unreleased" | grep -qE '^\*\*Bump:\*\* (major|minor|patch)$'; then
-            echo "::error::CHANGELOG.md [Unreleased] section is missing a '**Bump:** major|minor|patch' entry. See system/workflow.md."
+          if ! echo "$commit_messages" | grep -qE '^\*\*Bump:\*\* (major|minor|patch)$'; then
+            echo "::error::This PR changes files under docs/ but no commit message includes a '**Bump:** major|minor|patch' line. See system/workflow.md."
             exit 1
           fi
 
-          echo "Bump entry found. OK."
+          echo "Bump commit found, CHANGELOG.md untouched. OK."

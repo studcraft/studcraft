@@ -45,6 +45,6 @@ jobs:
 
           gh pr create \
             --title "Release v$version" \
-            --body "Automated release cut: moves accumulated [Unreleased] changelog entries under [v$version] and updates the **Version:** header in every docs/*.md file. See system/workflow.md for the release process." \
+            --body "Automated release cut: builds a [v$version] changelog entry from every commit merged since the last release tag (see **Bump:** markers in their commit messages) and updates the **Version:** header in every docs/*.md file. See system/workflow.md for the release process." \
             --base main \
             --head "$branch"

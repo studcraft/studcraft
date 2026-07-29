@@ -12,9 +12,11 @@ Example:
 
 0.1.0
 
-Merged proposals land here first, without a version number. A version
-number is assigned only at release-cut time — see `system/workflow.md`
-for why.
+This file is written only by the `Release cut` workflow — no PR should
+edit it by hand. Each PR instead adds a `**Bump:** major|minor|patch`
+line to one of its commit messages; `Release cut` reads those messages
+back out of git history and writes the entry here. See
+`system/workflow.md` for why.
 
 ---
 

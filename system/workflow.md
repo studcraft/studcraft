@@ -52,30 +52,42 @@ at merge time.
 
 To avoid this:
 
-- A merging PR does **not** bump any version number. It adds its change
-  under the `[Unreleased]` section of `CHANGELOG.md` and leaves ruleset
-  document `Version:` headers untouched.
+- A merging PR does **not** bump any version number, and does **not**
+  edit `CHANGELOG.md` at all. Ruleset document `Version:` headers stay
+  untouched too.
 - A version number is assigned only in a separate, later **release-cut**
   step, which happens one at a time against `main` (git merges are
   serialized), removing the collision case entirely.
 
+Earlier versions of this workflow had PRs hand-edit a `[Unreleased]`
+section in `CHANGELOG.md`. That still let two concurrent PRs collide —
+both inserting a new entry at the same point in the same file is a
+textbook merge conflict. Since this repo always squash-merges (one
+commit per PR on `main`, confirmed by `git log --merges` showing zero
+merge commits), git itself already gives every PR a natural, per-PR
+"why did this change" record with no shared file to collide on: the
+squash commit message. So the mechanism moved there instead.
+
 ## Declaring a bump
 
-Any PR that changes `docs/*.md` must add an entry under `[Unreleased]` in
-`CHANGELOG.md` that includes a line:
+Any PR that changes `docs/*.md` must include a line in one of its
+**commit messages** (not in `CHANGELOG.md` — see above):
 
 ```
 **Bump:** major|minor|patch
 ```
 
-(pick one). This is enforced by the `Docs require changelog bump` GitHub
-Action — it fails the PR if `docs/*.md` changed without a matching
-`CHANGELOG.md` update and `**Bump:**` line. For this to actually block a
-merge, `Docs require changelog bump` (and `Docs require OpenSpec
-proposal`) must be configured as **required status checks** in the
-branch protection rules for `main`/`develop`, with "Include
-administrators" enabled — otherwise the checks only advise and can be
-bypassed.
+(pick one). Since this repo squash-merges, every commit message on the
+branch is concatenated into the one commit that lands on `main`, so the
+marker survives the merge automatically. This is enforced by the `Docs
+require changelog bump` GitHub Action — it fails the PR if `docs/*.md`
+changed without a `**Bump:**` line in the commit range, and separately
+fails the PR if it edits `CHANGELOG.md` directly (that file is now
+release-cut-only — see below). For this to actually block a merge,
+`Docs require changelog bump` (and `Docs require OpenSpec proposal`)
+must be configured as **required status checks** in the branch
+protection rules for `main`/`develop`, with "Include administrators"
+enabled — otherwise the checks only advise and can be bypassed.
 
 ## Cutting a release
 
@@ -83,16 +95,20 @@ Cutting a release is manual-trigger, mechanical-execution:
 
 1. A maintainer runs the `Release cut` GitHub Action (`workflow_dispatch`)
    whenever they decide it's time to release — this is the only human
-   judgment call left (timing, and implicitly which accumulated bumps to
-   include).
-2. The action (`scripts/release_cut.py`) reads every `**Bump:**` entry
-   under `[Unreleased]`, takes the most severe one, computes the next
-   version from the latest `v*` git tag, rewrites `CHANGELOG.md` (moving
-   the accumulated entries under a new `[MAJOR.MINOR.PATCH] - DATE`
-   header and opening a fresh empty `[Unreleased]`), and updates the
-   `**Version:**` header in every `docs/*.md` file.
+   judgment call left (timing, and implicitly which accumulated commits
+   to include).
+2. The action (`scripts/release_cut.py`) finds the latest `v*` git tag,
+   walks every commit merged since (`git log <tag>..HEAD`), collects
+   every `**Bump:**` marker across those commit messages, and takes the
+   most severe one. It computes the next version, rewrites
+   `CHANGELOG.md` (auto-building the new `[MAJOR.MINOR.PATCH] - DATE`
+   entry from the commit subjects, opening a fresh empty `[Unreleased]`
+   above it), and updates the `**Version:**` header in every
+   `docs/*.md` file.
 3. It opens a PR with these changes (never pushes to `main` directly,
-   per the Git Workflow rules above). A human reviews and merges it.
+   per the Git Workflow rules above) from a `release/v*` branch — that
+   branch naming is what tells `Docs require changelog bump` to skip its
+   normal checks for this one PR. A human reviews and merges it.
 4. On merge, the `Tag release` action tags that commit `vMAJOR.MINOR.PATCH`
    automatically, so every released version is traceable to an exact
-   commit in git history.
+   commit in git history, and becomes the new anchor for the next cut.
