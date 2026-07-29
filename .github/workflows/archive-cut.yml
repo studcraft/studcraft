@@ -1,0 +1,61 @@
+name: Archive cut
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  archive-cut:
+    name: Archive cut
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install OpenSpec CLI
+        run: npm install -g @fission-ai/openspec
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Archive every fully-applied change
+        id: archive
+        run: |
+          set -euo pipefail
+          python3 scripts/archive_cut.py
+
+      - name: Open archive PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "Nothing archived, no PR to open."
+            exit 0
+          fi
+
+          branch="archive/batch-$(date +%Y-%m-%d)-${{ github.run_id }}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$branch"
+          git add openspec/
+          git commit -m "Archive cut: $(date +%Y-%m-%d)"
+          git push origin "$branch"
+
+          gh pr create \
+            --title "Archive cut: $(date +%Y-%m-%d)" \
+            --body "Automated batch archive: moves every OpenSpec change with a fully-checked tasks.md from openspec/changes/ to openspec/changes/archive/, and writes the resulting capability specs under openspec/specs/. See system/workflow.md (Archiving) for why this batches instead of running per-PR." \
+            --base main \
+            --head "$branch"

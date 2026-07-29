@@ -144,20 +144,41 @@ change's `docs/*.md` edits**:
   `docs/14-glossary.md`, and its own `openspec/changes/<name>/` files to
   `main`. It does **not** touch `openspec/specs/` and does **not**
   archive.
-- Archiving happens afterward, one change at a time, in whatever order
-  dependencies require (check other open changes' `tasks.md` for
-  `MODIFIED`/dependency notes before archiving). It is its own PR:
-  `openspec archive <name>` run against an up-to-date `main`, then
-  commit and PR that result — never pushed to `main` directly, per the
-  Git Workflow rules above.
-- If a change's delta depends on another capability that hasn't been
-  archived yet, wait. Don't force it — see `weapon-construction-system`
-  (PR #7) / `gameplay-visual-geometry` (PR #11) for a real example of
-  this dependency.
+- Archiving happens afterward, as its own PR, never pushed to `main`
+  directly, per the Git Workflow rules above.
 
-This isn't just policy — it's enforced. Push the archive result from a
-branch named `archive/<name>` (mirrors `release/v*`). The `OpenSpec
-archive must be separate from apply` GitHub Action then requires:
+**Archiving is batched, not one PR per merged proposal.** Doing it
+per-PR would mean the same "concurrent writes to shared state" problem
+this section opened with, just shifted from apply-time to archive-time —
+and with several proposal branches landing on `main` around the same
+time (see Versioning above), that's a lot of archive-PR churn for a
+mechanical step. Instead, archiving accumulates: any change with a
+fully-checked `tasks.md` is a candidate, and they all get archived
+together the next time someone runs the batch.
+
+## Cutting an archive batch
+
+1. A maintainer runs the `Archive cut` GitHub Action (`workflow_dispatch`)
+   whenever they decide it's time — this is the only human judgment
+   call left (timing).
+2. The action (`scripts/archive_cut.py`) walks every directory under
+   `openspec/changes/` (excluding `archive/`), and runs `openspec
+   archive <name> --yes` for every change whose `tasks.md` has no
+   remaining unchecked boxes. Changes with incomplete tasks are left
+   alone and reported, not archived — archiving is only safe once a
+   proposal's `docs/*.md` edits have actually landed on `main`. If a
+   change's `MODIFIED` delta depends on another capability that isn't
+   archived yet, it simply won't have a target to delta against; check
+   dependency notes in `tasks.md` before relying on ordering within one
+   batch run.
+3. It opens one PR with every archived change's result (never pushes to
+   `main` directly) from a branch named `archive/batch-<date>-<run-id>`
+   — any `archive/*` prefix satisfies the branch-naming convention the
+   `OpenSpec archive must be separate from apply` gate checks for (see
+   below); it isn't tied to a single change's name anymore.
+
+This isn't just policy — it's enforced. The `OpenSpec archive must be
+separate from apply` GitHub Action requires:
 
 - Any PR touching `openspec/specs/` **must** come from an `archive/*`
   branch, and must not touch `docs/*.md`.
