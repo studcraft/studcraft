@@ -164,6 +164,8 @@ A target is visible if any part of it can be physically seen from the attacker's
 
 No visibility templates are used.
 
+This includes Visual Geometry (decoration, greebling, and similar) — see `15-geometry-layers.md` (GEO-004).
+
 ---
 
 ## CORE-009 — If You Can See It
@@ -184,7 +186,7 @@ it may shoot back.
 
 ## CORE-010 — Physical Cover
 
-Cover is determined by the physical amount of the model that is hidden.
+Cover is determined by the physical amount of the model that is hidden. This includes Visual Geometry — see `15-geometry-layers.md` (GEO-004).
 
 Examples:
 
