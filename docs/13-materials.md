@@ -79,9 +79,9 @@ Examples:
 
 Response:
 
-The first unresolved Impact breaks the glass.
+How many Impacts it takes to break the glass is determined by its Resistance and the Damage Roll (`16-damage-system.md`, DMG-003/DMG-014/DMG-015) — thinly-built glass typically has Resistance 1, breaking on the first Impact that fails its Damage Roll, but this is a consequence of construction, not a fixed rule for the material.
 
-Remove the transparent LEGO element.
+Once destroyed, remove the transparent LEGO element.
 
 The opening remains.
 
@@ -89,31 +89,21 @@ The opening remains.
 
 # MAT-004 — Infantry
 
-Standing minifigure
+A minifig's wound track follows its Component State (`16-damage-system.md`, DMG-005):
 
-↓
+Standing minifigure (`OK`)
 
-First unresolved Impact
+↓ Impact passes Geometry Check, Damage Roll fails
 
-↓
+Seated minifigure (`TOUCHED`, Wounded)
 
-Seated minifigure (Wounded)
+↓ Impact passes Geometry Check, Damage Roll fails
 
----
+Minifigure removed or laid down (`DESTROYED`, Dead)
 
-Seated minifigure
+A typical minifig has Resistance 1 (`16-damage-system.md`, DMG-004 Example 1), so this still takes exactly two failed Damage Rolls — the same two-impact result this rule has always described — but now derived from its construction rather than fixed for the material.
 
-↓
-
-Second unresolved Impact
-
-↓
-
-Minifigure removed or laid down (Dead)
-
-No wound counters are required.
-
-The model itself represents its condition.
+No wound counters are required. The model itself represents its condition.
 
 ---
 
@@ -187,17 +177,13 @@ A damaged engine may reduce movement or immobilize the vehicle.
 
 Armour does not prevent attacks.
 
-Armour determines how Impacts are resolved.
+Armour determines how Impacts are resolved, via `16-damage-system.md`'s Geometry Check and Damage Roll (DMG-014, DMG-015):
 
-Future armour rules may provide:
+- **Impact cancellation** is the Geometry Check — an Impact whose Strength is below the component's Resistance ends immediately, with no further roll.
+- **Defence Dice** is the Damage Roll — a D6 that determines whether a geometrically-capable Impact actually advances the component's state.
+- **Component protection** is Internal Components (DMG-007) — a component may shield another positioned behind it until penetrated or destroyed.
 
-- Defence Dice
-- Impact cancellation
-- Component protection
-
-Armour belongs to the target.
-
-Never to the weapon.
+Armour belongs to the target. Never to the weapon.
 
 ---
 
@@ -281,23 +267,7 @@ Future rules will assign Defence Dice according to visible exposure.
 
 # MAT-017 — Physical Damage
 
-Whenever possible,
-
-damage is represented physically.
-
-Examples:
-
-Remove a window.
-
-Detach a weapon.
-
-Open a broken door.
-
-Remove a wheel.
-
-Lay a casualty down.
-
-Physical representation always has priority.
+Damage is always represented physically. This is the same rule as `16-damage-system.md` (DMG-006) and `11-combat.md` (CBT-009) — see DMG-006, Universal Destruction, for the canonical statement and examples.
 
 ---
 

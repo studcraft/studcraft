@@ -29,6 +29,7 @@ TITLES = {
     "13-materials.md": "Materials",
     "14-glossary.md": "Glossary",
     "15-geometry-layers.md": "Geometry Layers",
+    "16-damage-system.md": "Damage System",
 }
 
 

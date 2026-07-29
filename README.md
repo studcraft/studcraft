@@ -78,7 +78,9 @@ These principles are fully described in:
     ├── 11-combat.md
     ├── 12-melee.md
     ├── 13-materials.md
-    └── 14-glossary.md
+    ├── 14-glossary.md
+    ├── 15-geometry-layers.md
+    └── 16-damage-system.md
 ```
 
 ---
@@ -92,15 +94,16 @@ The recommended reading order is:
 1. `01-foundations.md`
 2. `02-core-rules.md`
 3. `03-game-flow.md`
+4. `15-geometry-layers.md`
 
-These documents explain the game's philosophy and core systems.
+These documents explain the game's philosophy and core systems, including how to read what part of a model matters (Gameplay Geometry) versus what's purely visual.
 
 ---
 
 ## Part II — Construction
 
-4. `04-construction-standard.md`
-5. `05-construction-components.md`
+5. `04-construction-standard.md`
+6. `05-construction-components.md`
 
 Learn how legal models are built.
 
@@ -108,10 +111,10 @@ Learn how legal models are built.
 
 ## Part III — Movement
 
-6. `06-deployment.md`
-7. `07-movement.md`
-8. `08-vehicles.md`
-9. `09-transport.md`
+7. `06-deployment.md`
+8. `07-movement.md`
+9. `08-vehicles.md`
+10. `09-transport.md`
 
 Learn how units move across the battlefield.
 
@@ -119,18 +122,19 @@ Learn how units move across the battlefield.
 
 ## Part IV — Combat
 
-10. `10-weapons.md`
-11. `11-combat.md`
-12. `12-melee.md`
-13. `13-materials.md`
+11. `10-weapons.md`
+12. `11-combat.md`
+13. `12-melee.md`
+14. `13-materials.md`
+15. `16-damage-system.md`
 
-Learn how attacks are generated and resolved.
+Learn how attacks are generated and resolved, and how components take and resist damage.
 
 ---
 
 ## Reference
 
-14. `14-glossary.md`
+16. `14-glossary.md`
 
 Quick lookup for core terms.
 
@@ -208,6 +212,8 @@ Implemented systems:
 - Melee
 - Materials
 - Game Flow
+- Geometry Layers
+- Damage System
 
 The project is ready for its first full playtests.
 
