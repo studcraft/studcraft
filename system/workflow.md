@@ -118,3 +118,36 @@ Cutting a release is manual-trigger, mechanical-execution:
 4. On merge, the `Tag release` action tags that commit `vMAJOR.MINOR.PATCH`
    automatically, so every released version is traceable to an exact
    commit in git history, and becomes the new anchor for the next cut.
+
+---
+
+# Archiving
+
+`openspec/specs/` is shared state: `openspec archive` reads a capability's
+*current* spec there and writes the result back. Same problem as
+`CHANGELOG.md` — if two proposal PRs both archive against it at merge
+time, whichever merges second either conflicts or, worse, silently
+clobbers what the first one just wrote (e.g. a `MODIFIED` delta applied
+against a capability that doesn't exist yet, or against a stale copy of
+it). Multiple proposals can be in flight at once, and some may depend on
+another's capability existing first (e.g. a change with a `MODIFIED`
+delta on `weapon-construction` needs `weapon-construction` to already be
+archived).
+
+To avoid this, **archiving is decoupled from the PR that applies a
+change's `docs/*.md` edits**:
+
+- A proposal's apply/implementation PR merges `docs/*.md`,
+  `docs/14-glossary.md`, and its own `openspec/changes/<name>/` files to
+  `main`. It does **not** touch `openspec/specs/` and does **not**
+  archive.
+- Archiving happens afterward, one change at a time, in whatever order
+  dependencies require (check other open changes' `tasks.md` for
+  `MODIFIED`/dependency notes before archiving). It is its own PR:
+  `openspec archive <name>` run against an up-to-date `main`, then
+  commit and PR that result — never pushed to `main` directly, per the
+  Git Workflow rules above.
+- If a change's delta depends on another capability that hasn't been
+  archived yet, wait. Don't force it — see `weapon-construction-system`
+  (PR #7) / `gameplay-visual-geometry` (PR #11) for a real example of
+  this dependency.
