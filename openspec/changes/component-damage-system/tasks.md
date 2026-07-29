@@ -27,6 +27,9 @@
 - [ ] 4.4 Update `docs/13-materials.md` MAT-011 (Armour): note that the Geometry Check and Damage Roll (`17-damage-resolution.md`) fulfill the "Defence Dice, Impact cancellation, Component protection" this rule previously deferred to future rules.
 - [ ] 4.5 Confirm `docs/13-materials.md` MAT-016 (Cover) is left untouched.
 - [ ] 4.6 Confirm no change is needed to `docs/10-weapons.md` (Range/Attack Dice/Impact Strength are consumed as-is).
+- [ ] 4.7 Update `docs/11-combat.md` CBT-008 (Defender Resolution): the hand-off currently points only to `13-materials.md`/`08-vehicles.md`. Update it to route through `16-component-damage.md`/`17-damage-resolution.md` first (component/resistance/state resolution), with Materials now describing the physical/cosmetic result rather than the resolution itself.
+- [ ] 4.8 Update `docs/11-combat.md` CBT-013 (Armour): currently just says "Armour belongs to the defending model." Update it to point at the Geometry Check and Damage Roll (`17-damage-resolution.md`) as the mechanism, per MAT-011/design.md.
+- [ ] 4.9 Consolidate the duplicate "prefer physical representation" rule: `CBT-009` (`11-combat.md`) and `MAT-017` (`13-materials.md`) already assert nearly the same thing independently, predating this change. Make `16-component-damage.md`'s Universal Destruction the canonical statement (destroyed = physically removed), and rework CBT-009 and MAT-017 into one-line pointers to it instead of each restating the full rule.
 
 ## 5. Glossary
 
