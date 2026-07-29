@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
-"""Compute the next version from commit-message bump markers and apply it.
+"""Compute the next version purely from git history and apply it.
 
-Every merged PR is a single squash commit on `main` (this repo always
-squash-merges). Instead of requiring PRs to hand-edit CHANGELOG.md's
-[Unreleased] section — which made two concurrent PRs collide on the same
-insertion point — the **Bump:** major|minor|patch marker lives in a
-commit message instead. This script:
+No commit or PR is required to declare anything. This script:
 
 1. Finds the last release tag (`v*`), the anchor for "since last release".
-2. Walks `git log <last-tag>..HEAD` to collect every commit merged since.
-3. Picks the most severe **Bump:** marker across those commits.
+2. Checks whether any `docs/*.md` file changed since that tag. If not,
+   there is nothing to release.
+3. Picks a bump severity with zero required human/agent input:
+   - Default: "minor" — any docs/*.md change warrants a release.
+   - Auto-escalated to "major" if any commit message since the last tag
+     happens to contain a `**Bump:** major` marker (fully optional; a
+     commit can flag itself as breaking, but nothing requires it to).
+   - Overridable at release-cut time via the RELEASE_SEVERITY env var
+     (set from the `Release cut` workflow's `severity` input), for the
+     rare case where the person cutting the release knows better than
+     the default.
 4. Bumps the version, rewrites CHANGELOG.md with an auto-generated entry
-   built from the commit subjects, and updates every docs/*.md
-   **Version:** header.
+   built from the commit subjects since the last tag, and updates every
+   docs/*.md **Version:** header.
 
 No individual PR ever touches CHANGELOG.md; only this script does, and it
 only runs as part of the separate, serialized release-cut workflow.
@@ -21,6 +26,7 @@ Prints the new version to stdout on success.
 
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 import sys
@@ -35,6 +41,7 @@ UNRELEASED_HEADER = "# [Unreleased]"
 BUMP_RE = re.compile(r"^\*\*Bump:\*\*\s*(major|minor|patch)\s*$", re.MULTILINE)
 DOC_VERSION_RE = re.compile(r"(\*\*Version:\*\*\s*)(\d+\.\d+\.\d+)(.*)$", re.MULTILINE)
 
+DEFAULT_SEVERITY = "minor"
 SEVERITY_RANK = {"patch": 1, "minor": 2, "major": 3}
 
 RECORD_SEP = "\x1e"
@@ -75,6 +82,31 @@ def commits_since(tag: str | None) -> list[tuple[str, str, str]]:
     return commits
 
 
+def docs_changed_since(tag: str | None) -> bool:
+    rev_range = f"{tag}..HEAD" if tag else "HEAD"
+    result = subprocess.run(
+        ["git", "diff", "--name-only", rev_range, "--", "docs/"],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return bool(result.stdout.strip())
+
+
+def resolve_severity(commits: list[tuple[str, str, str]]) -> str:
+    override = os.environ.get("RELEASE_SEVERITY", "auto").strip().lower()
+    if override in SEVERITY_RANK:
+        return override
+
+    bumps = []
+    for _, subject, body in commits:
+        bumps.extend(BUMP_RE.findall(f"{subject}\n{body}"))
+    if "major" in bumps:
+        return "major"
+    return DEFAULT_SEVERITY
+
+
 def bump_version(version: str, severity: str) -> str:
     major, minor, patch = (int(part) for part in version.split("."))
     if severity == "major":
@@ -95,18 +127,12 @@ def split_unreleased(text: str) -> tuple[str, str, str]:
 
 def main() -> None:
     tag = latest_tag()
+
+    if not docs_changed_since(tag):
+        sys.exit("Nothing to release: no docs/*.md changes since the last release tag.")
+
     commits = commits_since(tag)
-    if not commits:
-        sys.exit("Nothing to release: no commits since the last release tag.")
-
-    bumps = []
-    for _, subject, body in commits:
-        bumps.extend(BUMP_RE.findall(f"{subject}\n{body}"))
-
-    if not bumps:
-        sys.exit("Nothing to release: no commit since the last release tag has a **Bump:** marker.")
-
-    severity = max(bumps, key=lambda b: SEVERITY_RANK[b])
+    severity = resolve_severity(commits)
     current_version = tag.lstrip("v") if tag else "0.0.0"
     next_version = bump_version(current_version, severity)
     today = date.today().isoformat()
