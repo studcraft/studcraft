@@ -35,11 +35,7 @@ Instead, movement is determined by:
 
 # VEH-001 — Vehicle Footprint
 
-A vehicle occupies one or more Unit Bases (UB).
-
-One Unit Base measures:
-
-4 × 3 studs
+A vehicle occupies one or more Unit Bases (UB) — see `02-core-rules.md` (CORE-001) for the Unit Base definition (4 × 3 studs).
 
 Examples
 

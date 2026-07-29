@@ -75,6 +75,8 @@ When a unit is activated, it immediately receives:
 
 **3 Action Points (AP)**
 
+(see `02-core-rules.md`, CORE-006, for the canonical definition)
+
 The player may spend these AP in any legal order.
 
 When all AP have been spent, or the player decides to stop, the activation ends.
@@ -85,11 +87,7 @@ A unit may only be activated once per Turn.
 
 # FLOW-005 — Universal Action Points
 
-Every unit in StudCraft receives exactly:
-
-**3 AP**
-
-This includes:
+The 3 AP defined in CORE-006 apply identically to every unit type in StudCraft, with no exceptions:
 
 - Infantry
 - Vehicles
@@ -230,7 +228,7 @@ StudCraft does not use hidden activation values.
 
 Every unit follows the same activation sequence:
 
-- Gain 3 AP.
+- Gain AP (CORE-006).
 - Spend AP.
 - End activation.
 

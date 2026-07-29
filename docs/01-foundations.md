@@ -75,6 +75,8 @@ One Unit Base measures:
 
 **4 × 3 studs**
 
+(see `02-core-rules.md`, CORE-001, for the canonical definition)
+
 Everything in StudCraft is ultimately measured using Unit Bases.
 
 Examples:
@@ -96,6 +98,8 @@ Every unit activates using the same action economy.
 Each activated unit receives:
 
 **3 Action Points (AP)**
+
+(see `02-core-rules.md`, CORE-006, for the canonical definition)
 
 Action Points are spent to perform actions such as:
 
@@ -193,24 +197,9 @@ This modular structure keeps the game easy to expand and maintain.
 
 # Learning StudCraft
 
-Players are encouraged to learn the game in the following order:
-
-1. Foundations
-2. Core Rules
-3. Game Flow
-4. Construction Standard
-5. Construction Components
-6. Deployment
-7. Movement
-8. Vehicles
-9. Transport
-10. Weapons
-11. Combat
-12. Melee
-13. Materials
-14. Glossary
-
-This order introduces each system only after its prerequisites have been explained.
+See `README.md`'s Rulebook section for the recommended reading order — it
+introduces each system only after its prerequisites have been explained,
+and is the single place that list is maintained.
 
 ---
 
