@@ -29,8 +29,13 @@ jobs:
 
           changed=$(git diff --name-only "$base" "$head")
 
+          if ! echo "$changed" | grep -qE '^docs/.*\.md$'; then
+            echo "No docs/*.md changes in this PR — CHANGELOG.md is free to edit (e.g. tooling/process updates)."
+            exit 0
+          fi
+
           if echo "$changed" | grep -qx 'CHANGELOG.md'; then
-            echo "::error::This PR edits CHANGELOG.md directly. CHANGELOG.md is written only by the Release cut workflow, never by individual PRs — this is what prevents concurrent proposal branches from colliding on it. No PR needs to declare a version bump either: docs/*.md changes default to a minor release automatically. See system/workflow.md."
+            echo "::error::This PR changes docs/*.md and also edits CHANGELOG.md directly. CHANGELOG.md is written only by the Release cut workflow, never by ruleset-changing PRs — this is what prevents concurrent proposal branches from colliding on it. No PR needs to declare a version bump either: docs/*.md changes default to a minor release automatically. See system/workflow.md."
             exit 1
           fi
 
