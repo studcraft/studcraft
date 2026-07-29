@@ -165,3 +165,33 @@ The largest dimension of a platform's Unit Base or vehicle bounding box.
 ## Cargo Bay
 
 The interior space of a transport vehicle, measured in Unit Bases, used to carry passengers and cargo.
+
+---
+
+## Gameplay Geometry
+
+The measurable properties of a model that feed a rule's measured value (Range, Attack Dice, Impact Strength, and similar). See `15-geometry-layers.md` (GEO-001).
+
+---
+
+## Visual Geometry
+
+Every decorative element of a model that does not modify Gameplay Geometry. Never affects measured rule values; still counts for physical checks like Line of Sight and Cover. See `15-geometry-layers.md` (GEO-002, GEO-004).
+
+---
+
+## Functional Equivalence
+
+Two models with identical Gameplay Geometry produce identical measured values, regardless of differences in Visual Geometry. See `15-geometry-layers.md` (GEO-005).
+
+---
+
+## Minimum Representation
+
+A valid build of a model using only the Gameplay Geometry required by the rules, with no Visual Geometry. See `15-geometry-layers.md` (GEO-006).
+
+---
+
+## Detailed Representation
+
+A model built with Visual Geometry added on top of a valid Minimum Representation, remaining valid as long as its Gameplay Geometry is unchanged. See `15-geometry-layers.md` (GEO-007).
