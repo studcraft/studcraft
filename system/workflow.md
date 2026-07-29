@@ -15,8 +15,11 @@ See `openspec/config.yaml` for per-artifact rules.
 
 ## Ruleset linter
 
-`scripts/lint_ruleset.py` runs on every PR touching `docs/**` (see
-`Docs ruleset linter`). It is a **structural** check only:
+`scripts/lint_ruleset.py` runs on every PR (see `Docs ruleset linter`) —
+not filtered to PRs touching `docs/**`, because it's a required status
+check: a `paths:`-filtered trigger never creates a check run at all for
+non-matching PRs, which GitHub then treats as permanently pending and
+blocks the merge. It is a **structural** check only:
 
 - Rule IDs (`WPN-001`, `CORE-007`, ...) are unique and strictly
   increasing within their document.
