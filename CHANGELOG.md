@@ -12,9 +12,11 @@ Example:
 
 0.1.0
 
-Merged proposals land here first, without a version number. A version
-number is assigned only at release-cut time — see `system/workflow.md`
-for why.
+This file is written only by the `Release cut` workflow — no PR should
+edit it by hand, ever. Nothing needs to be declared to get a release:
+any `docs/*.md` change since the last release tag defaults to a minor
+bump automatically. See `system/workflow.md` for why, and for the
+optional escape hatches if a change is actually breaking.
 
 ---
 

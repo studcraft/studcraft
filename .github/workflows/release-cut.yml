@@ -1,7 +1,17 @@
 name: Release cut
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      severity:
+        description: "Override bump severity. auto = minor by default, or major if any commit since the last tag flagged itself **Bump:** major."
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+        default: auto
 
 permissions:
   contents: write
@@ -22,6 +32,8 @@ jobs:
 
       - name: Compute next version and update docs
         id: bump
+        env:
+          RELEASE_SEVERITY: ${{ inputs.severity }}
         run: |
           set -euo pipefail
           version=$(python3 scripts/release_cut.py)
@@ -45,6 +57,6 @@ jobs:
 
           gh pr create \
             --title "Release v$version" \
-            --body "Automated release cut: moves accumulated [Unreleased] changelog entries under [v$version] and updates the **Version:** header in every docs/*.md file. See system/workflow.md for the release process." \
+            --body "Automated release cut: builds a [v$version] changelog entry from every commit merged since the last release tag and updates the **Version:** header in every docs/*.md file. Severity: minor by default, auto-escalated to major only if a commit flagged **Bump:** major, or overridden explicitly (severity=${{ inputs.severity }}). See system/workflow.md for the release process." \
             --base main \
             --head "$branch"
