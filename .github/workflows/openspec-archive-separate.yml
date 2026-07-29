@@ -41,7 +41,7 @@ jobs:
           fi
 
           if [[ "$touches_specs" == "yes" ]]; then
-            echo "::error::This PR changes openspec/specs/ but isn't from an archive/* branch. Archiving must happen in its own PR, separate from the change that applies docs/*.md — see system/workflow.md (Archiving). Run 'openspec archive <name>' from a branch named archive/<name> instead."
+            echo "::error::This PR changes openspec/specs/ but isn't from an archive/* branch. Archiving must happen in its own PR, separate from the change that applies docs/*.md — see system/workflow.md (Archiving). Run the 'Archive cut' GitHub Action (or 'openspec archive <name>' from a branch named archive/<name>) instead."
             exit 1
           fi
 
