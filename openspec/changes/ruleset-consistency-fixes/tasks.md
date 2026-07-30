@@ -23,6 +23,19 @@
 
 - [x] 4.1 `docs/04-construction-standard.md` SCS-018: rename from "Muzzle Adjacency Standard" to "Muzzle Placement Standard"; add the Weapon Front constraint (muzzles only on the single front face, per WPN-019) alongside the existing adjacency content (WPN-007, WPN-020).
 
+## Finding 5: Remove Engine, Replace with a Pilot Requirement
+
+- [x] 5.1 `docs/08-vehicles.md` VEH-013: repurpose from "Engine" to "Pilot" — every powered vehicle requires a Pilot (crew member, VEH-015) to move; no Pilot or a Dead Pilot immobilizes the vehicle.
+- [x] 5.2 `docs/08-vehicles.md`: update every other Engine mention (Purpose sentence, Design Philosophy list, VEH-017 Components list, VEH-018 Damage example, VEH-019 Immobilized Vehicles, Summary list) to Pilot/Crew as appropriate.
+- [x] 5.3 `docs/05-construction-components.md` CMP-001 and CMP-002: repurpose CMP-002 from "Engine" (2×4 brick requirement) to "Pilot" (visible crew minifigure in an operating position); update CMP-001's example list and CMP-016's example.
+- [x] 5.4 `docs/13-materials.md` MAT-010: repurpose from "Engines" to "Pilot" — resolves Impacts via the universal Component State; a Dead Pilot immobilizes the vehicle.
+- [x] 5.5 `docs/16-damage-system.md`: update DMG-001's example list, DMG-007's "Armor → Engine" example (and body text), and DMG-008's MAT-010 cross-reference mention, all from Engine to Pilot.
+- [x] 5.6 `docs/12-melee.md` MEL-010, `docs/14-glossary.md` Component entry, `docs/01-foundations.md` (two example lists): update Engine mentions to Pilot.
+- [x] 5.7 `README.md` and `CODE_OF_DESIGN.md`: update their component-example lists from Engine(s) to Pilot(s) — non-ruleset docs, same branch is sufficient (no dedicated OpenSpec proposal branch needed for these specifically, per `system/workflow.md`).
+- [x] 5.8 `specs/component-damage/spec.md` (this change's `MODIFIED` delta): add `Component Targeting` and `Internal Components` alongside the existing `Component State Progression` delta, updating their illustrative "engine" examples to "pilot".
+- [x] 5.9 Confirm `CHANGELOG.md`'s historical `[0.1.0]` entry (which lists "Engine" as an added system) and the archived `2026-07-28-component-damage-system` change are left untouched — both are frozen historical records, not living documentation.
+- [x] 5.10 Run `python3 scripts/lint_ruleset.py` and grep the full repo for any remaining "engine" mention outside the gitignored `site/docs/` build output, the frozen historical records (5.9), and this proposal's own design-rationale prose.
+
 ## Housekeeping (applies once the review is finished, not per-finding)
 
 - [ ] H.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history; this is purely editorial so the default minor bump is correct.

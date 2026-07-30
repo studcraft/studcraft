@@ -168,7 +168,7 @@ Examples:
 - Wheel
 - Track
 - Weapon
-- Engine hatch
+- Pilot
 
 The target component resolves Impacts using the Material Rules.
 

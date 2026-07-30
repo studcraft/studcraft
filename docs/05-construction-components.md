@@ -32,7 +32,7 @@ A functional component is a physical part of a model that affects gameplay.
 
 Examples include:
 
-- Engines
+- Pilot
 - Wheels
 - Tracks
 - Hover systems
@@ -47,20 +47,19 @@ Decorative elements have no gameplay effect.
 
 ---
 
-# CMP-002 — Engine
+# CMP-002 — Pilot
 
-Every motorized vehicle must include at least one Engine.
+Every motorized vehicle must include a visible Pilot position, occupied by a crew minifigure (`08-vehicles.md`, VEH-015).
 
-An Engine is represented by a:
+Requirements:
 
-**2 × 4 brick**
-
-Engine colour may define future engine classes.
+- The Pilot must be a distinct, visible minifigure in an operating position.
+- A decorative "empty seat" does not count as a Pilot.
 
 Current gameplay:
 
 - Required for all motorized vehicles.
-- Destroying the Engine disables vehicle movement.
+- Losing the Pilot disables vehicle movement (`08-vehicles.md`, VEH-013).
 
 ---
 
@@ -255,7 +254,7 @@ Removing a functional component immediately changes the model's capabilities.
 
 Examples:
 
-Destroy Engine
+Pilot lost
 
 → Vehicle cannot move.
 

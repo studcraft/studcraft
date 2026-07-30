@@ -62,7 +62,7 @@ Examples include:
 - Turret
 - Wheel
 - Armor Plate
-- Engine
+- Pilot
 - Cockpit
 
 A vehicle is not a single object. It is a collection of independent components.
@@ -150,10 +150,10 @@ Components may protect other components.
 Example:
 
 ```
-Armor → Engine
+Armor → Pilot
 ```
 
-The Engine cannot be affected while the Armor blocks the incoming impact. Only after penetrating or destroying the Armor may the impact continue toward the Engine (mechanically resolved by DMG-017, Penetration).
+The Pilot cannot be affected while the Armor blocks the incoming impact. Only after penetrating or destroying the Armor may the impact continue toward the Pilot (mechanically resolved by DMG-017, Penetration).
 
 This naturally creates layered protection without requiring additional rules.
 
@@ -163,7 +163,7 @@ This naturally creates layered protection without requiring additional rules.
 
 `13-materials.md` (MAT-001 through MAT-020) already defines a component/material system. This document does not discard it — it completes it:
 
-- **Material** (MAT-001) still determines a component's substance and its physical/cosmetic response on reaching DESTROYED — MAT-003 (glass removal), MAT-005/MAT-006 (doors and windows), MAT-007/MAT-008 (wheels and tracks), MAT-009 (weapon systems), MAT-010 (engines), MAT-012–MAT-015 (stone, metal, wood, organic) all continue to describe *what happens physically* when a component is destroyed, and are unaffected by this document.
+- **Material** (MAT-001) still determines a component's substance and its physical/cosmetic response on reaching DESTROYED — MAT-003 (glass removal), MAT-005/MAT-006 (doors and windows), MAT-007/MAT-008 (wheels and tracks), MAT-009 (weapon systems), MAT-010 (pilot), MAT-012–MAT-015 (stone, metal, wood, organic) all continue to describe *what happens physically* when a component is destroyed, and are unaffected by this document.
 - **This document replaces the fixed, material-specific hit-count assumptions** in MAT-003 and MAT-004 with the universal, geometry-derived mechanism: Resistance (DMG-003/004), the Geometry Check (DMG-014), the Damage Roll (DMG-015), and the Component State machine (DMG-005). A typical minifig (Resistance 1, per DMG-004 Example 1) still takes two failed Damage Rolls to go from OK to DESTROYED — the same two-impact result MAT-004 already described — but now derived from construction instead of asserted as a fixed rule for that material.
 - **MAT-011 (Armour)** said future rules may provide "Defence Dice, Impact cancellation, Component protection." This document fulfills that: the Geometry Check is the impact-cancellation mechanism (an impact below Resistance ends immediately, DMG-014), and the Damage Roll (DMG-015) is the Defence Dice mechanism.
 - **MAT-016 (Cover)** is explicitly **not** addressed by this document. Cover remains deferred to a future proposal, unchanged.

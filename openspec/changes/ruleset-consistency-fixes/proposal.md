@@ -22,6 +22,9 @@ Since every component in the game (minifigs, vehicles, weapons, doors, wheels, .
 **Finding 4 — SCS-018 (construction standard) never mirrored WPN-019 (Weapon Front).**
 `docs/04-construction-standard.md`'s SCS-01x series otherwise mirrors each relevant `10-weapons.md` rule with a construction-standard pointer (SCS-016→WPN-002, SCS-019→WPN-003, SCS-020→WPN-004), but SCS-018 ("Muzzle Adjacency Standard") only cited WPN-007/WPN-020 (adjacency, footprint-fit) and never mentioned WPN-019 (Weapon Front — muzzles may only be built on the single front face, not rear/side/top/bottom). Renamed SCS-018 to "Muzzle Placement Standard" and added the Weapon Front constraint alongside the existing adjacency content, so the construction-standard rule fully mirrors what `10-weapons.md` actually requires instead of covering only part of it.
 
+**Finding 5 — Remove Engine entirely; replace with a Pilot requirement.**
+Engines are being cut from StudCraft as a concept. `CMP-002` (`05-construction-components.md`), `VEH-013` (`08-vehicles.md`), and `MAT-010` (`13-materials.md`) all defined an Engine component (largely duplicating each other, in the same pattern as Findings 1/3/4) that no longer exists. Rather than deleting the rule IDs (per "rule identifiers should remain stable" — the same convention already applied to `WPN-007` and `SCS-018`), all three are **repurposed in place** to a new, related mechanic: every motorized vehicle now requires a **Pilot** (a crew member, per the existing `VEH-015`) to move — if the Pilot is absent or reaches the `Dead` Component State (per Finding 1's unified state machine), the vehicle cannot move, mirroring the Engine rule's old structural role exactly. Every other "Engine" example mention across the ruleset (`01-foundations.md`, `12-melee.md`, `14-glossary.md`, `16-damage-system.md` DMG-001/DMG-007/DMG-008, plus `README.md` and `CODE_OF_DESIGN.md`) is updated to "Pilot" for consistency. The `component-damage` capability's archived `Component Targeting` and `Internal Components` requirements also used "an engine" as an illustrative example — added to this proposal's `MODIFIED` delta alongside the already-present `Component State Progression` delta from Finding 1.
+
 - *(More findings will be appended here as the manual review continues.)*
 
 ## Capabilities
@@ -30,7 +33,7 @@ Since every component in the game (minifigs, vehicles, weapons, doors, wheels, .
 (none so far)
 
 ### Modified Capabilities
-- `component-damage`: `Requirement: Component State Progression` is renamed from `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead`. No mechanical change — the same three-state progression, same transition rules — only the labels change.
+- `component-damage`: `Requirement: Component State Progression` is renamed from `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` (Finding 1). `Requirement: Component Targeting` and `Requirement: Internal Components` update their illustrative "engine" examples to "pilot" (Finding 5). No mechanical change in any of the three — same behavior, only labels/examples change.
 
 ## Impact
 

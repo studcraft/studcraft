@@ -39,6 +39,14 @@ Alternative considered: leave the mechanic as-is and only add the clarifying sen
 **Expand SCS-018 in place rather than adding a new SCS- rule ID.**
 Alternative considered: leave SCS-018 scoped to adjacency only and append a new rule (e.g. `SCS-025`) for the Weapon Front constraint. Rejected — SCS-018 is already "the muzzle-placement slot" in the construction standard's structure; splitting the concept across two IDs when `10-weapons.md`'s own WPN-020 (Muzzle Placement) already treats footprint-fit, front-face, and adjacency as one cohesive concept would recreate exactly the kind of fragmentation this proposal is trying to remove. Renamed SCS-018 from "Muzzle Adjacency Standard" to "Muzzle Placement Standard" to reflect its broadened scope.
 
+### Finding 5: Remove Engine, replace with a Pilot requirement
+
+**Repurpose CMP-002/VEH-013/MAT-010 in place, don't delete the IDs.**
+Alternative considered: delete the Engine rules outright and leave a documented gap in the numbering (`scripts/lint_ruleset.py` only checks for duplicate/decreasing IDs, not gaps, so this would have been mechanically valid). Rejected — same reasoning as `WPN-007`/`SCS-018` earlier in this same proposal: a repurposed ID carrying a related new mechanic is more informative to a future reader than a silent gap, and no official release has happened yet, but "rule identifiers should remain stable" isn't scoped to releases — it's a standing repo convention this proposal has already relied on twice.
+
+**Pilot is the mechanic that replaces Engine's structural role: a mandatory component whose loss immobilizes the vehicle.**
+This wasn't just "delete Engine" — the user specifically asked for a replacement mechanic. Pilot reuses the already-existing `VEH-015` (Crew) concept instead of introducing a new one, and its Component State (`Dead`, per Finding 1) is what gates movement, tying this finding directly into Finding 1's unified state machine rather than inventing a separate on/off flag.
+
 ## Risks / Trade-offs
 
 - [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.

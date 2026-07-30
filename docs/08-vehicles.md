@@ -12,7 +12,7 @@ Vehicles do not use predefined statistics.
 
 Their capabilities emerge directly from their physical construction.
 
-Vehicle size, locomotion, engines and weapon systems determine how a vehicle behaves.
+Vehicle size, locomotion, crew and weapon systems determine how a vehicle behaves.
 
 ---
 
@@ -28,7 +28,7 @@ Instead, movement is determined by:
 
 - Vehicle footprint
 - Locomotion type
-- Engine
+- Pilot
 - Available space
 
 ---
@@ -221,17 +221,13 @@ A vehicle cannot combine locomotion systems unless explicitly designed to do so.
 
 ---
 
-# VEH-013 — Engine
+# VEH-013 — Pilot
 
-Every powered vehicle must include an engine.
+Every powered vehicle requires a Pilot to move — a crew member (VEH-015) occupying a visible operating position.
 
-The engine is represented by a **4×2 brick** integrated into the model.
+The Pilot resolves Impacts like any other component (`16-damage-system.md`, DMG-005: Operational / Wounded / Dead).
 
-The engine is a mandatory functional component.
-
-If destroyed, the vehicle may become immobilized.
-
-Future versions may define engine colors to represent different power classes.
+If the vehicle has no Pilot — none embarked, or the Pilot is Dead — the vehicle cannot move, unless another crew member takes over (future rules).
 
 ---
 
@@ -277,7 +273,7 @@ Vehicles are collections of components.
 
 Examples
 
-- Engine
+- Pilot
 - Wheels
 - Tracks
 - Weapons
@@ -307,7 +303,7 @@ Disabled weapon
 
 Destroyed wheel
 
-Damaged engine
+Pilot lost
 
 Destroyed door
 
@@ -317,7 +313,7 @@ This allows vehicles to degrade naturally over time.
 
 # VEH-019 — Immobilized Vehicles
 
-A vehicle that cannot move due to engine or locomotion damage remains on the battlefield.
+A vehicle that cannot move due to Pilot loss or locomotion damage remains on the battlefield.
 
 It may continue operating any remaining functional systems unless otherwise specified.
 
@@ -343,7 +339,7 @@ Vehicle behaviour is defined by five physical characteristics.
 
 - Size
 - Locomotion
-- Engine
+- Crew
 - Components
 - Interior volume
 

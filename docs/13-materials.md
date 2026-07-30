@@ -163,13 +163,11 @@ The weapon should be physically marked or removed whenever practical.
 
 ---
 
-# MAT-010 — Engines
+# MAT-010 — Pilot
 
-Vehicles may contain a visible engine compartment.
+A vehicle's Pilot resolves Impacts exactly like any other component (`16-damage-system.md`, DMG-005: Operational / Wounded / Dead).
 
-Engine damage is resolved using Vehicle Rules.
-
-A damaged engine may reduce movement or immobilize the vehicle.
+A Dead Pilot immobilizes the vehicle (`08-vehicles.md`, VEH-013), unless another crew member takes over (future rules).
 
 ---
 

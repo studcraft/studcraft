@@ -28,7 +28,7 @@ Targets resolve Impacts according to their Material.
 
 ## Component
 
-A single visible physical part of a model that combat targets independently (Engine, Door, Wheel, Weapon, Track, and similar). Components have no Hit Points — only a Component State and a Resistance, both read from the model. See `16-damage-system.md` (DMG-001, DMG-002).
+A single visible physical part of a model that combat targets independently (Pilot, Door, Wheel, Weapon, Track, and similar). Components have no Hit Points — only a Component State and a Resistance, both read from the model. See `16-damage-system.md` (DMG-001, DMG-002).
 
 ---
 
