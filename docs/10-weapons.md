@@ -144,6 +144,8 @@ Each functional muzzle grants:
 
 regardless of muzzle size. Muzzle size affects Impact Strength (WPN-021), not the number of dice.
 
+Each die is rolled and resolved as an Attack Roll (`11-combat.md`, CBT-005): a result of 4, 5, or 6 confirms the shot left the muzzle and generates one valid Impact; a result of 1, 2, or 3 means that die produced nothing.
+
 Examples
 
 | Functional Muzzles | Attack Dice |

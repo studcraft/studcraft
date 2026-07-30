@@ -57,6 +57,11 @@ Alternative considered: define a bespoke threshold specifically for falling (e.g
 **Reverse Finding 3's earlier decision to leave TRN-013 as an intentionally-different cargo-slot number.**
 Once TRN-001 needed the same `1 UB → 2 UB` fix Finding 3 already applied to SCS-003/VEH-001, keeping TRN-013 at the old `1 UB` would mean the same vehicle has two different, unreconciled space requirements depending on which document you read — exactly the class of problem this whole proposal exists to fix, just self-inflicted this time. Confirmed with the user before changing it, since it reverses an explicit prior decision recorded in Finding 3; one value everywhere is simpler than maintaining a footprint/cargo-slot distinction that was never actually load-bearing anywhere else in the ruleset.
 
+### Finding 8: WPN-006 never explained the Attack Roll threshold
+
+**Add a cross-reference to CBT-005, don't restate the threshold as a fresh number in `10-weapons.md`.**
+Same reasoning as every other cross-reference fix in this proposal: `CBT-005` already owns the 4/5/6 threshold, and `16-damage-system.md` DMG-011 already cites it correctly. `WPN-006` was the one place that generates Attack Dice but never said how they resolve — fixed by pointing to the existing rule, not by defining the number a third time.
+
 ## Risks / Trade-offs
 
 - [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.

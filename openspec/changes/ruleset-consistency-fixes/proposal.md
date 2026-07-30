@@ -31,6 +31,9 @@ Engines are being cut from StudCraft as a concept. `CMP-002` (`05-construction-c
 **Finding 7 — Motorcycle footprint was still `1 UB` in two `09-transport.md` examples, contradicting Finding 3's fix.**
 `docs/09-transport.md` TRN-001 (Unit Base Occupancy) listed "Motorcycle: 1 UB" — missed by Finding 3's audit because it searched for "Bike"/"Motorbike", not "Motorcycle". Changed to `2 UB` to match. This exposed that Finding 3's original decision to leave TRN-013's "Motorbike: 1 UB" unchanged (treating it as an intentionally-different cargo-slot abstraction) would now contradict TRN-001's corrected value for what both examples call the same real-world vehicle. Reconsidered: changed TRN-013 to `2 UB` as well, so every mention of a motorcycle's space requirement — footprint or cargo-slot — agrees.
 
+**Finding 8 — WPN-006 (Rate of Fire) never explained what dice result validates a shot.**
+`docs/10-weapons.md` WPN-006 says each functional muzzle grants "1 Attack Die (D6)" but never states what result on that die actually counts as a successful shot — that threshold (4/5/6 succeeds, 1/2/3 doesn't) only exists in `11-combat.md` CBT-005, with no cross-reference from `10-weapons.md` pointing to it. A reader of the weapons document alone couldn't tell how to resolve the dice it tells them to roll. Added an explicit sentence tying each Attack Die to CBT-005's Attack Roll — the same fix already applied to `16-damage-system.md`'s DMG-011 when `component-damage-system` shipped, just never carried back to the original weapon rule it was derived from.
+
 - *(More findings will be appended here as the manual review continues.)*
 
 ## Capabilities

@@ -45,6 +45,10 @@
 - [x] 7.1 `docs/09-transport.md` TRN-001: change "Motorcycle: 1 UB" to "Motorcycle: 2 UB" — missed by Finding 3's audit (searched "Bike"/"Motorbike", not "Motorcycle").
 - [x] 7.2 `docs/09-transport.md` TRN-013: change "Motorbike: 1 UB" to "Motorbike: 2 UB", reversing Finding 3's earlier decision to leave it as an intentionally-different cargo-slot number — confirmed with the user first, since it overturns a recorded prior decision.
 
+## Finding 8: WPN-006 Never Explained the Attack Roll Threshold
+
+- [x] 8.1 `docs/10-weapons.md` WPN-006: add a sentence tying each Attack Die to the Attack Roll (`11-combat.md`, CBT-005) — 4/5/6 confirms the shot and generates one valid Impact, 1/2/3 produces nothing.
+
 ## Housekeeping (applies once the review is finished, not per-finding)
 
 - [ ] H.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history; this is purely editorial so the default minor bump is correct.
