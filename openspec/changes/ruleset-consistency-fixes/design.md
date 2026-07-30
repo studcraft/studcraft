@@ -34,6 +34,11 @@ Alternative considered: leave the mechanic as-is and only add the clarifying sen
 **Change `1 × 1 UB` to `1 × 2 UB` in both places it's listed, rather than picking a different value per document.**
 `SCS-003` and `VEH-001` independently list the same footprint table for the same set of example vehicles — same duplication pattern as Findings 1/2, just for an example value rather than a rule. `1 × 2` was chosen over other elongated options (e.g. `1 × 3`) as the minimal fix that makes the footprint non-square without exaggerating it relative to Buggy's `2 × 2`.
 
+### Finding 4: SCS-018 never mirrored WPN-019 (Weapon Front)
+
+**Expand SCS-018 in place rather than adding a new SCS- rule ID.**
+Alternative considered: leave SCS-018 scoped to adjacency only and append a new rule (e.g. `SCS-025`) for the Weapon Front constraint. Rejected — SCS-018 is already "the muzzle-placement slot" in the construction standard's structure; splitting the concept across two IDs when `10-weapons.md`'s own WPN-020 (Muzzle Placement) already treats footprint-fit, front-face, and adjacency as one cohesive concept would recreate exactly the kind of fragmentation this proposal is trying to remove. Renamed SCS-018 from "Muzzle Adjacency Standard" to "Muzzle Placement Standard" to reflect its broadened scope.
+
 ## Risks / Trade-offs
 
 - [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.

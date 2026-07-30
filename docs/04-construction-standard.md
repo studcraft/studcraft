@@ -233,7 +233,9 @@ Decoration does not count.
 
 ---
 
-# SCS-018 — Muzzle Adjacency Standard
+# SCS-018 — Muzzle Placement Standard
+
+Muzzles must be built on the Weapon Front — the single face from which the weapon may fire; not the rear, side, top, or bottom (`10-weapons.md`, WPN-019).
 
 Muzzle adjacency rules (muzzles may be placed directly adjacent; only overlap is forbidden) are defined in `10-weapons.md` (WPN-007, WPN-020).
 

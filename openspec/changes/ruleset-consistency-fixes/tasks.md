@@ -19,6 +19,10 @@
 - [x] 3.2 `docs/08-vehicles.md` VEH-001: change Motorbike's footprint from `1 × 1 UB` to `1 × 2 UB`.
 - [x] 3.3 Confirm `docs/09-transport.md` TRN-013's "Motorbike: 1 UB" (a cargo-slot allocation, not the vehicle's own footprint) is a separate, intentionally-abstracted number and does not need to change.
 
+## Finding 4: SCS-018 Never Mirrored WPN-019 (Weapon Front)
+
+- [x] 4.1 `docs/04-construction-standard.md` SCS-018: rename from "Muzzle Adjacency Standard" to "Muzzle Placement Standard"; add the Weapon Front constraint (muzzles only on the single front face, per WPN-019) alongside the existing adjacency content (WPN-007, WPN-020).
+
 ## Housekeeping (applies once the review is finished, not per-finding)
 
 - [ ] H.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history; this is purely editorial so the default minor bump is correct.

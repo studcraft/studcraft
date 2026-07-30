@@ -19,6 +19,9 @@ Since every component in the game (minifigs, vehicles, weapons, doors, wheels, .
 **Finding 3 — Bike footprint (SCS-003 / VEH-001) was illogically square.**
 `docs/04-construction-standard.md` SCS-003 and `docs/08-vehicles.md` VEH-001 both listed "Bike"/"Motorbike" as a `1 × 1 UB` footprint (the same restatement pattern as before — one fact, two independent copies). A real motorbike is long and narrow, not square; a 1×1 UB footprint reads as though it were as compact as a single infantry model. Changed both to `1 × 2 UB` in each document. Illustrative example only — no rule, formula, or ID changes. `docs/09-transport.md` TRN-013 separately lists "Motorbike: 1 UB" as a *cargo-slot* allocation (space taken when carried as cargo inside another vehicle) — a different, intentionally-abstracted number, not the vehicle's own footprint, so left unchanged.
 
+**Finding 4 — SCS-018 (construction standard) never mirrored WPN-019 (Weapon Front).**
+`docs/04-construction-standard.md`'s SCS-01x series otherwise mirrors each relevant `10-weapons.md` rule with a construction-standard pointer (SCS-016→WPN-002, SCS-019→WPN-003, SCS-020→WPN-004), but SCS-018 ("Muzzle Adjacency Standard") only cited WPN-007/WPN-020 (adjacency, footprint-fit) and never mentioned WPN-019 (Weapon Front — muzzles may only be built on the single front face, not rear/side/top/bottom). Renamed SCS-018 to "Muzzle Placement Standard" and added the Weapon Front constraint alongside the existing adjacency content, so the construction-standard rule fully mirrors what `10-weapons.md` actually requires instead of covering only part of it.
+
 - *(More findings will be appended here as the manual review continues.)*
 
 ## Capabilities
