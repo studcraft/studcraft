@@ -17,7 +17,7 @@
 
 - [x] 3.1 `docs/04-construction-standard.md` SCS-003: change Bike's footprint from `1 × 1 UB` to `1 × 2 UB`.
 - [x] 3.2 `docs/08-vehicles.md` VEH-001: change Motorbike's footprint from `1 × 1 UB` to `1 × 2 UB`.
-- [x] 3.3 Confirm `docs/09-transport.md` TRN-013's "Motorbike: 1 UB" (a cargo-slot allocation, not the vehicle's own footprint) is a separate, intentionally-abstracted number and does not need to change.
+- [x] 3.3 ~~Confirm `docs/09-transport.md` TRN-013's "Motorbike: 1 UB" (a cargo-slot allocation, not the vehicle's own footprint) is a separate, intentionally-abstracted number and does not need to change.~~ **Reversed in Finding 7** — this call turned out to be wrong once TRN-001 needed the same fix; TRN-013 was changed to `2 UB` after all.
 
 ## Finding 4: SCS-018 Never Mirrored WPN-019 (Weapon Front)
 
@@ -39,6 +39,11 @@
 ## Finding 6: Specify What Counts as Damage in MOVE-016 (Falling Damage)
 
 - [x] 6.1 `docs/07-movement.md` MOVE-016: replace "Combat rules determine the effects of the result" with an explicit tie to the Damage Roll (`16-damage-system.md`, DMG-015) — 4/5/6 on the kept die means no damage, 1/2/3 means the faller's Component State advances one step.
+
+## Finding 7: Fix Remaining Motorcycle Footprint Mentions (TRN-001, TRN-013)
+
+- [x] 7.1 `docs/09-transport.md` TRN-001: change "Motorcycle: 1 UB" to "Motorcycle: 2 UB" — missed by Finding 3's audit (searched "Bike"/"Motorbike", not "Motorcycle").
+- [x] 7.2 `docs/09-transport.md` TRN-013: change "Motorbike: 1 UB" to "Motorbike: 2 UB", reversing Finding 3's earlier decision to leave it as an intentionally-different cargo-slot number — confirmed with the user first, since it overturns a recorded prior decision.
 
 ## Housekeeping (applies once the review is finished, not per-finding)
 

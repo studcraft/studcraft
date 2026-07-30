@@ -52,6 +52,11 @@ This wasn't just "delete Engine" — the user specifically asked for a replaceme
 **Reuse the Damage Roll threshold (DMG-015) rather than inventing a new one for falls.**
 Alternative considered: define a bespoke threshold specifically for falling (e.g. a different die range, or a fixed number of studs per damage step). Rejected — `MOVE-016` already produces exactly one kept D6 result per fall, which is precisely the shape a Damage Roll expects; introducing a second, different damage-threshold convention for one specific case would undermine the "one universal resolution mechanism" goal this whole proposal is built around (see Finding 1).
 
+### Finding 7: Fix the remaining Motorcycle footprint mentions, and reconsider Finding 3's TRN-013 call
+
+**Reverse Finding 3's earlier decision to leave TRN-013 as an intentionally-different cargo-slot number.**
+Once TRN-001 needed the same `1 UB → 2 UB` fix Finding 3 already applied to SCS-003/VEH-001, keeping TRN-013 at the old `1 UB` would mean the same vehicle has two different, unreconciled space requirements depending on which document you read — exactly the class of problem this whole proposal exists to fix, just self-inflicted this time. Confirmed with the user before changing it, since it reverses an explicit prior decision recorded in Finding 3; one value everywhere is simpler than maintaining a footprint/cargo-slot distinction that was never actually load-bearing anywhere else in the ruleset.
+
 ## Risks / Trade-offs
 
 - [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.

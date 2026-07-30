@@ -36,7 +36,7 @@ Examples:
 
 - Infantry: 1 UB
 - Supply crate: 1 UB
-- Motorcycle: 1 UB
+- Motorcycle: 2 UB
 - Light Walker: 2 UB
 - Heavy Walker: Defined by its footprint
 
@@ -251,7 +251,7 @@ Drone
 
 Motorbike
 
-1 UB
+2 UB
 
 Walker
 
