@@ -274,11 +274,7 @@ Examples
 - Windows
 - Turrets
 
-Components resolve Impacts independently.
-
-See:
-
-materials.md
+Components resolve Impacts independently (`16-damage-system.md`).
 
 ---
 

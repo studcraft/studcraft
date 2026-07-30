@@ -129,7 +129,7 @@ Operational → Wounded → Dead
 
 **Wounded** — the component has suffered structural damage. It continues to function normally. A second successful damaging impact will kill it.
 
-**Dead** — the component immediately ceases to exist. It is physically removed from the model. No dead component remains on the battlefield. This is the same physical-representation principle as `02-core-rules.md` (CORE-016) and `13-materials.md` (MAT-017) — see DMG-006.
+**Dead** — the component immediately ceases to exist. It is physically removed from the model. No dead component remains on the battlefield. This is the same physical-representation principle as `02-core-rules.md` (CORE-016) — see DMG-006.
 
 ---
 
@@ -139,7 +139,7 @@ Destroyed always means exactly the same thing: the component is removed.
 
 Examples: destroy a wheel → remove the wheel. Destroy a cannon → remove the cannon. Destroy a shield → remove the shield. Destroy a door → remove the door. Destroy a minifig → remove the minifig.
 
-There are no special destruction rules. This is the canonical statement of "prefer physical representation" for damage — `11-combat.md` (CBT-009) and `13-materials.md` (MAT-017) both point here instead of restating it.
+There are no special destruction rules. This is the canonical statement of "prefer physical representation" for damage — `11-combat.md` (CBT-009) points here instead of restating it.
 
 ---
 
@@ -159,15 +159,13 @@ This naturally creates layered protection without requiring additional rules.
 
 ---
 
-# DMG-008 — Relationship to Materials
+# DMG-008 — No Material-Specific Mechanics
 
-`13-materials.md` (MAT-001 through MAT-020) already defines a component/material system. This document does not discard it — it completes it:
+Every component follows exactly the same mechanical rules regardless of what it represents — glass, metal, wood, infantry, or anything else. Resistance (DMG-003/004), the Geometry Check (DMG-014), the Damage Roll (DMG-015), and the Component State machine (DMG-005) apply identically to every component. StudCraft does not define material-specific hit thresholds, Resistance modifiers, or damage tables of any kind.
 
-- **Material** (MAT-001) still determines a component's substance and its physical/cosmetic response on reaching Dead — MAT-003 (glass removal), MAT-005/MAT-006 (doors and windows), MAT-007/MAT-008 (wheels and tracks), MAT-009 (weapon systems), MAT-010 (pilot), MAT-012–MAT-015 (stone, metal, wood, organic) all continue to describe *what happens physically* when a component is destroyed, and are unaffected by this document.
-- **This document replaces the fixed, material-specific hit-count assumptions** in MAT-003 and MAT-004 with the universal, geometry-derived mechanism: Resistance (DMG-003/004), the Geometry Check (DMG-014), the Damage Roll (DMG-015), and the Component State machine (DMG-005). A typical minifig (Resistance 1, per DMG-004 Example 1) still takes two failed Damage Rolls to go from Operational to Dead — the same two-impact result MAT-004 already described — but now derived from construction instead of asserted as a fixed rule for that material.
-- **MAT-011 (Armour)** said future rules may provide "Defence Dice, Impact cancellation, Component protection." This document fulfills that: the Geometry Check is the impact-cancellation mechanism (an impact below Resistance ends immediately, DMG-014), and the Damage Roll (DMG-015) is the Defence Dice mechanism.
-- **MAT-016 (Cover)** is explicitly **not** addressed by this document. Cover remains deferred to a future proposal, unchanged.
-- **MAT-019 (Independent Resolution)** — splitting a single target's incoming impacts across its own components (e.g. 2 → Window, 1 → Wheel) — is unaffected and remains the mechanism for DMG-012 (Select Target Component).
+A typical minifig (Resistance 1, per DMG-004 Example 1) takes exactly two failed Damage Rolls to go from Operational to Dead — the same as a wheel, a shield, or a cannon built with the same Resistance. Nothing about *what* a component represents changes how it resolves an Impact — only *how it's built* does.
+
+Physical/cosmetic representation of a component reaching Dead (how a broken window should look versus a destroyed wheel) is left entirely to the player and the table, per `02-core-rules.md` (CORE-016) and `04-construction-standard.md` (SCS-024) — this document does not prescribe it. Future supplements may add cosmetic guidance for specific constructions without changing any mechanic defined here.
 
 ---
 
@@ -219,7 +217,7 @@ Example — two-barrel shotgun: one die succeeds, one fails. Only one impact con
 
 # DMG-012 — Select Target Component
 
-Every successful impact is assigned to a visible component (per `13-materials.md` MAT-018/MAT-019).
+Every successful impact is assigned to one visible component. Hidden components cannot be selected as a target.
 
 Examples: Shield, Wheel, Cannon, Door, Minifig, Armor Plate.
 
@@ -229,11 +227,13 @@ Impacts are never assigned to an entire vehicle — only to components.
 
 # DMG-013 — Composite Vehicle Targeting
 
-Every component of a composite vehicle behaves independently (per DMG-001).
+Every component of a composite vehicle behaves independently (per DMG-001). When a single attack generates multiple valid impacts, each impact may be assigned to a different visible component of the same target — impacts are never required to concentrate on one component.
 
 Example — Jeep: Chassis, Driver, Cannon, Front Left Wheel, Front Right Wheel, Rear Left Wheel, Rear Right Wheel.
 
 A player may intentionally target the cannon, the driver, or one wheel. Each resolves independently: destroying the cannon does not damage the vehicle; destroying a wheel does not damage the driver.
+
+Example — Multiple Impacts, One Target: 6 impacts against the Jeep may be assigned as 2 → Window, 1 → Wheel, 2 → Turret, 1 → Door; each component resolves only the impacts assigned to it.
 
 ---
 
@@ -289,7 +289,7 @@ Examples of free rotation (exception applies): minifig torso, turntable, ball jo
 
 Examples that require Action Points instead (CBT-007 applies, no split): fixed mount, entire vehicle movement, repositioning the weapon carrier.
 
-This is independent of DMG-012 (splitting a single target's incoming impacts across *its own* components, per MAT-019) — that always applies regardless of mount type.
+This is independent of DMG-013 (splitting a single target's incoming impacts across *its own* components) — that always applies regardless of mount type.
 
 Weapon articulation is read directly from the LEGO model.
 
@@ -339,7 +339,7 @@ Geometry determines capability. Dice determine uncertainty. Neither replaces the
 
 This document establishes the structural foundations of the damage system and the sequence that resolves it.
 
-It defines: Components, Resistance, Structural States, Destruction, Internal Protection, and how this system relates to Materials (DMG-008); and the combat resolution sequence — Generate Impacts, Attack Roll, Select Target Component, Composite Vehicle Targeting, Geometry Check, Damage Roll, Multiple Impacts, Penetration, Weapon Distribution, and Repairs.
+It defines: Components, Resistance, Structural States, Destruction, Internal Protection, and the absence of any material-specific mechanic (DMG-008); and the combat resolution sequence — Generate Impacts, Attack Roll, Select Target Component, Composite Vehicle Targeting, Geometry Check, Damage Roll, Multiple Impacts, Penetration, Weapon Distribution, and Repairs.
 
 The system never requires: Hit Points, Armor Values, Damage Statistics, Lookup Tables, Hidden Unit Profiles.
 

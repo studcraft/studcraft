@@ -254,7 +254,7 @@ Weapon position determines firing arc.
 
 # WPN-012 — Line of Fire
 
-A weapon's Line of Fire follows the universal Line of Sight rule (`11-combat.md`, CBT-002), applied from the weapon's muzzle: buildings, terrain and vehicles block it, and transparent elements follow the Material Rules.
+A weapon's Line of Fire follows the universal Line of Sight rule (`11-combat.md`, CBT-002), applied from the weapon's muzzle: buildings, terrain and vehicles block it, and transparent elements follow the Transparency rule (`04-construction-standard.md`, SCS-023).
 
 ---
 
