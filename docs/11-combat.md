@@ -194,7 +194,7 @@ Generate Attack Dice
 Attack Roll
     │
     ▼
-Successful Impacts (CBT-005)
+Successful Impacts
     │
     ▼
 Component Damage System (Select Target Component → Geometry Check → Damage Roll → Component State Change → Penetration — `16-damage-system.md` DMG-012 through DMG-017)
