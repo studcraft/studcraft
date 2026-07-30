@@ -49,6 +49,14 @@
 
 - [x] 8.1 `docs/10-weapons.md` WPN-006: add a sentence tying each Attack Die to the Attack Roll (`11-combat.md`, CBT-005) — 4/5/6 confirms the shot and generates one valid Impact, 1/2/3 produces nothing.
 
+## Finding 9: Muzzles Should Be Round, Not Square
+
+- [x] 9.1 `docs/10-weapons.md` WPN-002: change "square construction area" to "round construction area — a round plate or round tile"; change "Rectangular muzzles... are not valid" to "Square or rectangular pieces... are not valid"; add a clarifying note that the footprint slot a muzzle occupies is still measured as a square N×N grid area, matching how round LEGO pieces sit on a square stud grid.
+- [x] 9.2 `docs/10-weapons.md` WPN-020: change "Muzzles must be square (WPN-002)" to "Muzzles must be round (WPN-002)"; clarify the footprint slot itself is still square.
+- [x] 9.3 `docs/10-weapons.md` Summary: change "Muzzles are always square (WPN-002)" to "Muzzles are always round (WPN-002)".
+- [x] 9.4 `specs/weapon-construction/spec.md` (this change's new `MODIFIED` delta): update `Requirement: Muzzle Placement Validity` from square to round, adding a "Square muzzle rejected" scenario alongside the existing "Rectangular muzzle rejected" one.
+- [x] 9.5 Confirm no change needed to `WPN-019` (Weapon Front Footprint — the overall front-face area, unrelated to individual muzzle shape), `WPN-007` (adjacency), or `WPN-021` (Impact Strength sizing) — all operate on the same N×N grid regardless of muzzle piece shape.
+
 ## Housekeeping (applies once the review is finished, not per-finding)
 
 - [ ] H.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history; this is purely editorial so the default minor bump is correct.

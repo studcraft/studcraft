@@ -62,6 +62,11 @@ Once TRN-001 needed the same `1 UB → 2 UB` fix Finding 3 already applied to SC
 **Add a cross-reference to CBT-005, don't restate the threshold as a fresh number in `10-weapons.md`.**
 Same reasoning as every other cross-reference fix in this proposal: `CBT-005` already owns the 4/5/6 threshold, and `16-damage-system.md` DMG-011 already cites it correctly. `WPN-006` was the one place that generates Attack Dice but never said how they resolve — fixed by pointing to the existing rule, not by defining the number a third time.
 
+### Finding 9: Muzzles should be round, not square
+
+**Change the piece-shape constraint only; leave every size/geometry formula untouched.**
+Alternative considered: reconsider the whole footprint-partitioning system, since round pieces don't tile a 2D plane edge-to-edge the way squares do (real circles packed together leave gaps). Rejected — this doesn't apply to LEGO round elements specifically: round plates and tiles are manufactured to the same stud grid as square pieces, so a round 2×2 plate occupies exactly a 2×2 square footprint slot, identical to a square 2×2 plate's footprint. The "gaps between packed circles" problem that would apply to true continuous circles doesn't apply here, so nothing about `WPN-019`/`WPN-020`'s footprint math, `WPN-007`'s adjacency rule, or `WPN-021`'s Impact Strength sizing needed to change — only `WPN-002`'s piece-shape requirement itself.
+
 ## Risks / Trade-offs
 
 - [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.

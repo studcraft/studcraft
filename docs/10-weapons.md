@@ -51,14 +51,14 @@ Weapons that do not satisfy these conditions are decorative.
 
 # WPN-002 — Functional Muzzle
 
-A functional muzzle is a square construction area on the Weapon Front, sized:
+A functional muzzle is a round construction area on the Weapon Front — a round plate or round tile — sized:
 
 - 1×1
 - 2×2
 - 3×3
 - 4×4
 
-Rectangular muzzles (e.g. 1×2, 2×1, 1×3, 2×4) are not valid.
+Square or rectangular pieces (e.g. 1×1 square plate, 1×2, 2×1, 1×3, 2×4) are not valid — only round pieces represent a muzzle. The area a muzzle occupies on the Weapon Front Footprint is still measured as an N×N grid slot (per WPN-019/WPN-020), the same way a round LEGO plate or tile occupies a square footprint of studs even though the visible piece is round.
 
 Each functional muzzle represents one firing barrel. Muzzle size determines Impact Strength (WPN-021).
 
@@ -394,11 +394,11 @@ The footprint defines the only available space for muzzle construction.
 
 # WPN-020 — Muzzle Placement
 
-Every muzzle occupies one square area inside the Weapon Front Footprint.
+Every muzzle occupies one square footprint slot inside the Weapon Front Footprint, built as a round piece (WPN-002).
 
 Rules:
 
-- Muzzles must be square (WPN-002).
+- Muzzles must be round (WPN-002).
 - Muzzles may not overlap.
 - Every muzzle must fit entirely inside the Weapon Front Footprint.
 - Unused footprint space is allowed. Muzzles are not required to cover every square.
@@ -514,7 +514,7 @@ Determines the number of Attack Dice (WPN-006).
 
 ## Muzzle Size
 
-Determines Impact Strength (WPN-021). Muzzles are always square (WPN-002).
+Determines Impact Strength (WPN-021). Muzzles are always round (WPN-002).
 
 ---
 

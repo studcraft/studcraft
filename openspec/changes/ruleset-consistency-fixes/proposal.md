@@ -34,6 +34,9 @@ Engines are being cut from StudCraft as a concept. `CMP-002` (`05-construction-c
 **Finding 8 — WPN-006 (Rate of Fire) never explained what dice result validates a shot.**
 `docs/10-weapons.md` WPN-006 says each functional muzzle grants "1 Attack Die (D6)" but never states what result on that die actually counts as a successful shot — that threshold (4/5/6 succeeds, 1/2/3 doesn't) only exists in `11-combat.md` CBT-005, with no cross-reference from `10-weapons.md` pointing to it. A reader of the weapons document alone couldn't tell how to resolve the dice it tells them to roll. Added an explicit sentence tying each Attack Die to CBT-005's Attack Roll — the same fix already applied to `16-damage-system.md`'s DMG-011 when `component-damage-system` shipped, just never carried back to the original weapon rule it was derived from.
 
+**Finding 9 — WPN-002/WPN-020 required square muzzles; muzzles should be round.**
+Real weapon barrels are round, not square. `weapon-construction-system` deliberately required square muzzles (1×1–4×4) when it shipped, reasoning that "StudCraft models conventional weapon barrels... each barrel has a square footprint" — but that reasoning was wrong: a barrel's *cross-section* is round, not square. Changed `WPN-002` (Functional Muzzle) to require round pieces (round plates or round tiles) instead, and `WPN-020` (Muzzle Placement) to say muzzles must be round. This is purely a piece-shape change, not a geometry change: a round LEGO plate/tile still occupies a square footprint slot on the stud grid exactly like a square piece does, so every formula that depends on muzzle size (Impact Strength, footprint partitioning, adjacency) is completely unaffected — only the *visible shape* of the physical piece changes, and "square or rectangular" pieces are now invalid where "square" used to be the only valid shape.
+
 - *(More findings will be appended here as the manual review continues.)*
 
 ## Capabilities
@@ -43,6 +46,7 @@ Engines are being cut from StudCraft as a concept. `CMP-002` (`05-construction-c
 
 ### Modified Capabilities
 - `component-damage`: `Requirement: Component State Progression` is renamed from `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` (Finding 1). `Requirement: Component Targeting` and `Requirement: Internal Components` update their illustrative "engine" examples to "pilot" (Finding 5). No mechanical change in any of the three — same behavior, only labels/examples change.
+- `weapon-construction`: `Requirement: Muzzle Placement Validity` is updated from requiring square muzzles to requiring round muzzles (Finding 9). No change to sizing, footprint-partitioning, adjacency, or Impact Strength math — only the physical piece shape.
 
 ## Impact
 
