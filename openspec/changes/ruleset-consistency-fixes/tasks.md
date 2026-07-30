@@ -8,6 +8,10 @@
 - [ ] 1.6 Run `python3 scripts/lint_ruleset.py` and confirm no structural issues.
 - [ ] 1.7 Confirm no measured rule value, formula, or mechanic changed — purely a renaming/consolidation (per design.md Goals).
 
+## Finding 2: Clarify FLOW-003 (Priority)
+
+- [x] 2.1 `docs/03-game-flow.md` FLOW-003: reword the Priority player's choice from "Activate the first/second unit this Turn" to an explicit "activate one of their own units now" vs. "cede Priority, letting the other player activate first," and add a sentence stating this is a single choice made once per Turn, with FLOW-002's strict alternation governing the rest.
+
 ## Housekeeping (applies once the review is finished, not per-finding)
 
 - [ ] H.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history; this is purely editorial so the default minor bump is correct.

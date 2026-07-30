@@ -12,6 +12,10 @@ Since every component in the game (minifigs, vehicles, weapons, doors, wheels, .
 - Renames the universal Component State machine's three states from `OK` / `TOUCHED` / `DESTROYED` to **Operational** / **Wounded** / **Dead** — reusing infantry's existing, more evocative names instead of the more mechanical ones, since the states apply identically to every component regardless of type.
 - `docs/02-core-rules.md` CORE-011/012/013 stop being an independent infantry-only state definition and become the physical/cosmetic elaboration of the universal states for the infantry case specifically (in the same style as `13-materials.md`'s per-material sections) — cross-referencing the universal mechanism instead of restating it.
 - `docs/16-damage-system.md`, `docs/13-materials.md` (MAT-004), and any other document using `OK`/`TOUCHED`/`DESTROYED` get updated to the new names.
+
+**Finding 2 — FLOW-003 (Priority) was ambiguous about when the choice happens.**
+`docs/03-game-flow.md` `FLOW-003` said the Priority player chooses "Activate the first unit this Turn" / "Activate the second unit this Turn" — indirect phrasing that doesn't make clear this is a one-time choice at the start of the Turn, not a repeated choice at every activation. Reworded to an explicit binary choice ("activate one of their own units now, keeping the activation" vs. "cede Priority, letting the other player activate first"), with an explicit sentence that this is decided once per Turn and strict alternation (FLOW-002) governs the rest. No mechanical change — same choice, same outcome, clearer wording.
+
 - *(More findings will be appended here as the manual review continues.)*
 
 ## Capabilities

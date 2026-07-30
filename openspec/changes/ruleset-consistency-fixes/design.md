@@ -24,6 +24,11 @@ Mirrors exactly how `13-materials.md`'s per-material sections (MAT-003 Glass, MA
 **This requires a `MODIFIED` delta on `component-damage`, unlike the direct edits used for `combat.md`/`materials.md` in `component-damage-system`.**
 `component-damage` was archived as a real OpenSpec capability once `component-damage-system` merged — this is the first proposal in this repo to modify an already-archived capability's requirement rather than write a fresh `ADDED` requirement or edit an un-formalized document directly. See `system/proposal-review.md` (Delta vs. Direct Edit) for when each applies.
 
+### Finding 2: Clarify FLOW-003 (Priority) as a one-time, explicit binary choice
+
+**Reword to an explicit "continue vs. cede" choice, and state outright that it's decided once per Turn.**
+Alternative considered: leave the mechanic as-is and only add the clarifying sentence about it being one-time, without changing the bullet wording. Rejected — the original bullets ("Activate the first unit this Turn" / "Activate the second unit this Turn") describe the *consequence* of the choice, not the choice itself, which is what made it possible to misread as a repeated per-activation decision rather than a single up-front one. Rewording the bullets to name the actual choice (continue with your own activation vs. cede Priority to the opponent) and then stating explicitly that FLOW-002's strict alternation takes over afterward removes the ambiguity from both ends at once. No mechanical change: same choice, same outcome.
+
 ## Risks / Trade-offs
 
 - [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.
