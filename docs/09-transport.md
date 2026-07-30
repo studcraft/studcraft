@@ -44,9 +44,7 @@ Examples:
 
 # TRN-002 — Infantry Occupancy
 
-Every infantry model always occupies:
-
-**1 Unit Base**
+Every infantry model always occupies exactly **1 Unit Base** (`02-core-rules.md`, CORE-003).
 
 This includes:
 

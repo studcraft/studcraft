@@ -29,6 +29,10 @@ Every term REVIEW-018 lists was checked with a targeted grep across all `docs/*.
 
 The file already says "read every existing document its subject matter touches" but then immediately narrows that to two named examples ("weapons... also read combat and materials") — advice that (a) went stale the moment `materials.md` was deleted, and (b) implicitly suggests a short, fixed neighbor list is enough, which is exactly why `VEH-014` (in `08-vehicles.md`, not an "obvious" neighbor of a weapons/combat change) went unnoticed by `ruleset-consistency-fixes` Finding 10. Updated the named examples to the current, still-existing documents (melee, vehicles) and added an explicit callout of the `VEH-014` case so future reviewers read "every document" as literally as it's written, not just the ones the two examples happen to name.
 
+### DEP-004/TRN-002: same duplication class as consolidate-core-measurements, one layer deeper
+
+`consolidate-core-measurements` (a prior, separate proposal) already fixed every `docs/*.md` reference to *what a Unit Base measures* (4 × 3 studs) to cross-reference `CORE-001` instead of restating it. It did not cover the separate, more specific fact that infantry occupies exactly one Unit Base — `CORE-003` already states this, but `DEP-004` and `TRN-002` each restated it independently. Fixed the same way, one document deeper into the dependency chain: cite `CORE-003`, keep only the elaboration unique to each document (deployment flexibility for `DEP-004`; posture-invariance and what's included in the occupied space for `TRN-002`).
+
 ## Risks / Trade-offs
 
 None — cross-reference, diagram-wording, and stale-reference edits only, no rule ID or mechanic changes.

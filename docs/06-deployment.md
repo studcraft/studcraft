@@ -93,11 +93,7 @@ This area is unavailable for any other model.
 
 # DEP-004 — Infantry
 
-Each infantry model occupies:
-
-1 Unit Base.
-
-Infantry may be deployed individually or already embarked inside transport vehicles.
+Each infantry model occupies 1 Unit Base (`02-core-rules.md`, CORE-003), whether deployed individually or already embarked inside a transport vehicle.
 
 ---
 

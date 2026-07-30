@@ -34,7 +34,14 @@
 - [x] 6.7 `system/proposal-review.md`: updated its "read every neighboring document" guidance to stop naming the removed document, and added a note recording the VEH-014 lesson.
 - [x] 6.8 Confirmed remaining "material" mentions are correctly untouched: `CHANGELOG.md`'s frozen historical entry, `openspec/specs/damage-resolution/spec.md`'s pending-archive citation (already fixed in `remove-materials-document`'s own delta, waiting on Archive cut), and `openspec/changes/*/` files documenting the removal decision historically.
 
-## 7. Verify
+## 7. Fourth pass: docs/06-deployment.md (requested separately)
+
+- [x] 7.1 Full reread of `docs/06-deployment.md` end to end.
+- [x] 7.2 `DEP-004` (Infantry): cross-reference `02-core-rules.md` CORE-003 instead of independently restating "infantry occupies 1 Unit Base."
+- [x] 7.3 `docs/09-transport.md` `TRN-002` (Infantry Occupancy): same fix — cross-reference CORE-003, keep its own posture-invariance/what's-included elaboration.
+- [x] 7.4 Confirmed no other DEP- rule duplicates content elsewhere without cross-reference (DEP-003/DEP-005/DEP-006 checked against VEH-001/TRN-003/TRN's own philosophy section — each is a distinct concern: deployment-cost accounting vs. named vehicle footprints vs. cargo-capacity counting, not restatement).
+
+## 8. Verify
 
 - [x] 7.1 Run `python3 scripts/lint_ruleset.py` and confirm no structural issues.
 - [x] 7.2 Confirm no rule ID added, removed, or renumbered anywhere.
