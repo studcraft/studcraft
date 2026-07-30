@@ -57,6 +57,15 @@
 - [x] 9.4 `specs/weapon-construction/spec.md` (this change's new `MODIFIED` delta): update `Requirement: Muzzle Placement Validity` from square to round, adding a "Square muzzle rejected" scenario alongside the existing "Rectangular muzzle rejected" one.
 - [x] 9.5 Confirm no change needed to `WPN-019` (Weapon Front Footprint — the overall front-face area, unrelated to individual muzzle shape), `WPN-007` (adjacency), or `WPN-021` (Impact Strength sizing) — all operate on the same N×N grid regardless of muzzle piece shape.
 
+## Finding 10: Reduce Redundant Restatements Between `10-weapons.md` and `11-combat.md`
+
+- [x] 10.1 `docs/11-combat.md` CBT-003: reduce from a full restatement of `Range = Weapon Length × 2` to a one-line cross-reference to `10-weapons.md` (WPN-005).
+- [x] 10.2 `docs/11-combat.md` CBT-004: reduce from a full restatement of "1 Attack Die per muzzle" to a cross-reference to `10-weapons.md` (WPN-006), plus a pointer to CBT-005 for dice resolution.
+- [x] 10.3 `docs/10-weapons.md` WPN-013: reduce from a restated 5-step attack procedure to a one-line cross-reference to `11-combat.md` (CBT-001).
+- [x] 10.4 `docs/10-weapons.md` WPN-008 and `docs/11-combat.md` CBT-006: keep the Tank/Main Cannon/Coaxial/Roof example only in WPN-008 (construction-side canonical definition); CBT-006 cross-references WPN-008 instead of repeating it. Both drop the duplicated targeting-consequence sentence, pointing to CBT-007 instead.
+- [x] 10.5 `docs/10-weapons.md` WPN-012 and `docs/11-combat.md` CBT-002: WPN-012 cross-references CBT-002 for the Line of Sight rule instead of restating it, keeping only the muzzle-specific detail (terrain/building/vehicle blocking, transparent materials) not already covered by CBT-002.
+- [x] 10.6 Run `python3 scripts/lint_ruleset.py` and confirm no structural issues.
+
 ## Housekeeping (applies once the review is finished, not per-finding)
 
 - [ ] H.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history; this is purely editorial so the default minor bump is correct.

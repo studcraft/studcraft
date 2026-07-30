@@ -37,6 +37,16 @@ Engines are being cut from StudCraft as a concept. `CMP-002` (`05-construction-c
 **Finding 9 — WPN-002/WPN-020 required square muzzles; muzzles should be round.**
 Real weapon barrels are round, not square. `weapon-construction-system` deliberately required square muzzles (1×1–4×4) when it shipped, reasoning that "StudCraft models conventional weapon barrels... each barrel has a square footprint" — but that reasoning was wrong: a barrel's *cross-section* is round, not square. Changed `WPN-002` (Functional Muzzle) to require round pieces (round plates or round tiles) instead, and `WPN-020` (Muzzle Placement) to say muzzles must be round. This is purely a piece-shape change, not a geometry change: a round LEGO plate/tile still occupies a square footprint slot on the stud grid exactly like a square piece does, so every formula that depends on muzzle size (Impact Strength, footprint partitioning, adjacency) is completely unaffected — only the *visible shape* of the physical piece changes, and "square or rectangular" pieces are now invalid where "square" used to be the only valid shape.
 
+**Finding 10 — `10-weapons.md` and `11-combat.md` independently restated the same facts, with weak or missing cross-references.**
+Several rule pairs across the two documents defined the same fact twice instead of one document owning it and the other cross-referencing:
+- `CBT-003` (Weapon Range) fully restated `Range = Weapon Length × 2` despite citing `WPN-005` as the source. Reduced to a one-line cross-reference.
+- `CBT-004` (Attack Dice) fully restated "1 Attack Die per muzzle" from `WPN-006` with zero cross-reference, and never mentioned the 4/5/6 Attack Roll threshold. Reduced to a cross-reference plus a pointer to CBT-005 for resolution.
+- `WPN-013` (Attack Procedure) restated its own 5-step attack procedure, nearly duplicating `CBT-001`'s 8-step Attack Sequence. Reduced to a one-line cross-reference to CBT-001.
+- `WPN-008` (Weapon Systems) and `CBT-006` (Independent Weapon Systems) both used the identical Tank/Main Cannon/Coaxial Machine Gun/Roof Machine Gun example and both stated the targeting consequence ("each weapon may choose its own target..."). `WPN-008` keeps the example as the canonical construction-side definition of "weapon system" and now cross-references `CBT-006`/`CBT-007` for targeting rules instead of restating them; `CBT-006` now cross-references `WPN-008` for the definition/example instead of repeating it.
+- `WPN-012` (Line of Fire) restated the visibility requirement ("a weapon may only attack targets that are physically visible...") independently of `CBT-002` (Line of Sight), which already owns that rule. `WPN-012` now cross-references `CBT-002` and keeps only the muzzle-specific detail (blocking terrain/buildings/vehicles, transparent materials) that `CBT-002` doesn't cover.
+
+No mechanical change in any of these — same dice, same thresholds, same procedure, same targeting rules. Purely consolidating each fact into a single owning rule.
+
 - *(More findings will be appended here as the manual review continues.)*
 
 ## Capabilities

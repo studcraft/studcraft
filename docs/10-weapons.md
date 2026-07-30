@@ -192,7 +192,7 @@ contains:
 
 Three independent weapon systems.
 
-Each weapon may choose its own target unless restricted by future scenario rules.
+Targeting rules for independent weapon systems are defined in `11-combat.md` (CBT-006, CBT-007).
 
 ---
 
@@ -254,23 +254,13 @@ Weapon position determines firing arc.
 
 # WPN-012 — Line of Fire
 
-A weapon may only attack targets that are physically visible from its muzzle.
-
-Buildings, terrain and vehicles block line of fire.
-
-Transparent elements follow the Material Rules.
+A weapon's Line of Fire follows the universal Line of Sight rule (`11-combat.md`, CBT-002), applied from the weapon's muzzle: buildings, terrain and vehicles block it, and transparent elements follow the Material Rules.
 
 ---
 
 # WPN-013 — Attack Procedure
 
-To resolve a ranged attack:
-
-1. Check line of sight.
-2. Check weapon range.
-3. Count functional muzzles.
-4. Roll one D6 per muzzle.
-5. Resolve hits using the Combat Rules.
+Resolving a ranged attack follows the universal Attack Sequence defined in `11-combat.md` (CBT-001): declare weapon, declare target, verify Line of Sight, verify Range, roll Attack Dice, count Impacts, defender resolves Impacts, update the model.
 
 ---
 

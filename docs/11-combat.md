@@ -61,31 +61,17 @@ Fundamental Rule:
 
 # CBT-003 — Weapon Range
 
-A target must be inside the weapon's maximum range.
-
-Weapon Range is defined in:
-
-10-weapons.md
-
-Range = Weapon Length × 2
+A target must be inside the weapon's maximum range: `Range = Weapon Length × 2` — see `10-weapons.md` (WPN-005) for the full definition.
 
 ---
 
 # CBT-004 — Attack Dice
 
-Every functional muzzle generates:
-
-**1 Attack Die (D6)**
+Every functional muzzle generates **1 Attack Die (D6)** — see `10-weapons.md` (WPN-006) for the full definition. Each die is resolved per CBT-005.
 
 Example
 
-Weapon:
-
-4 Functional Muzzles
-
-Attack Roll:
-
-4D6
+Weapon: 4 Functional Muzzles → Attack Roll: 4D6
 
 ---
 
@@ -117,19 +103,7 @@ Result:
 
 # CBT-006 — Independent Weapon Systems
 
-Each weapon system attacks independently.
-
-Example
-
-Tank
-
-Main Cannon
-
-Roof Machine Gun
-
-Coaxial Machine Gun
-
-Each weapon resolves its own attack sequence.
+Each weapon system, as defined in `10-weapons.md` (WPN-008), attacks independently — resolving its own Attack Sequence (CBT-001). See CBT-007 for target-selection rules across multiple weapon systems.
 
 ---
 

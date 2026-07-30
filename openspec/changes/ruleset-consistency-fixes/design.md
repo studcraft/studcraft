@@ -67,6 +67,17 @@ Same reasoning as every other cross-reference fix in this proposal: `CBT-005` al
 **Change the piece-shape constraint only; leave every size/geometry formula untouched.**
 Alternative considered: reconsider the whole footprint-partitioning system, since round pieces don't tile a 2D plane edge-to-edge the way squares do (real circles packed together leave gaps). Rejected — this doesn't apply to LEGO round elements specifically: round plates and tiles are manufactured to the same stud grid as square pieces, so a round 2×2 plate occupies exactly a 2×2 square footprint slot, identical to a square 2×2 plate's footprint. The "gaps between packed circles" problem that would apply to true continuous circles doesn't apply here, so nothing about `WPN-019`/`WPN-020`'s footprint math, `WPN-007`'s adjacency rule, or `WPN-021`'s Impact Strength sizing needed to change — only `WPN-002`'s piece-shape requirement itself.
 
+### Finding 10: `10-weapons.md`/`11-combat.md` redundant restatements
+
+**Pick one owning rule per fact, make the other a cross-reference, rather than a wholesale merge of the two documents.**
+Alternative considered: merge `10-weapons.md` and `11-combat.md` into a single document, since the boundary between "how a weapon is built" and "how an attack resolves" keeps leaking facts across both. Rejected — the two documents serve genuinely different audiences and moments of use (building a weapon vs. resolving an attack at the table), and `weapon-construction-system`/`gameplay-visual-geometry` already established construction-vs-behavior as a deliberate split elsewhere in the ruleset. The actual problem wasn't the split, it was that four rule pairs restated the same fact instead of one citing the other.
+
+**For each pair, the rule that generates the fact (construction) owns it; the rule that consumes the fact (combat resolution) cross-references it.**
+`WPN-005`→`CBT-003` (range), `WPN-006`→`CBT-004` (attack dice count), `CBT-001`→`WPN-013` (attack procedure — combat owns this one since the procedure is what actually happens at the table, not a weapon construction fact), `WPN-008`→`CBT-006` (weapon-system definition), `CBT-002`→`WPN-012` (line of sight). Same "single owning rule, cross-referenced elsewhere" pattern already used throughout this proposal (Findings 1, 4, 6, 8).
+
+**`WPN-008` and `CBT-006` both dropped the targeting-consequence sentence they duplicated, pointing to `CBT-007` instead.**
+Both rules independently said "each weapon may choose its own target unless restricted by scenario" — that's `CBT-007`'s (Multiple Targets) job, not something either `WPN-008` or `CBT-006` needed to assert itself.
+
 ## Risks / Trade-offs
 
 - [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.
