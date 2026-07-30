@@ -115,21 +115,13 @@ After counting Impacts,
 
 the defender becomes responsible for resolving them.
 
-Resolution is defined in `16-damage-system.md`: each Impact is assigned to one visible component (DMG-012), checked against that component's Resistance (DMG-014, Geometry Check), and — if capable of causing damage — resolved with a Damage Roll (DMG-015) that advances the Component State.
-
-Materials (`13-materials.md`) then describe the physical/cosmetic result once a component's state has changed — e.g. how a destroyed window, wheel, or minifig should look on the model.
-
-Examples
-
-Infantry, Vehicles, Structures
-
-All use the same `16-damage-system.md` resolution sequence, followed by the appropriate `13-materials.md` physical response.
+Resolution is defined in `16-damage-system.md`: each Impact is assigned to one visible component (DMG-012), checked against that component's Resistance (DMG-014, Geometry Check), and — if capable of causing damage — resolved with a Damage Roll (DMG-015) that advances the Component State. Once a component reaches Dead, it is physically removed from the model (DMG-006) — the same for infantry, vehicles, and structures alike, with no material-specific distinction (DMG-008).
 
 ---
 
 # CBT-009 — Physical State Changes
 
-Combat results are always represented physically. This is the same rule as `16-damage-system.md` (DMG-006) and `13-materials.md` (MAT-017) — a destroyed component is physically removed; see DMG-006, Universal Destruction, for the canonical statement and examples.
+Combat results are always represented physically. This is the same rule as `16-damage-system.md` (DMG-006) — a destroyed component is physically removed; see DMG-006, Universal Destruction, for the canonical statement and examples.
 
 ---
 
@@ -171,11 +163,7 @@ Everything else belongs to the target.
 
 Cover never changes weapon performance.
 
-Cover affects only how the target resolves incoming impacts.
-
-The exact rules are defined in:
-
-13-materials.md
+Cover affects only how the target resolves incoming impacts — the exact rules are defined in `02-core-rules.md` (CORE-010).
 
 ---
 
@@ -185,7 +173,7 @@ Armour is never a weapon property.
 
 Armour belongs to the defending model.
 
-Armour determines how impacts are resolved: specifically, via the Geometry Check and Damage Roll defined in `16-damage-system.md` (DMG-014, DMG-015) — see also `13-materials.md` MAT-011.
+Armour determines how impacts are resolved: specifically, via the Geometry Check and Damage Roll defined in `16-damage-system.md` (DMG-014, DMG-015).
 
 ---
 

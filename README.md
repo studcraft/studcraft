@@ -77,7 +77,6 @@ These principles are fully described in:
     ├── 10-weapons.md
     ├── 11-combat.md
     ├── 12-melee.md
-    ├── 13-materials.md
     ├── 14-glossary.md
     ├── 15-geometry-layers.md
     └── 16-damage-system.md
@@ -125,8 +124,7 @@ Learn how units move across the battlefield.
 11. `10-weapons.md`
 12. `11-combat.md`
 13. `12-melee.md`
-14. `13-materials.md`
-15. `16-damage-system.md`
+14. `16-damage-system.md`
 
 Learn how attacks are generated and resolved, and how components take and resist damage.
 
@@ -134,7 +132,7 @@ Learn how attacks are generated and resolved, and how components take and resist
 
 ## Reference
 
-16. `14-glossary.md`
+15. `14-glossary.md`
 
 Quick lookup for core terms.
 
@@ -189,7 +187,7 @@ Weapons do not inflict damage.
 
 Weapons generate **Impacts**.
 
-Targets resolve those Impacts according to their construction and materials.
+Targets resolve those Impacts according to their construction (`16-damage-system.md`).
 
 ---
 
@@ -210,7 +208,6 @@ Implemented systems:
 - Weapons
 - Combat
 - Melee
-- Materials
 - Game Flow
 - Geometry Layers
 - Damage System

@@ -192,7 +192,7 @@ Windows:
 
 - Allow visibility.
 - May provide firing positions.
-- Follow the Material Rules for transparent elements.
+- Resolve Impacts like any other component (`16-damage-system.md`).
 
 ---
 

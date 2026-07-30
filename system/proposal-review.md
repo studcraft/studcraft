@@ -78,7 +78,7 @@ changed since you started reading.
 
 An OpenSpec `MODIFIED` (or `REMOVED`) delta can only target a capability that
 already exists under `openspec/specs/<capability>/spec.md`. Several of this
-repo's ruleset documents (`docs/11-combat.md`, `docs/13-materials.md`,
+repo's ruleset documents (`docs/11-combat.md`,
 `docs/04-construction-standard.md`, ...) predate this repo's OpenSpec
 workflow entirely and have never been formalized as capabilities — there is
 nothing to write a delta against.

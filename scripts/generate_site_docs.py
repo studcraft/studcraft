@@ -26,7 +26,6 @@ TITLES = {
     "10-weapons.md": "Weapons",
     "11-combat.md": "Combat",
     "12-melee.md": "Melee",
-    "13-materials.md": "Materials",
     "14-glossary.md": "Glossary",
     "15-geometry-layers.md": "Geometry Layers",
     "16-damage-system.md": "Damage System",

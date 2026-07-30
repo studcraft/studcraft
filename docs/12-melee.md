@@ -14,7 +14,7 @@ Weapons do not inflict damage.
 
 Weapons generate Impacts.
 
-The defender resolves those Impacts according to the Material Rules.
+The defender resolves those Impacts using the Component Damage System (`16-damage-system.md`).
 
 ---
 
@@ -170,7 +170,7 @@ Examples:
 - Weapon
 - Pilot
 
-The target component resolves Impacts using the Material Rules.
+The target component resolves Impacts using the Component Damage System (`16-damage-system.md`).
 
 ---
 
@@ -195,7 +195,7 @@ Unless explicitly stated otherwise, melee combat follows all rules defined in:
 
 - 11-combat.md
 - 10-weapons.md
-- 13-materials.md
+- 16-damage-system.md
 
 This document only defines the differences specific to hand-to-hand combat.
 

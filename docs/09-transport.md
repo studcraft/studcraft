@@ -219,9 +219,7 @@ The opening determines the firing arc.
 
 Transparent LEGO elements represent windows or viewports (`04-construction-standard.md`, SCS-009).
 
-Visibility through transparent elements follows the Material Rules.
-
-Passengers and attackers may interact through them if line of sight exists.
+Passengers and attackers may interact through them if line of sight exists (`02-core-rules.md`, CORE-008).
 
 ---
 

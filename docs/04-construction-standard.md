@@ -278,7 +278,7 @@ Cockpit canopies
 
 Visibility passes through transparent pieces.
 
-Material rules determine whether they stop projectiles.
+Resistance and the Geometry Check (`16-damage-system.md`, DMG-003, DMG-014) determine whether they stop an Impact — the same as any other component.
 
 ---
 

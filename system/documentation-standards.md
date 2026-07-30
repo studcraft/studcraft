@@ -47,7 +47,6 @@
     ├── 10-weapons.md
     ├── 11-combat.md
     ├── 12-melee.md
-    ├── 13-materials.md
     ├── 14-glossary.md
     ├── 15-geometry-layers.md
     └── 16-damage-system.md
