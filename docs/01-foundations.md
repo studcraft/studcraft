@@ -141,9 +141,9 @@ Weapons do not directly cause damage.
 
 Instead, successful attacks generate **Impacts**.
 
-The target resolves those Impacts according to its material and construction.
+The target resolves those Impacts according to its construction (`16-damage-system.md`).
 
-This separates the attack from its physical effect and allows different materials to behave differently.
+This separates the attack from its physical effect, keeping weapon rules simple while allowing targets to resolve consequences independently.
 
 ---
 
@@ -173,7 +173,6 @@ These systems are reused throughout the rulebook:
 - Action Points (AP)
 - Components
 - Impacts
-- Materials
 
 Whenever a new rule is introduced, it should build upon these systems instead of creating new ones.
 
@@ -188,7 +187,7 @@ Examples:
 - Movement defines how units move.
 - Weapons define how attacks are generated.
 - Combat resolves attacks.
-- Materials determine the effects of impacts.
+- The Component Damage System determines the effects of impacts.
 - Transport defines passenger capacity.
 
 This modular structure keeps the game easy to expand and maintain.

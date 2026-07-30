@@ -19,7 +19,22 @@
 - [x] 4.1 Checked "physically removed" vs. "removed from the model" usage across `docs/` — legitimate contextual variation (examples vs. canonical rule statements), no change needed.
 - [x] 4.2 Checked "determines" vs. "defines" usage — correctly differentiated grammatical roles (causal/derived relationship vs. document/rule scope statement), not synonym drift; no change needed.
 
-## 5. Verify
+## 5. Second pass before merge (requested review)
 
-- [x] 5.1 Run `python3 scripts/lint_ruleset.py` and confirm no structural issues.
-- [x] 5.2 Confirm no rule ID added, removed, or renumbered anywhere.
+- [x] 5.1 Re-reviewed the diff: found and fixed an internal inconsistency — `11-combat.md`'s diagram cited CBT-005 on "Successful Impacts" while same-document neighbors went uncited. Removed the citation.
+
+## 6. Third pass: case-insensitive, repo-wide sweep for stale "materials" references
+
+- [x] 6.1 Ran a case-insensitive grep for "material"/"materials" across the entire repo (not just `docs/`) — `remove-materials-document`'s original grep was case-sensitive and docs-scoped, missing several spots.
+- [x] 6.2 `docs/14-glossary.md`: removed the stale "Material" entry (contradicted DMG-008); fixed the "Impact" entry's stale "according to their Material" line.
+- [x] 6.3 `docs/01-foundations.md`: removed "Materials" from the Universal Systems list; fixed the Impacts section's "material and construction" / "materials behave differently" lines.
+- [x] 6.4 `docs/10-weapons.md` WPN-016: dropped "Materials" from its effect-dependency list.
+- [x] 6.5 `CODE_OF_DESIGN.md`: fixed Principle 5, Principle 10, Principle 15's stale Materials/Material Responses references.
+- [x] 6.6 `CONTRIBUTING.md`: removed `13-materials.md` from its Repository Structure tree; added the missing `15-geometry-layers.md`/`16-damage-system.md` entries (stale independent of the materials removal).
+- [x] 6.7 `system/proposal-review.md`: updated its "read every neighboring document" guidance to stop naming the removed document, and added a note recording the VEH-014 lesson.
+- [x] 6.8 Confirmed remaining "material" mentions are correctly untouched: `CHANGELOG.md`'s frozen historical entry, `openspec/specs/damage-resolution/spec.md`'s pending-archive citation (already fixed in `remove-materials-document`'s own delta, waiting on Archive cut), and `openspec/changes/*/` files documenting the removal decision historically.
+
+## 7. Verify
+
+- [x] 7.1 Run `python3 scripts/lint_ruleset.py` and confirm no structural issues.
+- [x] 7.2 Confirm no rule ID added, removed, or renumbered anywhere.
