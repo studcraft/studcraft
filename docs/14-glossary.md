@@ -28,7 +28,7 @@ Targets resolve Impacts according to their Material.
 
 ## Component
 
-A single visible physical part of a model that combat targets independently (Engine, Door, Wheel, Weapon, Track, and similar). Components have no Hit Points — only a Component State and a Resistance, both read from the model. See `16-damage-system.md` (DMG-001, DMG-002).
+A single visible physical part of a model that combat targets independently (Pilot, Door, Wheel, Weapon, Track, and similar). Components have no Hit Points — only a Component State and a Resistance, both read from the model. See `16-damage-system.md` (DMG-001, DMG-002).
 
 ---
 
@@ -120,7 +120,7 @@ The square construction area (Weapon Width × Weapon Width) on the Weapon Front 
 
 ## Muzzle
 
-A square functional construction area (1×1 through 4×4) on the Weapon Front Footprint, representing one firing barrel.
+A round functional construction area (1×1 through 4×4 footprint slot) on the Weapon Front Footprint, built from a round plate or round tile, representing one firing barrel. See `10-weapons.md` (WPN-002).
 
 Each functional muzzle grants one Attack Die. Muzzles may be placed directly adjacent to one another.
 
@@ -194,7 +194,7 @@ The smallest structural cross-section a component's construction requires an Imp
 
 ## Component State
 
-The three-state progression every component uses: `OK`, `TOUCHED`, `DESTROYED`. Universal — no component type has an exception. See `16-damage-system.md` (DMG-005).
+The three-state progression every component uses: `Operational`, `Wounded`, `Dead`. Universal — no component type has an exception. See `16-damage-system.md` (DMG-005).
 
 ---
 

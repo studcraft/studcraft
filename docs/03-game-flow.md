@@ -62,8 +62,10 @@ On a tie, both players roll again until the tie is broken.
 
 The player with Priority chooses one of the following:
 
-- Activate the first unit this Turn.
-- Activate the second unit this Turn.
+- Activate one of their own units now, keeping the activation.
+- Cede Priority, letting the other player activate first instead.
+
+This is a single choice made once, at the start of the Turn. Whichever player activates first, both players then strictly alternate activating one unit at a time (per FLOW-002) for the remainder of the Turn.
 
 Priority is determined again at the beginning of every Turn.
 
@@ -250,9 +252,9 @@ Determine Priority
 ↓
 
 Priority player chooses:
-• Activate First
+• Activate own unit now (continue)
 or
-• Activate Second
+• Cede Priority (opponent activates first)
 
 ↓
 

@@ -54,7 +54,7 @@ A brick may represent:
 
 - Structure
 - Armour
-- Engine
+- Pilot
 - Weapon
 - Door
 - Window
@@ -121,7 +121,7 @@ StudCraft treats models as collections of physical components.
 
 Examples include:
 
-- Engines
+- Pilot
 - Weapons
 - Wheels
 - Tracks

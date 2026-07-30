@@ -172,7 +172,7 @@ Models are collections of functional components.
 
 Examples:
 
-- Engine
+- Pilot
 - Wheel
 - Weapon
 - Door

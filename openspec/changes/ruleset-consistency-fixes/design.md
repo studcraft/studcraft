@@ -1,0 +1,98 @@
+## Context
+
+This change accumulates findings from a manual consistency review of the shipped ruleset, done one at a time rather than as a single upfront audit. Each finding gets a Decision entry here explaining the resolution chosen and the alternatives considered, in the same style as `weapon-construction-system`/`gameplay-visual-geometry`/`component-damage-system`'s design docs.
+
+## Goals / Non-Goals
+
+**Goals:**
+- Fix each accumulated finding without changing any measured rule value, formula, or mechanic — these are naming/consolidation fixes, not gameplay changes, unless a finding explicitly says otherwise.
+- Keep every fix traceable to the specific duplication/inconsistency it resolves.
+
+**Non-Goals:**
+- A complete, one-time audit of the entire ruleset. This proposal grows incrementally as issues are found in conversation, not from a single exhaustive pass.
+
+## Decisions
+
+### Finding 1: Unify Infantry States (CORE-011/012/013) with the universal Component State machine (DMG-005)
+
+**Rename the universal states to Operational / Wounded / Dead, rather than keeping OK / TOUCHED / DESTROYED and just aliasing infantry to it.**
+Alternative considered: keep `DMG-005`'s `OK`/`TOUCHED`/`DESTROYED` as the canonical universal names, and have `CORE-011`/`012`/`013` simply cross-reference them without renaming anything (i.e. "Operational = OK, per DMG-005"). Rejected — `OK`/`TOUCHED`/`DESTROYED` reads naturally for a generic component (a wheel, a door) but awkwardly for the case that's actually most central to the game (a minifig), and `Operational`/`Wounded`/`Dead` already existed, was already player-facing terminology, and reads naturally for both organic and mechanical components alike ("the engine is Dead" reads fine; "the engine is DESTROYED" also reads fine, but "the minifig is TOUCHED" reads worse than "the minifig is Wounded"). Reusing the name that already existed and already read well, rather than the one that was newer but more mechanical, minimizes how much vocabulary players need to learn.
+
+**`CORE-011`/`012`/`013` become infantry's physical/cosmetic elaboration of the universal states, not an independent definition.**
+Mirrors exactly how `13-materials.md`'s per-material sections (MAT-003 Glass, MAT-012 Stone, etc.) describe physical response to a universal mechanism instead of redefining it — and how `MAT-004` was already partially reconciled this way when `component-damage-system` shipped. `CORE-011`/`012`/`013` keep their rule IDs and their infantry-specific physical detail (stands upright / seated / laid down or replaced by a casualty marker) but stop asserting the state machine itself, which now lives solely in `DMG-005`.
+
+**This requires a `MODIFIED` delta on `component-damage`, unlike the direct edits used for `combat.md`/`materials.md` in `component-damage-system`.**
+`component-damage` was archived as a real OpenSpec capability once `component-damage-system` merged — this is the first proposal in this repo to modify an already-archived capability's requirement rather than write a fresh `ADDED` requirement or edit an un-formalized document directly. See `system/proposal-review.md` (Delta vs. Direct Edit) for when each applies.
+
+### Finding 2: Clarify FLOW-003 (Priority) as a one-time, explicit binary choice
+
+**Reword to an explicit "continue vs. cede" choice, and state outright that it's decided once per Turn.**
+Alternative considered: leave the mechanic as-is and only add the clarifying sentence about it being one-time, without changing the bullet wording. Rejected — the original bullets ("Activate the first unit this Turn" / "Activate the second unit this Turn") describe the *consequence* of the choice, not the choice itself, which is what made it possible to misread as a repeated per-activation decision rather than a single up-front one. Rewording the bullets to name the actual choice (continue with your own activation vs. cede Priority to the opponent) and then stating explicitly that FLOW-002's strict alternation takes over afterward removes the ambiguity from both ends at once. No mechanical change: same choice, same outcome.
+
+### Finding 3: Fix the illogical square Bike footprint
+
+**Change `1 × 1 UB` to `1 × 2 UB` in both places it's listed, rather than picking a different value per document.**
+`SCS-003` and `VEH-001` independently list the same footprint table for the same set of example vehicles — same duplication pattern as Findings 1/2, just for an example value rather than a rule. `1 × 2` was chosen over other elongated options (e.g. `1 × 3`) as the minimal fix that makes the footprint non-square without exaggerating it relative to Buggy's `2 × 2`.
+
+### Finding 4: SCS-018 never mirrored WPN-019 (Weapon Front)
+
+**Expand SCS-018 in place rather than adding a new SCS- rule ID.**
+Alternative considered: leave SCS-018 scoped to adjacency only and append a new rule (e.g. `SCS-025`) for the Weapon Front constraint. Rejected — SCS-018 is already "the muzzle-placement slot" in the construction standard's structure; splitting the concept across two IDs when `10-weapons.md`'s own WPN-020 (Muzzle Placement) already treats footprint-fit, front-face, and adjacency as one cohesive concept would recreate exactly the kind of fragmentation this proposal is trying to remove. Renamed SCS-018 from "Muzzle Adjacency Standard" to "Muzzle Placement Standard" to reflect its broadened scope.
+
+### Finding 5: Remove Engine, replace with a Pilot requirement
+
+**Repurpose CMP-002/VEH-013/MAT-010 in place, don't delete the IDs.**
+Alternative considered: delete the Engine rules outright and leave a documented gap in the numbering (`scripts/lint_ruleset.py` only checks for duplicate/decreasing IDs, not gaps, so this would have been mechanically valid). Rejected — same reasoning as `WPN-007`/`SCS-018` earlier in this same proposal: a repurposed ID carrying a related new mechanic is more informative to a future reader than a silent gap, and no official release has happened yet, but "rule identifiers should remain stable" isn't scoped to releases — it's a standing repo convention this proposal has already relied on twice.
+
+**Pilot is the mechanic that replaces Engine's structural role: a mandatory component whose loss immobilizes the vehicle.**
+This wasn't just "delete Engine" — the user specifically asked for a replacement mechanic. Pilot reuses the already-existing `VEH-015` (Crew) concept instead of introducing a new one, and its Component State (`Dead`, per Finding 1) is what gates movement, tying this finding directly into Finding 1's unified state machine rather than inventing a separate on/off flag.
+
+### Finding 6: MOVE-016 (Falling Damage) never specified what counts as damage
+
+**Reuse the Damage Roll threshold (DMG-015) rather than inventing a new one for falls.**
+Alternative considered: define a bespoke threshold specifically for falling (e.g. a different die range, or a fixed number of studs per damage step). Rejected — `MOVE-016` already produces exactly one kept D6 result per fall, which is precisely the shape a Damage Roll expects; introducing a second, different damage-threshold convention for one specific case would undermine the "one universal resolution mechanism" goal this whole proposal is built around (see Finding 1).
+
+### Finding 7: Fix the remaining Motorcycle footprint mentions, and reconsider Finding 3's TRN-013 call
+
+**Reverse Finding 3's earlier decision to leave TRN-013 as an intentionally-different cargo-slot number.**
+Once TRN-001 needed the same `1 UB → 2 UB` fix Finding 3 already applied to SCS-003/VEH-001, keeping TRN-013 at the old `1 UB` would mean the same vehicle has two different, unreconciled space requirements depending on which document you read — exactly the class of problem this whole proposal exists to fix, just self-inflicted this time. Confirmed with the user before changing it, since it reverses an explicit prior decision recorded in Finding 3; one value everywhere is simpler than maintaining a footprint/cargo-slot distinction that was never actually load-bearing anywhere else in the ruleset.
+
+### Finding 8: WPN-006 never explained the Attack Roll threshold
+
+**Add a cross-reference to CBT-005, don't restate the threshold as a fresh number in `10-weapons.md`.**
+Same reasoning as every other cross-reference fix in this proposal: `CBT-005` already owns the 4/5/6 threshold, and `16-damage-system.md` DMG-011 already cites it correctly. `WPN-006` was the one place that generates Attack Dice but never said how they resolve — fixed by pointing to the existing rule, not by defining the number a third time.
+
+### Finding 9: Muzzles should be round, not square
+
+**Change the piece-shape constraint only; leave every size/geometry formula untouched.**
+Alternative considered: reconsider the whole footprint-partitioning system, since round pieces don't tile a 2D plane edge-to-edge the way squares do (real circles packed together leave gaps). Rejected — this doesn't apply to LEGO round elements specifically: round plates and tiles are manufactured to the same stud grid as square pieces, so a round 2×2 plate occupies exactly a 2×2 square footprint slot, identical to a square 2×2 plate's footprint. The "gaps between packed circles" problem that would apply to true continuous circles doesn't apply here, so nothing about `WPN-019`/`WPN-020`'s footprint math, `WPN-007`'s adjacency rule, or `WPN-021`'s Impact Strength sizing needed to change — only `WPN-002`'s piece-shape requirement itself.
+
+### Finding 10: `10-weapons.md`/`11-combat.md` redundant restatements
+
+**Pick one owning rule per fact, make the other a cross-reference, rather than a wholesale merge of the two documents.**
+Alternative considered: merge `10-weapons.md` and `11-combat.md` into a single document, since the boundary between "how a weapon is built" and "how an attack resolves" keeps leaking facts across both. Rejected — the two documents serve genuinely different audiences and moments of use (building a weapon vs. resolving an attack at the table), and `weapon-construction-system`/`gameplay-visual-geometry` already established construction-vs-behavior as a deliberate split elsewhere in the ruleset. The actual problem wasn't the split, it was that four rule pairs restated the same fact instead of one citing the other.
+
+**For each pair, the rule that generates the fact (construction) owns it; the rule that consumes the fact (combat resolution) cross-references it.**
+`WPN-005`→`CBT-003` (range), `WPN-006`→`CBT-004` (attack dice count), `CBT-001`→`WPN-013` (attack procedure — combat owns this one since the procedure is what actually happens at the table, not a weapon construction fact), `WPN-008`→`CBT-006` (weapon-system definition), `CBT-002`→`WPN-012` (line of sight). Same "single owning rule, cross-referenced elsewhere" pattern already used throughout this proposal (Findings 1, 4, 6, 8).
+
+**`WPN-008` and `CBT-006` both dropped the targeting-consequence sentence they duplicated, pointing to `CBT-007` instead.**
+Both rules independently said "each weapon may choose its own target unless restricted by scenario" — that's `CBT-007`'s (Multiple Targets) job, not something either `WPN-008` or `CBT-006` needed to assert itself.
+
+### Finding 11: Full re-audit — Finding 1 was never applied, plus four more uncross-referenced duplications
+
+**Trust the actual file contents over the accumulated proposal narrative when they disagree.**
+This finding exists because a full reread of every `docs/*.md` file found that Finding 1's rename — already fully specified in this very design doc and already reflected in the `component-damage` spec delta — had never actually been applied to `16-damage-system.md`, `14-glossary.md`, or `02-core-rules.md`. The lesson: an accumulating proposal's own prose describing "what was done" is not proof it was done: only the docs are. Requested a full doc-by-doc reread rather than trusting the running proposal/design/tasks narrative, which is what caught this.
+
+**Apply the exact same "single owning rule, cross-referenced elsewhere" pattern used in every prior finding, rather than treating this as a special case.**
+Facing (`CORE-002`/`SCS-004`/`VEH-002`), visibility (`CORE-008`/`CORE-009`/`CBT-002`/`TRN-009`), cover (`CORE-010`/`MAT-016`), and windows (`SCS-009`/`CMP-011`/`TRN-012`) are four more instances of the same bug class Findings 4, 8, and 10 already fixed elsewhere. Each now has one canonical rule (always the foundational `02-core-rules.md`/`04-construction-standard.md` rule, since those load before their domain-specific siblings per `README.md`'s reading order) and every sibling cross-references it instead of restating it.
+
+**`CORE-012` (Wounded) drops "Future combat rules determine the gameplay effects" rather than leaving it as a stale forward-reference.**
+That line predates `component-damage-system` — the gameplay effects of reaching Wounded are now fully defined (`DMG-005`, `CBT-008`). Leaving a "future rule" pointer in place once the future rule exists reads as a contradiction, not a placeholder.
+
+## Risks / Trade-offs
+
+- [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.
+
+## Open Questions
+
+*(Add here as they come up during the review.)*

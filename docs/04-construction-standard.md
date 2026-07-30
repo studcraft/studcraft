@@ -54,7 +54,7 @@ Examples:
 
 | Vehicle | Footprint |
 |----------|----------:|
-| Bike | 1 × 1 UB |
+| Bike | 1 × 2 UB |
 | Buggy | 2 × 2 UB |
 | Jeep | 2 × 3 UB |
 | Tank | 2 × 5 UB |
@@ -68,14 +68,7 @@ The agreed Deployment Area naturally limits model size.
 
 # SCS-004 — Facing
 
-Every model must have an obvious front.
-
-The front determines:
-
-- movement
-- firing arcs
-- transport access
-- shield orientation
+Every model must have an obvious front, per the universal Facing rule (`02-core-rules.md`, CORE-002).
 
 Models with ambiguous fronts are not legal.
 
@@ -233,7 +226,9 @@ Decoration does not count.
 
 ---
 
-# SCS-018 — Muzzle Adjacency Standard
+# SCS-018 — Muzzle Placement Standard
+
+Muzzles must be built on the Weapon Front — the single face from which the weapon may fire; not the rear, side, top, or bottom (`10-weapons.md`, WPN-019).
 
 Muzzle adjacency rules (muzzles may be placed directly adjacent; only overlap is forbidden) are defined in `10-weapons.md` (WPN-007, WPN-020).
 

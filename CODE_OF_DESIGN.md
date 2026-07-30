@@ -58,7 +58,7 @@ A brick may represent:
 
 - Structure
 - Armour
-- Engine
+- Pilot
 - Weapon
 - Door
 - Window
@@ -97,7 +97,7 @@ Models are collections of components.
 
 Examples:
 
-- Engines
+- Pilots
 - Weapons
 - Wheels
 - Tracks

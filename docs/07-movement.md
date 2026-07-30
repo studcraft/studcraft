@@ -241,7 +241,7 @@ Keep only the **lowest result**.
 
 The greater the fall, the greater the chance of suffering damage.
 
-Combat rules determine the effects of the result.
+The kept die is treated as a Damage Roll (`16-damage-system.md`, DMG-015): a result of 4, 5, or 6 means no damage. A result of 1, 2, or 3 means the faller's Component State advances one step (`Operational → Wounded`, or `Wounded → Dead`).
 
 Example:
 

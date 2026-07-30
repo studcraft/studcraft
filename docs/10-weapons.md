@@ -51,14 +51,14 @@ Weapons that do not satisfy these conditions are decorative.
 
 # WPN-002 — Functional Muzzle
 
-A functional muzzle is a square construction area on the Weapon Front, sized:
+A functional muzzle is a round construction area on the Weapon Front — a round plate or round tile — sized:
 
 - 1×1
 - 2×2
 - 3×3
 - 4×4
 
-Rectangular muzzles (e.g. 1×2, 2×1, 1×3, 2×4) are not valid.
+Square or rectangular pieces (e.g. 1×1 square plate, 1×2, 2×1, 1×3, 2×4) are not valid — only round pieces represent a muzzle. The area a muzzle occupies on the Weapon Front Footprint is still measured as an N×N grid slot (per WPN-019/WPN-020), the same way a round LEGO plate or tile occupies a square footprint of studs even though the visible piece is round.
 
 Each functional muzzle represents one firing barrel. Muzzle size determines Impact Strength (WPN-021).
 
@@ -144,6 +144,8 @@ Each functional muzzle grants:
 
 regardless of muzzle size. Muzzle size affects Impact Strength (WPN-021), not the number of dice.
 
+Each die is rolled and resolved as an Attack Roll (`11-combat.md`, CBT-005): a result of 4, 5, or 6 confirms the shot left the muzzle and generates one valid Impact; a result of 1, 2, or 3 means that die produced nothing.
+
 Examples
 
 | Functional Muzzles | Attack Dice |
@@ -190,7 +192,7 @@ contains:
 
 Three independent weapon systems.
 
-Each weapon may choose its own target unless restricted by future scenario rules.
+Targeting rules for independent weapon systems are defined in `11-combat.md` (CBT-006, CBT-007).
 
 ---
 
@@ -252,23 +254,13 @@ Weapon position determines firing arc.
 
 # WPN-012 — Line of Fire
 
-A weapon may only attack targets that are physically visible from its muzzle.
-
-Buildings, terrain and vehicles block line of fire.
-
-Transparent elements follow the Material Rules.
+A weapon's Line of Fire follows the universal Line of Sight rule (`11-combat.md`, CBT-002), applied from the weapon's muzzle: buildings, terrain and vehicles block it, and transparent elements follow the Material Rules.
 
 ---
 
 # WPN-013 — Attack Procedure
 
-To resolve a ranged attack:
-
-1. Check line of sight.
-2. Check weapon range.
-3. Count functional muzzles.
-4. Roll one D6 per muzzle.
-5. Resolve hits using the Combat Rules.
+Resolving a ranged attack follows the universal Attack Sequence defined in `11-combat.md` (CBT-001): declare weapon, declare target, verify Line of Sight, verify Range, roll Attack Dice, count Impacts, defender resolves Impacts, update the model.
 
 ---
 
@@ -392,11 +384,11 @@ The footprint defines the only available space for muzzle construction.
 
 # WPN-020 — Muzzle Placement
 
-Every muzzle occupies one square area inside the Weapon Front Footprint.
+Every muzzle occupies one square footprint slot inside the Weapon Front Footprint, built as a round piece (WPN-002).
 
 Rules:
 
-- Muzzles must be square (WPN-002).
+- Muzzles must be round (WPN-002).
 - Muzzles may not overlap.
 - Every muzzle must fit entirely inside the Weapon Front Footprint.
 - Unused footprint space is allowed. Muzzles are not required to cover every square.
@@ -512,7 +504,7 @@ Determines the number of Attack Dice (WPN-006).
 
 ## Muzzle Size
 
-Determines Impact Strength (WPN-021). Muzzles are always square (WPN-002).
+Determines Impact Strength (WPN-021). Muzzles are always round (WPN-002).
 
 ---
 

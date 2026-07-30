@@ -91,15 +91,15 @@ The opening remains.
 
 A minifig's wound track follows its Component State (`16-damage-system.md`, DMG-005):
 
-Standing minifigure (`OK`)
+Standing minifigure (`Operational`)
 
 ↓ Impact passes Geometry Check, Damage Roll fails
 
-Seated minifigure (`TOUCHED`, Wounded)
+Seated minifigure (`Wounded`)
 
 ↓ Impact passes Geometry Check, Damage Roll fails
 
-Minifigure removed or laid down (`DESTROYED`, Dead)
+Minifigure removed or laid down (`Dead`)
 
 A typical minifig has Resistance 1 (`16-damage-system.md`, DMG-004 Example 1), so this still takes exactly two failed Damage Rolls — the same two-impact result this rule has always described — but now derived from its construction rather than fixed for the material.
 
@@ -163,13 +163,11 @@ The weapon should be physically marked or removed whenever practical.
 
 ---
 
-# MAT-010 — Engines
+# MAT-010 — Pilot
 
-Vehicles may contain a visible engine compartment.
+A vehicle's Pilot resolves Impacts exactly like any other component (`16-damage-system.md`, DMG-005: Operational / Wounded / Dead).
 
-Engine damage is resolved using Vehicle Rules.
-
-A damaged engine may reduce movement or immobilize the vehicle.
+A Dead Pilot immobilizes the vehicle (`08-vehicles.md`, VEH-013), unless another crew member takes over (future rules).
 
 ---
 
@@ -253,13 +251,7 @@ Future rules will define environmental effects.
 
 # MAT-016 — Cover
 
-Cover is determined physically.
-
-The more of a target is hidden,
-
-the greater its protection.
-
-No abstract cover templates exist.
+Cover follows the universal Physical Cover rule (`02-core-rules.md`, CORE-010): the more of a target is hidden, the greater its protection, with no abstract cover templates.
 
 Future rules will assign Defence Dice according to visible exposure.
 
