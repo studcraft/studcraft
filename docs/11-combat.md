@@ -191,7 +191,10 @@ Delivery Method (Line of Sight + Range, or Physical Contact — `12-melee.md` ME
 Generate Attack Dice
     │
     ▼
-Attack Roll (CBT-005)
+Attack Roll
+    │
+    ▼
+Successful Impacts (CBT-005)
     │
     ▼
 Component Damage System (Select Target Component → Geometry Check → Damage Roll → Component State Change → Penetration — `16-damage-system.md` DMG-012 through DMG-017)
@@ -200,7 +203,7 @@ Component Damage System (Select Target Component → Geometry Check → Damage R
 Physical Model Changes
 ```
 
-Combat determines whether an Impact exists (Delivery Method, Attack Dice, Attack Roll); the Component Damage System determines what it does. Ranged and melee attacks differ only in Delivery Method — everything from Generate Attack Dice onward is identical for both.
+Combat determines whether an Impact exists (Delivery Method, Attack Dice, Attack Roll, Successful Impacts); the Component Damage System determines what it does. Ranged and melee attacks differ only in Delivery Method — everything from Generate Attack Dice onward is identical for both.
 
 ---
 
