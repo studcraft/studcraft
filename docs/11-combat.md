@@ -113,11 +113,7 @@ Individual attack dice from the same weapon system cannot be split between multi
 
 # CBT-008 — Defender Resolution
 
-After counting Impacts,
-
-the defender becomes responsible for resolving them.
-
-Resolution is handed over to the Component Damage System (`16-damage-system.md`): each Impact is assigned to a component (DMG-012), checked against its Resistance (DMG-014), and resolved with a Damage Roll (DMG-015) that may advance it to Dead (DMG-006) — identically for infantry, vehicles, and structures, with no material-specific distinction (DMG-008).
+After counting successful Impacts, responsibility passes to the Component Damage System (`16-damage-system.md`), which determines how each Impact affects the targeted component (see the Combat Flow diagram below for the full step sequence).
 
 ---
 
@@ -195,13 +191,16 @@ Delivery Method (Line of Sight + Range, or Physical Contact — `12-melee.md` ME
 Generate Attack Dice
     │
     ▼
-Combat Resolution (Attack Roll → Select Target Component → Geometry Check → Damage Roll → Component State Change → Penetration — `16-damage-system.md` DMG-009 through DMG-017)
+Attack Roll (CBT-005)
+    │
+    ▼
+Component Damage System (Select Target Component → Geometry Check → Damage Roll → Component State Change → Penetration — `16-damage-system.md` DMG-012 through DMG-017)
     │
     ▼
 Physical Model Changes
 ```
 
-Ranged and melee attacks differ only in Delivery Method — everything from Generate Attack Dice onward is identical for both.
+Combat determines whether an Impact exists (Delivery Method, Attack Dice, Attack Roll); the Component Damage System determines what it does. Ranged and melee attacks differ only in Delivery Method — everything from Generate Attack Dice onward is identical for both.
 
 ---
 
@@ -211,9 +210,9 @@ Weapons never determine damage.
 
 Weapons only determine:
 
-- How far they shoot.
-- How many dice they roll.
-- Where they can fire.
+- How an attack is delivered (ranged or melee).
+- How many Attack Dice it generates.
+- The Strength of each Impact.
 
 The target determines everything else.
 
