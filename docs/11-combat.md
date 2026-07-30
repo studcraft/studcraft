@@ -199,17 +199,19 @@ These additions must preserve the Impact-based combat system.
 Weapon
     │
     ▼
+Delivery Method (Line of Sight + Range, or Physical Contact — `12-melee.md` MEL-001/MEL-014)
+    │
+    ▼
 Generate Attack Dice
     │
     ▼
-Generate Impacts
-    │
-    ▼
-Target Resolves Impacts
+Combat Resolution (Attack Roll → Select Target Component → Geometry Check → Damage Roll → Component State Change → Penetration — `16-damage-system.md` DMG-009 through DMG-017)
     │
     ▼
 Physical Model Changes
 ```
+
+Ranged and melee attacks differ only in Delivery Method — everything from Generate Attack Dice onward is identical for both.
 
 ---
 
