@@ -20,92 +20,81 @@ The defender resolves those Impacts using the Component Damage System (`16-damag
 
 # Design Philosophy
 
-Melee combat should be:
+Melee is not a different combat system — it is a different method of delivering an Impact. Once physical contact is established, melee follows exactly the same combat flow as every other attack in the game.
 
-- Fast
-- Simultaneous
-- Physical
-- Easy to resolve
+```
+Weapon
+    │
+    ▼
+Physical Contact
+    │
+    ▼
+Generate Impact
+    │
+    ▼
+Standard Combat Resolution
+```
 
-No additional combat statistics are introduced.
-
-The existing combat system is reused whenever possible.
-
----
-
-# MEL-001 — Melee Range
-
-A melee attack may only be declared if the attacking weapon is in physical contact with the target.
-
-If the weapon cannot physically reach the target, the attack is not legal.
+Ranged and melee combat differ only in how an Impact is generated, never in how it is resolved. No melee-specific damage rules exist.
 
 ---
 
-# MEL-002 — Eligible Targets
+# MEL-001 — Physical Contact
 
-A melee attack may target:
+A melee attack may only be declared if the attacking weapon's functional striking end (MEL-013) is in physical contact with the target component.
 
-- Infantry
-- Vehicle crew (if exposed)
-- Vehicle components
-- Doors
-- Windows
-- Interactive scenery
-- Any other valid physical component
-
-The target must be reachable by the attacking weapon.
+If the weapon cannot physically reach the target, the attack is not legal. No measuring tools are required — physical contact is checked directly on the model.
 
 ---
 
-# MEL-003 — Attack Dice
+# MEL-002 — Component Targeting
 
-Melee weapons generate Attack Dice exactly as defined in `10-weapons.md`.
-
-Each functional muzzle or striking end generates:
-
-**1 Attack Die (D6)**
-
-For melee weapons, the striking end replaces the concept of a firing muzzle.
+A melee attack may target any visible, physically reachable component, exactly like a ranged attack (`16-damage-system.md`, DMG-012).
 
 Examples:
 
-- Knife → 1 die
-- Sword → 1 die
-- Double-ended staff → 2 dice (if built with two striking ends)
+- Minifig
+- Shield
+- Vehicle crew (if exposed)
+- Wheel
+- Track
+- Door
+- Window
+- Weapon
+- Interactive scenery
+- Any other valid physical component
+
+The target must be reachable by the attacking weapon's functional striking end (MEL-001, MEL-013).
 
 ---
 
-# MEL-004 — Simultaneous Combat
+# MEL-003 — One Weapon, One Impact
 
-Both combatants resolve their attacks simultaneously.
+Every independently wielded melee weapon generates exactly **1 Attack Die (D6)**, regardless of how many functional striking ends (MEL-013) it has built. A weapon never generates additional Attack Dice because it has multiple striking surfaces — only independently wielded weapons count.
 
-Procedure:
+If a weapon has more than one functional striking end, the attacker declares which one delivers the Impact for that attack; that striking end's size determines the Impact's Strength (`10-weapons.md`, WPN-021).
 
-1. Both players declare their attacks.
-2. Both roll Attack Dice.
-3. Count successful Impacts.
-4. Both defenders resolve Impacts.
-5. Apply all physical changes.
+Examples:
 
-Even if one combatant is eliminated, its attack is still resolved.
+```
+Knife           → 1 Attack Die
+Sword           → 1 Attack Die
+Sword + Dagger  → 2 Attack Dice (two independently wielded weapons)
+Two Swords      → 2 Attack Dice (two independently wielded weapons)
+Double-ended staff (one weapon, two striking ends) → 1 Attack Die — the attacker declares which end strikes
+```
 
 ---
 
-# MEL-005 — Successful Impacts
+# MEL-004 — Simultaneous Resolution
 
-Each result of:
+Melee follows the universal Simultaneous Resolution rule (`11-combat.md`, CBT-010): both combatants declare their attacks, both sets of Impacts are fully resolved before removing models, and a combatant eliminated during resolution still has its own already-declared attack resolved.
 
-**4, 5 or 6**
+---
 
-generates one Impact.
+# MEL-005 — Standard Combat Resolution
 
-Results of:
-
-1, 2 or 3
-
-have no effect.
-
-This follows the standard Combat Rules.
+Once a melee weapon generates its Attack Die (MEL-003), every step that follows is identical to a ranged Impact (`16-damage-system.md`, DMG-011 through DMG-017): Attack Roll, Select Target Component, Geometry Check, Damage Roll, Component State Change, and Penetration where applicable. No melee-specific resolution rules exist.
 
 ---
 
@@ -121,7 +110,7 @@ Impacts are then assigned and resolved normally.
 
 # MEL-007 — Weapons
 
-Only visible melee weapons may be used.
+Only visible, physically built melee weapons with a functional striking end (MEL-013) may be used — the same decorative-elements principle as ranged weapons (`10-weapons.md`, WPN-015).
 
 Examples:
 
@@ -132,58 +121,39 @@ Examples:
 - Hammer
 - Club
 
-Decorative elements have no gameplay effect.
+Decorative hilts, guards, and non-functional blades have no gameplay effect.
 
 ---
 
-# MEL-008 — Improvised Weapons
+# MEL-008 — Unarmed Combat
 
 If no dedicated melee weapon exists, a unit may attack using its bare hands.
 
-An unarmed attack generates:
-
-**1 Attack Die**
-
-This represents punches, kicks or physical force.
+An unarmed attack generates **1 Attack Die** with **Impact Strength 1**, representing punches, kicks, or physical force.
 
 ---
 
 # MEL-009 — Shields
 
-Shields are defensive equipment.
-
-They do not generate Attack Dice.
-
-Future Equipment Rules will define how shields help resolve incoming Impacts.
+Shields are defensive components. They never generate Attack Dice. Their interaction with combat is completely defined by the Component Damage System (`16-damage-system.md`); no melee-specific shield rules exist.
 
 ---
 
 # MEL-010 — Component Attacks
 
-Melee attacks may target exposed vehicle components.
-
-Examples:
-
-- Door
-- Wheel
-- Track
-- Weapon
-- Pilot
-
-The target component resolves Impacts using the Component Damage System (`16-damage-system.md`).
+Vehicle component targeting in melee follows the same Component Targeting rule as any other melee attack (MEL-002) and resolves via the standard Component Damage System (`16-damage-system.md`, DMG-012).
 
 ---
 
 # MEL-011 — Physical Representation
 
-Combat results should be represented on the LEGO model whenever possible.
+Combat results should be represented on the LEGO model whenever possible, per the universal physical-representation principle (`02-core-rules.md`, CORE-016; `16-damage-system.md`, DMG-006).
 
 Examples:
 
 - Wounded minifigure sits.
-- Dead minifigure lies down.
-- Broken door opens or is removed.
-- Destroyed weapon is detached.
+- Dead minifigure lies down or is removed.
+- Destroyed components (weapons, shields, doors) are removed.
 
 No additional markers are required.
 
@@ -197,22 +167,39 @@ Unless explicitly stated otherwise, melee combat follows all rules defined in:
 - 10-weapons.md
 - 16-damage-system.md
 
-This document only defines the differences specific to hand-to-hand combat.
+This document only defines the differences specific to hand-to-hand combat: how contact is established, how many Attack Dice a melee weapon generates, and legal melee targets. Resolution itself has no melee-specific variant.
+
+---
+
+# MEL-013 — Functional Striking End
+
+A functional striking end is the physical point of contact through which a melee weapon delivers an Impact. It replaces the concept of a firing muzzle for melee weapons (`10-weapons.md`, WPN-001, WPN-002).
+
+A functional striking end is built as an N×N footprint slot, sized 1×1 through 4×4 — the same size categories as a muzzle. Unlike a muzzle (WPN-002), a striking end is **not** required to be built from round pieces: bladed, pointed, and other melee-appropriate shapes are all valid.
+
+A striking end's size determines the Impact Strength it generates, exactly like a muzzle (`10-weapons.md`, WPN-021).
+
+---
+
+# MEL-014 — Weapon Reach
+
+The physical length of the LEGO weapon (Weapon Length, `10-weapons.md` WPN-003) determines its effective reach in melee — a longer weapon naturally reaches farther because of its construction.
+
+Examples: a Spear reaches farther than a Sword; a Sword reaches farther than a Knife.
+
+No written reach value or additional range statistic is required — reach is checked directly against the model (MEL-001).
 
 ---
 
 # Summary
 
-Melee combat follows the same philosophy as ranged combat.
+Melee combat is a special case of the standard combat system, not an independent one. Ranged and melee differ only in how an Impact is generated:
 
-The only differences are:
+- Physical contact, not Line of Sight and Range, gates the attack (MEL-001, MEL-014).
+- Each independently wielded weapon generates exactly one Attack Die, regardless of striking-end count (MEL-003); a striking end's size still determines Impact Strength (MEL-013, WPN-021).
+- Both combatants resolve simultaneously (MEL-004, CBT-010).
 
-- Physical contact is required.
-- Both sides resolve attacks simultaneously.
-- Melee weapons replace ranged weapons.
-- The defender always resolves Impacts.
-
-No separate damage system exists.
+Every Impact — ranged or melee — then resolves through the exact same sequence: Attack Roll, Select Target Component, Geometry Check, Damage Roll, Component State Change, Penetration (MEL-005). No separate damage system exists.
 
 ---
 

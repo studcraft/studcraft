@@ -43,7 +43,7 @@ Every ranged weapon must include:
 - At least one functional muzzle.
 - A physical mounting point.
 
-Melee weapons replace the functional muzzle with a functional striking end, as defined in `12-melee.md`.
+Melee weapons replace the functional muzzle with a functional striking end, as defined in `12-melee.md` (MEL-013).
 
 Weapons that do not satisfy these conditions are decorative.
 
@@ -62,7 +62,7 @@ Square or rectangular pieces (e.g. 1×1 square plate, 1×2, 2×1, 1×3, 2×4) ar
 
 Each functional muzzle represents one firing barrel. Muzzle size determines Impact Strength (WPN-021).
 
-Melee weapons use a functional striking end instead of a muzzle. See `12-melee.md` (MEL-003).
+Melee weapons use a functional striking end instead of a muzzle. See `12-melee.md` (MEL-013).
 
 ---
 
@@ -459,16 +459,16 @@ Every valid partition produces a different weapon. No weapon profile is required
 
 # WPN-021 — Impact Strength
 
-Impact Strength equals the size of the muzzle that generated the attack.
+Impact Strength equals the size of the muzzle — or, for melee weapons, the functional striking end (`12-melee.md`, MEL-013) — that generated the attack.
 
-| Muzzle | Impact Strength |
+| Size | Impact Strength |
 |--------|-----------------:|
 | 1×1 | 1 |
 | 2×2 | 2 |
 | 3×3 | 3 |
 | 4×4 | 4 |
 
-A weapon with muzzles of different sizes produces Attack Dice with different Impact Strengths — each die's Impact Strength depends only on the muzzle that rolled it.
+A weapon with multiple muzzles or striking ends of different sizes produces Attack Dice with different Impact Strengths — each die's Impact Strength depends only on the muzzle or striking end that rolled it.
 
 ---
 
