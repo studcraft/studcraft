@@ -82,7 +82,7 @@ They may attack and be attacked.
 
 ## Closed Transport
 
-Passengers are protected until exposed.
+Passengers cannot be targeted directly; they are internal components the hull protects, reachable only if an Impact penetrates the hull with remaining strength (`09-transport.md`, TRN-010; `16-damage-system.md`, DMG-007, DMG-017).
 
 ---
 
@@ -116,7 +116,7 @@ The maximum distance a ranged weapon may attack, equal to Weapon Length × 2. Se
 
 ## Weapon Reach
 
-The melee equivalent of Weapon Range: a melee weapon's effective reach, determined directly by its Weapon Length. See `12-melee.md` (MEL-014).
+Not a value looked up separately — a description of why a melee weapon's Physical Contact check (MEL-001) comes out the way it does. A longer Weapon Length is why a longer weapon reaches farther; there is no reach number to consult. See `12-melee.md` (MEL-014).
 
 ---
 

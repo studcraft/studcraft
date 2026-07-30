@@ -83,6 +83,8 @@ Every document should include:
 - Rule Definitions
 - Summary
 
+Every document closes with one of StudCraft's two co-equal mottos: `> **Every Brick Matters.**` for construction/gameplay documents, or `> **The Model Is The Rules.**` for the two documents specifically about the model-defines-values mechanism (`15-geometry-layers.md`, `16-damage-system.md`). This split is deliberate, not an inconsistency to fix.
+
 ---
 
 # Adding a New Ruleset Document

@@ -83,13 +83,13 @@ Every component in the game follows exactly the same three states. There are no 
 
 # DMG-003 — Geometry Defines Resistance
 
-Resistance is never assigned as a statistic. It is read directly from the model.
+Resistance is never assigned as a statistic. For a component the player actually builds — a wall, a shield, a hull, a door — it is read directly from the model.
 
-The resistance of a component is the **smallest structural section that an impact must cross in its direction of travel**.
+The resistance of a constructed component is the **smallest structural section that an impact must cross in its direction of travel**, measured in plate layers (the finest LEGO unit of height) — a standard brick is 3 plates tall, so a wall built from bricks is measured as 3 plate layers per brick, not 1.
 
-In practice, this corresponds to the smallest dimension of the component measured in plate layers (the finest LEGO unit of height) — a standard brick is 3 plates tall, so a wall built from bricks is measured as 3 plate layers per brick, not 1.
+A fixed piece that offers no construction choice — most notably a minifig — is not "built" in this sense, and is not measured the same way: it uses a fixed baseline Resistance instead of a literal plate-layer count (DMG-004, Example 1). This is not a material-specific exception (DMG-008 still holds — organic vs. plastic never changes the mechanism); it is the difference between a component whose thickness is a design choice and one whose form the piece itself already fixes.
 
-The important concept is not the external volume. It is the amount of structure the projectile must physically penetrate.
+For constructed components, the important concept is not the external volume. It is the amount of structure the projectile must physically penetrate.
 
 ---
 
@@ -99,11 +99,11 @@ Resistance belongs to the construction itself. Changing the way a component is b
 
 ## Example 1 — Minifig
 
-A minifig torso built 1 plate thick. A frontal impact crosses `1 plate layer`. Therefore `Resistance = 1`.
+A minifig is a fixed piece, not a construction choice: it uses a set baseline, `Resistance = 1`, regardless of its real molded thickness. This is the one Resistance value not derived from measuring plate layers (see DMG-003).
 
 ## Example 2 — Mounted Cannon
 
-A component wall built 2 plates thick. The projectile enters through the front. The smallest structural section crossed is `2 plate layers`. Therefore `Resistance = 2`.
+A cannon housing built with a 2-plate-thick front wall. The projectile enters through the front. The smallest structural section crossed is `2 plate layers`. Therefore `Resistance = 2`.
 
 ## Example 3 — Shield built with Bricks
 
@@ -163,7 +163,7 @@ This naturally creates layered protection without requiring additional rules.
 
 Every component follows exactly the same mechanical rules regardless of what it represents — glass, metal, wood, infantry, or anything else. Resistance (DMG-003/004), the Geometry Check (DMG-014), the Damage Roll (DMG-015), and the Component State machine (DMG-005) apply identically to every component. StudCraft does not define material-specific hit thresholds, Resistance modifiers, or damage tables of any kind.
 
-A typical minifig (Resistance 1, per DMG-004 Example 1) takes exactly two failed Damage Rolls to go from Operational to Dead — the same as a wheel, a shield, or a cannon built with the same Resistance. Nothing about *what* a component represents changes how it resolves an Impact — only *how it's built* does.
+A typical minifig (Resistance 1, per DMG-004 Example 1) takes exactly two failed Damage Rolls to go from Operational to Dead — the same as a wheel, a shield, or a cannon built with the same Resistance. Nothing about *what* a component represents changes how it resolves an Impact — only its Resistance does, whether that Resistance comes from construction or, for a fixed piece like a minifig, its set baseline (DMG-003).
 
 Physical/cosmetic representation of a component reaching Dead (how a broken window should look versus a destroyed wheel) is left entirely to the player and the table, per `02-core-rules.md` (CORE-016) and `04-construction-standard.md` (SCS-024) — this document does not prescribe it. Future supplements may add cosmetic guidance for specific constructions without changing any mechanic defined here.
 
@@ -252,7 +252,7 @@ If `Strength ≥ Resistance`: the impact is capable of damaging the component. C
 
 The defender rolls one D6 for that impact. A result of 4, 5, or 6 succeeds: nothing happens, the component remains unchanged. A result of 1, 2, or 3 fails: the component advances exactly one state (`Operational → Wounded` or `Wounded → Dead`).
 
-This die does not represent armor — the Geometry Check already proved the impact could cause damage. It represents the uncertainty of combat: a fortunate deflection, an imperfect impact, a glancing hit, mechanical failure, luck.
+This die does not represent armour — the Geometry Check already proved the impact could cause damage. It represents the uncertainty of combat: a fortunate deflection, an imperfect impact, a glancing hit, mechanical failure, luck.
 
 ---
 
@@ -298,7 +298,9 @@ Weapon articulation is read directly from the LEGO model.
 
 # DMG-019 — Repairs
 
-A unit may spend **1 Action Point** to repair a Wounded component, restoring it to Operational (`Wounded → Operational`) — its own component, or another unit's if physically adjacent to it. For infantry, this is the same action `02-core-rules.md` CORE-006 lists as "Stand up."
+A unit may spend **1 Action Point**, once per activation, to repair its own Wounded component, restoring it to Operational (`Wounded → Operational`) — for infantry, this is the same action `02-core-rules.md` CORE-006 lists as "Stand up."
+
+Repairing a *different* unit's Wounded component additionally requires visible repair equipment (`02-core-rules.md`, CORE-014 — a tool, medical pack, or similar) on the repairing unit, and physical adjacency to the target.
 
 Dead components cannot be repaired — they have already been removed from the model. Future construction rules will define rebuilding.
 

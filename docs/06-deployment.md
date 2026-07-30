@@ -20,7 +20,7 @@ The battlefield determines the size of the game.
 
 StudCraft measures army size using physical volume instead of abstract points.
 
-Every vehicle, infantry model and structure occupies space.
+Every vehicle and infantry model occupies space; a scenario-placed structure's Deployment Area occupation is not yet defined (`02-core-rules.md`, CORE-005).
 
 That occupied space becomes the cost of including the model.
 
@@ -93,7 +93,7 @@ This area is unavailable for any other model.
 
 # DEP-004 — Infantry
 
-Each infantry model occupies 1 Unit Base (`02-core-rules.md`, CORE-003), whether deployed individually or already embarked inside a transport vehicle.
+Each infantry model occupies 1 Unit Base (`02-core-rules.md`, CORE-003). Deployed individually, this UB counts against the Deployment Area; already embarked inside a transport, it counts only against the transport's own interior UB (DEP-006) — not as additional Deployment Area.
 
 ---
 

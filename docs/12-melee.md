@@ -74,14 +74,16 @@ Every independently wielded melee weapon generates exactly **1 Attack Die (D6)**
 
 If a weapon has more than one functional striking end, the attacker declares which one delivers the Impact for that attack; that striking end's size determines the Impact's Strength (`10-weapons.md`, WPN-021).
 
+Each independently wielded weapon is its own weapon system (`10-weapons.md`, WPN-008) and costs its own **1 Action Point** to attack with (`11-combat.md`, CBT-001) — wielding two weapons and attacking with both is two attacks, not one attack producing two dice.
+
 Examples:
 
 ```
-Knife           → 1 Attack Die
-Sword           → 1 Attack Die
-Sword + Dagger  → 2 Attack Dice (two independently wielded weapons)
-Two Swords      → 2 Attack Dice (two independently wielded weapons)
-Double-ended staff (one weapon, two striking ends) → 1 Attack Die — the attacker declares which end strikes
+Knife                 → 1 weapon system → 1 Attack Die  → 1 AP
+Sword                 → 1 weapon system → 1 Attack Die  → 1 AP
+Sword + Dagger        → 2 weapon systems → 2 Attack Dice → 2 AP (attacking with both)
+Two Swords            → 2 weapon systems → 2 Attack Dice → 2 AP (attacking with both)
+Double-ended staff    → 1 weapon system → 1 Attack Die  → 1 AP — the attacker declares which end strikes
 ```
 
 ---
@@ -127,7 +129,7 @@ Decorative hilts, guards, and non-functional blades have no gameplay effect.
 
 # MEL-008 — Unarmed Combat
 
-If no dedicated melee weapon exists, a unit may attack using its bare hands.
+If no dedicated melee weapon exists, a unit may attack using its bare hands — its own weapon system for AP-cost purposes (`11-combat.md`, CBT-001: 1 AP).
 
 An unarmed attack generates **1 Attack Die** with **Impact Strength 1**, representing punches, kicks, or physical force.
 

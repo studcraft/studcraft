@@ -70,6 +70,8 @@ Standard infantry movement:
 
 **12 studs forward**
 
+12 is a multiple of both 3 and 4 — the Unit Base's depth and width (`02-core-rules.md`, CORE-001) — keeping forward movement aligned with the grid the same way side movement is (MOVE-005).
+
 This value represents a normal movement action, costing **1 Action Point** (`02-core-rules.md`, CORE-006).
 
 Future scenarios may allow sprinting or other special movement.
@@ -239,7 +241,9 @@ Keep only the **lowest result**.
 
 The greater the fall, the greater the chance of suffering damage.
 
-The kept die is treated as a Damage Roll (`16-damage-system.md`, DMG-015): a result of 4, 5, or 6 means no damage. A result of 1, 2, or 3 means the faller's Component State advances one step (`Operational → Wounded`, or `Wounded → Dead`).
+The kept die is treated as a Damage Roll (`16-damage-system.md`, DMG-015): a result of 4, 5, or 6 means no damage. A result of 1, 2, or 3 means the faller's Component State advances one step (`Operational → Wounded`, or `Wounded → Dead`). This is a declared exception to the normal sequence: falling has no Impact Strength and no attacker, so there is no Geometry Check (DMG-014) to pass first — the Damage Roll applies directly, and Resistance plays no part in falling damage.
+
+This rule covers infantry only; vehicle falling is not yet defined (`07-movement.md`, Vehicle Movement).
 
 Example:
 

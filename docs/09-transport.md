@@ -106,7 +106,7 @@ These elements occupy space and influence transport capacity.
 
 Embarking costs **1 Action Point per Unit Base** the embarking unit occupies — an infantry model (1 UB) costs 1 AP; a motorcycle (2 UB) costs 2 AP, matching Disembarking (TRN-006).
 
-The AP is spent from the embarking unit's own pool, during its own activation (`03-game-flow.md`, FLOW-004) — embarking is a complete activation for that unit, exactly like any other action. It does not receive a separate activation later just because it ended up inside a transport.
+The AP is spent from the embarking unit's own pool, during its own activation (`03-game-flow.md`, FLOW-004) — the same 3 AP it can also spend moving, attacking, or otherwise acting that same activation (`FLOW-007`). It does not receive a separate activation later just because it ended up inside a transport.
 
 Requirements:
 
@@ -326,7 +326,7 @@ Transport in StudCraft follows these principles:
 1. Everything occupies Unit Bases.
 2. Infantry always occupies exactly 1 UB.
 3. Transport capacity equals the number of available Unit Bases.
-4. Embarking costs 1 AP.
+4. Embarking costs 1 AP per occupied Unit Base.
 5. Disembarking costs 1 AP per occupied Unit Base.
 6. Open transports expose passengers.
 7. Closed transports protect passengers.

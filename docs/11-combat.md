@@ -109,6 +109,8 @@ independent weapon systems may attack different targets.
 
 Individual attack dice from the same weapon system cannot be split between multiple targets, unless the weapon mount can physically rotate to re-aim independently of the platform carrying it (e.g. a turntable, ball joint, or swivel mount). See `16-damage-system.md` (DMG-018, Weapon Distribution) for the full rule. Fixed mounts follow the no-split rule above with no exception.
 
+When a weapon system's dice are split across multiple targets, all targets are declared before any die is rolled, and Line of Sight (CBT-002) and Weapon Range (CBT-003) are each verified individually against every declared target — a die assigned to a target that fails either check simply has no target and is not rolled. The whole attack still costs the single, per-weapon-system Action Point defined in CBT-001, regardless of how many targets its dice are split across.
+
 ---
 
 # CBT-008 — Defender Resolution
@@ -129,7 +131,7 @@ This rule governs resolution order, not entitlement to attack: it does not by it
 
 When two attacks are declared to resolve together, both are fully resolved before removing models, and being eliminated during resolution does not cancel an attack already declared.
 
-Example
+Hypothetical example (no current rule produces this — illustrates the mechanism for whatever future rule might)
 
 Two infantry models with mutually declared attacks against each other.
 
@@ -147,9 +149,7 @@ Impact Strength (`10-weapons.md` WPN-021) is a geometrically-derived property �
 
 # CBT-012 — Cover
 
-Cover never changes weapon performance.
-
-Cover affects only how the target resolves incoming impacts — the exact rules are defined in `02-core-rules.md` (CORE-010).
+Cover never changes weapon performance, and never changes how an Impact resolves once an attack is declared. It only gates whether a component can be selected as a target in the first place (`02-core-rules.md`, CORE-010; `16-damage-system.md`, DMG-012) — hidden means untargetable, nothing more.
 
 ---
 
