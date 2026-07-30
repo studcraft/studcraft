@@ -11,6 +11,7 @@
 ## Finding 2: Clarify FLOW-003 (Priority)
 
 - [x] 2.1 `docs/03-game-flow.md` FLOW-003: reword the Priority player's choice from "Activate the first/second unit this Turn" to an explicit "activate one of their own units now" vs. "cede Priority, letting the other player activate first," and add a sentence stating this is a single choice made once per Turn, with FLOW-002's strict alternation governing the rest.
+- [x] 2.2 `docs/03-game-flow.md`'s "Turn Sequence" diagram (not a numbered FLOW- rule, the ASCII flow chart near the end of the document) independently restated the old "Activate First / Activate Second" bullets — missed in the original 2.1 pass, caught afterward and updated to match ("Activate own unit now (continue)" / "Cede Priority (opponent activates first)").
 
 ## Housekeeping (applies once the review is finished, not per-finding)
 

@@ -252,9 +252,9 @@ Determine Priority
 ↓
 
 Priority player chooses:
-• Activate First
+• Activate own unit now (continue)
 or
-• Activate Second
+• Cede Priority (opponent activates first)
 
 ↓
 
