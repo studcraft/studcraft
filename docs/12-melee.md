@@ -55,7 +55,7 @@ Examples:
 
 - Minifig
 - Shield
-- Vehicle crew (if exposed)
+- Vehicle crew
 - Wheel
 - Track
 - Door
@@ -139,9 +139,9 @@ Shields are defensive components. They never generate Attack Dice. Their interac
 
 ---
 
-# MEL-010 — Component Attacks
+# MEL-010 — Merged into Component Targeting
 
-Vehicle component targeting in melee follows the same Component Targeting rule as any other melee attack (MEL-002) and resolves via the standard Component Damage System (`16-damage-system.md`, DMG-012).
+Vehicle component targeting adds no rule beyond MEL-002 (Component Targeting) — a vehicle component is targeted exactly like any other component: visible and physically reachable. This ID is retained, rather than deleted, per this repo's rule-ID-stability convention; see MEL-002 for the actual rule.
 
 ---
 
@@ -167,7 +167,7 @@ Unless explicitly stated otherwise, melee combat follows all rules defined in:
 - 10-weapons.md
 - 16-damage-system.md
 
-This document only defines the differences specific to hand-to-hand combat: how contact is established, how many Attack Dice a melee weapon generates, and legal melee targets. Resolution itself has no melee-specific variant.
+This document only defines how melee weapons generate Attack Dice. Everything after that belongs to the standard combat system.
 
 ---
 
@@ -177,15 +177,13 @@ A functional striking end is the physical point of contact through which a melee
 
 A functional striking end is built as an N×N footprint slot, sized 1×1 through 4×4 — the same size categories as a muzzle. Unlike a muzzle (WPN-002), a striking end is **not** required to be built from round pieces: bladed, pointed, and other melee-appropriate shapes are all valid.
 
-A striking end's size determines the Impact Strength it generates, exactly like a muzzle (`10-weapons.md`, WPN-021).
+A striking end's size determines the Impact Strength it generates, exactly like a muzzle (`10-weapons.md`, WPN-021) — both represent the physical contact surface through which a weapon transfers energy into the target; a muzzle and a functional striking end are the same concept, expressed through two different delivery methods.
 
 ---
 
 # MEL-014 — Weapon Reach
 
-The physical length of the LEGO weapon (Weapon Length, `10-weapons.md` WPN-003) determines its effective reach in melee — a longer weapon naturally reaches farther because of its construction.
-
-Examples: a Spear reaches farther than a Sword; a Sword reaches farther than a Knife.
+Weapon reach in melee is determined entirely by the physical geometry of the LEGO model — specifically, its Weapon Length (`10-weapons.md`, WPN-003).
 
 No written reach value or additional range statistic is required — reach is checked directly against the model (MEL-001).
 
