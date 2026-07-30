@@ -48,11 +48,7 @@ The 4-stud edge defines the front of the unit.
 
 # SCS-003 — Vehicle Footprint
 
-Vehicles are measured using Unit Bases — see `08-vehicles.md` (VEH-001) for the canonical footprint examples.
-
-There is no maximum vehicle size.
-
-The agreed Deployment Area naturally limits model size.
+Vehicles are measured using Unit Bases — see `08-vehicles.md` (VEH-001) for the canonical footprint examples and the size ceiling (none — the agreed Deployment Area naturally limits model size).
 
 ---
 

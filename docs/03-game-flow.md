@@ -65,7 +65,7 @@ The player with Priority chooses one of the following:
 - Activate one of their own units now, keeping the activation.
 - Cede Priority, letting the other player activate first instead.
 
-This is a single choice made once, at the start of the Turn. Whichever player activates first, both players then strictly alternate activating one unit at a time (per FLOW-002) for the remainder of the Turn.
+This is a single choice made once, at the start of the Turn. Whichever player activates first, both players then alternate activating one unit at a time (per FLOW-002) for the remainder of the Turn, until one player has no unactivated units left — at which point the other continues activating consecutively (FLOW-002).
 
 Priority is determined again at the beginning of every Turn.
 

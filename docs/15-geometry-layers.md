@@ -45,6 +45,7 @@ Examples include:
 - Muzzle sizes
 - Transport volume
 - Movement geometry
+- Component structural thickness (Resistance, `16-damage-system.md` DMG-003) — for constructed components only; a fixed piece like a minifig uses a set baseline instead (DMG-003, DMG-004)
 
 Derived values (Weapon Front Footprint, Range, Attack Dice, Impact Strength, Weapon Capacity, and similar) are not listed separately — they are always computed from the entries above, per `10-weapons.md`.
 
@@ -71,13 +72,15 @@ Examples include:
 - Colors
 - Cosmetic plates
 
+A plate or panel only counts as Visual Geometry if it is not part of the structural cross-section an Impact must cross (`16-damage-system.md`, DMG-003) — decorative armour bolted on top of, rather than forming part of, a component's structural wall does not add to its Resistance. A plate that *does* sit in that cross-section is Gameplay Geometry, however decorative it looks, the same way a decorative-looking muzzle is still a functional one if it meets WPN-002.
+
 Its purpose is purely aesthetic. Players are free to build with any artistic style.
 
 ---
 
 # GEO-003 — Gameplay Geometry Determines Measured Values
 
-Only Gameplay Geometry is used when computing a measured rule value: Range, Attack Dice, Impact Strength, Weapon Capacity, Transport Capacity, and Movement distance.
+Only Gameplay Geometry is used when computing a measured rule value: Range, Attack Dice, Impact Strength, Resistance, Weapon Capacity, Transport Capacity, and Movement distance.
 
 Visual Geometry never contributes to any of these values.
 
@@ -90,11 +93,11 @@ Example: a weapon with a decorative antenna, exhaust, or greebling attached — 
 Some existing rules are not measured values — they are direct physical checks against the whole model as it sits on the table:
 
 - Line of Sight (`02-core-rules.md`, CORE-008, CORE-009): visibility is whatever can physically be seen from the attacker's point of view.
-- Cover (`02-core-rules.md`, CORE-010): determined by the physical amount of the model that is hidden.
+- Cover (`02-core-rules.md`, CORE-010): binary — a component completely hidden cannot be selected as a target; a partially visible component has no separate cover level.
 
-These checks are not exceptions to "The Model Is The Rules" — they are the model's rules. Visual Geometry is real plastic on the table, so it physically blocks sight lines and provides cover exactly like Gameplay Geometry does. It is only ignored when computing a measured value (GEO-003); it is never ignored when a rule asks what can physically be seen or hidden right now.
+These checks are not exceptions to "The Model Is The Rules" — they are the model's rules. Visual Geometry is real plastic on the table, so it physically blocks sight lines exactly like Gameplay Geometry does. It is only ignored when computing a measured value (GEO-003); it is never ignored when a rule asks what can physically be seen right now.
 
-Players should keep this in mind when adding detail: a large decorative element can legitimately grant extra cover or block a shot, simply because it is physically there.
+Players should keep this in mind when adding detail: a large decorative element can legitimately block a shot entirely, or complete the concealment that makes a component untargetable, simply because it is physically there. It does not grant a "cover bonus" — cover has none to grant (CORE-010).
 
 ---
 

@@ -181,12 +181,7 @@ Walkers ignore wheel steering restrictions.
 
 # VEH-011 — Hover Vehicles
 
-Hover vehicles behave similarly to wheeled vehicles.
-
-They may, each costing **1 Action Point**:
-
-- Move forward and backward.
-- Turn 90° left or right.
+Hover vehicles behave similarly to wheeled vehicles: they move forward and backward at the standard cost (VEH-004), and may turn 90° left or right, each costing **1 Action Point**.
 
 They pivot around the center of the model instead of the rear.
 

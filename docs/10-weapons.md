@@ -60,6 +60,8 @@ A functional muzzle is a round construction area on the Weapon Front — a round
 
 This list is illustrative, not a ceiling — a muzzle may be any size the Weapon Front Footprint (WPN-019) can physically hold. Larger muzzles (5×5 and beyond) are valid on a large enough Weapon Front, at the cost of a longer Weapon Body (WPN-018) and a bigger platform to carry it (WPN-004).
 
+Round LEGO plates and tiles are not manufactured in every size — 1×1, 2×2, 4×4, 6×6, and 8×8 are common; 3×3, 5×5, and other odd sizes are not standard single pieces. A muzzle at one of these sizes is still valid: build the footprint slot from the closest available round element, or assemble it from more than one round piece, as long as the result reads clearly as a round muzzle occupying that N×N slot.
+
 Square or rectangular pieces (e.g. 1×1 square plate, 1×2, 2×1, 1×3, 2×4) are not valid — only round pieces represent a muzzle. The area a muzzle occupies on the Weapon Front Footprint is still measured as an N×N grid slot (per WPN-019/WPN-020), the same way a round LEGO plate or tile occupies a square footprint of studs even though the visible piece is round.
 
 Each functional muzzle represents one firing barrel. Muzzle size determines Impact Strength (WPN-021).

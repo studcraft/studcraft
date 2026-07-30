@@ -110,14 +110,14 @@ Learn how legal models are built.
 
 ---
 
-## Part III — Movement
+## Part III — Deployment & Movement
 
 7. `06-deployment.md`
 8. `07-movement.md`
 9. `08-vehicles.md`
 10. `09-transport.md`
 
-Learn how units move across the battlefield.
+Learn how armies are deployed and how units move across the battlefield.
 
 ---
 
