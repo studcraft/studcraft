@@ -184,12 +184,13 @@ The LEGO model defines capability. The dice introduce uncertainty.
 
 # DMG-009 — Combat Resolution Overview
 
-Every combat action follows the same sequence.
+Every combat action follows the same sequence, whether ranged or melee (`12-melee.md`).
 
 ```
-Weapon → Generate Impacts → Attack Roll → Select Component →
-Geometry Check → Damage Roll → Component State Change →
-Remaining Strength continues if applicable
+Weapon → Delivery Method → Generate Attack Dice → Attack Roll →
+Successful Impacts → Select Target Component → Geometry Check →
+Damage Roll → Component State Change → Penetration →
+Physical Model Changes
 ```
 
 Every impact is resolved independently.

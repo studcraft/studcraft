@@ -290,7 +290,6 @@ The final effect depends on:
 
 - Target
 - Armour
-- Materials
 - Cover
 - Combat Rules
 

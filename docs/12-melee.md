@@ -29,7 +29,7 @@ Weapon
 Physical Contact
     │
     ▼
-Generate Impact
+Generate Attack Dice
     │
     ▼
 Standard Combat Resolution

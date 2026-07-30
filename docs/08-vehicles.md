@@ -226,11 +226,7 @@ If the vehicle has no Pilot — none embarked, or the Pilot is Dead — the vehi
 
 # VEH-014 — Weapon Systems
 
-Each visible weapon is treated as an independent weapon system.
-
-Vehicle weapons follow the Weapon Rules.
-
-Each weapon resolves attacks independently.
+Vehicle-mounted weapons follow the universal Weapon System rule (`10-weapons.md`, WPN-008; `11-combat.md`, CBT-006) — each visible weapon is its own independent weapon system, resolving attacks independently.
 
 ---
 

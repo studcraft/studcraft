@@ -119,7 +119,7 @@ Weapons never inflict damage directly.
 
 Weapons generate **Impacts**.
 
-The target resolves those Impacts according to its materials and components.
+The target resolves those Impacts according to its components' construction.
 
 This separation creates a flexible and modular combat system.
 
@@ -205,7 +205,7 @@ Examples:
 
 - Weapons generate Impacts.
 - Combat resolves attacks.
-- Materials resolve Impacts.
+- The Component Damage System resolves Impacts.
 - Vehicles define movement.
 - Transport defines capacity.
 
@@ -278,7 +278,7 @@ Whenever possible:
 - Reuse existing Action Points.
 - Reuse Unit Bases.
 - Reuse the Impact system.
-- Reuse Material Responses.
+- Reuse the Component Damage System.
 
 Avoid introducing parallel systems that duplicate existing mechanics.
 

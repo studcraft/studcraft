@@ -27,10 +27,13 @@ cross-checking against sibling documents:
 
 **Before applying a proposal, read every existing document its subject matter
 touches, not just the ones the proposal itself cites.** If the proposal is
-about weapons, also read combat and materials. If it's about damage, also
-read combat, materials, and vehicles. The contradiction is almost never in
-the document the proposal is about — it's in the neighboring one nobody
-thought to open.
+about weapons, also read combat and melee. If it's about damage, also read
+combat, melee, and vehicles. The contradiction is almost never in the
+document the proposal is about — it's in the neighboring one nobody thought
+to open. This isn't limited to the "obvious" neighbors either: `VEH-014`
+independently restated `WPN-008`/`CBT-006`'s "Weapon System" concept for
+years before a repo-wide grep (not a weapons/combat-scoped one) caught it —
+scope the search to every document, not just the ones that seem related.
 
 ---
 
