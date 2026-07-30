@@ -47,15 +47,7 @@ Every attack follows the same procedure.
 
 # CBT-002 — Line of Sight
 
-A target must be physically visible.
-
-Visibility is determined from the attacking weapon.
-
-If any legal target area is visible, the attack is allowed.
-
-Fundamental Rule:
-
-> If you can see it, you can shoot it.
+Combat uses the universal Physical Visibility rule (`02-core-rules.md`, CORE-008, CORE-009): a target must be physically visible, determined from the attacking weapon's point of view. If any legal target area is visible, the attack is allowed.
 
 ---
 

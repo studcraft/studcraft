@@ -47,6 +47,19 @@ Several rule pairs across the two documents defined the same fact twice instead 
 
 No mechanical change in any of these — same dice, same thresholds, same procedure, same targeting rules. Purely consolidating each fact into a single owning rule.
 
+**Finding 11 — Full re-audit: Finding 1 was never actually applied, plus four more cross-document duplications with no cross-reference.**
+A full pass over every `docs/*.md` file (not just the ones touched by prior findings) surfaced a serious gap and several more instances of this proposal's core recurring bug:
+
+- **Finding 1 was speced but never executed.** `design.md` and `proposal.md` already described renaming the universal Component State from `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead`, and the `component-damage` spec delta already used the new names — but the actual edits to `docs/16-damage-system.md` and `docs/14-glossary.md` were never made, and `docs/02-core-rules.md` CORE-011/012/013 were never reframed to cross-reference `DMG-005`. Meanwhile `docs/08-vehicles.md`, `docs/13-materials.md`, and `docs/07-movement.md` already used the new names (from Findings 5/6/9's edits) — so the ruleset had a live, three-way terminology contradiction: the same universal mechanism named two different ways depending which document you read. Fixed by completing the originally-planned rename in `16-damage-system.md` (DMG-002, DMG-005, DMG-015, DMG-019, all 4 Combat Examples) and `14-glossary.md` (Component State entry), and reframing `CORE-011`/`012`/`013` as the infantry-specific elaboration of `DMG-005` they were always meant to be — including dropping `CORE-012`'s stale "Future combat rules determine the gameplay effects," since those effects are now fully defined.
+- **`14-glossary.md`'s "Muzzle" entry still described muzzles as square** — Finding 9 updated `WPN-002`/`WPN-020` to require round muzzles but missed the glossary. Fixed.
+- **Facing was independently defined three times**: `CORE-002` (Facing), `SCS-004` (Facing), and `VEH-002` (Vehicle Facing) each listed what facing determines, with no cross-reference between them. `SCS-004` and `VEH-002` now cross-reference `CORE-002` instead of restating it.
+- **"If you can see it, you can shoot it" was independently stated three times**: `CORE-008`/`CORE-009` (the canonical Physical Visibility rule), `CBT-002` (Line of Sight), and `TRN-009` (Open Transport) each restated the same visibility rule and fundamental-rule quote. `CBT-002` and `TRN-009` now cross-reference `CORE-008`/`CORE-009` instead of repeating them.
+- **Cover was independently defined twice**: `CORE-010` (Physical Cover) and `MAT-016` (Cover) both said "cover is determined physically... no abstract cover templates" with no cross-reference. `MAT-016` now cross-references `CORE-010`, keeping only its own forward-looking Defence Dice note.
+- **Windows were independently defined in three places**: `SCS-018`'s sibling `SCS-009` (Windows) is the fullest definition (targeting + destruction), but `CMP-011` (Windows) and `TRN-012` (Transparent Elements) both restated "transparent LEGO elements represent windows... allow visibility" without pointing back to it. Both now cross-reference `SCS-009`.
+- **`TRN-008` (Opening and Closing) restated the 1 AP door/hatch cost** already owned by `CORE-007` (Physical Interaction), unlike its siblings `SCS-007`/`SCS-008`/`CMP-009`/`CMP-010`, which already cross-reference `CORE-007` correctly. Fixed to match.
+
+No mechanical change in any of these — same states, same thresholds, same facing rules, same visibility rule, same cover rule, same AP costs. Purely completing an unfinished rename and adding missing cross-references, following the exact "single owning rule, cross-referenced elsewhere" pattern already established throughout this proposal.
+
 - *(More findings will be appended here as the manual review continues.)*
 
 ## Capabilities

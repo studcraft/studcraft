@@ -208,6 +208,8 @@ No abstract cover templates exist.
 
 # Infantry States
 
+Infantry uses the universal Component State machine (`16-damage-system.md`, DMG-005) exactly like any other component — CORE-011/012/013 describe the infantry-specific physical representation of each state, not a separate state system.
+
 ## CORE-011 — Operational
 
 The minifigure stands upright.
@@ -218,21 +220,17 @@ The unit functions normally.
 
 ## CORE-012 — Wounded
 
-The minifigure is placed in a seated position.
+The minifigure is placed in a seated position, representing an injured soldier.
 
-This represents an injured soldier.
+The seated position is the game marker. No additional token is required.
 
-Future combat rules determine the gameplay effects.
-
-The seated position is the game marker.
-
-No additional token is required.
+Gameplay effects follow the standard combat resolution sequence (`11-combat.md`, CBT-008) — a second successful impact advances the minifigure to Dead, the same as any other component.
 
 ---
 
 ## CORE-013 — Dead
 
-The minifigure is laid on its side or replaced by a casualty marker.
+The minifigure is laid on its side or replaced by a casualty marker — the same physical removal every component undergoes on reaching Dead (`16-damage-system.md`, DMG-006).
 
 Dead units no longer participate in the game.
 

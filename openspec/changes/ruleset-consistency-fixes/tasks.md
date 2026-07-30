@@ -1,12 +1,12 @@
 ## Finding 1: Unify Infantry States with the Universal Component State Machine
 
-- [ ] 1.1 `docs/16-damage-system.md`: rename every `OK`/`TOUCHED`/`DESTROYED` occurrence to `Operational`/`Wounded`/`Dead` — DMG-002, DMG-005 (title stays "Component State Progression"), DMG-006 title/body ("Universal Destruction"), DMG-015 (Damage Roll), DMG-016 (Multiple Impacts example), DMG-017 (Penetration example doesn't use the tokens directly — confirm), DMG-019 (Repairs: `TOUCHED → OK` becomes `Wounded → Operational`), all four Combat Examples, and the Summary.
-- [ ] 1.2 `docs/13-materials.md` MAT-004: drop the `OK`/`TOUCHED`/`DESTROYED` primary naming (currently `Standing minifigure (OK)`, `Seated minifigure (TOUCHED, Wounded)`, `Minifigure removed or laid down (DESTROYED, Dead)`) — make `Operational`/`Wounded`/`Dead` the primary names directly, since they're now the universal terms rather than an alias.
-- [ ] 1.3 `docs/02-core-rules.md` CORE-011/012/013: keep the rule IDs and all infantry-specific physical detail (stands upright / seated / laid down or replaced by a casualty marker), but reframe each as the infantry-specific elaboration of the universal Component State (`16-damage-system.md`, DMG-005) instead of an independent definition — add the cross-reference, remove any wording that implies infantry has its own separate state system.
-- [ ] 1.4 `docs/14-glossary.md` "Component State" entry: update from `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead`.
-- [ ] 1.5 Grep the full `docs/` tree for any other `OK`/`TOUCHED`/`DESTROYED` occurrence missed above before considering this finding done.
-- [ ] 1.6 Run `python3 scripts/lint_ruleset.py` and confirm no structural issues.
-- [ ] 1.7 Confirm no measured rule value, formula, or mechanic changed — purely a renaming/consolidation (per design.md Goals).
+- [x] 1.1 `docs/16-damage-system.md`: rename every `OK`/`TOUCHED`/`DESTROYED` occurrence to `Operational`/`Wounded`/`Dead` — DMG-002, DMG-005 (title stays "Component State Progression"), DMG-006 title/body ("Universal Destruction"), DMG-015 (Damage Roll), DMG-016 (Multiple Impacts example), DMG-017 (Penetration example doesn't use the tokens directly — confirmed), DMG-019 (Repairs: `TOUCHED → OK` becomes `Wounded → Operational`), all four Combat Examples, and the Summary. **(Completed in Finding 11 — this task was written in Finding 1 but the edit was never actually made until the Finding 11 re-audit caught it.)**
+- [x] 1.2 `docs/13-materials.md` MAT-004: drop the `OK`/`TOUCHED`/`DESTROYED` primary naming (currently `Standing minifigure (OK)`, `Seated minifigure (TOUCHED, Wounded)`, `Minifigure removed or laid down (DESTROYED, Dead)`) — make `Operational`/`Wounded`/`Dead` the primary names directly, since they're now the universal terms rather than an alias. **(Completed in Finding 11.)**
+- [x] 1.3 `docs/02-core-rules.md` CORE-011/012/013: keep the rule IDs and all infantry-specific physical detail (stands upright / seated / laid down or replaced by a casualty marker), but reframe each as the infantry-specific elaboration of the universal Component State (`16-damage-system.md`, DMG-005) instead of an independent definition — add the cross-reference, remove any wording that implies infantry has its own separate state system. **(Completed in Finding 11.)**
+- [x] 1.4 `docs/14-glossary.md` "Component State" entry: update from `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead`. **(Completed in Finding 11.)**
+- [x] 1.5 Grep the full `docs/` tree for any other `OK`/`TOUCHED`/`DESTROYED` occurrence missed above before considering this finding done. **(Done in Finding 11 — found and fixed two more occurrences in MAT-004's wound-track diagram and DMG-008's prose.)**
+- [x] 1.6 Run `python3 scripts/lint_ruleset.py` and confirm no structural issues.
+- [x] 1.7 Confirm no measured rule value, formula, or mechanic changed — purely a renaming/consolidation (per design.md Goals).
 
 ## Finding 2: Clarify FLOW-003 (Priority)
 
@@ -65,6 +65,21 @@
 - [x] 10.4 `docs/10-weapons.md` WPN-008 and `docs/11-combat.md` CBT-006: keep the Tank/Main Cannon/Coaxial/Roof example only in WPN-008 (construction-side canonical definition); CBT-006 cross-references WPN-008 instead of repeating it. Both drop the duplicated targeting-consequence sentence, pointing to CBT-007 instead.
 - [x] 10.5 `docs/10-weapons.md` WPN-012 and `docs/11-combat.md` CBT-002: WPN-012 cross-references CBT-002 for the Line of Sight rule instead of restating it, keeping only the muzzle-specific detail (terrain/building/vehicle blocking, transparent materials) not already covered by CBT-002.
 - [x] 10.6 Run `python3 scripts/lint_ruleset.py` and confirm no structural issues.
+
+## Finding 11: Full Re-Audit — Complete Finding 1, Fix Four More Uncross-Referenced Duplications
+
+- [x] 11.1 Reread every file in `docs/` in full (not just files touched by prior findings) looking for repetitions, omissions, and contradictions.
+- [x] 11.2 Discover and fix that Finding 1's rename was never actually applied to `docs/16-damage-system.md` and `docs/14-glossary.md` despite being fully specified in `design.md`/`proposal.md` and already reflected in the `component-damage` spec delta.
+- [x] 11.3 `docs/02-core-rules.md` CORE-011/012/013: complete the reframing planned (but not executed) in Finding 1 — add the DMG-005 cross-reference, drop CORE-012's stale "Future combat rules determine the gameplay effects" line now that DMG-005/CBT-008 fully define it.
+- [x] 11.4 `docs/14-glossary.md` "Muzzle" entry: fix stale "square" muzzle description (Finding 9 updated WPN-002/WPN-020 but missed the glossary).
+- [x] 11.5 `docs/04-construction-standard.md` SCS-004 and `docs/08-vehicles.md` VEH-002: cross-reference `02-core-rules.md` CORE-002 (Facing) instead of independently restating what facing determines.
+- [x] 11.6 `docs/11-combat.md` CBT-002 and `docs/09-transport.md` TRN-009: cross-reference `02-core-rules.md` CORE-008/CORE-009 (Physical Visibility / "if you can see it you can shoot it") instead of restating them.
+- [x] 11.7 `docs/13-materials.md` MAT-016: cross-reference `02-core-rules.md` CORE-010 (Physical Cover) instead of restating "determined physically... no abstract templates."
+- [x] 11.8 `docs/09-transport.md` TRN-008: cross-reference `02-core-rules.md` CORE-007 for the 1 AP open/close cost, matching the pattern already used by SCS-007/SCS-008/CMP-009/CMP-010.
+- [x] 11.9 `docs/05-construction-components.md` CMP-011 and `docs/09-transport.md` TRN-012: cross-reference `04-construction-standard.md` SCS-009 (Windows) instead of independently restating "transparent LEGO elements represent windows... allow visibility."
+- [x] 11.10 Grep for any remaining `OK`/`TOUCHED`/`DESTROYED` tokens, any remaining independent "you can shoot it" / "obvious front... determines" / "cover is determined physically" restatements — confirm each fact now has exactly one owning rule.
+- [x] 11.11 Run `python3 scripts/lint_ruleset.py` and confirm no structural issues.
+- [x] 11.12 Run `openspec validate "ruleset-consistency-fixes" --strict` and confirm valid.
 
 ## Housekeeping (applies once the review is finished, not per-finding)
 

@@ -186,7 +186,7 @@ Lowering or raising a ramp costs **1 Action Point** (see `02-core-rules.md`, COR
 
 # CMP-011 — Windows
 
-Transparent LEGO elements represent windows.
+Transparent LEGO elements represent windows, per the Construction Standard (`04-construction-standard.md`, SCS-009).
 
 Windows:
 

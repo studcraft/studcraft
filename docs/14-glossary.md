@@ -120,7 +120,7 @@ The square construction area (Weapon Width × Weapon Width) on the Weapon Front 
 
 ## Muzzle
 
-A square functional construction area (1×1 through 4×4) on the Weapon Front Footprint, representing one firing barrel.
+A round functional construction area (1×1 through 4×4 footprint slot) on the Weapon Front Footprint, built from a round plate or round tile, representing one firing barrel. See `10-weapons.md` (WPN-002).
 
 Each functional muzzle grants one Attack Die. Muzzles may be placed directly adjacent to one another.
 
@@ -194,7 +194,7 @@ The smallest structural cross-section a component's construction requires an Imp
 
 ## Component State
 
-The three-state progression every component uses: `OK`, `TOUCHED`, `DESTROYED`. Universal — no component type has an exception. See `16-damage-system.md` (DMG-005).
+The three-state progression every component uses: `Operational`, `Wounded`, `Dead`. Universal — no component type has an exception. See `16-damage-system.md` (DMG-005).
 
 ---
 

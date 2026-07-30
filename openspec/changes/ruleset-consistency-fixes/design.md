@@ -78,6 +78,17 @@ Alternative considered: merge `10-weapons.md` and `11-combat.md` into a single d
 **`WPN-008` and `CBT-006` both dropped the targeting-consequence sentence they duplicated, pointing to `CBT-007` instead.**
 Both rules independently said "each weapon may choose its own target unless restricted by scenario" — that's `CBT-007`'s (Multiple Targets) job, not something either `WPN-008` or `CBT-006` needed to assert itself.
 
+### Finding 11: Full re-audit — Finding 1 was never applied, plus four more uncross-referenced duplications
+
+**Trust the actual file contents over the accumulated proposal narrative when they disagree.**
+This finding exists because a full reread of every `docs/*.md` file found that Finding 1's rename — already fully specified in this very design doc and already reflected in the `component-damage` spec delta — had never actually been applied to `16-damage-system.md`, `14-glossary.md`, or `02-core-rules.md`. The lesson: an accumulating proposal's own prose describing "what was done" is not proof it was done: only the docs are. Requested a full doc-by-doc reread rather than trusting the running proposal/design/tasks narrative, which is what caught this.
+
+**Apply the exact same "single owning rule, cross-referenced elsewhere" pattern used in every prior finding, rather than treating this as a special case.**
+Facing (`CORE-002`/`SCS-004`/`VEH-002`), visibility (`CORE-008`/`CORE-009`/`CBT-002`/`TRN-009`), cover (`CORE-010`/`MAT-016`), and windows (`SCS-009`/`CMP-011`/`TRN-012`) are four more instances of the same bug class Findings 4, 8, and 10 already fixed elsewhere. Each now has one canonical rule (always the foundational `02-core-rules.md`/`04-construction-standard.md` rule, since those load before their domain-specific siblings per `README.md`'s reading order) and every sibling cross-references it instead of restating it.
+
+**`CORE-012` (Wounded) drops "Future combat rules determine the gameplay effects" rather than leaving it as a stale forward-reference.**
+That line predates `component-damage-system` — the gameplay effects of reaching Wounded are now fully defined (`DMG-005`, `CBT-008`). Leaving a "future rule" pointer in place once the future rule exists reads as a contradiction, not a placeholder.
+
 ## Risks / Trade-offs
 
 - [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.

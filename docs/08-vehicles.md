@@ -61,16 +61,9 @@ No maximum vehicle size exists.
 
 # VEH-002 — Vehicle Facing
 
-Every vehicle must have an obvious front.
+Every vehicle must have an obvious front — the universal Facing rule (`02-core-rules.md`, CORE-002) applies to vehicles exactly like any other unit.
 
-Facing determines:
-
-- Forward movement
-- Rear
-- Left
-- Right
-- Weapon arcs
-- Turning
+Facing additionally determines turning behavior, covered by the locomotion-specific rules (VEH-008 through VEH-011).
 
 ---
 

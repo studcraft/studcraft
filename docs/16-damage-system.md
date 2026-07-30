@@ -74,7 +74,7 @@ A vehicle is not a single object. It is a collection of independent components.
 Components only possess structural integrity, represented through a universal state machine (full definition in DMG-005):
 
 ```
-OK → TOUCHED → DESTROYED
+Operational → Wounded → Dead
 ```
 
 Every component in the game follows exactly the same three states. There are no exceptions: a wheel, a shield, a cannon and a minifig all use the same state progression.
@@ -122,14 +122,14 @@ Although both shields occupy similar external dimensions, their internal constru
 Every component progresses through exactly three states.
 
 ```
-OK → TOUCHED → DESTROYED
+Operational → Wounded → Dead
 ```
 
-**OK** — the component functions normally.
+**Operational** — the component functions normally.
 
-**TOUCHED** — the component has suffered structural damage. It continues to function normally. A second successful damaging impact will destroy it.
+**Wounded** — the component has suffered structural damage. It continues to function normally. A second successful damaging impact will kill it.
 
-**DESTROYED** — the component immediately ceases to exist. It is physically removed from the model. No destroyed component remains on the battlefield. This is the same physical-representation principle as `02-core-rules.md` (CORE-016) and `13-materials.md` (MAT-017) — see DMG-006.
+**Dead** — the component immediately ceases to exist. It is physically removed from the model. No dead component remains on the battlefield. This is the same physical-representation principle as `02-core-rules.md` (CORE-016) and `13-materials.md` (MAT-017) — see DMG-006.
 
 ---
 
@@ -163,8 +163,8 @@ This naturally creates layered protection without requiring additional rules.
 
 `13-materials.md` (MAT-001 through MAT-020) already defines a component/material system. This document does not discard it — it completes it:
 
-- **Material** (MAT-001) still determines a component's substance and its physical/cosmetic response on reaching DESTROYED — MAT-003 (glass removal), MAT-005/MAT-006 (doors and windows), MAT-007/MAT-008 (wheels and tracks), MAT-009 (weapon systems), MAT-010 (pilot), MAT-012–MAT-015 (stone, metal, wood, organic) all continue to describe *what happens physically* when a component is destroyed, and are unaffected by this document.
-- **This document replaces the fixed, material-specific hit-count assumptions** in MAT-003 and MAT-004 with the universal, geometry-derived mechanism: Resistance (DMG-003/004), the Geometry Check (DMG-014), the Damage Roll (DMG-015), and the Component State machine (DMG-005). A typical minifig (Resistance 1, per DMG-004 Example 1) still takes two failed Damage Rolls to go from OK to DESTROYED — the same two-impact result MAT-004 already described — but now derived from construction instead of asserted as a fixed rule for that material.
+- **Material** (MAT-001) still determines a component's substance and its physical/cosmetic response on reaching Dead — MAT-003 (glass removal), MAT-005/MAT-006 (doors and windows), MAT-007/MAT-008 (wheels and tracks), MAT-009 (weapon systems), MAT-010 (pilot), MAT-012–MAT-015 (stone, metal, wood, organic) all continue to describe *what happens physically* when a component is destroyed, and are unaffected by this document.
+- **This document replaces the fixed, material-specific hit-count assumptions** in MAT-003 and MAT-004 with the universal, geometry-derived mechanism: Resistance (DMG-003/004), the Geometry Check (DMG-014), the Damage Roll (DMG-015), and the Component State machine (DMG-005). A typical minifig (Resistance 1, per DMG-004 Example 1) still takes two failed Damage Rolls to go from Operational to Dead — the same two-impact result MAT-004 already described — but now derived from construction instead of asserted as a fixed rule for that material.
 - **MAT-011 (Armour)** said future rules may provide "Defence Dice, Impact cancellation, Component protection." This document fulfills that: the Geometry Check is the impact-cancellation mechanism (an impact below Resistance ends immediately, DMG-014), and the Damage Roll (DMG-015) is the Defence Dice mechanism.
 - **MAT-016 (Cover)** is explicitly **not** addressed by this document. Cover remains deferred to a future proposal, unchanged.
 - **MAT-019 (Independent Resolution)** — splitting a single target's incoming impacts across its own components (e.g. 2 → Window, 1 → Wheel) — is unaffected and remains the mechanism for DMG-012 (Select Target Component).
@@ -249,7 +249,7 @@ If `Strength ≥ Resistance`: the impact is capable of damaging the component. C
 
 # DMG-015 — Damage Roll
 
-The defender rolls one D6 for that impact. A result of 4, 5, or 6 succeeds: nothing happens, the component remains unchanged. A result of 1, 2, or 3 fails: the component advances exactly one state (`OK → TOUCHED` or `TOUCHED → DESTROYED`).
+The defender rolls one D6 for that impact. A result of 4, 5, or 6 succeeds: nothing happens, the component remains unchanged. A result of 1, 2, or 3 fails: the component advances exactly one state (`Operational → Wounded` or `Wounded → Dead`).
 
 This die does not represent armor — the Geometry Check already proved the impact could cause damage. It represents the uncertainty of combat: a fortunate deflection, an imperfect impact, a glancing hit, mechanical failure, luck.
 
@@ -259,7 +259,7 @@ This die does not represent armor — the Geometry Check already proved the impa
 
 Each impact is completely independent. Impacts never combine their strength. Instead, each successful impact creates another opportunity to change the target's state.
 
-Example — a shotgun (`○ ○`) against a minifig at OK: both attack rolls succeed, both geometry checks succeed, the defender performs two Damage Rolls. If both fail, the minifig goes `OK → TOUCHED → DESTROYED`. The minifig dies from a single shotgun blast — not because the shotgun dealt more damage, but because it generated multiple impacts.
+Example — a shotgun (`○ ○`) against a minifig at Operational: both attack rolls succeed, both geometry checks succeed, the defender performs two Damage Rolls. If both fail, the minifig goes `Operational → Wounded → Dead`. The minifig dies from a single shotgun blast — not because the shotgun dealt more damage, but because it generated multiple impacts.
 
 ---
 
@@ -297,9 +297,9 @@ Weapon articulation is read directly from the LEGO model.
 
 # DMG-019 — Repairs
 
-Repairing consumes Action Points. Each repair restores exactly one state (`TOUCHED → OK`).
+Repairing consumes Action Points. Each repair restores exactly one state (`Wounded → Operational`).
 
-Destroyed components cannot be repaired — they have already been removed from the model. Future construction rules will define rebuilding.
+Dead components cannot be repaired — they have already been removed from the model. Future construction rules will define rebuilding.
 
 ---
 
@@ -307,19 +307,19 @@ Destroyed components cannot be repaired — they have already been removed from 
 
 ## Example 1 — Pistol vs Minifig
 
-Minifig `Resistance 1`. Pistol `Strength 1`. Attack Roll: Success. Geometry: `1 ≥ 1`. Damage Roll: Failure. Result: `OK → TOUCHED`. Second successful impact: `TOUCHED → DESTROYED`.
+Minifig `Resistance 1`. Pistol `Strength 1`. Attack Roll: Success. Geometry: `1 ≥ 1`. Damage Roll: Failure. Result: `Operational → Wounded`. Second successful impact: `Wounded → Dead`.
 
 ## Example 2 — Shotgun vs Minifig
 
-Shotgun (2 muzzles). Attack Rolls: Success, Success. Both geometry checks succeed. Damage Rolls: Failure, Failure. Result: `OK → TOUCHED → DESTROYED`. One shotgun blast eliminates the Minifig.
+Shotgun (2 muzzles). Attack Rolls: Success, Success. Both geometry checks succeed. Damage Rolls: Failure, Failure. Result: `Operational → Wounded → Dead`. One shotgun blast eliminates the Minifig.
 
 ## Example 3 — Heavy Cannon vs Shield
 
-Shield `Resistance 3`. Heavy Cannon `Strength 4`. Attack succeeds. Geometry succeeds. Damage Roll: Failure. Shield becomes `TOUCHED`. Remaining Strength `1` continues toward the protected Minifig, which now resolves the impact independently (DMG-017).
+Shield `Resistance 3`. Heavy Cannon `Strength 4`. Attack succeeds. Geometry succeeds. Damage Roll: Failure. Shield becomes `Wounded`. Remaining Strength `1` continues toward the protected Minifig, which now resolves the impact independently (DMG-017).
 
 ## Example 4 — Jeep Cannon
 
-Mounted Cannon (`4 × 2 × 2`, `Resistance 2`). Enemy Cannon `Strength 2`. Attack succeeds. Geometry succeeds. Damage Roll fails. Mounted Cannon becomes `TOUCHED`. A second successful impact destroys it. The Jeep remains operational but without its weapon.
+Mounted Cannon (`4 × 2 × 2`, `Resistance 2`). Enemy Cannon `Strength 2`. Attack succeeds. Geometry succeeds. Damage Roll fails. Mounted Cannon becomes `Wounded`. A second successful impact kills it. The Jeep remains operational but without its weapon.
 
 ---
 

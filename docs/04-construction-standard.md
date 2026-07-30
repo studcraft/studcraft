@@ -68,14 +68,7 @@ The agreed Deployment Area naturally limits model size.
 
 # SCS-004 — Facing
 
-Every model must have an obvious front.
-
-The front determines:
-
-- movement
-- firing arcs
-- transport access
-- shield orientation
+Every model must have an obvious front, per the universal Facing rule (`02-core-rules.md`, CORE-002).
 
 Models with ambiguous fronts are not legal.
 

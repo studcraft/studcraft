@@ -153,9 +153,7 @@ Decorative access points have no gameplay effect.
 
 # TRN-008 — Opening and Closing
 
-Opening or closing any access point costs:
-
-**1 Action Point**
+Opening or closing any access point costs **1 Action Point** (`02-core-rules.md`, CORE-007).
 
 Examples:
 
@@ -183,11 +181,7 @@ Visible passengers:
 
 - May be targeted.
 - May attack.
-- Require normal line of sight.
-
-Fundamental Rule:
-
-> If you can see it, you can shoot it.
+- Require normal line of sight (`02-core-rules.md`, CORE-008/CORE-009; `11-combat.md`, CBT-002).
 
 ---
 
@@ -223,7 +217,7 @@ The opening determines the firing arc.
 
 # TRN-012 — Transparent Elements
 
-Transparent LEGO elements represent windows or viewports.
+Transparent LEGO elements represent windows or viewports (`04-construction-standard.md`, SCS-009).
 
 Visibility through transparent elements follows the Material Rules.
 
