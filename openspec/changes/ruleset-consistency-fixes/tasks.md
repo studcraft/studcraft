@@ -36,6 +36,10 @@
 - [x] 5.9 Confirm `CHANGELOG.md`'s historical `[0.1.0]` entry (which lists "Engine" as an added system) and the archived `2026-07-28-component-damage-system` change are left untouched — both are frozen historical records, not living documentation.
 - [x] 5.10 Run `python3 scripts/lint_ruleset.py` and grep the full repo for any remaining "engine" mention outside the gitignored `site/docs/` build output, the frozen historical records (5.9), and this proposal's own design-rationale prose.
 
+## Finding 6: Specify What Counts as Damage in MOVE-016 (Falling Damage)
+
+- [x] 6.1 `docs/07-movement.md` MOVE-016: replace "Combat rules determine the effects of the result" with an explicit tie to the Damage Roll (`16-damage-system.md`, DMG-015) — 4/5/6 on the kept die means no damage, 1/2/3 means the faller's Component State advances one step.
+
 ## Housekeeping (applies once the review is finished, not per-finding)
 
 - [ ] H.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history; this is purely editorial so the default minor bump is correct.

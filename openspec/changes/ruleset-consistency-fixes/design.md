@@ -47,6 +47,11 @@ Alternative considered: delete the Engine rules outright and leave a documented 
 **Pilot is the mechanic that replaces Engine's structural role: a mandatory component whose loss immobilizes the vehicle.**
 This wasn't just "delete Engine" — the user specifically asked for a replacement mechanic. Pilot reuses the already-existing `VEH-015` (Crew) concept instead of introducing a new one, and its Component State (`Dead`, per Finding 1) is what gates movement, tying this finding directly into Finding 1's unified state machine rather than inventing a separate on/off flag.
 
+### Finding 6: MOVE-016 (Falling Damage) never specified what counts as damage
+
+**Reuse the Damage Roll threshold (DMG-015) rather than inventing a new one for falls.**
+Alternative considered: define a bespoke threshold specifically for falling (e.g. a different die range, or a fixed number of studs per damage step). Rejected — `MOVE-016` already produces exactly one kept D6 result per fall, which is precisely the shape a Damage Roll expects; introducing a second, different damage-threshold convention for one specific case would undermine the "one universal resolution mechanism" goal this whole proposal is built around (see Finding 1).
+
 ## Risks / Trade-offs
 
 - [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.
