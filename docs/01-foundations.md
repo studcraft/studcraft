@@ -154,7 +154,7 @@ Whenever possible, the LEGO model itself represents the current game state.
 Examples:
 
 - A wounded minifigure sits down.
-- A dead minifigure lies down.
+- A dead minifigure is removed.
 - A destroyed door is removed.
 - A broken window is detached.
 - A disabled weapon is taken off the model.

@@ -82,6 +82,8 @@ These principles are fully described in:
     └── 16-damage-system.md
 ```
 
+`13-*.md` is a deliberate gap, not a missing file — `docs/13-materials.md` was removed (its content folded into `16-damage-system.md`), and per this repo's rule-ID-stability convention, document numbers are not reused or renumbered after removal.
+
 ---
 
 # Rulebook

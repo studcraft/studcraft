@@ -1,5 +1,9 @@
 # Glossary
 
+**Version:** 0.1.0 Draft
+
+---
+
 ## AP
 
 Action Points.
@@ -142,7 +146,7 @@ The square construction area (Weapon Width × Weapon Width) on the Weapon Front 
 
 ## Muzzle
 
-A round functional construction area (1×1 through 4×4 footprint slot) on the Weapon Front Footprint, built from a round plate or round tile, representing one firing barrel. See `10-weapons.md` (WPN-002).
+A round functional construction area (typically 1×1 through 4×4, with no fixed maximum — see `10-weapons.md` WPN-002) on the Weapon Front Footprint, built from a round plate or round tile, representing one firing barrel.
 
 Each functional muzzle grants one Attack Die. Muzzles may be placed directly adjacent to one another.
 
@@ -150,13 +154,13 @@ Each functional muzzle grants one Attack Die. Muzzles may be placed directly adj
 
 ## Muzzle Size
 
-The size of a functional muzzle (1×1 through 4×4). Determines the Impact Strength of the Attack Die it generates.
+The size of a functional muzzle. No fixed maximum — scales with the Weapon Front Footprint (`10-weapons.md`, WPN-019, WPN-021). Determines the Impact Strength of the Attack Die it generates.
 
 ---
 
 ## Functional Striking End
 
-The melee equivalent of a muzzle: the physical point of contact through which a melee weapon delivers an Impact. Sized 1×1 through 4×4 like a muzzle, but not required to be round. See `12-melee.md` (MEL-013).
+The melee equivalent of a muzzle: the physical point of contact through which a melee weapon delivers an Impact. Sized like a muzzle (no fixed maximum), but not required to be round. See `12-melee.md` (MEL-013).
 
 ---
 
@@ -216,7 +220,13 @@ A model built with Visual Geometry added on top of a valid Minimum Representatio
 
 ## Resistance
 
-The smallest structural cross-section a component's construction requires an Impact to cross, read directly from the model (bricks/plates), not assigned as a statistic. See `16-damage-system.md` (DMG-003, DMG-004).
+The smallest structural cross-section a component's construction requires an Impact to cross, measured in plate layers and read directly from the model, not assigned as a statistic. See `16-damage-system.md` (DMG-003, DMG-004).
+
+---
+
+## Armour
+
+Not a separate statistic — the colloquial name for a component's construction-derived Resistance. See `11-combat.md` (CBT-013), `16-damage-system.md` (DMG-003, DMG-004).
 
 ---
 
@@ -241,3 +251,7 @@ The die roll that follows a passed Geometry Check; on a 1, 2, or 3 the component
 ## Penetration
 
 Also called Overrun. When an Impact's strength exceeds a component's Resistance, the remaining strength (`Impact Strength − Component Resistance`) continues toward the next component behind it. See `16-damage-system.md` (DMG-017).
+
+---
+
+> **Every Brick Matters.**

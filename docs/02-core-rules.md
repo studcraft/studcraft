@@ -42,9 +42,9 @@ One **Unit Base (UB)** is a LEGO Plate measuring:
 
 **4 × 3 studs**
 
-This is the standard base for infantry.
+This is the standard base for infantry. The 4-stud edge is the front (CORE-002).
 
-All distances, deployment areas and vehicle footprints are expressed using this unit.
+All distances, deployment areas and vehicle footprints are expressed using this unit. When a footprint is written as `W × D` UB (e.g. "Jeep: 2 × 3 UB"), the first number is a count of 4-stud widths and the second a count of 3-stud depths — a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`.
 
 ---
 
@@ -98,7 +98,7 @@ Vehicle movement and transport capacity are described in the Vehicle Rules.
 
 Buildings, fortifications and scenery are permanent battlefield elements.
 
-Structures follow the Construction Standard.
+Structures follow the Construction Standard. Structure-specific damage (collapse, breaching walls) and Deployment Area occupation for scenario-placed structures are not yet defined — a structure's individual components (doors, windows, walls) already resolve Impacts through the standard Component Damage System (`16-damage-system.md`) like any other component; only structure-wide consequences (e.g. a building collapsing) remain future work.
 
 ---
 
@@ -118,7 +118,7 @@ Examples include:
 - Close a door
 - Embark
 - Disembark
-- Stand up
+- Stand up (see `16-damage-system.md`, DMG-019, Repairs)
 - Reload (future rule)
 - Operate mechanisms
 
@@ -174,11 +174,7 @@ Fundamental combat rule:
 
 > If you can see it, you can shoot it.
 
-Likewise:
-
-If it can see you,
-
-it may shoot back.
+This is symmetric: if it can see you, you can be its target during its own activation (`03-game-flow.md`, FLOW-002). It does not grant a shot outside of a unit's own activation — StudCraft has no reaction fire (`11-combat.md`, CBT-014 lists it as a possible future extension, not a current rule).
 
 ---
 
@@ -186,23 +182,9 @@ it may shoot back.
 
 ## CORE-010 — Physical Cover
 
-Cover is determined by the physical amount of the model that is hidden. This includes Visual Geometry — see `15-geometry-layers.md` (GEO-004).
+Cover is physical, not templated: a component that is completely hidden — by terrain, another model, or Visual Geometry (`15-geometry-layers.md`, GEO-004) — cannot be selected as a target (`16-damage-system.md`, DMG-012).
 
-Examples:
-
-Half of the body visible:
-
-Partial cover.
-
-Only the head visible:
-
-Heavy cover.
-
-Completely hidden:
-
-Cannot be targeted.
-
-No abstract cover templates exist.
+A partially visible component has no separate cover level; it is simply visible or it isn't. There is no partial or heavy cover bonus, and no abstract cover template.
 
 ---
 
@@ -224,15 +206,15 @@ The minifigure is placed in a seated position, representing an injured soldier.
 
 The seated position is the game marker. No additional token is required.
 
-Gameplay effects follow the standard combat resolution sequence (`11-combat.md`, CBT-008) — a second successful impact advances the minifigure to Dead, the same as any other component.
+A Wounded unit has no penalty of any kind — it moves, attacks, rotates, and climbs exactly as if Operational (`16-damage-system.md`, DMG-005: Wounded "continues to function normally"). The seated pose is purely a visual marker. The only consequence of Wounded is that the next successful Impact advances the minifigure to Dead (`11-combat.md`, CBT-008), the same as any other component.
 
 ---
 
 ## CORE-013 — Dead
 
-The minifigure is laid on its side or replaced by a casualty marker — the same physical removal every component undergoes on reaching Dead (`16-damage-system.md`, DMG-006).
+The minifigure is physically removed from the battlefield — the same removal every component undergoes on reaching Dead (`16-damage-system.md`, DMG-006). No casualty marker is used; removal is the marker.
 
-Dead units no longer participate in the game.
+Dead units no longer participate in the game and no longer block movement, Line of Sight, or provide Cover.
 
 ---
 
@@ -297,7 +279,7 @@ Examples:
 
 A wounded soldier sits.
 
-A dead soldier lies down.
+A dead soldier is removed.
 
 A destroyed weapon is removed.
 

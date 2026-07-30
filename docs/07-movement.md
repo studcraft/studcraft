@@ -70,9 +70,7 @@ Standard infantry movement:
 
 **12 studs forward**
 
-This equals three Unit Base lengths.
-
-This value represents a normal movement action.
+This value represents a normal movement action, costing **1 Action Point** (`02-core-rules.md`, CORE-006).
 
 Future scenarios may allow sprinting or other special movement.
 
@@ -258,7 +256,7 @@ Vehicle movement depends on:
 - Physical dimensions.
 - Locomotion type.
 
-Vehicle-specific rules are described in `08-vehicles.md`.
+Vehicle-specific rules are described in `08-vehicles.md`. Terrain interaction for vehicles (obstacles, slopes, stairs, vertical access, falling) is not yet defined — `08-vehicles.md` currently has no equivalent to MOVE-009 through MOVE-016. Until a dedicated rule exists, resolve vehicle-vs-terrain questions using the same Physical Priority principle infantry uses: if the LEGO model can answer the question, the model decides.
 
 ---
 
@@ -276,9 +274,7 @@ Enemy units block movement unless another rule allows otherwise.
 
 Closed doors block movement.
 
-Opening a door costs:
-
-**1 Action Point**
+Opening a door costs **1 Action Point** (`02-core-rules.md`, CORE-007).
 
 Once opened, the doorway becomes a valid movement path.
 
@@ -286,9 +282,7 @@ Once opened, the doorway becomes a valid movement path.
 
 # Ramps
 
-Lowering or raising a ramp costs:
-
-**1 Action Point**
+Lowering or raising a ramp costs **1 Action Point** (`02-core-rules.md`, CORE-007).
 
 A lowered ramp immediately becomes usable terrain.
 
@@ -305,9 +299,7 @@ Examples:
 - Gates
 - Hinged platforms
 
-Interaction normally costs:
-
-**1 Action Point**
+Interaction normally costs **1 Action Point** (`02-core-rules.md`, CORE-007).
 
 ---
 

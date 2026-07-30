@@ -32,7 +32,7 @@ This keeps weapon rules simple while allowing targets to behave differently.
 
 # CBT-001 — Attack Sequence
 
-Every attack follows the same procedure.
+Every attack follows the same procedure, and costs **1 Action Point** per weapon system attacking (`02-core-rules.md`, CORE-006) — the same cost regardless of how many Attack Dice that weapon system rolls.
 
 1. Declare the weapon system.
 2. Declare the target.
@@ -49,7 +49,7 @@ For melee attacks, steps 3–4 (Line of Sight, Weapon Range) are replaced by a s
 
 # CBT-002 — Line of Sight
 
-Combat uses the universal Physical Visibility rule (`02-core-rules.md`, CORE-008, CORE-009): a target must be physically visible, determined from the attacking weapon's point of view. If any legal target area is visible, the attack is allowed.
+Combat uses the universal Physical Visibility rule (`02-core-rules.md`, CORE-008, CORE-009): a target must be physically visible from the attacker's point of view. If any legal target area is visible, the attack is allowed.
 
 ---
 
@@ -125,13 +125,13 @@ Combat results are always represented physically. This is the same rule as `16-d
 
 # CBT-010 — Simultaneous Resolution
 
-If two attacks occur simultaneously,
+This rule governs resolution order, not entitlement to attack: it does not by itself grant any unit a second attack or a free counter-attack. StudCraft's default activation (`03-game-flow.md`, FLOW-002) is strictly one unit at a time — two attacks only resolve together when something else already declares them so (e.g. a future scenario rule for mutual engagement).
 
-both attacks are fully resolved before removing models.
+When two attacks are declared to resolve together, both are fully resolved before removing models, and being eliminated during resolution does not cancel an attack already declared.
 
 Example
 
-Two infantry models fighting in melee.
+Two infantry models with mutually declared attacks against each other.
 
 Both may become casualties.
 
@@ -155,11 +155,9 @@ Cover affects only how the target resolves incoming impacts — the exact rules 
 
 # CBT-013 — Armour
 
-Armour is never a weapon property.
+Armour is not a separate statistic — it is the colloquial name for a component's construction-derived Resistance (`16-damage-system.md`, DMG-003, DMG-004). Armour is never a weapon property; it belongs to the defending model, expressed entirely through how the component is built.
 
-Armour belongs to the defending model.
-
-Armour determines how impacts are resolved: specifically, via the Geometry Check and Damage Roll defined in `16-damage-system.md` (DMG-014, DMG-015).
+Armour determines how impacts are resolved via the Geometry Check and Damage Roll (DMG-014, DMG-015) — the same mechanism every component uses, with no separate Armour mechanic layered on top.
 
 ---
 

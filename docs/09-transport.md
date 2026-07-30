@@ -104,9 +104,9 @@ These elements occupy space and influence transport capacity.
 
 # TRN-005 — Embarking
 
-Embarking costs:
+Embarking costs **1 Action Point per Unit Base** the embarking unit occupies — an infantry model (1 UB) costs 1 AP; a motorcycle (2 UB) costs 2 AP, matching Disembarking (TRN-006).
 
-**1 Action Point**
+The AP is spent from the embarking unit's own pool, during its own activation (`03-game-flow.md`, FLOW-004) — embarking is a complete activation for that unit, exactly like any other action. It does not receive a separate activation later just because it ended up inside a transport.
 
 Requirements:
 
@@ -127,6 +127,8 @@ Disembarking costs:
 An infantry model (1 UB) therefore costs:
 
 **1 AP**
+
+The AP is spent from the disembarking unit's own pool, during its own activation — a unit that begins its activation already embarked spends AP to disembark, then may spend any AP remaining from the same 3 AP allotment to move, attack, or otherwise act.
 
 The unit must be placed adjacent to a functional access point.
 
@@ -192,9 +194,7 @@ Passengers inside:
 - Cannot be targeted directly.
 - Cannot attack unless firing through an opening.
 
-Protection comes from the vehicle's construction.
-
-No additional armour value is required.
+Protection comes from the vehicle's construction: passengers are internal components the hull protects, exactly like any other Internal Components relationship (`16-damage-system.md`, DMG-007) — an Impact that penetrates the hull with remaining strength continues toward them (DMG-017) like it would toward any protected component. No additional armour value is required; the hull's own Resistance is what stands between the Impact and the passengers.
 
 ---
 

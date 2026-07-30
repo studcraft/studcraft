@@ -46,7 +46,7 @@ At the beginning of every Turn:
 
 1. Determine Priority.
 2. Players alternate activating one unit at a time.
-3. Continue until every unit has been activated once.
+3. Continue until every unit has been activated once. If a player has no unactivated units remaining, the other player continues activating their own remaining units consecutively, with no alternation, until they too have all been activated.
 4. Resolve End of Turn effects.
 5. Begin a new Turn.
 
@@ -169,8 +169,7 @@ After completing its activation, a unit becomes **Activated**.
 
 Activated units:
 
-- May defend themselves.
-- May be attacked.
+- May be attacked, and resolve incoming Impacts as the defender (`11-combat.md`, CBT-008) — this is not a reaction or an out-of-turn attack, just the standard defender-side resolution any target performs.
 - Continue to occupy the battlefield normally.
 
 They may not activate again until the next Turn.
