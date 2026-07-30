@@ -16,6 +16,9 @@ Since every component in the game (minifigs, vehicles, weapons, doors, wheels, .
 **Finding 2 — FLOW-003 (Priority) was ambiguous about when the choice happens.**
 `docs/03-game-flow.md` `FLOW-003` said the Priority player chooses "Activate the first unit this Turn" / "Activate the second unit this Turn" — indirect phrasing that doesn't make clear this is a one-time choice at the start of the Turn, not a repeated choice at every activation. Reworded to an explicit binary choice ("activate one of their own units now, keeping the activation" vs. "cede Priority, letting the other player activate first"), with an explicit sentence that this is decided once per Turn and strict alternation (FLOW-002) governs the rest. No mechanical change — same choice, same outcome, clearer wording. The same document's "Turn Sequence" diagram independently restated the old "Activate First / Activate Second" bullets — missed in the first pass on this finding, caught afterward and updated to match.
 
+**Finding 3 — Bike footprint (SCS-003 / VEH-001) was illogically square.**
+`docs/04-construction-standard.md` SCS-003 and `docs/08-vehicles.md` VEH-001 both listed "Bike"/"Motorbike" as a `1 × 1 UB` footprint (the same restatement pattern as before — one fact, two independent copies). A real motorbike is long and narrow, not square; a 1×1 UB footprint reads as though it were as compact as a single infantry model. Changed both to `1 × 2 UB` in each document. Illustrative example only — no rule, formula, or ID changes. `docs/09-transport.md` TRN-013 separately lists "Motorbike: 1 UB" as a *cargo-slot* allocation (space taken when carried as cargo inside another vehicle) — a different, intentionally-abstracted number, not the vehicle's own footprint, so left unchanged.
+
 - *(More findings will be appended here as the manual review continues.)*
 
 ## Capabilities

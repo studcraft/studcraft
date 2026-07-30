@@ -54,7 +54,7 @@ Examples:
 
 | Vehicle | Footprint |
 |----------|----------:|
-| Bike | 1 × 1 UB |
+| Bike | 1 × 2 UB |
 | Buggy | 2 × 2 UB |
 | Jeep | 2 × 3 UB |
 | Tank | 2 × 5 UB |

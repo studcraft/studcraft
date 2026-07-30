@@ -13,6 +13,12 @@
 - [x] 2.1 `docs/03-game-flow.md` FLOW-003: reword the Priority player's choice from "Activate the first/second unit this Turn" to an explicit "activate one of their own units now" vs. "cede Priority, letting the other player activate first," and add a sentence stating this is a single choice made once per Turn, with FLOW-002's strict alternation governing the rest.
 - [x] 2.2 `docs/03-game-flow.md`'s "Turn Sequence" diagram (not a numbered FLOW- rule, the ASCII flow chart near the end of the document) independently restated the old "Activate First / Activate Second" bullets — missed in the original 2.1 pass, caught afterward and updated to match ("Activate own unit now (continue)" / "Cede Priority (opponent activates first)").
 
+## Finding 3: Fix the Illogical Square Bike Footprint
+
+- [x] 3.1 `docs/04-construction-standard.md` SCS-003: change Bike's footprint from `1 × 1 UB` to `1 × 2 UB`.
+- [x] 3.2 `docs/08-vehicles.md` VEH-001: change Motorbike's footprint from `1 × 1 UB` to `1 × 2 UB`.
+- [x] 3.3 Confirm `docs/09-transport.md` TRN-013's "Motorbike: 1 UB" (a cargo-slot allocation, not the vehicle's own footprint) is a separate, intentionally-abstracted number and does not need to change.
+
 ## Housekeeping (applies once the review is finished, not per-finding)
 
 - [ ] H.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history; this is purely editorial so the default minor bump is correct.

@@ -29,6 +29,11 @@ Mirrors exactly how `13-materials.md`'s per-material sections (MAT-003 Glass, MA
 **Reword to an explicit "continue vs. cede" choice, and state outright that it's decided once per Turn.**
 Alternative considered: leave the mechanic as-is and only add the clarifying sentence about it being one-time, without changing the bullet wording. Rejected — the original bullets ("Activate the first unit this Turn" / "Activate the second unit this Turn") describe the *consequence* of the choice, not the choice itself, which is what made it possible to misread as a repeated per-activation decision rather than a single up-front one. Rewording the bullets to name the actual choice (continue with your own activation vs. cede Priority to the opponent) and then stating explicitly that FLOW-002's strict alternation takes over afterward removes the ambiguity from both ends at once. No mechanical change: same choice, same outcome.
 
+### Finding 3: Fix the illogical square Bike footprint
+
+**Change `1 × 1 UB` to `1 × 2 UB` in both places it's listed, rather than picking a different value per document.**
+`SCS-003` and `VEH-001` independently list the same footprint table for the same set of example vehicles — same duplication pattern as Findings 1/2, just for an example value rather than a rule. `1 × 2` was chosen over other elongated options (e.g. `1 × 3`) as the minimal fix that makes the footprint non-square without exaggerating it relative to Buggy's `2 × 2`.
+
 ## Risks / Trade-offs
 
 - [Risk] Renaming `OK`/`TOUCHED`/`DESTROYED` to `Operational`/`Wounded`/`Dead` touches every place `component-damage-system` introduced those names (`docs/16-damage-system.md` alone uses them roughly a dozen times across rules, examples, and the summary) — a wide diff for a renaming-only change. → Mitigation: accepted, same reasoning as `consolidate-core-measurements`'s wide diff — the fix has to touch everywhere the problem does; `scripts/lint_ruleset.py` plus a full reread confirms nothing else breaks.

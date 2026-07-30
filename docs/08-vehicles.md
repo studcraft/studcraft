@@ -41,7 +41,7 @@ Examples
 
 Motorbike
 
-1 × 1 UB
+1 × 2 UB
 
 Jeep
 
