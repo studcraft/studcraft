@@ -43,6 +43,8 @@ Every attack follows the same procedure.
 7. Defender resolves Impacts.
 8. Update the LEGO model.
 
+For melee attacks, steps 3–4 (Line of Sight, Weapon Range) are replaced by a single Physical Contact check (`12-melee.md` MEL-001, MEL-014); every other step applies identically.
+
 ---
 
 # CBT-002 — Line of Sight
@@ -115,7 +117,7 @@ After counting Impacts,
 
 the defender becomes responsible for resolving them.
 
-Resolution is defined in `16-damage-system.md`: each Impact is assigned to one visible component (DMG-012), checked against that component's Resistance (DMG-014, Geometry Check), and — if capable of causing damage — resolved with a Damage Roll (DMG-015) that advances the Component State. Once a component reaches Dead, it is physically removed from the model (DMG-006) — the same for infantry, vehicles, and structures alike, with no material-specific distinction (DMG-008).
+Resolution is handed over to the Component Damage System (`16-damage-system.md`): each Impact is assigned to a component (DMG-012), checked against its Resistance (DMG-014), and resolved with a Damage Roll (DMG-015) that may advance it to Dead (DMG-006) — identically for infantry, vehicles, and structures, with no material-specific distinction (DMG-008).
 
 ---
 
@@ -141,21 +143,9 @@ Both may become casualties.
 
 # CBT-011 — No Damage Values
 
-Weapons never possess:
+Combat never assigns damage values. Weapons generate offensive capability — Range, Attack Dice, and Impact Strength, fully defined by `10-weapons.md`'s own Summary — while the target determines every consequence (`16-damage-system.md`).
 
-- Damage
-- Armour Penetration
-
-Weapons only define:
-
-- Range
-- Number of Attack Dice
-- Impact Strength
-- Firing Position
-
-Impact Strength (`10-weapons.md` WPN-021) is a geometrically-derived property — determined by muzzle size, not a hidden statistic — and is consumed by `16-damage-system.md`'s Geometry Check (DMG-014). This updates the original version of this rule, which predated Impact Strength and Muzzle Size (WPN-021) and stated that weapons possess no "Strength" at all.
-
-Everything else belongs to the target.
+Impact Strength (`10-weapons.md` WPN-021) is a geometrically-derived property — determined by muzzle or striking-end size, not a hidden statistic — and is consumed by `16-damage-system.md`'s Geometry Check (DMG-014). This updates the original version of this rule, which predated Impact Strength and Muzzle Size (WPN-021) and stated that weapons possess no "Strength" at all.
 
 ---
 
