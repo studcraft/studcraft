@@ -17,7 +17,7 @@ Players should never need hidden statistics or external reference tables to dete
 This specification intentionally eliminates traditional concepts such as:
 
 - Hit Points
-- Armor Values
+- Armour Values
 - Saving Throws
 - Damage Tables
 - Hidden Unit Profiles
@@ -61,7 +61,7 @@ Examples include:
 - Cannon
 - Turret
 - Wheel
-- Armor Plate
+- Armour Plate
 - Pilot
 - Cockpit
 
@@ -87,7 +87,7 @@ Resistance is never assigned as a statistic. It is read directly from the model.
 
 The resistance of a component is the **smallest structural section that an impact must cross in its direction of travel**.
 
-In practice, this usually corresponds to the smallest dimension of the component measured in LEGO bricks.
+In practice, this corresponds to the smallest dimension of the component measured in plate layers (the finest LEGO unit of height) — a standard brick is 3 plates tall, so a wall built from bricks is measured as 3 plate layers per brick, not 1.
 
 The important concept is not the external volume. It is the amount of structure the projectile must physically penetrate.
 
@@ -99,21 +99,21 @@ Resistance belongs to the construction itself. Changing the way a component is b
 
 ## Example 1 — Minifig
 
-Approximate dimensions: `4 × 4 × 1`. A frontal impact crosses `1 brick`. Therefore `Resistance = 1`.
+A minifig torso built 1 plate thick. A frontal impact crosses `1 plate layer`. Therefore `Resistance = 1`.
 
 ## Example 2 — Mounted Cannon
 
-Component dimensions: `4 × 2 × 2`. The projectile enters through the front. The smallest structural section crossed is `2 bricks`. Therefore `Resistance = 2`.
+A component wall built 2 plates thick. The projectile enters through the front. The smallest structural section crossed is `2 plate layers`. Therefore `Resistance = 2`.
 
 ## Example 3 — Shield built with Bricks
 
-Dimensions: `4 × 3 × 1`. Constructed using standard bricks. The projectile crosses `1 brick`. Therefore `Resistance = 1`.
+A shield built from standard bricks (1 brick = 3 plates tall). The projectile crosses `3 plate layers`. Therefore `Resistance = 3`.
 
 ## Example 4 — Shield built with Plates
 
 A shield constructed from four stacked plates. Viewed from the front, the projectile must cross `4 plate layers`. Therefore `Resistance = 4`.
 
-Although both shields occupy similar external dimensions, their internal construction produces different resistance values. StudCraft rewards engineering, not appearance.
+A brick-built shield (Resistance 3) and a four-plate shield (Resistance 4) can occupy similar external bulk, yet resolve to different resistance values because the count of physical layers — not the external silhouette — is what matters. StudCraft rewards engineering, not appearance.
 
 ---
 
@@ -150,10 +150,10 @@ Components may protect other components.
 Example:
 
 ```
-Armor → Pilot
+Armour → Pilot
 ```
 
-The Pilot cannot be affected while the Armor blocks the incoming impact. Only after penetrating or destroying the Armor may the impact continue toward the Pilot (mechanically resolved by DMG-017, Penetration).
+The Pilot cannot be affected while the Armour blocks the incoming impact. Only after penetrating or destroying the Armour may the impact continue toward the Pilot (mechanically resolved by DMG-017, Penetration).
 
 This naturally creates layered protection without requiring additional rules.
 
@@ -220,7 +220,7 @@ Example — two-barrel shotgun: one die succeeds, one fails. Only one impact con
 
 Every successful impact is assigned to one visible component. Hidden components cannot be selected as a target.
 
-Examples: Shield, Wheel, Cannon, Door, Minifig, Armor Plate.
+Examples: Shield, Wheel, Cannon, Door, Minifig, Armour Plate.
 
 Impacts are never assigned to an entire vehicle — only to components.
 
@@ -266,13 +266,13 @@ Example — a shotgun (`○ ○`) against a minifig at Operational: both attack 
 
 # DMG-017 — Penetration
 
-An impact may continue through multiple components. Whenever an impact successfully affects a component, its remaining strength is calculated:
+An impact may continue through multiple components. "Successfully affects" here means the impact passed the Geometry Check (`Strength ≥ Resistance`, DMG-014) — penetration is a consequence of geometry, not of the Damage Roll's outcome. Whenever an impact passes the Geometry Check against a component, its remaining strength is calculated:
 
 ```
 Remaining Strength = Current Strength − Component Resistance
 ```
 
-If remaining strength is greater than zero, the impact continues in the same direction, toward the next component (per DMG-007, Internal Components).
+If remaining strength is greater than zero, the impact continues in the same direction, toward the next component (per DMG-007, Internal Components) — regardless of whether the Damage Roll against the current component succeeds or fails.
 
 ## Example
 
@@ -286,7 +286,7 @@ Each muzzle creates one independent impact.
 
 By default, all impacts from the same weapon system are assigned to the same target (per `11-combat.md` CBT-007). This document adds one exception: impacts may be assigned to **different target units** only if the weapon mount can physically rotate to re-aim independently of the platform carrying it.
 
-Examples of free rotation (exception applies): minifig torso, turntable, ball joint, swivel mount.
+Examples of free rotation (exception applies): minifig torso, turntable, ball joint, swivel mount. This deliberately puts all infantry-carried weapon systems under the exception — a person's own body can turn between shots the way a vehicle's fixed hull mount cannot; this is intentional, not an oversight.
 
 Examples that require Action Points instead (CBT-007 applies, no split): fixed mount, entire vehicle movement, repositioning the weapon carrier.
 
@@ -298,7 +298,7 @@ Weapon articulation is read directly from the LEGO model.
 
 # DMG-019 — Repairs
 
-Repairing consumes Action Points. Each repair restores exactly one state (`Wounded → Operational`).
+A unit may spend **1 Action Point** to repair a Wounded component, restoring it to Operational (`Wounded → Operational`) — its own component, or another unit's if physically adjacent to it. For infantry, this is the same action `02-core-rules.md` CORE-006 lists as "Stand up."
 
 Dead components cannot be repaired — they have already been removed from the model. Future construction rules will define rebuilding.
 
@@ -320,7 +320,7 @@ Shield `Resistance 3`. Heavy Cannon `Strength 4`. Attack succeeds. Geometry succ
 
 ## Example 4 — Jeep Cannon
 
-Mounted Cannon (`4 × 2 × 2`, `Resistance 2`). Enemy Cannon `Strength 2`. Attack succeeds. Geometry succeeds. Damage Roll fails. Mounted Cannon becomes `Wounded`. A second successful impact kills it. The Jeep remains operational but without its weapon.
+Mounted Cannon (2 plates thick, `Resistance 2`). Enemy Cannon `Strength 2`. Attack succeeds. Geometry succeeds. Damage Roll fails. Mounted Cannon becomes `Wounded`. A second successful impact kills it. The Jeep remains operational but without its weapon.
 
 ---
 
@@ -342,7 +342,7 @@ This document establishes the structural foundations of the damage system and th
 
 It defines: Components, Resistance, Structural States, Destruction, Internal Protection, and the absence of any material-specific mechanic (DMG-008); and the combat resolution sequence — Generate Impacts, Attack Roll, Select Target Component, Composite Vehicle Targeting, Geometry Check, Damage Roll, Multiple Impacts, Penetration, Weapon Distribution, and Repairs.
 
-The system never requires: Hit Points, Armor Values, Damage Statistics, Lookup Tables, Hidden Unit Profiles.
+The system never requires: Hit Points, Armour Values, Damage Statistics, Lookup Tables, Hidden Unit Profiles.
 
 Every combat interaction emerges from two sources only: the physical LEGO construction, and the uncertainty introduced by the dice.
 

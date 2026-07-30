@@ -88,7 +88,7 @@ Double-ended staff (one weapon, two striking ends) → 1 Attack Die — the atta
 
 # MEL-004 — Simultaneous Resolution
 
-Melee follows the universal Simultaneous Resolution rule (`11-combat.md`, CBT-010): both combatants declare their attacks, both sets of Impacts are fully resolved before removing models, and a combatant eliminated during resolution still has its own already-declared attack resolved.
+A melee attack is one unit's own action, declared and resolved like any other attack (`11-combat.md`, CBT-001) — it does not by itself grant the target a free counter-attack. If two attacks happen to be declared to resolve together (see `11-combat.md`, CBT-010, for when and how), both sets of Impacts are fully resolved before removing models.
 
 ---
 
@@ -152,7 +152,7 @@ Combat results should be represented on the LEGO model whenever possible, per th
 Examples:
 
 - Wounded minifigure sits.
-- Dead minifigure lies down or is removed.
+- Dead minifigure is removed.
 - Destroyed components (weapons, shields, doors) are removed.
 
 No additional markers are required.
@@ -175,7 +175,7 @@ This document only defines how melee weapons generate Attack Dice. Everything af
 
 A functional striking end is the physical point of contact through which a melee weapon delivers an Impact. It replaces the concept of a firing muzzle for melee weapons (`10-weapons.md`, WPN-001, WPN-002).
 
-A functional striking end is built as an N×N footprint slot, sized 1×1 through 4×4 — the same size categories as a muzzle. Unlike a muzzle (WPN-002), a striking end is **not** required to be built from round pieces: bladed, pointed, and other melee-appropriate shapes are all valid.
+A functional striking end is built as an N×N footprint slot — the same sizing as a muzzle (WPN-002), including no fixed maximum: it scales with the weapon's construction. Unlike a muzzle, a striking end is **not** required to be built from round pieces: bladed, pointed, and other melee-appropriate shapes are all valid.
 
 A striking end's size determines the Impact Strength it generates, exactly like a muzzle (`10-weapons.md`, WPN-021) — both represent the physical contact surface through which a weapon transfers energy into the target; a muzzle and a functional striking end are the same concept, expressed through two different delivery methods.
 
@@ -183,9 +183,7 @@ A striking end's size determines the Impact Strength it generates, exactly like 
 
 # MEL-014 — Weapon Reach
 
-Weapon reach in melee is determined entirely by the physical geometry of the LEGO model — specifically, its Weapon Length (`10-weapons.md`, WPN-003).
-
-No written reach value or additional range statistic is required — reach is checked directly against the model (MEL-001).
+"Reach" is not a value consulted separately from the Physical Contact check (MEL-001) — it is a description of *why* that check comes out the way it does. A weapon's Weapon Length (`10-weapons.md`, WPN-003) is what physically lets it touch a target at a given distance; building a longer weapon is how a player makes their model reach farther. There is no reach number to look up, and none is needed — the model already decides the outcome the moment MEL-001's contact check is made.
 
 ---
 
@@ -195,7 +193,7 @@ Melee combat is a special case of the standard combat system, not an independent
 
 - Physical contact, not Line of Sight and Range, gates the attack (MEL-001, MEL-014).
 - Each independently wielded weapon generates exactly one Attack Die, regardless of striking-end count (MEL-003); a striking end's size still determines Impact Strength (MEL-013, WPN-021).
-- Both combatants resolve simultaneously (MEL-004, CBT-010).
+- A melee attack is one unit's own action — it never grants the target a free counter-attack (MEL-004, CBT-010).
 
 Every Impact — ranged or melee — then resolves through the exact same sequence: Attack Roll, Select Target Component, Geometry Check, Damage Roll, Component State Change, Penetration (MEL-005). No separate damage system exists.
 

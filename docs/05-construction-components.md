@@ -49,7 +49,7 @@ Decorative elements have no gameplay effect.
 
 # CMP-002 — Pilot
 
-Every motorized vehicle must include a visible Pilot position, occupied by a crew minifigure (`08-vehicles.md`, VEH-015).
+Every powered vehicle must include a visible Pilot position, occupied by a crew minifigure (`08-vehicles.md`, VEH-015).
 
 Requirements:
 
@@ -58,7 +58,7 @@ Requirements:
 
 Current gameplay:
 
-- Required for all motorized vehicles.
+- Required for all powered vehicles.
 - Losing the Pilot disables vehicle movement (`08-vehicles.md`, VEH-013).
 
 ---
@@ -87,7 +87,7 @@ Requirements:
 - Both sides should contain tracks.
 - Decorative track details have no effect.
 
-Tracked vehicles pivot around the centre of the model.
+Pivot behavior follows `08-vehicles.md` (VEH-009).
 
 ---
 
@@ -97,11 +97,7 @@ Hover vehicles replace wheels or tracks with hover emitters.
 
 Hover components must be visually distinguishable.
 
-Hover vehicles:
-
-- Ignore wheel requirements.
-- Pivot around the centre.
-- Follow Hover Movement Rules.
+Hover vehicles ignore wheel requirements. Pivot and movement behavior follows `08-vehicles.md` (VEH-011).
 
 ---
 
@@ -114,7 +110,7 @@ Requirements:
 - Legs must visibly support the vehicle.
 - Decorative legs have no gameplay effect.
 
-Walkers pivot around the centre of the model.
+Pivot behavior follows `08-vehicles.md` (VEH-010).
 
 ---
 
@@ -220,7 +216,7 @@ Crew compartments:
 
 # CMP-014 — Shields
 
-A Shield is defensive equipment carried by infantry.
+A Shield is defensive equipment carried by infantry — a physical component that may be targeted or may interpose to protect a component behind it, exactly like any other component (`16-damage-system.md`, DMG-007, DMG-012).
 
 Requirements:
 
@@ -228,7 +224,7 @@ Requirements:
 - Must remain visible.
 - Must occupy one hand.
 
-Shield effects are defined in future Equipment Rules.
+A shield provides no bonus beyond being a component in the way — its own Resistance (DMG-003) determines what it takes to get through it.
 
 ---
 

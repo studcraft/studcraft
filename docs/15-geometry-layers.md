@@ -63,7 +63,7 @@ Examples include:
 - Slopes
 - Pipes
 - Technic details
-- Decorative armor
+- Decorative armour
 - Exhausts
 - Antennas
 - Greebling
@@ -136,7 +136,7 @@ A model does not become invalid, and its measured values do not change, solely a
 
 Gameplay Geometry: Length 4, Width 2, four Size-1 muzzles.
 
-Visual Geometry: tubes, slopes, barrel supports, armor plating.
+Visual Geometry: tubes, slopes, barrel supports, armour plating.
 
 Gameplay remains identical.
 
@@ -146,7 +146,7 @@ Gameplay remains identical.
 
 Gameplay Geometry: Platform dimensions, Weapon locations, Weapon Capacity, Movement geometry, Transport capacity.
 
-Visual Geometry: tracks, fenders, lights, exhausts, decorative armor.
+Visual Geometry: tracks, fenders, lights, exhausts, decorative armour.
 
 Gameplay remains identical.
 

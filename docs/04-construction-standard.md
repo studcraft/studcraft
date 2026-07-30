@@ -48,17 +48,7 @@ The 4-stud edge defines the front of the unit.
 
 # SCS-003 — Vehicle Footprint
 
-Vehicles are measured using Unit Bases.
-
-Examples:
-
-| Vehicle | Footprint |
-|----------|----------:|
-| Bike | 1 × 2 UB |
-| Buggy | 2 × 2 UB |
-| Jeep | 2 × 3 UB |
-| Tank | 2 × 5 UB |
-| Super Heavy | Player Built |
+Vehicles are measured using Unit Bases — see `08-vehicles.md` (VEH-001) for the canonical footprint examples.
 
 There is no maximum vehicle size.
 
@@ -256,11 +246,9 @@ General equipment visibility requirements are defined in `02-core-rules.md` (COR
 
 # SCS-022 — Shields
 
-Shields must be physically carried.
+Shields must be physically carried and remain visible to function.
 
-Only visible shields provide defensive benefits.
-
-Shield orientation matters.
+A shield facing the attacker may be selected as the component that protects whatever is positioned behind it (`16-damage-system.md`, DMG-007) — the same as any other interposed component. A shield facing away does not block anything. Shield orientation matters for this reason, not for any separate defensive bonus.
 
 ---
 

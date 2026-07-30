@@ -189,9 +189,7 @@ The core rule is simple:
 
 > **If you can see it, you can shoot it.**
 
-Likewise:
-
-> **If it can see you, it can shoot you.**
+This is symmetric: if it can see you, you can be its target during its own activation — not an out-of-turn reaction. StudCraft has no reaction fire.
 
 Construction determines cover, exposure and firing opportunities.
 

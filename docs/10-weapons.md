@@ -51,12 +51,14 @@ Weapons that do not satisfy these conditions are decorative.
 
 # WPN-002 — Functional Muzzle
 
-A functional muzzle is a round construction area on the Weapon Front — a round plate or round tile — sized:
+A functional muzzle is a round construction area on the Weapon Front — a round plate or round tile. Common sizes:
 
 - 1×1
 - 2×2
 - 3×3
 - 4×4
+
+This list is illustrative, not a ceiling — a muzzle may be any size the Weapon Front Footprint (WPN-019) can physically hold. Larger muzzles (5×5 and beyond) are valid on a large enough Weapon Front, at the cost of a longer Weapon Body (WPN-018) and a bigger platform to carry it (WPN-004).
 
 Square or rectangular pieces (e.g. 1×1 square plate, 1×2, 2×1, 1×3, 2×4) are not valid — only round pieces represent a muzzle. The area a muzzle occupies on the Weapon Front Footprint is still measured as an N×N grid slot (per WPN-019/WPN-020), the same way a round LEGO plate or tile occupies a square footprint of studs even though the visible piece is round.
 
@@ -214,24 +216,7 @@ Floating weapons are not permitted.
 
 # WPN-010 — Infantry Weapons
 
-Infantry weapons must be carried by the minifigure.
-
-Equipment follows the physical model.
-
-Examples:
-
-One-handed:
-
-- Knife
-- Sword
-- Pistol
-- Shield
-
-Two-handed:
-
-- Rifle
-- Machine Gun
-- Rocket Launcher
+Infantry weapons must be carried by the minifigure, following the universal Hands rule (`02-core-rules.md`, CORE-015): one-handed weapons (knife, sword, pistol) occupy one hand alongside a shield; two-handed weapons (rifle, machine gun, rocket launcher) occupy both.
 
 The model determines what the unit can use.
 
@@ -254,7 +239,7 @@ Weapon position determines firing arc.
 
 # WPN-012 — Line of Fire
 
-A weapon's Line of Fire follows the universal Line of Sight rule (`11-combat.md`, CBT-002), applied from the weapon's muzzle: buildings, terrain and vehicles block it, and transparent elements follow the Transparency rule (`04-construction-standard.md`, SCS-023).
+A weapon's Line of Fire follows the universal Line of Sight rule (`11-combat.md`, CBT-002) — determined from the attacker's point of view (`02-core-rules.md`, CORE-008), not the muzzle specifically: buildings, terrain and vehicles block it, and transparent elements follow the Transparency rule (`04-construction-standard.md`, SCS-023).
 
 ---
 
@@ -282,16 +267,9 @@ Only functional muzzles count.
 
 # WPN-016 — Weapon Damage
 
-Weapons do not possess intrinsic damage values.
+Weapons do not possess a damage value. Weapons generate Attack Dice, each carrying an Impact Strength derived from the muzzle or striking end that rolled it (WPN-021) — a geometric property of the weapon, not a hidden statistic.
 
-Weapons generate attack dice.
-
-The final effect depends on:
-
-- Target
-- Armour
-- Cover
-- Combat Rules
+The final effect of a successful Impact depends entirely on the target: its Resistance/Armour and the Geometry Check (`16-damage-system.md`, DMG-003, DMG-014), and the Damage Roll (DMG-015). Cover only determines whether the target can be selected at all (`02-core-rules.md`, CORE-010) — it has no effect once an attack is declared.
 
 This keeps weapon construction simple while allowing future expansion.
 
@@ -466,6 +444,9 @@ Impact Strength equals the size of the muzzle — or, for melee weapons, the fun
 | 2×2 | 2 |
 | 3×3 | 3 |
 | 4×4 | 4 |
+| N×N | N |
+
+There is no maximum size. A large enough Weapon Front Footprint (WPN-019) supports arbitrarily large muzzles or striking ends, with Impact Strength scaling accordingly. Threatening a highly Resistant component (`16-damage-system.md`, DMG-003) requires a correspondingly large Weapon Front, which in turn requires a longer Weapon Body (WPN-018) and a larger platform to carry it (WPN-004) — bigger guns need bigger platforms. No component is unconditionally invulnerable; it is only safe from whatever can't be mounted on the attacker's current platform.
 
 A weapon with multiple muzzles or striking ends of different sizes produces Attack Dice with different Impact Strengths — each die's Impact Strength depends only on the muzzle or striking end that rolled it.
 

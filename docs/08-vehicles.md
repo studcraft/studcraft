@@ -39,21 +39,14 @@ A vehicle occupies one or more Unit Bases (UB) — see `02-core-rules.md` (CORE-
 
 Examples
 
-Motorbike
-
-1 × 2 UB
-
-Jeep
-
-2 × 3 UB
-
-Tank
-
-2 × 5 UB
-
-Heavy Transport
-
-3 × 8 UB
+| Vehicle | Footprint |
+|----------|----------:|
+| Bike | 1 × 2 UB |
+| Buggy | 2 × 2 UB |
+| Jeep | 2 × 3 UB |
+| Tank | 2 × 5 UB |
+| Heavy Transport | 3 × 8 UB |
+| Super Heavy | Player Built |
 
 No maximum vehicle size exists.
 
@@ -82,6 +75,8 @@ Decorative elements are ignored.
 A vehicle moves:
 
 **One and a half (1.5×) times its own length**
+
+Costing **1 Action Point** (`02-core-rules.md`, CORE-006), the same as any other Move action.
 
 Measure from the vehicle's front.
 
@@ -149,7 +144,7 @@ Vehicles combine forward movement with turns.
 
 Vehicles using wheels represent conventional steering systems.
 
-Wheel vehicles may perform:
+Wheel vehicles may perform, each costing **1 Action Point** (matching MOVE-008's infantry rotation cost):
 
 - 90° Left Turn
 - 90° Right Turn
@@ -164,7 +159,7 @@ This simulates real steering geometry.
 
 Tracked vehicles pivot around the center of the model.
 
-They may rotate:
+They may rotate, each costing **1 Action Point**:
 
 - 90°
 - 180°
@@ -178,7 +173,7 @@ This represents differential steering.
 
 Walkers pivot around the center of the model.
 
-They may rotate freely in 90° increments.
+They may rotate freely in 90° increments, each costing **1 Action Point**.
 
 Walkers ignore wheel steering restrictions.
 
@@ -188,7 +183,7 @@ Walkers ignore wheel steering restrictions.
 
 Hover vehicles behave similarly to wheeled vehicles.
 
-They may:
+They may, each costing **1 Action Point**:
 
 - Move forward and backward.
 - Turn 90° left or right.
@@ -216,7 +211,7 @@ A vehicle cannot combine locomotion systems unless explicitly designed to do so.
 
 # VEH-013 — Pilot
 
-Every powered vehicle requires a Pilot to move — a crew member (VEH-015) occupying a visible operating position.
+Every powered vehicle — wheeled, tracked, walker, or hover (VEH-012) — requires a Pilot to move, a crew member (VEH-015) occupying a visible operating position.
 
 The Pilot resolves Impacts like any other component (`16-damage-system.md`, DMG-005: Operational / Wounded / Dead).
 

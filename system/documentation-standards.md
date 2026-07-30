@@ -55,7 +55,9 @@
 This tree is illustrative, not exhaustively re-verified on every change —
 `docs/` in particular grows with every ruleset proposal. Trust `ls docs/`
 over this list if they ever disagree, and see "Adding a New Ruleset
-Document" below for what to update when they do.
+Document" below for what to update when they do. The `13-*.md` gap is
+deliberate — `13-materials.md` was removed and its number retained as
+a gap, not reused, per the Naming Conventions below.
 
 Agents should preserve this modular organization.
 
