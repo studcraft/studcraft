@@ -90,7 +90,13 @@ The battlefield space, measured in Unit Bases, that a player's army may occupy b
 
 ## Weapon Range
 
-The maximum distance a weapon may attack, equal to Weapon Length × 2.
+The maximum distance a ranged weapon may attack, equal to Weapon Length × 2. See `10-weapons.md` (WPN-005).
+
+---
+
+## Weapon Reach
+
+The melee equivalent of Weapon Range: a melee weapon's effective reach, determined directly by its Weapon Length. See `12-melee.md` (MEL-014).
 
 ---
 
@@ -132,9 +138,15 @@ The size of a functional muzzle (1×1 through 4×4). Determines the Impact Stren
 
 ---
 
+## Functional Striking End
+
+The melee equivalent of a muzzle: the physical point of contact through which a melee weapon delivers an Impact. Sized 1×1 through 4×4 like a muzzle, but not required to be round. See `12-melee.md` (MEL-013).
+
+---
+
 ## Impact Strength
 
-The strength value carried by an Attack Die, equal to the Muzzle Size of the muzzle that generated it.
+The strength value carried by an Attack Die, equal to the size of the muzzle or functional striking end that generated it. See `10-weapons.md` (WPN-021).
 
 ---
 
