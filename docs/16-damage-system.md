@@ -83,13 +83,15 @@ Every component in the game follows exactly the same three states. There are no 
 
 # DMG-003 — Geometry Defines Resistance
 
-Resistance is never assigned as a statistic. For a component the player actually builds — a wall, a shield, a hull, a door — it is read directly from the model.
+Resistance is never assigned as a statistic. It is read directly from the model.
 
-The resistance of a constructed component is the **smallest structural section that an impact must cross in its direction of travel**, measured in plate layers (the finest LEGO unit of height) — a standard brick is 3 plates tall, so a wall built from bricks is measured as 3 plate layers per brick, not 1.
+Resistance is the **smallest structural section that an impact must cross in its direction of travel**, measured in plate layers (the finest LEGO unit of height). This conversion applies to every component without exception: a plate counts as 1, a brick counts as 3, and any other LEGO element counts as the plate-equivalent of its own thickness in the direction of travel. No component type is exempt, and none is measured differently — a moulded piece (a minifig torso, a wheel, an accessory shield) is read the same way as a built assembly (a wall, a shield, a hull).
 
-A fixed piece that offers no construction choice — most notably a minifig — is not "built" in this sense, and is not measured the same way: it uses a fixed baseline Resistance instead of a literal plate-layer count (DMG-004, Example 1). This is not a material-specific exception (DMG-008 still holds — organic vs. plastic never changes the mechanism); it is the difference between a component whose thickness is a design choice and one whose form the piece itself already fixes.
+Impact Strength (`10-weapons.md`, WPN-021) is expressed in the same unit.
 
-For constructed components, the important concept is not the external volume. It is the amount of structure the projectile must physically penetrate.
+The Geometry Check (DMG-014) therefore compares two counts of plate layers rather than two different units.
+
+The important concept is not the external volume. It is the amount of structure the projectile must physically penetrate.
 
 ---
 
@@ -99,7 +101,7 @@ Resistance belongs to the construction itself. Changing the way a component is b
 
 ## Example 1 — Minifig
 
-A minifig is a fixed piece, not a construction choice: it uses a set baseline, `Resistance = 1`, regardless of its real molded thickness. This is the one Resistance value not derived from measuring plate layers (see DMG-003).
+A minifig torso, measured like any other component: roughly one brick of material in the direction of travel. Therefore `Resistance = 3`.
 
 ## Example 2 — Mounted Cannon
 
@@ -112,6 +114,14 @@ A shield built from standard bricks (1 brick = 3 plates tall). The projectile cr
 ## Example 4 — Shield built with Plates
 
 A shield constructed from four stacked plates. Viewed from the front, the projectile must cross `4 plate layers`. Therefore `Resistance = 4`.
+
+## Example 5 — Bunker
+
+A bunker wall built two bricks thick. The projectile crosses `6 plate layers` (2 bricks × 3 plates). Therefore `Resistance = 6`.
+
+## Example 6 — Moulded Windscreen
+
+A windscreen — a single moulded LEGO element, not a built assembly — measured the same way as any other component: `1 plate` thick in the direction of travel. Therefore `Resistance = 1`. No component type is exempt from this measurement — a thin moulded piece resolves low (this example), a thick one resolves high (Example 1, the minifig), by the same conversion.
 
 A brick-built shield (Resistance 3) and a four-plate shield (Resistance 4) can occupy similar external bulk, yet resolve to different resistance values because the count of physical layers — not the external silhouette — is what matters. StudCraft rewards engineering, not appearance.
 
@@ -163,7 +173,7 @@ This naturally creates layered protection without requiring additional rules.
 
 Every component follows exactly the same mechanical rules regardless of what it represents — glass, metal, wood, infantry, or anything else. Resistance (DMG-003/004), the Geometry Check (DMG-014), the Damage Roll (DMG-015), and the Component State machine (DMG-005) apply identically to every component. StudCraft does not define material-specific hit thresholds, Resistance modifiers, or damage tables of any kind.
 
-A typical minifig (Resistance 1, per DMG-004 Example 1) takes exactly two failed Damage Rolls to go from Operational to Dead — the same as a wheel, a shield, or a cannon built with the same Resistance. Nothing about *what* a component represents changes how it resolves an Impact — only its Resistance does, whether that Resistance comes from construction or, for a fixed piece like a minifig, its set baseline (DMG-003).
+A typical minifig (Resistance 3, per DMG-004 Example 1) takes exactly two failed Damage Rolls to go from Operational to Dead — the same as a wheel, a shield, or a cannon built with the same Resistance. Nothing about *what* a component represents changes how it resolves an Impact — only its Resistance does.
 
 Physical/cosmetic representation of a component reaching Dead (how a broken window should look versus a destroyed wheel) is left entirely to the player and the table, per `02-core-rules.md` (CORE-016) and `04-construction-standard.md` (SCS-024) — this document does not prescribe it. Future supplements may add cosmetic guidance for specific constructions without changing any mechanic defined here.
 
@@ -276,7 +286,7 @@ If remaining strength is greater than zero, the impact continues in the same dir
 
 ## Example
 
-Heavy Cannon (`Strength 4`) vs. Shield (`Resistance 3`): after affecting the shield, `Remaining Strength = 1`. The impact continues. A minifig behind the shield (`Resistance 1`) is still a valid target — the impact is capable of damaging it. The minifig now performs its own Damage Roll. Each component always resolves independently.
+Heavy Cannon (`Strength 6`) vs. Shield (`Resistance 3`): after affecting the shield, `Remaining Strength = 3`. The impact continues. A minifig behind the shield (`Resistance 3`) is still a valid target — `3 ≥ 3`, the impact is capable of damaging it. The minifig now performs its own Damage Roll. Each component always resolves independently.
 
 ---
 
@@ -310,19 +320,19 @@ Dead components cannot be repaired — they have already been removed from the m
 
 ## Example 1 — Pistol vs Minifig
 
-Minifig `Resistance 1`. Pistol `Strength 1`. Attack Roll: Success. Geometry: `1 ≥ 1`. Damage Roll: Failure. Result: `Operational → Wounded`. Second successful impact: `Wounded → Dead`.
+Minifig `Resistance 3`. Pistol `Strength 3`. Attack Roll: Success. Geometry: `3 ≥ 3`. Damage Roll: Failure. Result: `Operational → Wounded`. Second successful impact: `Wounded → Dead`.
 
 ## Example 2 — Shotgun vs Minifig
 
-Shotgun (2 muzzles). Attack Rolls: Success, Success. Both geometry checks succeed. Damage Rolls: Failure, Failure. Result: `Operational → Wounded → Dead`. One shotgun blast eliminates the Minifig.
+Shotgun (2 muzzles, `Strength 3` each). Minifig `Resistance 3`. Attack Rolls: Success, Success. Both geometry checks succeed (`3 ≥ 3` each). Damage Rolls: Failure, Failure. Result: `Operational → Wounded → Dead`. One shotgun blast eliminates the Minifig.
 
 ## Example 3 — Heavy Cannon vs Shield
 
-Shield `Resistance 3`. Heavy Cannon `Strength 4`. Attack succeeds. Geometry succeeds. Damage Roll: Failure. Shield becomes `Wounded`. Remaining Strength `1` continues toward the protected Minifig, which now resolves the impact independently (DMG-017).
+Shield `Resistance 3`. Heavy Cannon `Strength 6`. Attack succeeds. Geometry succeeds (`6 ≥ 3`). Damage Roll: Failure. Shield becomes `Wounded`. Remaining Strength `3` continues toward the protected Minifig, which now resolves the impact independently (DMG-017).
 
 ## Example 4 — Jeep Cannon
 
-Mounted Cannon (2 plates thick, `Resistance 2`). Enemy Cannon `Strength 2`. Attack succeeds. Geometry succeeds. Damage Roll fails. Mounted Cannon becomes `Wounded`. A second successful impact kills it. The Jeep remains operational but without its weapon.
+Mounted Cannon (2 plates thick, `Resistance 2`). Enemy Cannon `Strength 3`. Attack succeeds. Geometry succeeds (`3 ≥ 2`). Damage Roll fails. Mounted Cannon becomes `Wounded`. A second successful impact kills it. Remaining Strength `1` continues toward the Jeep's hull (one brick, `Resistance 3`), but `1 < 3` — the impact stops there. The Jeep remains operational but without its weapon.
 
 ---
 

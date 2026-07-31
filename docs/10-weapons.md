@@ -397,7 +397,7 @@ Twin Barrel
 ····
 ```
 
-2 Attack Dice, Muzzle Size 1.
+2 Attack Dice, Muzzle Size 1, Impact Strength 3 each.
 
 Quad Barrel
 
@@ -408,7 +408,7 @@ Quad Barrel
 ····
 ```
 
-4 Attack Dice, Muzzle Size 1.
+4 Attack Dice, Muzzle Size 1, Impact Strength 3 each.
 
 Heavy Cannon
 
@@ -419,7 +419,7 @@ Heavy Cannon
 ····
 ```
 
-1 Attack Die, Muzzle Size 2.
+1 Attack Die, Muzzle Size 2, Impact Strength 6.
 
 Hybrid
 
@@ -430,7 +430,7 @@ Hybrid
 ····
 ```
 
-3 Attack Dice. Muzzle Sizes: 2, 1, 1.
+3 Attack Dice. Muzzle Sizes: 2, 1, 1. Impact Strengths: 6, 3, 3.
 
 Every valid partition produces a different weapon. No weapon profile is required.
 
@@ -438,17 +438,21 @@ Every valid partition produces a different weapon. No weapon profile is required
 
 # WPN-021 — Impact Strength
 
-Impact Strength equals the size of the muzzle — or, for melee weapons, the functional striking end (`12-melee.md`, MEL-013) — that generated the attack.
+Impact Strength equals the size of the muzzle — or, for melee weapons, the functional striking end (`12-melee.md`, MEL-013) — that generated the attack, multiplied by 3.
+
+One stud of muzzle width represents one brick of penetrating power, and a brick is 3 plate layers (`16-damage-system.md`, DMG-003) — so Impact Strength and Resistance are both counts of plate layers, and the Geometry Check (DMG-014) compares like with like instead of two different units.
 
 | Size | Impact Strength |
 |--------|-----------------:|
-| 1×1 | 1 |
-| 2×2 | 2 |
-| 3×3 | 3 |
-| 4×4 | 4 |
-| N×N | N |
+| 1×1 | 3 |
+| 2×2 | 6 |
+| 3×3 | 9 |
+| 4×4 | 12 |
+| N×N | 3N |
 
-There is no maximum size. A large enough Weapon Front Footprint (WPN-019) supports arbitrarily large muzzles or striking ends, with Impact Strength scaling accordingly. Threatening a highly Resistant component (`16-damage-system.md`, DMG-003) requires a correspondingly large Weapon Front, which in turn requires a longer Weapon Body (WPN-018) and a larger platform to carry it (WPN-004) — bigger guns need bigger platforms. No component is unconditionally invulnerable; it is only safe from whatever can't be mounted on the attacker's current platform.
+As a shortcut: a muzzle N studs wide defeats a component N bricks thick. This stops dividing evenly once a component is built from plates rather than whole bricks (a 4-plate shield is Resistance 4, not a whole number of bricks) — the shortcut aids reasoning, but the table above is the operative value.
+
+There is no maximum size. A large enough Weapon Front Footprint (WPN-019) supports arbitrarily large muzzles or striking ends, with Impact Strength scaling accordingly. Threatening a highly Resistant component (`16-damage-system.md`, DMG-003) requires a correspondingly large Weapon Front, which in turn requires a longer Weapon Body (WPN-018) and a larger platform to carry it (WPN-004) — bigger guns need bigger platforms. No component is unconditionally invulnerable; it is only safe from whatever can't be mounted on the attacker's current platform. An infantry model, carrying the largest muzzle its platform permits (2×2, per WPN-004/WPN-018/WPN-019/WPN-020), generates Impact Strength 6 — enough to affect a component built from one or two standard bricks (Resistance 3 or 6).
 
 A weapon with multiple muzzles or striking ends of different sizes produces Attack Dice with different Impact Strengths — each die's Impact Strength depends only on the muzzle or striking end that rolled it.
 

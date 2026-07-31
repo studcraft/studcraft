@@ -154,7 +154,7 @@ Each functional muzzle grants one Attack Die. Muzzles may be placed directly adj
 
 ## Muzzle Size
 
-The size of a functional muzzle. No fixed maximum — scales with the Weapon Front Footprint (`10-weapons.md`, WPN-019, WPN-021). Determines the Impact Strength of the Attack Die it generates.
+The size of a functional muzzle. No fixed maximum — scales with the Weapon Front Footprint (`10-weapons.md`, WPN-019, WPN-021). Determines the Impact Strength of the Attack Die it generates (size × 3).
 
 ---
 
@@ -166,7 +166,7 @@ The melee equivalent of a muzzle: the physical point of contact through which a 
 
 ## Impact Strength
 
-The strength value carried by an Attack Die, equal to the size of the muzzle or functional striking end that generated it. See `10-weapons.md` (WPN-021).
+The strength value carried by an Attack Die, equal to the size of the muzzle or functional striking end that generated it, multiplied by 3 (one stud of muzzle width = one brick of penetrating power = 3 plate layers). Expressed in the same unit as Resistance, so the Geometry Check compares like with like. See `10-weapons.md` (WPN-021).
 
 ---
 
@@ -220,7 +220,7 @@ A model built with Visual Geometry added on top of a valid Minimum Representatio
 
 ## Resistance
 
-The smallest structural cross-section a component's construction requires an Impact to cross, measured in plate layers and read directly from the model, not assigned as a statistic. See `16-damage-system.md` (DMG-003, DMG-004).
+The smallest structural cross-section an Impact must cross, measured in plate layers and read directly from the model, not assigned as a statistic — no component type is exempt, moulded pieces included. See `16-damage-system.md` (DMG-003, DMG-004).
 
 ---
 
