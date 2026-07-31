@@ -45,7 +45,7 @@ Examples include:
 - Muzzle sizes
 - Transport volume
 - Movement geometry
-- Component structural thickness (Resistance, `16-damage-system.md` DMG-003) — for constructed components only; a fixed piece like a minifig uses a set baseline instead (DMG-003, DMG-004)
+- Component structural thickness (Resistance, `16-damage-system.md` DMG-003) — measured the same way for every component, moulded or built
 
 Derived values (Weapon Front Footprint, Range, Attack Dice, Impact Strength, Weapon Capacity, and similar) are not listed separately — they are always computed from the entries above, per `10-weapons.md`.
 
