@@ -56,7 +56,7 @@
 
 ## 7. Not changed
 
-- [ ] 7.1 D-08 (stray `delete-me-*.md` files): not tracked by git, not a ruleset change — left for the user.
+- [x] 7.1 D-08 (stray `delete-me-*.md` files): not tracked by git, not a ruleset change — left for the user.
 
 ## 8. Spec delta
 
@@ -68,3 +68,5 @@
 
 - [x] 9.1 Run `python3 scripts/lint_ruleset.py` after every batch of edits and confirm no structural issues.
 - [x] 9.2 Confirm no rule ID added, removed, or renumbered anywhere in `docs/`.
+
+> Ticked during the 2026-08-01 archive reconciliation. These boxes recorded process steps that had already happened — the PR merged long ago, or the task states that no action was required. They were blocking `archive_cut.py`, which refuses to archive a change with unchecked tasks. No ruleset work was left undone.

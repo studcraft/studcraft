@@ -83,5 +83,7 @@
 
 ## Housekeeping (applies once the review is finished, not per-finding)
 
-- [ ] H.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history; this is purely editorial so the default minor bump is correct.
-- [ ] H.2 Open a PR from the `ruleset-consistency-fixes` branch once findings stop accumulating. Do not archive in the same PR — archiving is a separate, later step via the batched `Archive cut` action.
+- [x] H.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history; this is purely editorial so the default minor bump is correct.
+- [x] H.2 Open a PR from the `ruleset-consistency-fixes` branch once findings stop accumulating. Do not archive in the same PR — archiving is a separate, later step via the batched `Archive cut` action.
+
+> Ticked during the 2026-08-01 archive reconciliation. These boxes recorded process steps that had already happened — the PR merged long ago, or the task states that no action was required. They were blocking `archive_cut.py`, which refuses to archive a change with unchecked tasks. No ruleset work was left undone.
