@@ -66,15 +66,15 @@ Square or rectangular pieces (e.g. 1×1 square plate, 1×2, 2×1, 1×3, 2×4) ar
 
 Each functional muzzle represents one firing barrel. Muzzle size determines Impact Strength (WPN-021).
 
-Melee weapons use a functional striking end instead of a muzzle. See `12-melee.md` (MEL-013).
+A functional muzzle is the physical contact surface through which a ranged weapon transfers energy into an Impact. Melee weapons use a functional striking end in its place, which plays exactly the same role — see `12-melee.md` (MEL-013).
 
 ---
 
 # WPN-003 — Weapon Length
 
-Weapon Length is the longest dimension of the functional Weapon Body.
+Weapon Length is the longest dimension of the functional Weapon Body, measured along the weapon's firing axis — the axis running perpendicular to the Weapon Front (WPN-019), which is the face the length axis points through.
 
-Decorative elements are ignored.
+Measure the Weapon Body only. Mounting hardware (WPN-009) and decorative elements are not part of it and are ignored.
 
 ---
 
@@ -493,6 +493,8 @@ Determines the number of Attack Dice (WPN-006).
 Determines Impact Strength (WPN-021). Muzzles are always round (WPN-002).
 
 ---
+
+Weapons define only how an Impact is generated. Every consequence of that Impact is determined by Combat Resolution (`11-combat.md`) and the Component Damage System (`16-damage-system.md`).
 
 No hidden statistics are required.
 

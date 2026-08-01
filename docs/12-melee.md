@@ -96,7 +96,7 @@ A melee attack is one unit's own action, declared and resolved like any other at
 
 # MEL-005 — Standard Combat Resolution
 
-Once a melee weapon generates its Attack Die (MEL-003), every step that follows is identical to a ranged Impact (`16-damage-system.md`, DMG-011 through DMG-017): Attack Roll, Select Target Component, Geometry Check, Damage Roll, Component State Change, and Penetration where applicable. No melee-specific resolution rules exist.
+Once a melee weapon generates its Attack Die (MEL-003), Combat Resolution (`11-combat.md`) and the Component Damage System determine every remaining step, exactly as for a ranged Impact — the sequence is defined by `16-damage-system.md` (DMG-009), and each step within it by DMG-011 through DMG-017. No melee-specific resolution rules exist.
 
 ---
 
@@ -143,7 +143,7 @@ Shields are defensive components. They never generate Attack Dice. Their interac
 
 # MEL-010 — Merged into Component Targeting
 
-Vehicle component targeting adds no rule beyond MEL-002 (Component Targeting) — a vehicle component is targeted exactly like any other component: visible and physically reachable. This ID is retained, rather than deleted, per this repo's rule-ID-stability convention; see MEL-002 for the actual rule.
+Reserved for rule-ID stability. Vehicle component targeting is fully defined by MEL-002 — a vehicle component is targeted like any other: visible and physically reachable.
 
 ---
 
@@ -169,13 +169,13 @@ Unless explicitly stated otherwise, melee combat follows all rules defined in:
 - 10-weapons.md
 - 16-damage-system.md
 
-This document only defines how melee weapons generate Attack Dice. Everything after that belongs to the standard combat system.
+This document defines only how a melee attack generates an Impact — physical contact (MEL-001), reach (MEL-014), striking ends (MEL-013), and Attack Dice (MEL-003). All subsequent resolution belongs to Combat Resolution and the Component Damage System.
 
 ---
 
 # MEL-013 — Functional Striking End
 
-A functional striking end is the physical point of contact through which a melee weapon delivers an Impact. It replaces the concept of a firing muzzle for melee weapons (`10-weapons.md`, WPN-001, WPN-002).
+A functional striking end is the physical contact surface through which a melee weapon delivers an Impact. It replaces the concept of a firing muzzle for melee weapons (`10-weapons.md`, WPN-001, WPN-002).
 
 A functional striking end is built as an N×N footprint slot — the same sizing as a muzzle (WPN-002), including no fixed maximum: it scales with the weapon's construction. Unlike a muzzle, a striking end is **not** required to be built from round pieces: bladed, pointed, and other melee-appropriate shapes are all valid.
 
@@ -197,7 +197,7 @@ Melee combat is a special case of the standard combat system, not an independent
 - Each independently wielded weapon generates exactly one Attack Die, regardless of striking-end count (MEL-003); a striking end's size still determines Impact Strength (MEL-013, WPN-021).
 - A melee attack is one unit's own action — it never grants the target a free counter-attack (MEL-004, CBT-010).
 
-Every Impact — ranged or melee — then resolves through the exact same sequence: Attack Roll, Select Target Component, Geometry Check, Damage Roll, Component State Change, Penetration (MEL-005). No separate damage system exists.
+Every Impact — ranged or melee — then resolves through the exact same sequence: Attack Roll, Select Target Component, Geometry Check, Damage Roll, Component State Change, Penetration (`16-damage-system.md`, DMG-009). No separate damage system exists.
 
 ---
 
