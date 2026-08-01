@@ -77,6 +77,123 @@ changed since you started reading.
 
 ---
 
+# Review the Applied Text, Not Only the Diff
+
+Every review pass in this repo that found something real found it by reading
+the *result*, not the change. Across four audit rounds and three external
+reviews, the same pattern held every time: **the execution was faithful and
+the proposal was wrong.**
+
+Verification greps confirm that instructions were followed. They cannot see
+that a correctly-inserted paragraph landed somewhere that now reads as part of
+the wrong example, that two paragraphs now say the same thing, or that a rule
+now contradicts one three documents away. Examples, all found only by reading
+the applied file end to end:
+
+- `VEH-021` told a blocked vehicle to use "a legal access point (MOVE-011)".
+  `MOVE-011` is the infantry rule and its list includes stairs, which
+  `VEH-027` — added in the same change — says vehicles may never use.
+- `MOVE-016` ended up stating "each die is a Damage Roll" twice, because one
+  task inserted a paragraph and another edited a pre-existing one that already
+  said it.
+- `DMG-004`'s closing paragraph, which comments on Examples 3 and 4, was
+  displaced three times as later examples were each inserted ahead of it.
+- A new `VEH-004` example table reintroduced `VEH-001`'s footprints as a
+  parenthetical — the exact duplication class this repo has spent several
+  changes removing.
+
+After applying, read every rule the change touched in full, plus the rules it
+cites and the document's own Summary. Budget for it: it is where the findings
+are.
+
+---
+
+# The Summary Is Part of the Rule
+
+A document's `# Summary` restates the rules above it, and nothing enforces
+that it stays true. It has gone stale after almost every substantive change:
+`07-movement.md`'s omitted every AP cost while listing "five principles" that
+had become six; `08-vehicles.md`'s listed five physical characteristics after
+terrain capability became a sixth; `09-transport.md`'s still said "Embarking
+costs 1 AP" after the rule changed to 1 AP per Unit Base.
+
+Any change touching a rule must check that document's Summary, and its
+glossary entry, in the same pass. Both are restatements, and restatements
+drift.
+
+---
+
+# Record What You Decided Not to Do
+
+Reviews on this repo have repeatedly re-proposed ideas that had already been
+considered and rejected, because nobody wrote down the reason. One external
+review asked to delete the material list from `DMG-008`; another proposed
+capping Impact Strength. A later self-review re-proposed reordering
+`10-weapons.md`'s Summary — a change that had been *applied and then reverted*
+days earlier, for reasons that were not recorded anywhere a reader would look.
+
+When a proposal rejects an option, the rejection and its reasoning belong in
+`design.md`, and if the question will recur for a reader of the ruleset
+itself, in the rule. `MEL-010`, `CBT-011` and `WPN-021` all do this: they keep
+the superseded thing visible and say why it was superseded, rather than
+leaving a clean surface that invites the same suggestion again.
+
+---
+
+# Verify the Number, Not Just the Direction
+
+Counts stated in prose go stale the moment anything is added. A proposal
+claiming "nineteen defects" while its own list held twenty-two, and category
+headers summing to a different total again, both shipped in drafts of the same
+change. So did a coverage table that had gained a row without its intro
+sentence following.
+
+If a proposal or rule states a count, recompute it mechanically before
+merging. The same applies to worked examples: a rule that says "a weapon
+reaching 90 studs" should use a figure its own table actually shows.
+
+---
+
+# Multipliers Set Early Get Falsified by Numbers Added Later
+
+`VEH-004`'s `1.5×` and `WPN-005`'s `× 2` were both reasonable when written and
+both wrong by the time `MOVE-004`'s 12-stud infantry move, `WPN-004`'s Platform
+Length cap and `CORE-001`'s Unit Base orientation existed to check them
+against. Measured together they produced: an infantry weapon reaching 8 studs
+against a 12-stud move, so nothing could be engaged before it closed; a
+motorbike slower than a walking soldier while costing twice the Deployment
+Area; and half-stud distances on a stud grid.
+
+None of those is visible from inside the rule that causes it. When a change
+adds a number, check it against every other number it can be compared with —
+especially movement against range, and any multiplier against the granularity
+of the thing it multiplies.
+
+---
+
+# Do Not Cap What the Model Already Bounds
+
+The instinct to add a maximum is usually wrong here, and `WPN-021` already
+wrote the argument: *"No component is unconditionally invulnerable; it is only
+safe from whatever can't be mounted on the attacker's current platform."*
+
+Before adding a cap, look for the chain that already exists. For weapon Range
+it is complete and every link is either read from the model or agreed by the
+players:
+
+```
+Range ≤ 6 × Weapon Length ≤ 6 × Platform Length (WPN-004)
+      ≤ what fits the Deployment Area (SCS-003, DEP-003)
+      ≤ the battlefield agreed first (FLOW-001, step 2)
+```
+
+A cap would also contradict a decision the ruleset already made one rule away.
+What is worth adding instead is a paragraph stating the chain, so a reader who
+computes an alarming figure finds the answer where they are already reading
+rather than reconstructing it.
+
+---
+
 # Delta vs. Direct Edit
 
 An OpenSpec `MODIFIED` (or `REMOVED`) delta can only target a capability that

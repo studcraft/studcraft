@@ -30,6 +30,46 @@ If GitHub shows "This branch is out-of-date with the base branch":
 
 ---
 
+# This Repo Squash-Merges, and That Has Two Consequences
+
+Every PR lands on `main` as a single new commit. The branch's own commits are
+never ancestors of `main`, which breaks two things people reach for by reflex.
+
+## `git branch --merged` is useless here — never delete branches by it
+
+After 34 merged PRs, `git branch --merged main` reported **zero** merged
+branches. Deleting by that criterion would have deleted nothing; trusting its
+inverse would have deleted everything.
+
+Use the authoritative source instead — which branches GitHub records as having
+a merged PR:
+
+```bash
+gh pr list --state merged --limit 100 --json headRefName --jq '.[].headRefName' | sort -u > /tmp/merged.txt
+git branch --format='%(refname:short)' | grep -v '^main$' | sort > /tmp/local.txt
+comm -12 /tmp/local.txt /tmp/merged.txt        # safe to delete
+comm -23 /tmp/local.txt /tmp/merged.txt        # inspect before deleting
+```
+
+## Concurrent branches conflict artificially after one of them merges
+
+Two branches that both edit the same file will conflict on **every line the
+first one changed**, not just on the lines they genuinely disagree about,
+because the squash commit discards the ancestry they shared.
+
+This happened between two proposal branches whose real content difference was
+six lines: `git merge origin/main` reported a conflict across every hunk the
+sibling PR had touched. The resolution is usually to take the feature branch's
+version of the file wholesale — it already equals `main` plus its own edits —
+but **verify that after resolving**, by diffing against `main` and confirming
+only the expected lines remain.
+
+Merge, never rebase, per the rules above. And where one branch's text cites
+wording another branch introduces, the merge order is not a preference: land
+the branch that introduces the wording first.
+
+---
+
 # Why
 
 Force-pushing or rewriting published history silently breaks things that look fine until someone hits them:

@@ -46,6 +46,104 @@ This only works if the exemption is scoped as narrowly as the prefix allows
 (`archive/<name>`) to one-branch-per-batch (`archive/batch-<date>-<run-id>`)
 without needing any change to the gate itself.
 
+## The branch name alone is not enough — constrain by content too
+
+Matching on the prefix and stopping there is a bypass, and it stays invisible
+for exactly as long as one person can push branches. `Docs require OpenSpec
+proposal` originally read:
+
+```bash
+if [[ "$branch" == release/v* ]]; then exit 0; fi
+```
+
+Anyone able to push could name their branch `release/v9` and land arbitrary
+ruleset changes with no proposal at all. The gate trusted a string the author
+chose.
+
+**Every branch-prefix exemption must also assert what the diff is allowed to
+contain.** The automation's output is narrow and known, so the constraint is
+easy to state and impossible to forge:
+
+- `release/v*` — the `docs/` diff may change nothing except `**Version:**`
+  header lines. A real release cut rewrites that one line and nothing else.
+- `archive/*` — the diff may touch nothing outside `openspec/`. A real archive
+  cut moves changes and writes capability specs, and never edits a rule.
+
+The check is on content, not on the label, so a maliciously or carelessly
+named branch fails anyway. Add the same treatment to any future exemption
+before merging it.
+
+---
+
+# Anything Mutating Shared State Needs a Concurrency Group
+
+`Release cut` and `Archive cut` both write files that everything else reads —
+`CHANGELOG.md`, the `**Version:**` headers, `openspec/specs/`. Neither had a
+`concurrency:` block, so two dispatches could run at once, each branching from
+its own snapshot of `main`, producing two branches that both claim to archive
+the same changes.
+
+Every `workflow_dispatch` action that writes repository state gets:
+
+```yaml
+concurrency:
+  group: <workflow-name>
+  cancel-in-progress: false
+```
+
+`cancel-in-progress` must be **false**. These scripts commit and push partway
+through; cancelling one mid-run leaves a branch pushed with an incomplete
+batch. Queueing is correct, cancelling is not.
+
+---
+
+# GitHub Actions Cannot Open Pull Requests Here
+
+The org policy blocks `GITHUB_TOKEN` from creating pull requests:
+
+```
+GitHub Actions is not permitted to create or approve pull requests
+```
+
+Both cut workflows originally ended with `gh pr create`, so both reported a
+**red run despite having done all of their actual work** — computing the
+version, updating the files, pushing the branch. Only the final convenience
+step failed.
+
+The setting that would permit it is one flag governing *create* **and**
+*approve*; GitHub does not split them. Enabling it would let a workflow
+approve pull requests, which quietly hollows out any future review requirement
+across every repo in the org, permanently, to save one click per release.
+
+**The workflows therefore push their branch and stop.** Each writes the
+compare URL to `$GITHUB_STEP_SUMMARY`, so opening the PR is one click from the
+run page, and the run reports success when it succeeded. Do not reintroduce
+`gh pr create`, and do not route around the policy with a personal access
+token stored as a secret — that recreates exactly the risk the org disabled.
+
+While you are there: both workflows requested `pull-requests: write` for those
+steps and nothing else. They now request `contents: write` only, which is what
+pushing a branch actually needs.
+
+---
+
+# Do Not Require Approving Reviews While There Is One Maintainer
+
+Raising `required_approving_review_count` to 1 looks like the obvious hardening
+step and is currently a trap. `enforce_admins` is enabled, there is one
+maintainer, and GitHub does not allow approving your own pull request — so
+requiring one approval makes **every PR unmergeable, including the one that
+undoes the setting.**
+
+`.github/CODEOWNERS` exists and routes review requests, which is the useful
+half. It also records the exact pair of settings to flip on the day a second
+maintainer joins:
+
+1. add them to `CODEOWNERS`,
+2. set required reviews to 1 and enable `require_code_owner_reviews`.
+
+Both at once, never the second alone.
+
 ---
 
 # Batch, Don't Gate Per-PR, for Anything Writing to Shared State

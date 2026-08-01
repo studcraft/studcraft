@@ -114,10 +114,16 @@ Cutting a release is manual-trigger, mechanical-execution:
    the new `[MAJOR.MINOR.PATCH] - DATE` entry from every commit subject
    since the last tag, opening a fresh empty `[Unreleased]` above it),
    and updates the `**Version:**` header in every `docs/*.md` file.
-3. It opens a PR with these changes (never pushes to `main` directly,
-   per the Git Workflow rules above) from a `release/v*` branch — that
-   branch naming is what tells `Docs must not edit CHANGELOG.md directly`
-   to skip its check for this one PR. A human reviews and merges it.
+3. It commits these changes to a `release/v*` branch and pushes it, then
+   stops — it never pushes to `main` directly, per the Git Workflow rules
+   above, and it does **not** open the PR. The org blocks Actions from
+   creating pull requests, and the setting that would allow it also allows
+   Actions to approve them (see `system/ci-gates.md`). The run writes the
+   compare URL to its step summary; a human opens the PR from there,
+   reviews and merges it. The `release/v*` branch naming is what tells
+   `Docs must not edit CHANGELOG.md directly` to skip its check for this
+   one PR — and that exemption additionally verifies the `docs/` diff
+   contains nothing but `**Version:**` header lines.
 4. On merge, the `Tag release` action tags that commit `vMAJOR.MINOR.PATCH`
    automatically, so every released version is traceable to an exact
    commit in git history, and becomes the new anchor for the next cut.
@@ -171,11 +177,14 @@ together the next time someone runs the batch.
    archived yet, it simply won't have a target to delta against; check
    dependency notes in `tasks.md` before relying on ordering within one
    batch run.
-3. It opens one PR with every archived change's result (never pushes to
-   `main` directly) from a branch named `archive/batch-<date>-<run-id>`
-   — any `archive/*` prefix satisfies the branch-naming convention the
-   `OpenSpec archive must be separate from apply` gate checks for (see
-   below); it isn't tied to a single change's name anymore.
+3. It commits every archived change's result to a branch named
+   `archive/batch-<date>-<run-id>`, pushes it, writes the compare URL to
+   its step summary, and stops — a human opens the PR from there, for the
+   same reason the release cut does (see `system/ci-gates.md`). Any
+   `archive/*` prefix satisfies the branch-naming convention the `OpenSpec
+   archive must be separate from apply` gate checks for; it isn't tied to
+   a single change's name. That exemption additionally verifies the diff
+   touches nothing outside `openspec/`.
 
 This isn't just policy — it's enforced. The `OpenSpec archive must be
 separate from apply` GitHub Action requires:
@@ -190,3 +199,69 @@ PR that also tries to sneak in a ruleset edit gets rejected too. For this
 to actually block a merge, `OpenSpec archive must be separate from
 apply` must be added to the **required status checks** in branch
 protection for `main`/`develop`, alongside the other required checks.
+
+## Archive close to the merge, not in batches of seventeen
+
+Batching exists to remove concurrent writes to `openspec/specs/`, not to let
+changes pile up. Sixteen unarchived changes accumulated once, and the batch
+run aborted on the first one — four merged changes had each modified the same
+requirement, and none of their deltas was valid against the living spec.
+Fixing it took two dedicated PRs and a set of judgement calls that a
+mechanical step should never require.
+
+Run the batch after each merge, or after a small group. The concurrency
+protection is unchanged; the backlog is what turns a script into a project.
+
+## Refresh every delta against `docs/` before archiving
+
+**A delta written a while ago is not a faithful snapshot. It is an old one.**
+
+Deltas in this repo are written against `docs/` at the time of the proposal,
+while `openspec/specs/` may already be several changes behind. That is the
+root cause of every archive failure so far: the deltas were never coherent
+with the living spec, so they could not form a valid chain no matter what
+order they were applied in.
+
+Two concrete examples, both caught only because someone re-read the delta
+against current `docs/` immediately before archiving:
+
+- `gameplay-visual-geometry`'s `geometry-layers` delta omitted `Resistance`
+  from the measured-value list, lacked GEO-002's structural-cross-section
+  carve-out, and still described Cover as gradual after `CORE-010` became
+  binary. Archiving it unrefreshed would have created a brand-new capability
+  carrying exactly the drift the previous PR had just finished removing.
+- Four changes' `component-damage` deltas each modified `Geometry Defines
+  Resistance` and disagreed with each other and with the living spec.
+
+Before running the batch, for every change it will archive: open its delta and
+the `docs/` rule it describes, side by side, and reconcile. The tool checks
+structure, not truth.
+
+## When several changes modified the same requirement
+
+`openspec archive` refuses a `MODIFIED` block that omits a scenario the living
+spec already has, because applying it would drop that scenario silently. With
+a backlog, several changes commonly modify the same requirement, and their
+deltas conflict.
+
+Do not reconstruct a plausible sequence of deltas — that fabricates a history
+that never happened, since the deltas were never coherent in the first place.
+Instead:
+
+- **The last change to modify a requirement carries the authoritative delta**,
+  complete and valid against the living spec.
+- **Superseded deltas move to `specs-superseded/`** inside their own change
+  directory, with a note naming the change that now owns the requirement.
+  Nothing is deleted; the reasoning behind each still lives in its own
+  `proposal.md`, `design.md` and git history.
+
+## Scenario names are identifiers
+
+A `#### Scenario:` heading is matched by name. Renaming one in a `MODIFIED`
+block reads as deleting the old scenario and adding a new one, and the archive
+tool will refuse the block for exactly that reason.
+
+When a scenario's content becomes wrong, **keep its name and correct the
+body** — the same stable-identifier convention `MEL-010` and `CBT-011` follow
+in the ruleset itself. `Resistance read from a single-brick cross-section` kept
+its name when a brick stopped meaning Resistance 1 and started meaning 3.
