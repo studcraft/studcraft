@@ -5,7 +5,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   archive-cut:
@@ -34,8 +33,6 @@ jobs:
           python3 scripts/archive_cut.py
 
       - name: Open archive PR
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
 
@@ -54,8 +51,17 @@ jobs:
           git commit -m "Archive cut: $(date +%Y-%m-%d)"
           git push origin "$branch"
 
-          gh pr create \
-            --title "Archive cut: $(date +%Y-%m-%d)" \
-            --body "Automated batch archive: moves every OpenSpec change with a fully-checked tasks.md from openspec/changes/ to openspec/changes/archive/, and writes the resulting capability specs under openspec/specs/. See system/workflow.md (Archiving) for why this batches instead of running per-PR." \
-            --base main \
-            --head "$branch"
+          {
+            echo "## Archive cut ready"
+            echo
+            echo "Branch \`$branch\` has been pushed. Open the PR to land it:"
+            echo
+            echo "**https://github.com/${{ github.repository }}/compare/main...$branch?expand=1**"
+            echo
+            echo "It moves every OpenSpec change with a fully-checked \`tasks.md\` from"
+            echo "\`openspec/changes/\` to \`openspec/changes/archive/\`, and writes the resulting"
+            echo "capability specs under \`openspec/specs/\`. See system/workflow.md (Archiving)."
+            echo
+            echo "> Refresh each delta against \`docs/\` before archiving. A delta written a while"
+            echo "> ago is not a faithful snapshot, it is an old one."
+          } >> "$GITHUB_STEP_SUMMARY"
