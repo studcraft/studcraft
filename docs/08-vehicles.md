@@ -84,13 +84,15 @@ Every vehicle therefore covers three of its own lengths per action, whatever its
 
 Examples
 
+Footprints below are VEH-001's; only the two right-hand columns belong to this rule.
+
 | Vehicle | Longest dimension | Movement |
 |---|---:|---:|
-| Bike (1 × 2 UB) | 6 studs | 18 studs |
-| Buggy (2 × 2 UB) | 8 studs | 24 studs |
-| Jeep (2 × 3 UB) | 9 studs | 27 studs |
-| Tank (2 × 5 UB) | 15 studs | 45 studs |
-| Heavy Transport (3 × 8 UB) | 24 studs | 72 studs |
+| Bike | 6 studs | 18 studs |
+| Buggy | 8 studs | 24 studs |
+| Jeep | 9 studs | 27 studs |
+| Tank | 15 studs | 45 studs |
+| Heavy Transport | 24 studs | 72 studs |
 
 Large vehicles rarely realise these figures. A 24-stud transport moving 72 studs needs a clear lane of nearly a hundred studs, and terrain seldom offers one — the limit in play is the battlefield, not the rule.
 
