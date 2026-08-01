@@ -32,11 +32,39 @@ A vehicle that drops into a depression deeper than its threshold is Immobilized 
 
 Recovery is deliberately left undefined, in the same style as `VEH-013`'s "unless another crew member takes over (future rules)". Inventing a self-recovery action here would mean inventing an AP cost and a success condition, neither of which the brief asked for and both of which deserve their own design pass.
 
-### Drops are not falls
+### Falling reuses infantry's dice but not infantry's target
 
-A vehicle dropping into a trench and a vehicle driving off a cliff are different questions. This change answers the first and explicitly does not answer the second — `MOVE-016` remains infantry-only, and vehicle falling damage remains undefined.
+`MOVE-016` cannot be copied across. A minifig is one component, so "the faller's Component State advances one step" has an obvious subject; `DMG-001` says a vehicle is not one component, so the same sentence has no subject at all. That single difference is the whole design problem.
 
-The distinction is worth stating in the rules themselves, because the two look similar on the table and a reader who assumes this change closed both will apply infantry falling damage to a tank, which is not sanctioned anywhere.
+The dice stay identical — one D6 per complete brick, each an independent Damage Roll, no Geometry Check and no Resistance. Skipping the Geometry Check is not a new exception: `MOVE-016` already skips it because a fall has no attacker and therefore no Impact Strength, and that reasoning applies to a tank exactly as it does to a minifig. Resolving vehicle falls through `DMG-014` instead would give the game two different falling rules, against Principle 12.
+
+What changes is where each failure lands: on a component that physically touches the ground when the vehicle comes down. That is model-readable — look underneath — and it needs no list of which components qualify, because the build answers it.
+
+An agreeable property emerges rather than being designed: falls wreck locomotion, and destroyed locomotion means Immobilized (`VEH-019`). A vehicle that survives a fall is usually stuck where it landed anyway, which converges with `VEH-025`. Drops and falls turn out to be the same idea seen from two heights, not two mechanics competing.
+
+The free height is the vehicle's own Terrain Threshold rather than infantry's fixed first brick. A jeep dropping less than its axle height has driven off a kerb; the same drop is a genuine fall for a hover skirt. Deriving it keeps the rule model-driven and ties `VEH-026` to `VEH-021` instead of introducing a second constant.
+
+### Crew are never harmed, and that is a choice
+
+A closed transport can fall fifteen bricks and its eight passengers walk out unhurt.
+
+The alternative — passengers roll once the hull reaches Dead — is more realistic and was considered. It was rejected on frequency: nobody drives their own transport off a cliff deliberately, so the rule would add a condition to the rare case of an already-rare case. Principle 11 settles it.
+
+The rule says "this is a deliberate simplification" in so many words, so it reads as a decision rather than as something the next reviewer should close.
+
+### The real cost needed no rule
+
+A vehicle at the bottom of a ravine is a trap. Its passengers disembark normally under `TRN-006`, and then meet the ravine's walls as ordinary terrain — `MOVE-011` already demands a slope, stair or ramp for anything 7 plate layers or higher.
+
+So driving into a pit can strand a squad as effectively as it strands the vehicle, and none of that required writing anything. It falls out of infantry rules that already exist. `VEH-026` only points at it, because a player who does not notice will misjudge the risk.
+
+### Hover takes no falling damage either
+
+Hover vehicles descend under power rather than falling. This extends their `VEH-024` immunity from drops to falls, which is consistent — their whole identity is ignoring the ground — and it is paid for by having the lowest obstacle threshold in the game.
+
+### Slopes, stairs and vertical access stay open
+
+Three of the four gaps `07-movement.md` names remain. The deferral note is rewritten to say exactly which one closed, rather than deleted, so nobody reads this change as having solved vehicle terrain entirely.
 
 ### Five rules rather than two
 

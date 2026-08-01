@@ -12,11 +12,11 @@ Where a block contains a `#` heading, that heading is part of the text and must 
 
 `scripts/lint_ruleset.py` parses rule headings with `^#{1,2} ([A-Z]{2,6})-(\d{3}) — `. Every new heading must use a level-1 `#`, a three-digit number, and a real **em dash** (`—`, U+2014) surrounded by single spaces — not a hyphen, not an en dash. Copy the punctuation from an existing heading such as `# VEH-019 — Immobilized Vehicles` if in doubt.
 
-Rule IDs must be strictly increasing within a document, so `VEH-021` … `VEH-025` go **after** `VEH-020`, at the end of the rules, before the `# Summary` section.
+Rule IDs must be strictly increasing within a document, so `VEH-021` … `VEH-026` go **after** `VEH-020`, at the end of the rules, before the `# Summary` section.
 
 ### Scope
 
-Three documents change: `docs/08-vehicles.md` (five new rules), `docs/07-movement.md` (one paragraph narrowed), `docs/05-construction-components.md` (four cross-references), plus `docs/14-glossary.md` (two entries). No existing rule ID is renumbered, and no numeric value anywhere changes.
+Three documents change: `docs/08-vehicles.md` (six new rules), `docs/07-movement.md` (one paragraph narrowed), `docs/05-construction-components.md` (four cross-references), plus `docs/14-glossary.md` (two entries). No existing rule ID is renumbered, and no numeric value anywhere changes.
 
 ### Defect coverage
 
@@ -27,15 +27,16 @@ Three documents change: `docs/08-vehicles.md` (five new rules), `docs/07-movemen
 | Walker threshold | 1.3 |
 | Hover threshold and drop immunity | 1.4 |
 | Stranded reuses VEH-019 | 1.5 |
+| Vehicle falling damage | 1.6 |
 | `07-movement.md` deferral narrowed | 2.1 |
 | Component cross-references | 3.1 – 3.4 |
 | Glossary entries | 4.1, 4.2 |
 
 ---
 
-## 1. `docs/08-vehicles.md` — five new rules
+## 1. `docs/08-vehicles.md` — six new rules
 
-Insert all five **after** `VEH-020 — Construction Priority` and its closing `---`, and **before** the `# Summary` heading. Keep them in the order given; the linter requires ascending IDs.
+Insert all six **after** `VEH-020 — Construction Priority` and its closing `---`, and **before** the `# Summary` heading. Keep them in the order given; the linter requires ascending IDs.
 
 - [ ] 1.1 Insert:
 
@@ -50,7 +51,7 @@ Insert all five **after** `VEH-020 — Construction Priority` and its closing `-
 >
 > An obstacle or drop equal to the threshold is crossed normally. Each locomotion type reads its own threshold: VEH-022 for wheels and tracks, VEH-023 for walkers, VEH-024 for hover.
 >
-> A drop is not a fall. This rule covers driving into a depression, ditch or trench. Vehicle falling damage — a vehicle leaving a height entirely — is not yet defined (`07-movement.md`, MOVE-016 covers infantry only).
+> A drop is not a fall. This rule covers driving into a depression, ditch or trench; a vehicle that leaves a height entirely is falling, and VEH-026 covers that. Both measure against this same threshold.
 
 - [ ] 1.2 Insert:
 
@@ -96,21 +97,43 @@ Insert all five **after** `VEH-020 — Construction Priority` and its closing `-
 >
 > Hover vehicles cannot be stranded (VEH-024).
 
-- [ ] 1.6 Confirm the five rules sit between `VEH-020`'s closing `---` and the `# Summary` heading, each separated by its own `---`, and that `# Summary` is unchanged.
+- [ ] 1.6 Insert:
+
+> # VEH-026 — Vehicle Falling
+>
+> A vehicle that leaves a height and comes down under gravity — rather than descending a slope, stair or ramp — falls. Measure the fall in plate layers, from the surface it left to the surface it lands on.
+>
+> A fall no deeper than the vehicle's Terrain Threshold (VEH-021) causes no damage. The vehicle has dropped a kerb, not fallen.
+>
+> Beyond that, roll one D6 for every complete brick (3 plate layers) fallen **past the threshold**. Each die is an independent Damage Roll (`16-damage-system.md`, DMG-015), resolved exactly as infantry falling is (`07-movement.md`, MOVE-016): a result of 4, 5 or 6 means nothing happens, and a result of 1, 2 or 3 advances one component by one state.
+>
+> Every failed die is applied to a component that physically touches the ground when the vehicle lands — a wheel, a track, or a foot. The controlling player chooses which. Failures beyond the number of such components are lost: a vehicle whose locomotion is already destroyed is Immobilized (VEH-019) and cannot be immobilized twice.
+>
+> **Crew and passengers are never harmed by a vehicle's fall.** This is a deliberate simplification rather than an oversight — the case is rare, and the consequence below is the real cost.
+>
+> Hover vehicles take no falling damage. They descend under power rather than falling, consistent with their immunity to being stranded (VEH-024).
+>
+> A vehicle at the bottom of a drop may be a trap. Infantry inside it disembark normally (`09-transport.md`, TRN-006), but then face the drop's walls as ordinary terrain: 7 or more plate layers requires a slope, stair or ramp (`07-movement.md`, MOVE-011, MOVE-014). Driving into a ravine can strand a squad as effectively as it strands the vehicle.
+
+- [ ] 1.7 Confirm the six rules sit between `VEH-020`'s closing `---` and the `# Summary` heading, each separated by its own `---`, and that `# Summary` is unchanged.
 
 ---
 
 ## 2. `docs/07-movement.md` — narrow the deferral
 
-The Vehicle Movement section currently says vehicle terrain is entirely undefined. Obstacles and drops now are; slopes, stairs, vertical access and falling still are not. The note must not imply the whole gap closed.
+The Vehicle Movement section currently says vehicle terrain is entirely undefined. Obstacles, drops and falling now are; slopes, stairs and vertical access still are not. The note must say which gap closed and which three did not.
 
 - [ ] 2.1 Replace the sentence beginning "Vehicle-specific rules are described in `08-vehicles.md`." and everything after it in that paragraph — through "...if the LEGO model can answer the question, the model decides." — with:
 
-> Vehicle-specific rules are described in `08-vehicles.md`. Obstacles and drops are defined there by the Terrain Threshold rules (VEH-021 through VEH-025), which give each locomotion type its own limit read from the model.
+> Vehicle-specific rules are described in `08-vehicles.md`. Obstacles, drops and falling are defined there: the Terrain Threshold rules (VEH-021 through VEH-025) give each locomotion type its own limit read from the model, and VEH-026 covers falling.
 >
-> Slopes, stairs, vertical access and falling damage for vehicles are still not defined — `08-vehicles.md` has no equivalent to MOVE-012, MOVE-013, MOVE-014 or MOVE-016. Until dedicated rules exist, resolve those questions using the same Physical Priority principle infantry uses: if the LEGO model can answer the question, the model decides.
+> Slopes, stairs and vertical access for vehicles are still not defined — `08-vehicles.md` has no equivalent to MOVE-012, MOVE-013 or MOVE-014. Until dedicated rules exist, resolve those questions using the same Physical Priority principle infantry uses: if the LEGO model can answer the question, the model decides.
 
-- [ ] 2.2 Leave `MOVE-016`'s infantry-only line unchanged. Vehicle falling is still undefined, and this change does not close it.
+- [ ] 2.2 `MOVE-016`'s closing line currently reads "This rule covers infantry only; vehicle falling is not yet defined (`07-movement.md`, Vehicle Movement)." Vehicle falling is now defined, so replace the whole line with:
+
+> This rule covers infantry only. Vehicle falling is defined separately in `08-vehicles.md` (VEH-026), which scales from each vehicle's own Terrain Threshold rather than from a fixed first brick.
+
+**If PR #33 (`movement-audit-repairs`) has already landed**, that line will instead end "— see the Vehicle Movement section below". Replace it with the same text either way; match on "This rule covers infantry only" rather than on the citation that follows it, which differs between the two states.
 
 ---
 
@@ -157,10 +180,10 @@ Insert both in the same style as the surrounding entries: a `## ` heading, the d
 ## 5. Verify
 
 - [ ] 5.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues. This checks the new headings' em dashes, the ascending IDs, and that every `(VEH-0NN)` cross-reference resolves.
-- [ ] 5.2 Run `grep -n "^# VEH-" docs/08-vehicles.md` and confirm `VEH-001` through `VEH-025` appear once each, in ascending order, with no gaps.
-- [ ] 5.3 Confirm no existing rule ID was renumbered and no existing rule was deleted — `VEH-021` … `VEH-025` are purely additive.
+- [ ] 5.2 Run `grep -n "^# VEH-" docs/08-vehicles.md` and confirm `VEH-001` through `VEH-026` appear once each, in ascending order, with no gaps.
+- [ ] 5.3 Confirm no existing rule ID was renumbered and no existing rule was deleted — `VEH-021` … `VEH-026` are purely additive.
 - [ ] 5.4 Run `git diff --stat main...HEAD` and confirm exactly these paths changed: `docs/08-vehicles.md`, `docs/07-movement.md`, `docs/05-construction-components.md`, `docs/14-glossary.md`, and the four new files under `openspec/changes/vehicle-terrain-thresholds/`.
-- [ ] 5.5 Run `grep -c "Terrain Threshold" docs/08-vehicles.md` and confirm at least 5 hits — the term appears in every one of the five new rules. Separately confirm one hit in `docs/14-glossary.md`.
-- [ ] 5.6 Confirm `docs/07-movement.md` still states that vehicle falling damage is undefined. This change must not appear to close that gap.
+- [ ] 5.5 Run `grep -c "Terrain Threshold" docs/08-vehicles.md` and confirm at least 6 hits — the term appears in every one of the five new rules. Separately confirm one hit in `docs/14-glossary.md`.
+- [ ] 5.6 Confirm `docs/07-movement.md` no longer claims vehicle falling is undefined, and that slopes, stairs and vertical access for vehicles are still listed as open. This change closes one gap, not three.
 - [ ] 5.7 Confirm no numeric value changed anywhere: this change adds thresholds that are *measured*, and assigns no number to any vehicle.
 - [ ] 5.8 Run `git diff main...HEAD -- docs/ | grep -E "^-" | grep -v "^---"` and confirm every removed line is one of the four cross-reference lines replaced in section 3, or the Vehicle Movement paragraph replaced in 2.1. Nothing else should be deleted.
