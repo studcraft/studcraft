@@ -221,9 +221,11 @@ Roll **one D6 for every complete brick (3 plate layers) fallen beyond the first*
 
 The first brick is free, which is why a fall of 3 plate layers or less needs no roll at all: MOVE-009 already treats that height as trivial to cross, and stepping down it is no more dangerous than stepping over it.
 
-Each die is an independent Damage Roll, resolved exactly as multiple Impacts are (`16-damage-system.md`, DMG-016): every failed die advances the faller's Component State by one. Two failed dice therefore take an Operational unit to Dead. The higher the fall, the more dice, and the more likely both a wound and a death.
+Each die is treated as a Damage Roll (`16-damage-system.md`, DMG-015): a result of 4, 5, or 6 means no damage. A result of 1, 2, or 3 advances the faller's Component State one step (`Operational → Wounded`, or `Wounded → Dead`).
 
-Each die is treated as a Damage Roll (`16-damage-system.md`, DMG-015): a result of 4, 5, or 6 means no damage. A result of 1, 2, or 3 means the faller's Component State advances one step (`Operational → Wounded`, or `Wounded → Dead`). This is a declared exception to the normal sequence: falling has no Impact Strength and no attacker, so there is no Geometry Check (DMG-014) to pass first — the Damage Rolls apply directly, and Resistance plays no part in falling damage.
+The dice are independent and are never pooled, resolved exactly as multiple Impacts are (DMG-016). Two failed dice therefore take an Operational unit to Dead — the higher the fall, the more dice, and the more likely both a wound and a death.
+
+This is a declared exception to the normal sequence: falling has no Impact Strength and no attacker, so there is no Geometry Check (DMG-014) to pass first. The Damage Rolls apply directly, and Resistance plays no part in falling damage.
 
 No height is certainly fatal. A unit that survives a very tall fall has simply passed every Damage Roll, which `16-damage-system.md` (DMG-015) already describes as a fortunate landing rather than an oversight. This is intentional: in StudCraft, geometry can rule an outcome out — the first brick of a fall, like an Impact below a component's Resistance (DMG-014) — but geometry never rules an outcome in. A minifig can survive two cannon Impacts for the same reason it can survive a fall from a tower.
 
