@@ -62,9 +62,10 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 | [`system/design-process.md`](system/design-process.md) | Design Process, Rule Hierarchy, Preferred Design Patterns, Decision Filter |
 | [`system/documentation-standards.md`](system/documentation-standards.md) | Repository Structure, Documentation Guidelines, Naming Conventions, Versioning |
 | [`system/workflow.md`](system/workflow.md) | OpenSpec Workflow, Git Workflow, Versioning (release-cut), Archiving (archive-cut) |
-| [`system/proposal-review.md`](system/proposal-review.md) | How to review a proposal before applying/archiving: cross-document checks, common failure classes, delta vs. direct edit |
-| [`system/ci-gates.md`](system/ci-gates.md) | Required-check design pitfalls, branch-naming exemptions, batch-vs-per-PR pattern for shared state |
-| [`system/repository-strategy.md`](system/repository-strategy.md) | BLOCKER git history rules: no force-push, no rewriting history, linear-only |
+| [`system/proposal-review.md`](system/proposal-review.md) | How to review a proposal before applying/archiving: cross-document checks, common failure classes, reviewing the applied text, delta vs. direct edit |
+| [`system/ci-gates.md`](system/ci-gates.md) | Required-check design pitfalls, branch-naming exemptions and why the name alone is not enough, concurrency guards, batch-vs-per-PR pattern for shared state |
+| [`system/delegating-to-agents.md`](system/delegating-to-agents.md) | Writing a change a less capable model can apply perfectly, and what the reviewer still has to do |
+| [`system/repository-strategy.md`](system/repository-strategy.md) | BLOCKER git history rules: no force-push, no rewriting history, linear-only; squash-merge consequences for branch cleanup and conflicts |
 | [`system/communication.md`](system/communication.md) | Language, tone, proposal framing |
 | [`system/vision.md`](system/vision.md) | Long-term direction |
 
