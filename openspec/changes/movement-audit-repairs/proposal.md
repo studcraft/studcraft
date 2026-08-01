@@ -1,6 +1,6 @@
 ## Why
 
-A full audit of `docs/07-movement.md` found **twenty-one defects**: three contradictions, eleven omissions, two duplications, three structural problems, and two in the falling rules found on a second pass. Movement is the only core system never audited, and it shows — the document answers "how far" but almost never "at what cost", and its two movement axes are specified to different levels of precision.
+A full audit of `docs/07-movement.md` found **twenty-two defects**: three contradictions, eleven omissions, two duplications, three structural problems, and three in the falling rules found on a second pass. Movement is the only core system never audited, and it shows — the document answers "how far" but almost never "at what cost", and its two movement axes are specified to different levels of precision.
 
 The central defect is that the document contradicts itself about what a movement action even is.
 
@@ -49,12 +49,13 @@ As written, a unit may sidestep an unlimited distance for an unknown number of A
 18. **The Summary omits every AP cost** and restates the ambiguous "Infantry move 12 studs".
 19. **`MOVE-016` cites its own document by filename** (`` `07-movement.md`, Vehicle Movement ``). Replace with a plain section reference.
 
-### Falling (2)
+### Falling (3)
 
-Found on a second pass, after the rest of the audit was written. Both are in `MOVE-016`, which the first pass wrongly treated as already sound because a previous change had recently touched it.
+Found on a second pass, after the rest of the audit was written. All three are in `MOVE-016`, which the first pass wrongly treated as already sound because a previous change had recently touched it.
 
 20. **`MOVE-016` measures fall height in whole bricks**, so it would be the last place in the document still using that unit once defects 11's plate-layer conversion lands. A fall of 4 plate layers has no defined dice count, exactly the gap being closed for obstacles. Left unfixed, this change would *create* an internal inconsistency rather than remove one.
-21. **A one-brick drop is a coin flip on being wounded, while a one-brick obstacle is free to cross.** `MOVE-009` treats 3 plate layers as trivial terrain; `MOVE-015` plus `MOVE-016` treat stepping off the same height as a 50% chance of a wound (one die, keep lowest, 1–3 fails). Nothing reconciles them. Add a minimum fall height below which no damage is rolled, set at the same 3 plate layers `MOVE-009` already calls trivial.
+21. **A one-brick drop is a coin flip on being wounded, while a one-brick obstacle is free to cross.** `MOVE-009` treats 3 plate layers as trivial terrain; `MOVE-015` plus `MOVE-016` treat stepping off the same height as a 50% chance of a wound. Nothing reconciles them.
+22. **No fall of any height can kill a healthy unit.** "Keep only the **lowest result**" pools every die into a single Damage Roll, and a Damage Roll advances Component State by exactly one (`16-damage-system.md`, DMG-015). A 2-brick drop and a 30-brick drop therefore have the same worst case: `Operational → Wounded`. Height changes the *probability* of that one wound and nothing else. A unit can only die from a fall if it was already Wounded when it fell.
 
 ## Impact
 
@@ -62,7 +63,21 @@ Found on a second pass, after the rest of the audit was written. Both are in `MO
 
 *Movement.* Forward and backward movement become multiples of 3 studs, capped at 12, and side movement gains a 12-stud cap and a 1 AP cost. Previously forward granularity was undefined and side movement was uncapped and free. This tightens rather than loosens: no unit can do more than before, and the uncapped sidestep — almost certainly an oversight rather than a design choice — is closed.
 
-*Falling.* A fall of 3 plate layers or less now causes no damage, where previously it forced a roll with a 50% chance of a wound. This one loosens, and it is the only change here that does. It is included because the alternative is a rule that contradicts `MOVE-009`: the same one-brick height is simultaneously trivial to climb over and dangerous to step down from. Dice are also now rolled per complete brick rather than per brick with no remainder rule, so a fall of 7 plate layers has a defined answer (2 dice) where before it had none.
+*Falling.* Two effects, in opposite directions.
+
+Short falls become safe: one brick or less now costs nothing, where previously it forced a roll with a 50% chance of a wound. This is the only loosening in the proposal, and it exists because the alternative contradicts `MOVE-009` — the same one-brick height cannot be trivial to climb over and dangerous to step down from.
+
+Tall falls become lethal, which they were not. Dice stop being pooled by "keep the lowest" and become independent Damage Rolls, resolved exactly as multiple Impacts already are (`16-damage-system.md`, DMG-016). Each failure advances one state, so two failures kill:
+
+| Fall | Dice | Wounded or worse | Dead |
+|---|---:|---:|---:|
+| 1 brick | 0 | — | — |
+| 2 bricks | 1 | 50% | 0% |
+| 3 bricks | 2 | 75% | 25% |
+| 5 bricks | 4 | 94% | 69% |
+| 10 bricks | 9 | 99.8% | 98% |
+
+The formula is one die per complete brick fallen **beyond the first**, which makes the trivial-height exemption fall out of the arithmetic instead of needing its own clause. Note this **removes** a bespoke mechanic rather than adding one: "keep only the lowest result" is currently the only pooled roll in the game, and deleting it brings falling in line with every other multi-die resolution.
 
 The falling defects were found on a second pass, after the rest of the audit was written and after this proposal was first opened. `MOVE-016` had been skipped on the first pass because a recent change had touched it — which turned out to be exactly the wrong reason to skip a rule, since that change addressed the damage system's needs and never audited the rule on its own terms.
 

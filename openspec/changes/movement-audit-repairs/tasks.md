@@ -24,7 +24,7 @@ Only `docs/07-movement.md` changes. No other document is touched. Every anchor q
 
 ### Defect coverage
 
-Each of the twenty-one defects in `proposal.md` maps to at least one task here. Use this to check nothing was skipped.
+Each of the twenty-two defects in `proposal.md` maps to at least one task here. Use this to check nothing was skipped.
 
 | Defect | Task |
 |---|---|
@@ -49,6 +49,7 @@ Each of the twenty-one defects in `proposal.md` maps to at least one task here. 
 | 19 — `MOVE-016` cites its own file | 9.1 |
 | 20 — fall height still measured in bricks | 9.2.1, 9.2.2 |
 | 21 — a 1-brick drop wounds, a 1-brick obstacle is free | 9.2.1, 9.2.2 |
+| 22 — no fall can kill a healthy unit | 9.2.1, 9.2.2, 9.2.3 |
 
 ---
 
@@ -246,26 +247,30 @@ Thresholds are unchanged in effect. Do not alter the AP costs.
 
 Two problems. `MOVE-016` measures in whole bricks, which would leave it the only place in the document still doing so after section 6; and a one-brick drop currently costs a 50% wound roll while `MOVE-009` treats the same height as trivial terrain a unit crosses for free.
 
+Three problems, not two. `MOVE-016` measures in whole bricks, which would leave it the only place in the document still doing so after section 6. A one-brick drop currently costs a 50% wound roll while `MOVE-009` treats the same height as trivial terrain crossed for free. And "keep only the lowest result" caps every fall at a single state change, so **no fall of any height can kill a healthy unit** — a 30-brick drop and a 2-brick drop have identical worst cases.
+
 Replace everything from the line "Falling damage depends on the height fallen." down to and including "The greater the fall, the greater the chance of suffering damage." with:
 
 > Falling damage depends on the height fallen, measured in plate layers — the same unit obstacles use (MOVE-009).
 >
-> A fall of **3 plate layers or less causes no damage** and no roll is made. This is the height MOVE-009 already treats as trivial to cross; stepping down it is no more dangerous than stepping over it.
+> Roll **one D6 for every complete brick (3 plate layers) fallen beyond the first**. A remainder of one or two plate layers adds no die.
 >
-> For a greater fall, roll **one D6 per complete brick (3 plate layers) fallen**, and keep only the **lowest result**. A remainder of one or two plate layers adds no die.
+> The first brick is free, which is why a fall of 3 plate layers or less needs no roll at all: MOVE-009 already treats that height as trivial to cross, and stepping down it is no more dangerous than stepping over it.
 >
-> The greater the fall, the greater the chance of suffering damage.
+> Each die is an independent Damage Roll, resolved exactly as multiple Impacts are (`16-damage-system.md`, DMG-016): every failed die advances the faller's Component State by one. Two failed dice therefore take an Operational unit to Dead. The higher the fall, the more dice, and the more likely both a wound and a death.
 
-- [ ] 9.2.1 Apply that replacement.
+- [ ] 9.2.1 Apply that replacement. Note it **deletes** "Keep only the **lowest result**" — dice are no longer pooled, and the phrase must not survive anywhere in the rule.
 - [ ] 9.2.2 Replace the three example lines with:
 
-> - Fall of 3 plate layers (1 brick) → no roll, no damage.
-> - Fall of 4 to 6 plate layers → Roll 1D6.
-> - Fall of 7 to 9 plate layers → Roll 2D6, keep the lowest.
-> - Fall of 15 plate layers (5 bricks) → Roll 5D6, keep the lowest.
+> - Fall of 1 brick (3 plate layers) → no dice, no damage.
+> - Fall of 2 bricks → Roll 1D6. A failure wounds; a fall this short cannot kill an Operational unit.
+> - Fall of 3 bricks → Roll 2D6, resolved independently. Two failures kill.
+> - Fall of 5 bricks → Roll 4D6, resolved independently.
+> - Fall of 10 bricks → Roll 9D6. Survival is very unlikely.
 
-- [ ] 9.2.3 Leave `MOVE-016`'s Geometry Check exception paragraph untouched — the one beginning "The kept die is treated as a Damage Roll". It is still correct: falling has no Impact Strength, so Resistance still plays no part.
+- [ ] 9.2.3 In `MOVE-016`'s Geometry Check exception paragraph — the one beginning "The kept die is treated as a Damage Roll" — change "The kept die is treated as a Damage Roll" to "Each die is treated as a Damage Roll" and "the Damage Roll applies directly" to "the Damage Rolls apply directly". The rest of that paragraph is still correct and stays: falling has no Impact Strength, so there is no Geometry Check and Resistance plays no part.
 - [ ] 9.2.4 Leave the infantry-only line untouched apart from the citation fix in 9.1.
+- [ ] 9.2.5 Confirm the phrase "lowest result" no longer appears anywhere in `docs/07-movement.md`.
 - [ ] 9.3 Replace the entire body of the `# Summary` section (everything between the `# Summary` heading and the `---` before the epigraph) with:
 
 > Movement in StudCraft is based on six simple principles:
