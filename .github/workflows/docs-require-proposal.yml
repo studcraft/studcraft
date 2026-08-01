@@ -18,6 +18,18 @@ jobs:
         run: |
           set -euo pipefail
 
+          branch="${{ github.event.pull_request.head.ref }}"
+
+          # Release cut owns the **Version:** header in every docs/*.md file and
+          # has no proposal to point at — the bump is computed from git history,
+          # not proposed. Exempt it by branch prefix, the same shape the
+          # CHANGELOG gate and the archive gate already use. See
+          # system/ci-gates.md (Branch-Naming Exemptions for Automation).
+          if [[ "$branch" == release/v* ]]; then
+            echo "Release branch ($branch): exempt. Version headers are cut from git history, not proposed."
+            exit 0
+          fi
+
           changed=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}")
 
           echo "Changed files:"
