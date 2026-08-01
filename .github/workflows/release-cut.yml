@@ -16,6 +16,13 @@ on:
 permissions:
   contents: write
 
+# Mutates shared repository state. Two concurrent dispatches would race
+# and produce overlapping branches. Queue rather than cancel: a
+# half-finished cut must still complete.
+concurrency:
+  group: release-cut
+  cancel-in-progress: false
+
 jobs:
   release-cut:
     name: Release cut

@@ -25,12 +25,30 @@ jobs:
           # not proposed. Exempt it by branch prefix, the same shape the
           # CHANGELOG gate and the archive gate already use. See
           # system/ci-gates.md (Branch-Naming Exemptions for Automation).
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+
           if [[ "$branch" == release/v* ]]; then
-            echo "Release branch ($branch): exempt. Version headers are cut from git history, not proposed."
+            # The branch name alone must not grant the exemption: anyone able to
+            # push a branch could call it release/v9 and land ruleset changes
+            # with no proposal. Constrain it by content instead — a genuine
+            # release cut only ever rewrites the **Version:** header line.
+            offending=$(git diff "$base" "$head" -- 'docs/*.md' \
+              | grep -E '^[+-]' \
+              | grep -vE '^(\+\+\+|---)' \
+              | grep -vE '^[+-]\*\*Version:\*\*' || true)
+
+            if [ -n "$offending" ]; then
+              echo "$offending"
+              echo "::error::Branch $branch is named like a release cut but changes docs/ content beyond the **Version:** header. A release cut only rewrites that one line. Open a normal proposal branch instead — the release/v* exemption is not a way around the proposal requirement."
+              exit 1
+            fi
+
+            echo "Release branch ($branch): exempt. Only **Version:** headers changed."
             exit 0
           fi
 
-          changed=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}")
+          changed=$(git diff --name-only "$base" "$head")
 
           echo "Changed files:"
           echo "$changed"

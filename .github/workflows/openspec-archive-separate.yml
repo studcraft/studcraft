@@ -28,6 +28,16 @@ jobs:
           touches_specs=$(echo "$changed" | grep -qE '^openspec/specs/' && echo yes || echo no)
 
           if [[ "$branch" == archive/* ]]; then
+            # Same reasoning as the release exemption: a branch name must not be
+            # enough on its own. A real archive cut touches nothing outside
+            # openspec/.
+            outside=$(git diff --name-only "$base" "$head" | grep -vE '^openspec/' || true)
+            if [ -n "$outside" ]; then
+              echo "$outside"
+              echo "::error::Branch $branch is named like an archive cut but changes files outside openspec/. Archiving only moves changes and writes capability specs. Use a normal proposal branch for anything else."
+              exit 1
+            fi
+
             if [[ "$touches_docs" == "yes" ]]; then
               echo "::error::Archive branch ($branch) changes docs/*.md. Archive PRs must only touch openspec/specs/** and openspec/changes/**, never the ruleset itself. See system/workflow.md (Archiving)."
               exit 1
