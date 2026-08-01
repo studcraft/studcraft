@@ -1,0 +1,35 @@
+# Code owners for StudCraft.
+#
+# Listing an owner here assigns them as a reviewer automatically. It does not
+# yet *require* their approval: `main` currently requires 0 approving reviews,
+# because there is one maintainer and GitHub does not allow approving your own
+# pull request. Raising that to 1 today would make every PR unmergeable,
+# `enforce_admins` being on.
+#
+# On the day a second maintainer joins, both of these change together:
+#   1. add them below,
+#   2. set required_approving_review_count to 1 and enable
+#      require_code_owner_reviews on the `main` branch protection.
+#
+# Until then this file does the useful half — routing review requests — without
+# the half that would deadlock.
+
+# Everything, by default.
+*                       @jujorie
+
+# The ruleset itself. Changes here need someone who knows the design code.
+/docs/                  @jujorie
+
+# Process and design constitution.
+/system/                @jujorie
+/CODE_OF_DESIGN.md      @jujorie
+/CONTRIBUTING.md        @jujorie
+/AGENTS.md              @jujorie
+
+# CI gates and the release/archive automation. Breaking these silently breaks
+# every other guarantee in the repo.
+/.github/               @jujorie
+/scripts/               @jujorie
+
+# Spec deltas and archived changes.
+/openspec/              @jujorie

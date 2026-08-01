@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: How the process works
+    url: https://github.com/studcraft/studcraft/blob/main/CONTRIBUTING.md
+    about: Read this before opening a pull request that touches docs/ — ruleset changes need an OpenSpec proposal.
+  - name: The design constitution
+    url: https://github.com/studcraft/studcraft/blob/main/CODE_OF_DESIGN.md
+    about: Fifteen principles every rule is measured against. Proposals that conflict with these get redesigned, not merged.
