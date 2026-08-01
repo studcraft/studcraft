@@ -1,6 +1,6 @@
 ## 0. Setup
 
-- [ ] 0.1 Work on branch `vehicle-terrain-thresholds` (`openspec/config.yaml` requires one branch per proposal).
+- [x] 0.1 Work on branch `vehicle-terrain-thresholds` (`openspec/config.yaml` requires one branch per proposal).
 
 ### How to read the replacement blocks
 
@@ -39,7 +39,7 @@ Four documents change: `docs/08-vehicles.md` (seven new rules), `docs/07-movemen
 
 Insert all seven **after** `VEH-020 — Construction Priority` and its closing `---`, and **before** the `# Summary` heading. Keep them in the order given; the linter requires ascending IDs.
 
-- [ ] 1.1 Insert:
+- [x] 1.1 Insert:
 
 > # VEH-021 — Terrain Threshold
 >
@@ -54,7 +54,7 @@ Insert all seven **after** `VEH-020 — Construction Priority` and its closing `
 >
 > A drop is not a fall. This rule covers driving into a depression, ditch or trench; a vehicle that leaves a height entirely is falling, and VEH-026 covers that. Both measure against this same threshold.
 
-- [ ] 1.2 Insert:
+- [x] 1.2 Insert:
 
 > # VEH-022 — Wheeled and Tracked Thresholds
 >
@@ -64,7 +64,7 @@ Insert all seven **after** `VEH-020 — Construction Priority` and its closing `
 >
 > Wheeled and tracked vehicles are stranded by drops deeper than this threshold (VEH-025).
 
-- [ ] 1.3 Insert:
+- [x] 1.3 Insert:
 
 > # VEH-023 — Walker Thresholds
 >
@@ -74,7 +74,7 @@ Insert all seven **after** `VEH-020 — Construction Priority` and its closing `
 >
 > Walkers are stranded by drops deeper than this threshold (VEH-025).
 
-- [ ] 1.4 Insert:
+- [x] 1.4 Insert:
 
 > # VEH-024 — Hover Thresholds
 >
@@ -94,7 +94,7 @@ Insert all seven **after** `VEH-020 — Construction Priority` and its closing `
 >
 > Hover emitters are components like any other. If the assembly is destroyed the hull settles, the Terrain Threshold becomes 0, and the vehicle can still move across flat ground but is blocked by everything else.
 
-- [ ] 1.5 Insert:
+- [x] 1.5 Insert:
 
 > # VEH-025 — Stranded Vehicles
 >
@@ -106,7 +106,7 @@ Insert all seven **after** `VEH-020 — Construction Priority` and its closing `
 >
 > Hover vehicles cannot be stranded (VEH-024).
 
-- [ ] 1.6 Insert:
+- [x] 1.6 Insert:
 
 > # VEH-026 — Vehicle Falling
 >
@@ -124,7 +124,7 @@ Insert all seven **after** `VEH-020 — Construction Priority` and its closing `
 >
 > A vehicle at the bottom of a drop may be a trap. Infantry inside it disembark normally (`09-transport.md`, TRN-006), but then face the drop's walls as ordinary terrain: 7 or more plate layers requires a slope, stair or ramp (`07-movement.md`, MOVE-011, MOVE-014). Driving into a ravine can strand a squad as effectively as it strands the vehicle.
 
-- [ ] 1.7 Insert:
+- [x] 1.7 Insert:
 
 > # VEH-027 — Vehicle Ascent
 >
@@ -140,7 +140,7 @@ Insert all seven **after** `VEH-020 — Construction Priority` and its closing `
 >
 > This needs no separate walker rule. A walker whose knee clears the whole rise simply crosses it under VEH-021 — a tall enough walker steps over a flight of stairs the same way it steps over a wall.
 
-- [ ] 1.8 Confirm the seven rules sit between `VEH-020`'s closing `---` and the `# Summary` heading, each separated by its own `---`, and that `# Summary` is unchanged.
+- [x] 1.8 Confirm the seven rules sit between `VEH-020`'s closing `---` and the `# Summary` heading, each separated by its own `---`, and that `# Summary` is unchanged.
 
 ---
 
@@ -148,13 +148,13 @@ Insert all seven **after** `VEH-020 — Construction Priority` and its closing `
 
 The Vehicle Movement section says vehicle terrain is entirely undefined. After this change none of it is: VEH-021 through VEH-027 cover obstacles, drops, falling, and ascent. The deferral note is replaced by a pointer rather than kept as a narrowed gap.
 
-- [ ] 2.1 Replace the sentence beginning "Vehicle-specific rules are described in `08-vehicles.md`." and everything after it in that paragraph — through "...if the LEGO model can answer the question, the model decides." — with:
+- [x] 2.1 Replace the sentence beginning "Vehicle-specific rules are described in `08-vehicles.md`." and everything after it in that paragraph — through "...if the LEGO model can answer the question, the model decides." — with:
 
 > Vehicle-specific rules are described in `08-vehicles.md`, including terrain. The Terrain Threshold rules (VEH-021 through VEH-024) give each locomotion type its own limit, read from the model; VEH-025 covers being stranded, VEH-026 falling, and VEH-027 ascent.
 >
 > Vehicles and infantry differ most at stairs: infantry climb them (MOVE-013), vehicles never do (VEH-027).
 
-- [ ] 2.2 `MOVE-016`'s closing line currently reads "This rule covers infantry only; vehicle falling is not yet defined (`07-movement.md`, Vehicle Movement)." Vehicle falling is now defined, so replace the whole line with:
+- [x] 2.2 `MOVE-016`'s closing line currently reads "This rule covers infantry only; vehicle falling is not yet defined (`07-movement.md`, Vehicle Movement)." Vehicle falling is now defined, so replace the whole line with:
 
 > This rule covers infantry only. Vehicle falling is defined separately in `08-vehicles.md` (VEH-026), which scales from each vehicle's own Terrain Threshold rather than from a fixed first brick.
 
@@ -166,19 +166,19 @@ The Vehicle Movement section says vehicle terrain is entirely undefined. After t
 
 Each component rule gains one pointer, matching the style `CMP-004` already uses for `VEH-009`. Add only the sentence shown; change nothing else in these rules.
 
-- [ ] 3.1 `CMP-003` (Wheels): replace the line "Movement is resolved using the Vehicle Movement Rules." with:
+- [x] 3.1 `CMP-003` (Wheels): replace the line "Movement is resolved using the Vehicle Movement Rules." with:
 
 > Movement is resolved using the Vehicle Movement Rules. Terrain behaviour follows `08-vehicles.md` (VEH-022) — a wheel's axle height is its Terrain Threshold.
 
-- [ ] 3.2 `CMP-004` (Tracks): replace the line "Pivot behavior follows `08-vehicles.md` (VEH-009)." with:
+- [x] 3.2 `CMP-004` (Tracks): replace the line "Pivot behavior follows `08-vehicles.md` (VEH-009)." with:
 
 > Pivot behavior follows `08-vehicles.md` (VEH-009), and terrain behaviour (VEH-022).
 
-- [ ] 3.3 `CMP-005` (Hover System): replace the line "Hover vehicles ignore wheel requirements. Pivot and movement behavior follows `08-vehicles.md` (VEH-011)." with:
+- [x] 3.3 `CMP-005` (Hover System): replace the line "Hover vehicles ignore wheel requirements. Pivot and movement behavior follows `08-vehicles.md` (VEH-011)." with:
 
 > Hover vehicles ignore wheel requirements. Pivot and movement behavior follows `08-vehicles.md` (VEH-011), and terrain behaviour (VEH-024) — the height of the hover assembly is the vehicle's Terrain Threshold, which is why these components must be visible.
 
-- [ ] 3.4 `CMP-006` (Walkers): replace the line "Pivot behavior follows `08-vehicles.md` (VEH-010)." with:
+- [x] 3.4 `CMP-006` (Walkers): replace the line "Pivot behavior follows `08-vehicles.md` (VEH-010)." with:
 
 > Pivot behavior follows `08-vehicles.md` (VEH-010), and terrain behaviour (VEH-023) — a walker's knee height is its Terrain Threshold.
 
@@ -188,13 +188,13 @@ Each component rule gains one pointer, matching the style `CMP-004` already uses
 
 Insert both in the same style as the surrounding entries: a `## ` heading, the definition, then a `---` separator. Place them anywhere sensible among the existing terms; the glossary is not alphabetised.
 
-- [ ] 4.1 Add:
+- [x] 4.1 Add:
 
 > ## Terrain Threshold
 >
 > The height a vehicle can cross or descend without being blocked or stranded, read from its locomotion rather than assigned: axle height for wheels and tracks, knee height for walkers, hover assembly height for hover. In every case you measure the part that carries the vehicle, not the body it carries. Measured in plate layers. See `08-vehicles.md` (VEH-021 through VEH-024).
 
-- [ ] 4.2 Add:
+- [x] 4.2 Add:
 
 > ## Stranded
 >
@@ -204,11 +204,11 @@ Insert both in the same style as the surrounding entries: a `## ` heading, the d
 
 ## 5. Verify
 
-- [ ] 5.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues. This checks the new headings' em dashes, the ascending IDs, and that every `(VEH-0NN)` cross-reference resolves.
-- [ ] 5.2 Run `grep -n "^# VEH-" docs/08-vehicles.md` and confirm `VEH-001` through `VEH-027` appear once each, in ascending order, with no gaps.
-- [ ] 5.3 Confirm no existing rule ID was renumbered and no existing rule was deleted — `VEH-021` … `VEH-027` are purely additive.
-- [ ] 5.4 Run `git diff --stat main...HEAD` and confirm exactly these paths changed: `docs/08-vehicles.md`, `docs/07-movement.md`, `docs/05-construction-components.md`, `docs/14-glossary.md`, and the four new files under `openspec/changes/vehicle-terrain-thresholds/`.
-- [ ] 5.5 Run `grep -c "Terrain Threshold" docs/08-vehicles.md` and confirm at least 7 hits — the term appears in every one of the five new rules. Separately confirm one hit in `docs/14-glossary.md`.
-- [ ] 5.6 Confirm `docs/07-movement.md` no longer claims any part of vehicle terrain is undefined. This change closes the whole declared gap — obstacles, drops, falling and ascent — so the deferral paragraph becomes a pointer, not a narrowed caveat.
-- [ ] 5.7 Confirm no numeric value changed anywhere: this change adds thresholds that are *measured*, and assigns no number to any vehicle.
-- [ ] 5.8 Run `git diff main...HEAD -- docs/ | grep -E "^-" | grep -v "^---"` and confirm every removed line is one of the four cross-reference lines replaced in section 3, or the Vehicle Movement paragraph replaced in 2.1. Nothing else should be deleted.
+- [x] 5.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues. This checks the new headings' em dashes, the ascending IDs, and that every `(VEH-0NN)` cross-reference resolves.
+- [x] 5.2 Run `grep -n "^# VEH-" docs/08-vehicles.md` and confirm `VEH-001` through `VEH-027` appear once each, in ascending order, with no gaps.
+- [x] 5.3 Confirm no existing rule ID was renumbered and no existing rule was deleted — `VEH-021` … `VEH-027` are purely additive.
+- [x] 5.4 Run `git diff --stat main...HEAD` and confirm exactly these paths changed: `docs/08-vehicles.md`, `docs/07-movement.md`, `docs/05-construction-components.md`, `docs/14-glossary.md`, and the four new files under `openspec/changes/vehicle-terrain-thresholds/`.
+- [x] 5.5 Run `grep -c "Terrain Threshold" docs/08-vehicles.md` and confirm at least 7 hits — the term appears in every one of the five new rules. Separately confirm one hit in `docs/14-glossary.md`.
+- [x] 5.6 Confirm `docs/07-movement.md` no longer claims any part of vehicle terrain is undefined. This change closes the whole declared gap — obstacles, drops, falling and ascent — so the deferral paragraph becomes a pointer, not a narrowed caveat.
+- [x] 5.7 Confirm no numeric value changed anywhere: this change adds thresholds that are *measured*, and assigns no number to any vehicle.
+- [x] 5.8 Run `git diff main...HEAD -- docs/ | grep -E "^-" | grep -v "^---"` and confirm every removed line is one of the four cross-reference lines replaced in section 3, or the Vehicle Movement paragraph replaced in 2.1. Nothing else should be deleted.

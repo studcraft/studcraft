@@ -308,6 +308,107 @@ the construction should take priority over abstraction.
 
 ---
 
+# VEH-021 — Terrain Threshold
+
+Every vehicle has a single **Terrain Threshold**, read from its locomotion system (VEH-012) rather than assigned as a statistic. It is measured in plate layers, the same unit obstacles and Resistance use (`16-damage-system.md`, DMG-003): a plate counts as 1 and a standard brick as 3.
+
+The threshold governs two things:
+
+- An obstacle **taller** than the threshold blocks movement. The vehicle cannot cross it and must go around, or use a legal access point (`07-movement.md`, MOVE-011).
+- A drop **deeper** than the threshold strands the vehicle (VEH-025).
+
+An obstacle or drop equal to the threshold is crossed normally. Each locomotion type reads its own threshold: VEH-022 for wheels and tracks, VEH-023 for walkers, VEH-024 for hover.
+
+A drop is not a fall. This rule covers driving into a depression, ditch or trench; a vehicle that leaves a height entirely is falling, and VEH-026 covers that. Both measure against this same threshold.
+
+---
+
+# VEH-022 — Wheeled and Tracked Thresholds
+
+For a wheeled or tracked vehicle, the Terrain Threshold is **axle height**: the height of the wheel or road wheel's axle above the ground.
+
+On a LEGO model this is the wheel's radius, so the threshold is half the wheel's own diameter — a wheel cannot climb a step taller than its own centre. Where a tracked build shows no visible axle, use half the height of the track run instead.
+
+Wheeled and tracked vehicles are stranded by drops deeper than this threshold (VEH-025).
+
+---
+
+# VEH-023 — Walker Thresholds
+
+For a walker, the Terrain Threshold is **knee height**: the height of the leg's knee joint above the ground, as built (`05-construction-components.md`, CMP-006).
+
+A walker steps over obstacles below its knee and steps down into depressions below its knee without difficulty. Where a leg has no distinct knee joint, use half the leg's standing height.
+
+Walkers are stranded by drops deeper than this threshold (VEH-025).
+
+---
+
+# VEH-024 — Hover Thresholds
+
+For a hover vehicle, the Terrain Threshold is the height of the **hover assembly** — the emitters, pylons or skirt that hold the hull clear of the ground (`05-construction-components.md`, CMP-005) — measured in plate layers from the ground to where that assembly meets the hull.
+
+This is the hover equivalent of a wheel's axle. In every locomotion type you measure the part that carries the vehicle, never the body it carries: the wheel to its axle (VEH-022), the leg to its knee (VEH-023), the hover assembly to its full height.
+
+Measuring the assembly rather than the visible gap matters for enclosed builds. A skirt that reaches the ground leaves no gap to see, but its own height is still the threshold.
+
+A hover model built with its hull flat on the ground has no assembly to measure and a Terrain Threshold of 0 — every obstacle blocks it. Nothing forbids that build; it simply cannot cross anything, which is the model telling you it is not finished. `CMP-005` already requires hover components to be visually distinguishable, and this is why: the assembly is the vehicle's terrain capability, so it has to be visible to be measured.
+
+A taller assembly clears more terrain at the cost of a taller silhouette, which is easier to see and therefore to shoot (`02-core-rules.md`, CORE-008) — the same trade a walker makes with long legs.
+
+Hover thresholds are usually the lowest of any locomotion type: a hover vehicle is stopped by walls a wheeled vehicle drives over. In exchange it is **never stranded by a drop** (VEH-025) — it passes over depressions instead of entering them, and their depth is irrelevant.
+
+That immunity has one limit: a hover vehicle cannot cross a gap wider than its own footprint (VEH-001). There must be a surface beneath it to hover above.
+
+Hover emitters are components like any other. If the assembly is destroyed the hull settles, the Terrain Threshold becomes 0, and the vehicle can still move across flat ground but is blocked by everything else.
+
+---
+
+# VEH-025 — Stranded Vehicles
+
+A vehicle that enters a drop deeper than its Terrain Threshold (VEH-021) becomes **stranded** and is Immobilized, resolved exactly as VEH-019 already defines: it remains on the battlefield and may continue operating any remaining functional systems.
+
+Stranded introduces no new state and no marker — the vehicle's position in the depression is the physical representation (`02-core-rules.md`, CORE-016).
+
+Freeing a stranded vehicle is not yet defined, in the same way VEH-013 leaves crew replacement to future rules.
+
+Hover vehicles cannot be stranded (VEH-024).
+
+---
+
+# VEH-026 — Vehicle Falling
+
+A vehicle that leaves a height and comes down under gravity — rather than descending a slope or ramp (VEH-027) — falls. Measure the fall in plate layers, from the surface it left to the surface it lands on.
+
+A fall no deeper than the vehicle's Terrain Threshold (VEH-021) causes no damage. The vehicle has dropped a kerb, not fallen.
+
+Beyond that, roll one D6 for every complete brick (3 plate layers) fallen **past the threshold**. Each die is an independent Damage Roll (`16-damage-system.md`, DMG-015), resolved exactly as infantry falling is (`07-movement.md`, MOVE-016): a result of 4, 5 or 6 means nothing happens, and a result of 1, 2 or 3 advances one component by one state.
+
+Every failed die is applied to a component that physically touches the ground when the vehicle lands — a wheel, a track, or a foot. The controlling player chooses which. Failures beyond the number of such components are lost: a vehicle whose locomotion is already destroyed is Immobilized (VEH-019) and cannot be immobilized twice.
+
+**Crew and passengers are never harmed by a vehicle's fall.** This is a deliberate simplification rather than an oversight — the case is rare, and the consequence below is the real cost.
+
+Hover vehicles take no falling damage. They descend under power rather than falling, consistent with their immunity to being stranded (VEH-024).
+
+A vehicle at the bottom of a drop may be a trap. Infantry inside it disembark normally (`09-transport.md`, TRN-006), but then face the drop's walls as ordinary terrain: 7 or more plate layers requires a slope, stair or ramp (`07-movement.md`, MOVE-011, MOVE-014). Driving into a ravine can strand a squad as effectively as it strands the vehicle.
+
+---
+
+# VEH-027 — Vehicle Ascent
+
+A vehicle crosses any rise no greater than its Terrain Threshold (VEH-021) by driving over it, whatever it is built from.
+
+To reach a height **greater** than its Terrain Threshold, a vehicle needs a slope or a ramp that physically covers the entire rise, resting on both the lower and the upper surface. The angle does not matter and is never measured: LEGO slope elements (`04-construction-standard.md`, SCS-011) and a lowered ramp (SCS-008) bound it by their own construction.
+
+If no slope or ramp covers the full rise, the height is impassable to that vehicle. It must go around.
+
+**Stairs are never a legal ascent for a vehicle**, however shallow each step is. Infantry climb stairs (`07-movement.md`, MOVE-013); vehicles do not. What matters is the total rise, not the individual steps — a staircase is one obstacle, not a series of small ones.
+
+A vehicle that descends a slope or ramp covering the full drop is driving, not falling, and takes no falling damage (VEH-026). A vehicle that leaves a height by any other route is falling.
+
+This needs no separate walker rule. A walker whose knee clears the whole rise simply crosses it under VEH-021 — a tall enough walker steps over a flight of stairs the same way it steps over a wall.
+
+---
+
 # Summary
 
 Vehicle behaviour is defined by five physical characteristics.

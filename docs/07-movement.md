@@ -243,7 +243,7 @@ The greater the fall, the greater the chance of suffering damage.
 
 The kept die is treated as a Damage Roll (`16-damage-system.md`, DMG-015): a result of 4, 5, or 6 means no damage. A result of 1, 2, or 3 means the faller's Component State advances one step (`Operational → Wounded`, or `Wounded → Dead`). This is a declared exception to the normal sequence: falling has no Impact Strength and no attacker, so there is no Geometry Check (DMG-014) to pass first — the Damage Roll applies directly, and Resistance plays no part in falling damage.
 
-This rule covers infantry only; vehicle falling is not yet defined (`07-movement.md`, Vehicle Movement).
+This rule covers infantry only. Vehicle falling is defined separately in `08-vehicles.md` (VEH-026), which scales from each vehicle's own Terrain Threshold rather than from a fixed first brick.
 
 Example:
 
@@ -260,7 +260,9 @@ Vehicle movement depends on:
 - Physical dimensions.
 - Locomotion type.
 
-Vehicle-specific rules are described in `08-vehicles.md`. Terrain interaction for vehicles (obstacles, slopes, stairs, vertical access, falling) is not yet defined — `08-vehicles.md` currently has no equivalent to MOVE-009 through MOVE-016. Until a dedicated rule exists, resolve vehicle-vs-terrain questions using the same Physical Priority principle infantry uses: if the LEGO model can answer the question, the model decides.
+Vehicle-specific rules are described in `08-vehicles.md`, including terrain. The Terrain Threshold rules (VEH-021 through VEH-024) give each locomotion type its own limit, read from the model; VEH-025 covers being stranded, VEH-026 falling, and VEH-027 ascent.
+
+Vehicles and infantry differ most at stairs: infantry climb them (MOVE-013), vehicles never do (VEH-027).
 
 ---
 
