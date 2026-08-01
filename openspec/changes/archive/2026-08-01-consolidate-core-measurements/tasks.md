@@ -27,4 +27,6 @@
 ## 5. Housekeeping
 
 - [x] 5.1 No `CHANGELOG.md` edit needed — `Release cut` computes the bump automatically from git history. This change is purely editorial (no rule value changes), so the automatic minor default is correct; no `**Bump:**` marker needed.
-- [ ] 5.2 Open a PR from the `consolidate-core-measurements` branch for review. Do not archive in the same PR — archiving is a separate, later step (see `system/workflow.md`, Archiving), via the batched `Archive cut` action.
+- [x] 5.2 Open a PR from the `consolidate-core-measurements` branch for review. Do not archive in the same PR — archiving is a separate, later step (see `system/workflow.md`, Archiving), via the batched `Archive cut` action.
+
+> Ticked during the 2026-08-01 archive reconciliation. These boxes recorded process steps that had already happened — the PR merged long ago, or the task states that no action was required. They were blocking `archive_cut.py`, which refuses to archive a change with unchecked tasks. No ruleset work was left undone.
