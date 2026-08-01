@@ -1,6 +1,6 @@
 # StudCraft Construction Components
 
-**Version:** 0.1.0 Draft
+**Version:** 0.2.0 Draft
 
 ---
 

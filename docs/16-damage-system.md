@@ -1,6 +1,6 @@
 # StudCraft Damage System
 
-**Version:** 0.1.0 Draft
+**Version:** 0.2.0 Draft
 
 ---
 
