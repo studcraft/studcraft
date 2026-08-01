@@ -288,7 +288,7 @@ This allows vehicles to degrade naturally over time.
 
 # VEH-019 — Immobilized Vehicles
 
-A vehicle that cannot move due to Pilot loss or locomotion damage remains on the battlefield.
+A vehicle that cannot move — through Pilot loss, locomotion damage, or being stranded in a drop (VEH-025) — remains on the battlefield.
 
 It may continue operating any remaining functional systems unless otherwise specified.
 
@@ -312,10 +312,12 @@ the construction should take priority over abstraction.
 
 Every vehicle has a single **Terrain Threshold**, read from its locomotion system (VEH-012) rather than assigned as a statistic. It is measured in plate layers, the same unit obstacles and Resistance use (`16-damage-system.md`, DMG-003): a plate counts as 1 and a standard brick as 3.
 
-The threshold governs two things:
+The threshold governs three things:
 
-- An obstacle **taller** than the threshold blocks movement. The vehicle cannot cross it and must go around, or use a legal access point (`07-movement.md`, MOVE-011).
+- An obstacle **taller** than the threshold blocks movement. The vehicle cannot cross it and must go around, or ascend by a slope or ramp (VEH-027). Do not use MOVE-011's access-point list here: it is the infantry rule and includes stairs, which are never a legal vehicle ascent.
 - A drop **deeper** than the threshold strands the vehicle (VEH-025).
+
+- A rise **greater** than the threshold requires a slope or ramp to ascend (VEH-027).
 
 An obstacle or drop equal to the threshold is crossed normally. Each locomotion type reads its own threshold: VEH-022 for wheels and tracks, VEH-023 for walkers, VEH-024 for hover.
 
@@ -411,15 +413,18 @@ This needs no separate walker rule. A walker whose knee clears the whole rise si
 
 # Summary
 
-Vehicle behaviour is defined by five physical characteristics.
+Vehicle behaviour is defined by six physical characteristics.
 
 - Size
 - Locomotion
+- Terrain capability
 - Crew
 - Components
 - Interior volume
 
 No predefined vehicle profiles are required.
+
+Terrain capability is read from the locomotion like everything else: a wheel's axle, a walker's knee, a hover assembly's height (VEH-021 through VEH-024).
 
 A player should understand how a vehicle behaves simply by examining its construction.
 
