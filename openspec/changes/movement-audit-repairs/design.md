@@ -26,6 +26,20 @@ The cost is that `MOVE-007`'s example becomes illegal and must change from 8 stu
 
 Thresholds are unchanged in effect: what was "1 brick" is "up to 3 plate layers", "2 bricks" is "4 to 6", "3 bricks or more" is "7 or more". Every previously legal build resolves exactly as before; builds that had no answer now have one.
 
+### Falling stays probabilistic — no height is certainly fatal
+
+Making tall falls lethal (defect 22) raises the obvious follow-on: should a great enough fall simply kill, with no roll? Three options were weighed.
+
+**A fatal threshold** — beyond N bricks the unit is Dead outright. Rejected. It would be the first certain **yes** anywhere in StudCraft. `DMG-014` lets geometry produce a certain *no* — below a component's Resistance the Impact ends and no dice are rolled — but no rule anywhere lets geometry guarantee a result. Combat's own stated philosophy is that the model answers "can this happen?" and the dice answer "did it happen?". A lethal height would let the model answer both.
+
+**A threshold derived from the faller's own height** — fatal beyond some multiple of a minifig's ~4 bricks. Rejected despite being the most "model is the rules" of the three: it introduces a new measuring unit into a document this very change is unifying on plate layers, immediately after `16-damage-system.md` did the same. It fights the direction the ruleset is moving.
+
+**Pure probability, kept** — chosen. The rule already has the right shape without a ceiling: the free first brick *is* falling's Geometry Check, a certain no derived from height, and everything above it belongs to the dice. That mirrors combat exactly, adds no rule, and reuses `DMG-016` verbatim.
+
+The deciding comparison is that a minifig can already survive two point-blank cannon Impacts — both passing the Geometry Check, both Damage Rolls succeeding, a 25% outcome. If that is acceptable, so is surviving a tower fall once in a thousand attempts. The alternative makes falling more deterministic than artillery.
+
+Task 9.2b adds a paragraph saying so in the rule itself, so the asymptote reads as a declared decision rather than a gap for the next reviewer to close.
+
 ### Collision and the three terrain sections get rule IDs
 
 `Collision`, `Doors`, `Ramps` and `Interactive Terrain` are normative — "enemy units block movement" decides games — but carry no identifier, so no other document can cite them. `08-vehicles.md` already cites `MOVE-008` by ID; there is no equivalent handle for collision.

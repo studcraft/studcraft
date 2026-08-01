@@ -79,6 +79,8 @@ Tall falls become lethal, which they were not. Dice stop being pooled by "keep t
 
 The formula is one die per complete brick fallen **beyond the first**, which makes the trivial-height exemption fall out of the arithmetic instead of needing its own clause. Note this **removes** a bespoke mechanic rather than adding one: "keep only the lowest result" is currently the only pooled roll in the game, and deleting it brings falling in line with every other multi-die resolution.
 
+**No height is made certainly fatal**, and `MOVE-016` now says so explicitly. A fatal threshold was considered and rejected: it would be the first certain *yes* in StudCraft. `DMG-014` lets geometry rule an outcome **out** — below Resistance, no dice are rolled — but nothing lets geometry rule an outcome **in**. Falling already mirrors that shape, with the free first brick acting as its Geometry Check and the dice owning everything above. A minifig can already survive two point-blank cannon Impacts 25% of the time; a tower fall survived once in a thousand attempts is the same system behaving consistently.
+
 The falling defects were found on a second pass, after the rest of the audit was written and after this proposal was first opened. `MOVE-016` had been skipped on the first pass because a recent change had touched it — which turned out to be exactly the wrong reason to skip a rule, since that change addressed the damage system's needs and never audited the rule on its own terms.
 
 **Four new rule IDs** (`MOVE-017` … `MOVE-020`) for text that already exists and is already normative. No rule is renumbered, and no rule is deleted.

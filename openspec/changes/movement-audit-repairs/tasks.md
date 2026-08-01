@@ -271,6 +271,18 @@ Replace everything from the line "Falling damage depends on the height fallen." 
 - [ ] 9.2.3 In `MOVE-016`'s Geometry Check exception paragraph — the one beginning "The kept die is treated as a Damage Roll" — change "The kept die is treated as a Damage Roll" to "Each die is treated as a Damage Roll" and "the Damage Roll applies directly" to "the Damage Rolls apply directly". The rest of that paragraph is still correct and stays: falling has no Impact Strength, so there is no Geometry Check and Resistance plays no part.
 - [ ] 9.2.4 Leave the infantry-only line untouched apart from the citation fix in 9.1.
 - [ ] 9.2.5 Confirm the phrase "lowest result" no longer appears anywhere in `docs/07-movement.md`.
+
+### 9.2b `MOVE-016` — declare that surviving a great fall is intentional
+
+No fall height is ever certainly fatal: at ten bricks the odds of death are about 98%, and the curve is asymptotic, so a unit can always in principle walk away. That is deliberate, and saying so stops it reading as an oversight a future reviewer should "fix".
+
+The reason is structural. `DMG-014` lets geometry produce a certain **no** — below Resistance, the Impact ends and no dice are rolled — but nothing anywhere in StudCraft lets geometry produce a certain **yes**. Falling already mirrors that shape: the free first brick is its Geometry Check, and everything above it belongs to the dice.
+
+- [ ] 9.2b.1 Append this paragraph to `MOVE-016`, immediately after the Geometry Check exception paragraph edited in 9.2.3 and before the infantry-only line:
+
+> No height is certainly fatal. A unit that survives a very tall fall has simply passed every Damage Roll, which `16-damage-system.md` (DMG-015) already describes as a fortunate landing rather than an oversight. This is intentional: in StudCraft, geometry can rule an outcome out — the first brick of a fall, like an Impact below a component's Resistance (DMG-014) — but geometry never rules an outcome in. A minifig can survive two cannon Impacts for the same reason it can survive a fall from a tower.
+
+- [ ] 9.2b.2 Confirm the paragraph sits inside `MOVE-016`, not in the `# Falling` section heading above it, and that `MOVE-016` still ends with its examples list.
 - [ ] 9.3 Replace the entire body of the `# Summary` section (everything between the `# Summary` heading and the `---` before the epigraph) with:
 
 > Movement in StudCraft is based on six simple principles:
