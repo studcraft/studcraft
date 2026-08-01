@@ -56,11 +56,9 @@ This orientation defines movement and line of advance.
 
 # MOVE-003 — Measuring Movement
 
-Movement is measured from the front edge of the unit.
+Movement is measured along the direction of travel, from the edge of the base that leads in that direction: the front edge moving forward, the rear edge moving backward, and the corresponding side edge moving left or right.
 
 When movement ends, the unit occupies its new position completely.
-
-Models may not overlap.
 
 ---
 
@@ -68,11 +66,15 @@ Models may not overlap.
 
 Standard infantry movement:
 
-**12 studs forward**
+**Up to 12 studs forward, in multiples of 3 studs**
 
-12 is a multiple of both 3 and 4 — the Unit Base's depth and width (`02-core-rules.md`, CORE-001) — keeping forward movement aligned with the grid the same way side movement is (MOVE-005).
+12 is the maximum, not a fixed distance — a unit may move 3, 6, 9 or 12 studs, or stay put.
 
-This value represents a normal movement action, costing **1 Action Point** (`02-core-rules.md`, CORE-006).
+The step size is the Unit Base's depth (`02-core-rules.md`, CORE-001): moving forward crosses the 3-stud axis, so forward movement counts whole base-depths, exactly as side movement counts whole base-widths of 4 (MOVE-005). Both numbers come from the base itself, so a player can measure either by laying spare Unit Bases end to end.
+
+One movement action costs **1 Action Point** (`02-core-rules.md`, CORE-006) and moves the unit in a single direction. Changing direction requires a second movement action (MOVE-007).
+
+Each movement action is measured independently: a unit spending two Action Points on movement makes two separate moves of up to 12 studs each, not one move of 24.
 
 Future scenarios may allow sprinting or other special movement.
 
@@ -80,29 +82,25 @@ Future scenarios may allow sprinting or other special movement.
 
 # MOVE-005 — Side Movement
 
-Infantry may move sideways.
+Infantry may move sideways, left or right.
 
-Side movement is measured in multiples of **4 studs**.
+**Up to 12 studs, in multiples of 4 studs**
 
-This keeps movement aligned with the Unit Base.
+The step size is the Unit Base's width (`02-core-rules.md`, CORE-001) — moving sideways crosses the 4-stud axis. Legal distances are therefore 4, 8 and 12 studs. Partial side movement is not allowed.
 
-Examples:
-
-- 4 studs
-- 8 studs
-- 12 studs
-
-Partial side movement is not allowed.
+Side movement is a movement action and costs **1 Action Point**, the same as moving forward (MOVE-004).
 
 ---
 
 # MOVE-006 — Backward Movement
 
-Infantry may move backwards using the same movement allowance.
+Infantry may move backwards.
 
-The unit keeps its facing.
+**Up to 12 studs, in multiples of 3 studs** — the same limit and step size as forward movement (MOVE-004), because backward movement crosses the same 3-stud axis of the base.
 
-No rotation is required.
+The unit keeps its facing. No rotation is required.
+
+Backward movement is a movement action and costs **1 Action Point**.
 
 ---
 
@@ -110,16 +108,14 @@ No rotation is required.
 
 StudCraft does not use diagonal movement.
 
-Players combine forward and lateral movement instead.
+Players combine forward and lateral movement instead. Each leg is its own movement action, costing 1 Action Point each.
 
-Example:
+Example — instead of moving diagonally:
 
-Instead of moving diagonally:
+- Forward 6 studs (1 AP)
+- Left 4 studs (1 AP)
 
-- Forward 8 studs
-- Left 4 studs
-
-This maintains compatibility with the LEGO grid.
+This maintains compatibility with the LEGO grid, and means a unit with 3 AP can make at most three movement legs in an activation.
 
 ---
 
@@ -145,37 +141,27 @@ Terrain physically affects movement.
 
 # MOVE-009 — One Brick Obstacles
 
-Height:
+Height: **up to 3 plate layers** (one brick or less).
 
-1 Brick
+Obstacle height is measured in plate layers, the same unit `16-damage-system.md` (DMG-003) uses: a plate counts as 1 and a standard brick as 3.
 
-Infantry may cross freely.
-
-No additional movement cost.
+Infantry may cross freely. No additional movement cost.
 
 ---
 
 # MOVE-010 — Two Brick Obstacles
 
-Height:
+Height: **4 to 6 plate layers** (more than one brick, up to two).
 
-2 Bricks
+Infantry may climb. Climbing costs **1 additional Action Point** on top of the movement action that crosses the obstacle, so a move over such an obstacle costs 2 AP in total.
 
-Infantry may climb.
-
-Climbing costs:
-
-**1 additional Action Point**
-
-on top of the normal movement cost.
+The climb is part of that movement action and does not increase the distance the unit may travel: the 12-stud limit (MOVE-004) still applies to the move as a whole.
 
 ---
 
 # MOVE-011 — Three Brick Obstacles
 
-Height:
-
-3 Bricks or more
+Height: **7 or more plate layers** (taller than two bricks).
 
 Cannot be climbed directly.
 
@@ -195,7 +181,7 @@ Without one of these, the obstacle is impassable.
 
 Slopes are valid climbing surfaces.
 
-Units may move normally over connected slopes.
+Units may move normally over connected slopes, at no additional Action Point cost — a slope is ordinary terrain, not an obstacle to climb. Distance travelled up a slope counts against the normal movement limit (MOVE-004).
 
 ---
 
@@ -203,15 +189,13 @@ Units may move normally over connected slopes.
 
 Plate-built stairs are valid movement paths.
 
-Units may climb them normally.
+Units may climb them normally, at no additional Action Point cost, and the distance climbed counts against the normal movement limit (MOVE-004) — the same as slopes (MOVE-012).
 
 ---
 
 # MOVE-014 — Vertical Access
 
-If no slope or stair exists:
-
-The wall cannot be climbed.
+If no slope, stair or ramp exists, the wall cannot be climbed. These are the three legal access points listed in MOVE-011, and no other construction grants access.
 
 Physical construction determines accessibility.
 
@@ -223,33 +207,35 @@ Physical construction determines accessibility.
 
 # MOVE-015 — Falling
 
-A unit that leaves a higher position without support falls.
+A unit that leaves a higher position without support falls. A unit may do this deliberately — stepping off a ledge is a legal way to descend, at the risk described in MOVE-016.
 
-Falling immediately ends movement.
+The unit is placed directly below the point it left, at the first surface that physically supports it. Falling immediately ends the movement action; any unspent movement from that action is lost.
 
 ---
 
 # MOVE-016 — Falling Damage
 
-Falling damage depends on the height fallen.
+Falling damage depends on the height fallen, measured in plate layers — the same unit obstacles use (MOVE-009).
 
-For each brick of height fallen:
+Roll **one D6 for every complete brick (3 plate layers) fallen beyond the first**. A remainder of one or two plate layers adds no die.
 
-Roll one D6.
+The first brick is free, which is why a fall of 3 plate layers or less needs no roll at all: MOVE-009 already treats that height as trivial to cross, and stepping down it is no more dangerous than stepping over it.
 
-Keep only the **lowest result**.
+Each die is an independent Damage Roll, resolved exactly as multiple Impacts are (`16-damage-system.md`, DMG-016): every failed die advances the faller's Component State by one. Two failed dice therefore take an Operational unit to Dead. The higher the fall, the more dice, and the more likely both a wound and a death.
 
-The greater the fall, the greater the chance of suffering damage.
+Each die is treated as a Damage Roll (`16-damage-system.md`, DMG-015): a result of 4, 5, or 6 means no damage. A result of 1, 2, or 3 means the faller's Component State advances one step (`Operational → Wounded`, or `Wounded → Dead`). This is a declared exception to the normal sequence: falling has no Impact Strength and no attacker, so there is no Geometry Check (DMG-014) to pass first — the Damage Rolls apply directly, and Resistance plays no part in falling damage.
 
-The kept die is treated as a Damage Roll (`16-damage-system.md`, DMG-015): a result of 4, 5, or 6 means no damage. A result of 1, 2, or 3 means the faller's Component State advances one step (`Operational → Wounded`, or `Wounded → Dead`). This is a declared exception to the normal sequence: falling has no Impact Strength and no attacker, so there is no Geometry Check (DMG-014) to pass first — the Damage Roll applies directly, and Resistance plays no part in falling damage.
+No height is certainly fatal. A unit that survives a very tall fall has simply passed every Damage Roll, which `16-damage-system.md` (DMG-015) already describes as a fortunate landing rather than an oversight. This is intentional: in StudCraft, geometry can rule an outcome out — the first brick of a fall, like an Impact below a component's Resistance (DMG-014) — but geometry never rules an outcome in. A minifig can survive two cannon Impacts for the same reason it can survive a fall from a tower.
 
-This rule covers infantry only; vehicle falling is not yet defined (`07-movement.md`, Vehicle Movement).
+This rule covers infantry only; vehicle falling is not yet defined — see the Vehicle Movement section below.
 
 Example:
 
-- Fall of 1 brick → Roll 1D6.
-- Fall of 2 bricks → Roll 2D6, keep the lowest.
-- Fall of 5 bricks → Roll 5D6, keep the lowest.
+- Fall of 1 brick (3 plate layers) → no dice, no damage.
+- Fall of 2 bricks → Roll 1D6. A failure wounds; a fall this short cannot kill an Operational unit.
+- Fall of 3 bricks → Roll 2D6, resolved independently. Two failures kill.
+- Fall of 5 bricks → Roll 4D6, resolved independently.
+- Fall of 10 bricks → Roll 9D6. Survival is very unlikely.
 
 ---
 
@@ -264,37 +250,33 @@ Vehicle-specific rules are described in `08-vehicles.md`. Terrain interaction fo
 
 ---
 
-# Collision
+# MOVE-017 — Collision
 
-Units may not finish movement occupying the same physical space.
+Units may not finish movement occupying the same physical space. Models may not overlap.
 
-Friendly units may move around each other if enough space exists.
-
-Enemy units block movement unless another rule allows otherwise.
+Friendly units may move around each other if enough space physically exists. Enemy units block movement unless another rule allows otherwise.
 
 ---
 
-# Doors
+# MOVE-018 — Doors
 
-Closed doors block movement.
+Closed doors block movement. Once opened, the doorway becomes a valid movement path.
 
-Opening a door costs **1 Action Point** (`02-core-rules.md`, CORE-007).
-
-Once opened, the doorway becomes a valid movement path.
+Opening or closing a door is an interactive element action (`02-core-rules.md`, CORE-007).
 
 ---
 
-# Ramps
+# MOVE-019 — Ramps
 
-Lowering or raising a ramp costs **1 Action Point** (`02-core-rules.md`, CORE-007).
+A lowered ramp immediately becomes usable terrain and is a legal access point (MOVE-011, MOVE-014).
 
-A lowered ramp immediately becomes usable terrain.
+Lowering or raising a ramp is an interactive element action (`02-core-rules.md`, CORE-007).
 
 ---
 
-# Interactive Terrain
+# MOVE-020 — Interactive Terrain
 
-Any movable LEGO element may become part of movement.
+Any movable LEGO element may become part of a movement path.
 
 Examples:
 
@@ -303,7 +285,7 @@ Examples:
 - Gates
 - Hinged platforms
 
-Interaction normally costs **1 Action Point** (`02-core-rules.md`, CORE-007).
+Operating one is an interactive element action (`02-core-rules.md`, CORE-007).
 
 ---
 
@@ -317,13 +299,14 @@ the model always takes precedence over interpretation.
 
 # Summary
 
-Movement in StudCraft is based on five simple principles:
+Movement in StudCraft is based on six simple principles:
 
 1. No diagonal movement.
-2. Infantry move 12 studs.
-3. Side movement uses multiples of 4 studs.
-4. Walls require physical access (slopes or stairs).
-5. Physical construction always defines legal movement.
+2. Infantry move up to 12 studs forward or backward, in multiples of 3.
+3. Side movement is up to 12 studs, in multiples of 4.
+4. Each movement action costs 1 Action Point and moves in one direction.
+5. Walls require physical access — a slope, a stair or a ramp.
+6. Physical construction always defines legal movement.
 
 ---
 

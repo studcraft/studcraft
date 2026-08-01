@@ -1,6 +1,6 @@
 ## 0. Setup
 
-- [ ] 0.1 Work on branch `movement-audit-repairs` (`openspec/config.yaml` requires one branch per proposal).
+- [x] 0.1 Work on branch `movement-audit-repairs` (`openspec/config.yaml` requires one branch per proposal).
 
 ### How to read the replacement blocks
 
@@ -57,19 +57,19 @@ Each of the twenty-two defects in `proposal.md` maps to at least one task here. 
 
 Currently written for forward movement only ("from the front edge"), which is wrong for backward and sideways movement. It also duplicates the Collision section's overlap rule, which moves to `MOVE-017` in task 8.
 
-- [ ] 1.1 Replace the entire body of `MOVE-003` with:
+- [x] 1.1 Replace the entire body of `MOVE-003` with:
 
 > Movement is measured along the direction of travel, from the edge of the base that leads in that direction: the front edge moving forward, the rear edge moving backward, and the corresponding side edge moving left or right.
 >
 > When movement ends, the unit occupies its new position completely.
 
-- [ ] 1.2 Confirm the line "Models may not overlap." no longer appears in `MOVE-003`. Model-on-model overlap becomes `MOVE-017`'s rule (task 8.2); `MOVE-003` keeps only how distance is measured and that the unit ends fully in its new position.
+- [x] 1.2 Confirm the line "Models may not overlap." no longer appears in `MOVE-003`. Model-on-model overlap becomes `MOVE-017`'s rule (task 8.2); `MOVE-003` keeps only how distance is measured and that the unit ends fully in its new position.
 
 ---
 
 ## 2. `MOVE-004` — 12 studs is a maximum, in multiples of 3
 
-- [ ] 2.1 Replace the entire body of `MOVE-004` with:
+- [x] 2.1 Replace the entire body of `MOVE-004` with:
 
 > Standard infantry movement:
 >
@@ -91,7 +91,7 @@ Currently written for forward movement only ("from the front edge"), which is wr
 
 The rule currently states granularity but no upper limit and no cost, so a unit may sidestep an unlimited distance for free.
 
-- [ ] 3.1 Replace the entire body of `MOVE-005` with:
+- [x] 3.1 Replace the entire body of `MOVE-005` with:
 
 > Infantry may move sideways, left or right.
 >
@@ -107,7 +107,7 @@ The rule currently states granularity but no upper limit and no cost, so a unit 
 
 "The same movement allowance" names nothing defined elsewhere in the ruleset, and leaves the limit, granularity and cost all unstated.
 
-- [ ] 4.1 Replace the entire body of `MOVE-006` with:
+- [x] 4.1 Replace the entire body of `MOVE-006` with:
 
 > Infantry may move backwards.
 >
@@ -123,7 +123,7 @@ The rule currently states granularity but no upper limit and no cost, so a unit 
 
 The current example moves "Forward 8 studs". 8 is not a multiple of 3, so it is illegal under `MOVE-004`. It also costs two movement actions, which the example does not say.
 
-- [ ] 5.1 Replace the entire body of `MOVE-007` with:
+- [x] 5.1 Replace the entire body of `MOVE-007` with:
 
 > StudCraft does not use diagonal movement.
 >
@@ -144,7 +144,7 @@ Thresholds are currently given in whole bricks, leaving any plate-built obstacle
 
 Thresholds are unchanged in effect. Do not alter the AP costs.
 
-- [ ] 6.1 Replace the entire body of `MOVE-009` with:
+- [x] 6.1 Replace the entire body of `MOVE-009` with:
 
 > Height: **up to 3 plate layers** (one brick or less).
 >
@@ -152,7 +152,7 @@ Thresholds are unchanged in effect. Do not alter the AP costs.
 >
 > Infantry may cross freely. No additional movement cost.
 
-- [ ] 6.2 Replace the entire body of `MOVE-010` with:
+- [x] 6.2 Replace the entire body of `MOVE-010` with:
 
 > Height: **4 to 6 plate layers** (more than one brick, up to two).
 >
@@ -160,12 +160,12 @@ Thresholds are unchanged in effect. Do not alter the AP costs.
 >
 > The climb is part of that movement action and does not increase the distance the unit may travel: the 12-stud limit (MOVE-004) still applies to the move as a whole.
 
-- [ ] 6.3 In `MOVE-011`, replace the three lines "Height:", the blank line after it, and "3 Bricks or more" — that is, everything between the `# MOVE-011 — Three Brick Obstacles` heading and the line "Cannot be climbed directly." — with this single line:
+- [x] 6.3 In `MOVE-011`, replace the three lines "Height:", the blank line after it, and "3 Bricks or more" — that is, everything between the `# MOVE-011 — Three Brick Obstacles` heading and the line "Cannot be climbed directly." — with this single line:
 
 > Height: **7 or more plate layers** (taller than two bricks).
 
-- [ ] 6.4 Leave the rest of `MOVE-011` unchanged: "Cannot be climbed directly.", "A legal access point is required.", the "Examples:" list (Slopes, Plate stairs, Ramps) and "Without one of these, the obstacle is impassable." all stay exactly as they are.
-- [ ] 6.5 Leave all three rule headings unchanged, including the words "One Brick", "Two Brick" and "Three Brick" in them. Renaming a heading is out of scope; only the height thresholds in the bodies change.
+- [x] 6.4 Leave the rest of `MOVE-011` unchanged: "Cannot be climbed directly.", "A legal access point is required.", the "Examples:" list (Slopes, Plate stairs, Ramps) and "Without one of these, the obstacle is impassable." all stay exactly as they are.
+- [x] 6.5 Leave all three rule headings unchanged, including the words "One Brick", "Two Brick" and "Three Brick" in them. Renaming a heading is out of scope; only the height thresholds in the bodies change.
 
 ---
 
@@ -173,19 +173,19 @@ Thresholds are unchanged in effect. Do not alter the AP costs.
 
 `MOVE-011` lists three legal access points; `MOVE-014` recognises only slopes and stairs, silently dropping ramps. Neither `MOVE-012` nor `MOVE-013` says what traversal costs.
 
-- [ ] 7.1 Replace the entire body of `MOVE-012` with:
+- [x] 7.1 Replace the entire body of `MOVE-012` with:
 
 > Slopes are valid climbing surfaces.
 >
 > Units may move normally over connected slopes, at no additional Action Point cost — a slope is ordinary terrain, not an obstacle to climb. Distance travelled up a slope counts against the normal movement limit (MOVE-004).
 
-- [ ] 7.2 Replace the entire body of `MOVE-013` with:
+- [x] 7.2 Replace the entire body of `MOVE-013` with:
 
 > Plate-built stairs are valid movement paths.
 >
 > Units may climb them normally, at no additional Action Point cost, and the distance climbed counts against the normal movement limit (MOVE-004) — the same as slopes (MOVE-012).
 
-- [ ] 7.3 Replace the entire body of `MOVE-014` with:
+- [x] 7.3 Replace the entire body of `MOVE-014` with:
 
 > If no slope, stair or ramp exists, the wall cannot be climbed. These are the three legal access points listed in MOVE-011, and no other construction grants access.
 >
@@ -197,31 +197,31 @@ Thresholds are unchanged in effect. Do not alter the AP costs.
 
 `MOVE-015` does not say whether a unit may fall deliberately or where it lands. The Collision, Doors, Ramps and Interactive Terrain sections are normative but carry no rule ID, so nothing can cite them.
 
-- [ ] 8.1 Replace the entire body of `MOVE-015` with:
+- [x] 8.1 Replace the entire body of `MOVE-015` with:
 
 > A unit that leaves a higher position without support falls. A unit may do this deliberately — stepping off a ledge is a legal way to descend, at the risk described in MOVE-016.
 >
 > The unit is placed directly below the point it left, at the first surface that physically supports it. Falling immediately ends the movement action; any unspent movement from that action is lost.
 
-- [ ] 8.2 Convert the `# Collision` section heading to `# MOVE-017 — Collision` and replace its body with:
+- [x] 8.2 Convert the `# Collision` section heading to `# MOVE-017 — Collision` and replace its body with:
 
 > Units may not finish movement occupying the same physical space. Models may not overlap.
 >
 > Friendly units may move around each other if enough space physically exists. Enemy units block movement unless another rule allows otherwise.
 
-- [ ] 8.3 Convert the `# Doors` section heading to `# MOVE-018 — Doors` and replace its body with:
+- [x] 8.3 Convert the `# Doors` section heading to `# MOVE-018 — Doors` and replace its body with:
 
 > Closed doors block movement. Once opened, the doorway becomes a valid movement path.
 >
 > Opening or closing a door is an interactive element action (`02-core-rules.md`, CORE-007).
 
-- [ ] 8.4 Convert the `# Ramps` section heading to `# MOVE-019 — Ramps` and replace its body with:
+- [x] 8.4 Convert the `# Ramps` section heading to `# MOVE-019 — Ramps` and replace its body with:
 
 > A lowered ramp immediately becomes usable terrain and is a legal access point (MOVE-011, MOVE-014).
 >
 > Lowering or raising a ramp is an interactive element action (`02-core-rules.md`, CORE-007).
 
-- [ ] 8.5 Convert the `# Interactive Terrain` section heading to `# MOVE-020 — Interactive Terrain` and replace its body with:
+- [x] 8.5 Convert the `# Interactive Terrain` section heading to `# MOVE-020 — Interactive Terrain` and replace its body with:
 
 > Any movable LEGO element may become part of a movement path.
 >
@@ -234,14 +234,14 @@ Thresholds are unchanged in effect. Do not alter the AP costs.
 >
 > Operating one is an interactive element action (`02-core-rules.md`, CORE-007).
 
-- [ ] 8.6 Confirm the AP cost was removed from all three of `MOVE-018`, `MOVE-019` and `MOVE-020` — CORE-007 is now the single source for it. The phrase "1 Action Point" must not appear in any of them.
-- [ ] 8.7 Leave every other unnumbered heading exactly as it is — `# StudCraft Movement Rules`, `# Purpose`, `# Design Philosophy`, `# Terrain Movement`, `# Falling`, `# Vehicle Movement`, `# Physical Priority` and `# Summary`. These are section dividers, framing prose, or a documented deferral, not rules. Only the four named in 8.2–8.5 become rules.
+- [x] 8.6 Confirm the AP cost was removed from all three of `MOVE-018`, `MOVE-019` and `MOVE-020` — CORE-007 is now the single source for it. The phrase "1 Action Point" must not appear in any of them.
+- [x] 8.7 Leave every other unnumbered heading exactly as it is — `# StudCraft Movement Rules`, `# Purpose`, `# Design Philosophy`, `# Terrain Movement`, `# Falling`, `# Vehicle Movement`, `# Physical Priority` and `# Summary`. These are section dividers, framing prose, or a documented deferral, not rules. Only the four named in 8.2–8.5 become rules.
 
 ---
 
 ## 9. `MOVE-016` and the Summary
 
-- [ ] 9.1 In `MOVE-016`, replace the self-citation "vehicle falling is not yet defined (`07-movement.md`, Vehicle Movement)" with "vehicle falling is not yet defined — see the Vehicle Movement section below". A document should not cite itself by filename.
+- [x] 9.1 In `MOVE-016`, replace the self-citation "vehicle falling is not yet defined (`07-movement.md`, Vehicle Movement)" with "vehicle falling is not yet defined — see the Vehicle Movement section below". A document should not cite itself by filename.
 
 ### 9.2 `MOVE-016` — plate layers and a minimum fall height
 
@@ -259,8 +259,8 @@ Replace everything from the line "Falling damage depends on the height fallen." 
 >
 > Each die is an independent Damage Roll, resolved exactly as multiple Impacts are (`16-damage-system.md`, DMG-016): every failed die advances the faller's Component State by one. Two failed dice therefore take an Operational unit to Dead. The higher the fall, the more dice, and the more likely both a wound and a death.
 
-- [ ] 9.2.1 Apply that replacement. Note it **deletes** "Keep only the **lowest result**" — dice are no longer pooled, and the phrase must not survive anywhere in the rule.
-- [ ] 9.2.2 Replace the three example lines with:
+- [x] 9.2.1 Apply that replacement. Note it **deletes** "Keep only the **lowest result**" — dice are no longer pooled, and the phrase must not survive anywhere in the rule.
+- [x] 9.2.2 Replace the three example lines with:
 
 > - Fall of 1 brick (3 plate layers) → no dice, no damage.
 > - Fall of 2 bricks → Roll 1D6. A failure wounds; a fall this short cannot kill an Operational unit.
@@ -268,9 +268,9 @@ Replace everything from the line "Falling damage depends on the height fallen." 
 > - Fall of 5 bricks → Roll 4D6, resolved independently.
 > - Fall of 10 bricks → Roll 9D6. Survival is very unlikely.
 
-- [ ] 9.2.3 In `MOVE-016`'s Geometry Check exception paragraph — the one beginning "The kept die is treated as a Damage Roll" — change "The kept die is treated as a Damage Roll" to "Each die is treated as a Damage Roll" and "the Damage Roll applies directly" to "the Damage Rolls apply directly". The rest of that paragraph is still correct and stays: falling has no Impact Strength, so there is no Geometry Check and Resistance plays no part.
-- [ ] 9.2.4 Leave the infantry-only line untouched apart from the citation fix in 9.1.
-- [ ] 9.2.5 Confirm the phrase "lowest result" no longer appears anywhere in `docs/07-movement.md`.
+- [x] 9.2.3 In `MOVE-016`'s Geometry Check exception paragraph — the one beginning "The kept die is treated as a Damage Roll" — change "The kept die is treated as a Damage Roll" to "Each die is treated as a Damage Roll" and "the Damage Roll applies directly" to "the Damage Rolls apply directly". The rest of that paragraph is still correct and stays: falling has no Impact Strength, so there is no Geometry Check and Resistance plays no part.
+- [x] 9.2.4 Leave the infantry-only line untouched apart from the citation fix in 9.1.
+- [x] 9.2.5 Confirm the phrase "lowest result" no longer appears anywhere in `docs/07-movement.md`.
 
 ### 9.2b `MOVE-016` — declare that surviving a great fall is intentional
 
@@ -278,12 +278,12 @@ No fall height is ever certainly fatal: at ten bricks the odds of death are abou
 
 The reason is structural. `DMG-014` lets geometry produce a certain **no** — below Resistance, the Impact ends and no dice are rolled — but nothing anywhere in StudCraft lets geometry produce a certain **yes**. Falling already mirrors that shape: the free first brick is its Geometry Check, and everything above it belongs to the dice.
 
-- [ ] 9.2b.1 Append this paragraph to `MOVE-016`, immediately after the Geometry Check exception paragraph edited in 9.2.3 and before the infantry-only line:
+- [x] 9.2b.1 Append this paragraph to `MOVE-016`, immediately after the Geometry Check exception paragraph edited in 9.2.3 and before the infantry-only line:
 
 > No height is certainly fatal. A unit that survives a very tall fall has simply passed every Damage Roll, which `16-damage-system.md` (DMG-015) already describes as a fortunate landing rather than an oversight. This is intentional: in StudCraft, geometry can rule an outcome out — the first brick of a fall, like an Impact below a component's Resistance (DMG-014) — but geometry never rules an outcome in. A minifig can survive two cannon Impacts for the same reason it can survive a fall from a tower.
 
-- [ ] 9.2b.2 Confirm the paragraph sits inside `MOVE-016`, not in the `# Falling` section heading above it, and that `MOVE-016` still ends with its examples list.
-- [ ] 9.3 Replace the entire body of the `# Summary` section (everything between the `# Summary` heading and the `---` before the epigraph) with:
+- [x] 9.2b.2 Confirm the paragraph sits inside `MOVE-016`, not in the `# Falling` section heading above it, and that `MOVE-016` still ends with its examples list.
+- [x] 9.3 Replace the entire body of the `# Summary` section (everything between the `# Summary` heading and the `---` before the epigraph) with:
 
 > Movement in StudCraft is based on six simple principles:
 >
@@ -294,19 +294,19 @@ The reason is structural. `DMG-014` lets geometry produce a certain **no** — b
 > 5. Walls require physical access — a slope, a stair or a ramp.
 > 6. Physical construction always defines legal movement.
 
-- [ ] 9.4 Confirm the Summary now says "six simple principles" and lists exactly six.
+- [x] 9.4 Confirm the Summary now says "six simple principles" and lists exactly six.
 
 ---
 
 ## 10. Verify
 
-- [ ] 10.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues.
-- [ ] 10.2 Run `git diff --stat main...HEAD` and confirm exactly two paths changed: `docs/07-movement.md` and the four new files under `openspec/changes/movement-audit-repairs/`.
-- [ ] 10.3 Run `grep -n "^# MOVE-" docs/07-movement.md` and confirm `MOVE-001` through `MOVE-020` appear once each, in ascending order, with no gaps.
-- [ ] 10.4 Run `grep -c "movement allowance" docs/07-movement.md` and confirm **0** — the undefined term is gone.
-- [ ] 10.5 Run `grep -c "Forward 8 studs" docs/07-movement.md` and confirm **0**.
-- [ ] 10.6 Run `grep -n "Models may not overlap" docs/07-movement.md` and confirm exactly **one** hit, inside `MOVE-017`. The sentence moved out of `MOVE-003`; it was not deleted, and it must not appear in both.
-- [ ] 10.7 Run `grep -n "1 Action Point" docs/07-movement.md` and confirm exactly five hits, in `MOVE-004`, `MOVE-005`, `MOVE-006`, `MOVE-007` and `MOVE-008` — never in `MOVE-018`, `MOVE-019` or `MOVE-020`. `MOVE-010` will not appear: it reads "1 **additional** Action Point", which this pattern does not match. That is expected, not a miss.
-- [ ] 10.8 Run `grep -n "Brick\|brick" docs/07-movement.md` and confirm every hit is one of: the three rule headings (`One Brick Obstacles`, `Two Brick Obstacles`, `Three Brick Obstacles`, left unchanged by 6.5), a parenthetical equivalent added in section 6, the `a standard brick as 3` conversion in `MOVE-009`, or `MOVE-016`'s falling text. No threshold may still be stated in bricks alone.
-- [ ] 10.9 Run `grep -rn "MOVE-0" docs/ --include="*.md" | grep -v 07-movement` and confirm the only external citation is `08-vehicles.md`'s reference to `MOVE-008`, which this change does not touch.
-- [ ] 10.10 Confirm no existing rule ID (`MOVE-001` … `MOVE-016`) was renumbered, and that `MOVE-017` … `MOVE-020` are new.
+- [x] 10.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues.
+- [x] 10.2 Run `git diff --stat main...HEAD` and confirm exactly two paths changed: `docs/07-movement.md` and the four new files under `openspec/changes/movement-audit-repairs/`.
+- [x] 10.3 Run `grep -n "^# MOVE-" docs/07-movement.md` and confirm `MOVE-001` through `MOVE-020` appear once each, in ascending order, with no gaps.
+- [x] 10.4 Run `grep -c "movement allowance" docs/07-movement.md` and confirm **0** — the undefined term is gone.
+- [x] 10.5 Run `grep -c "Forward 8 studs" docs/07-movement.md` and confirm **0**.
+- [x] 10.6 Run `grep -n "Models may not overlap" docs/07-movement.md` and confirm exactly **one** hit, inside `MOVE-017`. The sentence moved out of `MOVE-003`; it was not deleted, and it must not appear in both.
+- [x] 10.7 Run `grep -n "1 Action Point" docs/07-movement.md` and confirm exactly five hits, in `MOVE-004`, `MOVE-005`, `MOVE-006`, `MOVE-007` and `MOVE-008` — never in `MOVE-018`, `MOVE-019` or `MOVE-020`. `MOVE-010` will not appear: it reads "1 **additional** Action Point", which this pattern does not match. That is expected, not a miss.
+- [x] 10.8 Run `grep -n "Brick\|brick" docs/07-movement.md` and confirm every hit is one of: the three rule headings (`One Brick Obstacles`, `Two Brick Obstacles`, `Three Brick Obstacles`, left unchanged by 6.5), a parenthetical equivalent added in section 6, the `a standard brick as 3` conversion in `MOVE-009`, or `MOVE-016`'s falling text. No threshold may still be stated in bricks alone.
+- [x] 10.9 Run `grep -rn "MOVE-0" docs/ --include="*.md" | grep -v 07-movement` and confirm the only external citation is `08-vehicles.md`'s reference to `MOVE-008`, which this change does not touch.
+- [x] 10.10 Confirm no existing rule ID (`MOVE-001` … `MOVE-016`) was renumbered, and that `MOVE-017` … `MOVE-020` are new.
