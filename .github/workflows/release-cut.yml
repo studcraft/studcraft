@@ -15,7 +15,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   release-cut:
@@ -39,9 +38,13 @@ jobs:
           version=$(python3 scripts/release_cut.py)
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - name: Open release PR
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Pushes the branch and stops there. Opening the PR is left to a human,
+      # because the organization does not allow GitHub Actions to create pull
+      # requests — and the single setting that would permit it also permits
+      # Actions to *approve* them, which would undermine any future review
+      # requirement on main. One click at release time is the cheaper trade.
+      # See system/ci-gates.md.
+      - name: Commit and push the release branch
         run: |
           set -euo pipefail
           version="${{ steps.bump.outputs.version }}"
@@ -55,8 +58,17 @@ jobs:
           git commit -m "Release v$version"
           git push origin "$branch"
 
-          gh pr create \
-            --title "Release v$version" \
-            --body "Automated release cut: builds a [v$version] changelog entry from every commit merged since the last release tag and updates the **Version:** header in every docs/*.md file. Severity: minor by default, auto-escalated to major only if a commit flagged **Bump:** major, or overridden explicitly (severity=${{ inputs.severity }}). See system/workflow.md for the release process." \
-            --base main \
-            --head "$branch"
+          {
+            echo "## Release v$version is ready"
+            echo
+            echo "Branch \`$branch\` has been pushed. Open the PR to land it:"
+            echo
+            echo "**https://github.com/${{ github.repository }}/compare/main...$branch?expand=1**"
+            echo
+            echo "It updates the \`**Version:**\` header in every \`docs/*.md\` file and adds a"
+            echo "\`[$version]\` CHANGELOG entry built from every commit since the last release tag."
+            echo "Severity used: \`${{ inputs.severity }}\`."
+            echo
+            echo "Merging it touches \`CHANGELOG.md\` on \`main\`, which triggers **Tag release** to"
+            echo "create \`v$version\` automatically."
+          } >> "$GITHUB_STEP_SUMMARY"
