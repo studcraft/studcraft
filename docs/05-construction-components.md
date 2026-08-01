@@ -73,7 +73,7 @@ Requirements:
 - Must rotate freely.
 - Decorative wheels are ignored.
 
-Movement is resolved using the Vehicle Movement Rules.
+Movement is resolved using the Vehicle Movement Rules. Terrain behaviour follows `08-vehicles.md` (VEH-022) — a wheel's axle height is its Terrain Threshold.
 
 ---
 
@@ -87,7 +87,7 @@ Requirements:
 - Both sides should contain tracks.
 - Decorative track details have no effect.
 
-Pivot behavior follows `08-vehicles.md` (VEH-009).
+Pivot behavior follows `08-vehicles.md` (VEH-009), and terrain behaviour (VEH-022).
 
 ---
 
@@ -97,7 +97,7 @@ Hover vehicles replace wheels or tracks with hover emitters.
 
 Hover components must be visually distinguishable.
 
-Hover vehicles ignore wheel requirements. Pivot and movement behavior follows `08-vehicles.md` (VEH-011).
+Hover vehicles ignore wheel requirements. Pivot and movement behavior follows `08-vehicles.md` (VEH-011), and terrain behaviour (VEH-024) — the height of the hover assembly is the vehicle's Terrain Threshold, which is why these components must be visible.
 
 ---
 
@@ -110,7 +110,7 @@ Requirements:
 - Legs must visibly support the vehicle.
 - Decorative legs have no gameplay effect.
 
-Pivot behavior follows `08-vehicles.md` (VEH-010).
+Pivot behavior follows `08-vehicles.md` (VEH-010), and terrain behaviour (VEH-023) — a walker's knee height is its Terrain Threshold.
 
 ---
 

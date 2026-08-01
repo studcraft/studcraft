@@ -224,6 +224,18 @@ The smallest structural cross-section an Impact must cross, measured in plate la
 
 ---
 
+## Terrain Threshold
+
+The height a vehicle can cross or descend without being blocked or stranded, read from its locomotion rather than assigned: axle height for wheels and tracks, knee height for walkers, hover assembly height for hover. In every case you measure the part that carries the vehicle, not the body it carries. Measured in plate layers. See `08-vehicles.md` (VEH-021 through VEH-024).
+
+---
+
+## Stranded
+
+A vehicle that has entered a drop deeper than its Terrain Threshold. A stranded vehicle is Immobilized (`08-vehicles.md`, VEH-019, VEH-025) and keeps operating its remaining systems. Hover vehicles cannot be stranded.
+
+---
+
 ## Armour
 
 Not a separate statistic — the colloquial name for a component's construction-derived Resistance. See `11-combat.md` (CBT-013), `16-damage-system.md` (DMG-003, DMG-004).
