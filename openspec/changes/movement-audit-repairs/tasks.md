@@ -24,7 +24,7 @@ Only `docs/07-movement.md` changes. No other document is touched. Every anchor q
 
 ### Defect coverage
 
-Each of the nineteen defects in `proposal.md` maps to at least one task here. Use this to check nothing was skipped.
+Each of the twenty-one defects in `proposal.md` maps to at least one task here. Use this to check nothing was skipped.
 
 | Defect | Task |
 |---|---|
@@ -47,6 +47,8 @@ Each of the nineteen defects in `proposal.md` maps to at least one task here. Us
 | 17 — four normative sections have no rule ID | 8.2, 8.3, 8.4, 8.5 |
 | 18 — Summary omits AP costs | 9.3 |
 | 19 — `MOVE-016` cites its own file | 9.1 |
+| 20 — fall height still measured in bricks | 9.2.1, 9.2.2 |
+| 21 — a 1-brick drop wounds, a 1-brick obstacle is free | 9.2.1, 9.2.2 |
 
 ---
 
@@ -239,7 +241,31 @@ Thresholds are unchanged in effect. Do not alter the AP costs.
 ## 9. `MOVE-016` and the Summary
 
 - [ ] 9.1 In `MOVE-016`, replace the self-citation "vehicle falling is not yet defined (`07-movement.md`, Vehicle Movement)" with "vehicle falling is not yet defined — see the Vehicle Movement section below". A document should not cite itself by filename.
-- [ ] 9.2 Leave the rest of `MOVE-016` unchanged, including its Geometry Check exception paragraph and its three examples.
+
+### 9.2 `MOVE-016` — plate layers and a minimum fall height
+
+Two problems. `MOVE-016` measures in whole bricks, which would leave it the only place in the document still doing so after section 6; and a one-brick drop currently costs a 50% wound roll while `MOVE-009` treats the same height as trivial terrain a unit crosses for free.
+
+Replace everything from the line "Falling damage depends on the height fallen." down to and including "The greater the fall, the greater the chance of suffering damage." with:
+
+> Falling damage depends on the height fallen, measured in plate layers — the same unit obstacles use (MOVE-009).
+>
+> A fall of **3 plate layers or less causes no damage** and no roll is made. This is the height MOVE-009 already treats as trivial to cross; stepping down it is no more dangerous than stepping over it.
+>
+> For a greater fall, roll **one D6 per complete brick (3 plate layers) fallen**, and keep only the **lowest result**. A remainder of one or two plate layers adds no die.
+>
+> The greater the fall, the greater the chance of suffering damage.
+
+- [ ] 9.2.1 Apply that replacement.
+- [ ] 9.2.2 Replace the three example lines with:
+
+> - Fall of 3 plate layers (1 brick) → no roll, no damage.
+> - Fall of 4 to 6 plate layers → Roll 1D6.
+> - Fall of 7 to 9 plate layers → Roll 2D6, keep the lowest.
+> - Fall of 15 plate layers (5 bricks) → Roll 5D6, keep the lowest.
+
+- [ ] 9.2.3 Leave `MOVE-016`'s Geometry Check exception paragraph untouched — the one beginning "The kept die is treated as a Damage Roll". It is still correct: falling has no Impact Strength, so Resistance still plays no part.
+- [ ] 9.2.4 Leave the infantry-only line untouched apart from the citation fix in 9.1.
 - [ ] 9.3 Replace the entire body of the `# Summary` section (everything between the `# Summary` heading and the `---` before the epigraph) with:
 
 > Movement in StudCraft is based on six simple principles:
