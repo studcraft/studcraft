@@ -62,9 +62,29 @@ So driving into a pit can strand a squad as effectively as it strands the vehicl
 
 Hover vehicles descend under power rather than falling. This extends their `VEH-024` immunity from drops to falls, which is consistent — their whole identity is ignoring the ground — and it is paid for by having the lowest obstacle threshold in the game.
 
-### Slopes, stairs and vertical access stay open
+### Ascent: slopes and ramps only, and the angle is never measured
 
-Three of the four gaps `07-movement.md` names remain. The deferral note is rewritten to say exactly which one closed, rather than deleted, so nobody reads this change as having solved vehicle terrain entirely.
+A vehicle crosses anything up to its Terrain Threshold. Above that it needs a slope or ramp physically covering the whole rise, resting on both surfaces.
+
+Framing it as **total rise** rather than per-step is what makes it cohere with `VEH-021`. A single stair tread below the threshold is crossed like any other small obstacle; a staircase is one obstacle whose height is its full rise. Without that framing the two rules contradict each other, since a flight of shallow steps would be legal step-by-step while being obviously impassable to a car.
+
+The angle is deliberately not measured. It is bounded by construction already: `SCS-011` requires slopes to be built from LEGO slope elements, which have their own fixed angles, and `SCS-008` requires a ramp to physically lower — resting on both surfaces constrains it. Adding an angle rule would introduce the protractor the Design Philosophy explicitly rejects, and would bound nothing that the pieces do not bound.
+
+Excluding stairs is the sharpest infantry/vehicle divide in the ruleset. A stairwell becomes infantry-only terrain: a building with stairs but no ramp cannot be entered by any vehicle, ever, at any angle. That is a large tactical consequence from one sentence, and it is intended.
+
+### Walkers need no stairs rule
+
+A walker whose knee clears the entire rise crosses it under `VEH-021` without invoking ascent at all — a tall enough walker steps over a flight of stairs the same way it steps over a wall.
+
+This was worth checking rather than assuming, because "vehicles never use stairs" sounds wrong for a legged machine. It is not wrong: the walker is not using the stairs, it is stepping over them, and the existing threshold rule already says so. `VEH-027` states the consequence rather than carving out an exception.
+
+### Descending a slope is not falling
+
+`VEH-026` charges falling damage to a vehicle that comes down under gravity. Without a matching statement in `VEH-027`, driving down a ramp would qualify. The rule says explicitly that a vehicle descending a slope or ramp covering the full drop is driving, not falling.
+
+### The declared gap closes completely
+
+`07-movement.md` and `MOVE-016` between them name obstacles, slopes, stairs, vertical access and falling as undefined for vehicles. All five now have answers, so the deferral paragraph is replaced with a pointer rather than narrowed. Nothing about vehicle terrain is left to table consensus.
 
 ### Five rules rather than two
 
