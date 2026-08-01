@@ -12,9 +12,21 @@ Each locomotion type carries a natural physical limit that a builder has already
 
 - **Wheels and tracks — the axle.** A wheel cannot climb an obstacle taller than its own centre; push a wheel at a step above its axle and it drives into the step rather than over it. On a LEGO model, axle height is the wheel's radius, so the rule reads as "half the wheel's diameter" and needs no measuring beyond looking.
 - **Walkers — the knee.** A leg lifts its foot as high as the joint allows. The knee is a visible, built component on any walker that satisfies `CMP-006`.
-- **Hover — the ground clearance.** How high the hull floats is the single most visible property of a hover build, and it is exactly what determines what fits underneath.
+- **Hover — the hover assembly.** The emitters, pylons or skirt that hold the hull up are what determine what fits underneath, and `CMP-005` already requires them to be visually distinguishable.
 
 None of these is a number the rules assign. All three are measurements the model already contains.
+
+### Hover is measured on its assembly, not on the gap
+
+A wheel's axle and a walker's knee are points on the model you can touch. Ground clearance is not — it is an absence, and it fails in two builds the other two thresholds handle fine.
+
+A hover model resting flat on the table has no clearance at all, so the first draft silently gave it a threshold of 0 without ever saying so. And an enclosed skirt reaching the ground leaves no visible gap to measure, even though the vehicle plainly rides at the skirt's height.
+
+Measuring the **hover assembly** — from the ground to where the emitters, pylons or skirt meet the hull — fixes both and restores the parallel the other two rules have: you always measure the part that carries the vehicle, never the body it carries.
+
+The flat build still resolves to 0, but now the rule says it out loud: every obstacle blocks it, nothing forbids it, and the model is telling the builder it is not finished. That is preferable to a minimum-height requirement, which would make the build illegal rather than simply bad — and consequence teaches better than prohibition.
+
+It also gives `CMP-005`'s existing "hover components must be visually distinguishable" a reason it did not previously have: the assembly is the vehicle's terrain capability, so it has to be visible in order to be measured.
 
 ### Hover sits between the other two by being good at the opposite thing
 
@@ -95,7 +107,7 @@ Consistency with the surrounding document (Principle 12) is judged worth more he
 ## Risks / Trade-offs
 
 - **Threshold measurement depends on build quality.** A vehicle with half-buried wheels or an ambiguous knee makes the threshold arguable. Mitigated by fallbacks in each rule — half the track run, half the leg height — and ultimately by Physical Priority, which already governs disputes of this kind.
-- **Hover may prove too strong or too weak.** Its profile is deliberately extreme in both directions. Whether the trade lands correctly is a playtesting question, and the dial is the ground clearance a builder chooses, not a number in the rules.
+- **Hover may prove too strong or too weak.** Its profile is deliberately extreme in both directions. Whether the trade lands correctly is a playtesting question, and the dial is how tall a hover assembly the builder chooses, not a number in the rules.
 - **Tall-legged walkers dominate terrain.** A walker on very long legs beats both other types. The intended counterweight is that the same legs raise its silhouette, and `CORE-008` makes visibility purely physical — a taller model is easier to see and therefore to shoot. That counterweight is real but indirect, and worth watching.
 - **Five new rule IDs in one change**, all additive. Nothing is renumbered.
 

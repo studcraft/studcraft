@@ -78,13 +78,21 @@ Insert all seven **after** `VEH-020 — Construction Priority` and its closing `
 
 > # VEH-024 — Hover Thresholds
 >
-> For a hover vehicle, the Terrain Threshold is **ground clearance**: the gap between the underside of the hull and the ground, as built (`05-construction-components.md`, CMP-005).
+> For a hover vehicle, the Terrain Threshold is the height of the **hover assembly** — the emitters, pylons or skirt that hold the hull clear of the ground (`05-construction-components.md`, CMP-005) — measured in plate layers from the ground to where that assembly meets the hull.
 >
-> This is usually the lowest threshold of any locomotion type — a hover vehicle is stopped by walls that a wheeled vehicle drives over.
+> This is the hover equivalent of a wheel's axle. In every locomotion type you measure the part that carries the vehicle, never the body it carries: the wheel to its axle (VEH-022), the leg to its knee (VEH-023), the hover assembly to its full height.
 >
-> In exchange, a hover vehicle is **never stranded by a drop** (VEH-025). It passes over depressions instead of entering them, and its ground clearance is irrelevant to how deep they are.
+> Measuring the assembly rather than the visible gap matters for enclosed builds. A skirt that reaches the ground leaves no gap to see, but its own height is still the threshold.
 >
-> This immunity has one limit: a hover vehicle cannot cross a gap wider than its own footprint (VEH-001). There must be a surface beneath it to hover above.
+> A hover model built with its hull flat on the ground has no assembly to measure and a Terrain Threshold of 0 — every obstacle blocks it. Nothing forbids that build; it simply cannot cross anything, which is the model telling you it is not finished. `CMP-005` already requires hover components to be visually distinguishable, and this is why: the assembly is the vehicle's terrain capability, so it has to be visible to be measured.
+>
+> A taller assembly clears more terrain at the cost of a taller silhouette, which is easier to see and therefore to shoot (`02-core-rules.md`, CORE-008) — the same trade a walker makes with long legs.
+>
+> Hover thresholds are usually the lowest of any locomotion type: a hover vehicle is stopped by walls a wheeled vehicle drives over. In exchange it is **never stranded by a drop** (VEH-025) — it passes over depressions instead of entering them, and their depth is irrelevant.
+>
+> That immunity has one limit: a hover vehicle cannot cross a gap wider than its own footprint (VEH-001). There must be a surface beneath it to hover above.
+>
+> Hover emitters are components like any other. If the assembly is destroyed the hull settles, the Terrain Threshold becomes 0, and the vehicle can still move across flat ground but is blocked by everything else.
 
 - [ ] 1.5 Insert:
 
@@ -168,7 +176,7 @@ Each component rule gains one pointer, matching the style `CMP-004` already uses
 
 - [ ] 3.3 `CMP-005` (Hover System): replace the line "Hover vehicles ignore wheel requirements. Pivot and movement behavior follows `08-vehicles.md` (VEH-011)." with:
 
-> Hover vehicles ignore wheel requirements. Pivot and movement behavior follows `08-vehicles.md` (VEH-011), and terrain behaviour (VEH-024) — a hover vehicle's ground clearance is its Terrain Threshold.
+> Hover vehicles ignore wheel requirements. Pivot and movement behavior follows `08-vehicles.md` (VEH-011), and terrain behaviour (VEH-024) — the height of the hover assembly is the vehicle's Terrain Threshold, which is why these components must be visible.
 
 - [ ] 3.4 `CMP-006` (Walkers): replace the line "Pivot behavior follows `08-vehicles.md` (VEH-010)." with:
 
@@ -184,7 +192,7 @@ Insert both in the same style as the surrounding entries: a `## ` heading, the d
 
 > ## Terrain Threshold
 >
-> The height a vehicle can cross or descend without being blocked or stranded, read from its locomotion rather than assigned: axle height for wheels and tracks, knee height for walkers, ground clearance for hover. Measured in plate layers. See `08-vehicles.md` (VEH-021 through VEH-024).
+> The height a vehicle can cross or descend without being blocked or stranded, read from its locomotion rather than assigned: axle height for wheels and tracks, knee height for walkers, hover assembly height for hover. In every case you measure the part that carries the vehicle, not the body it carries. Measured in plate layers. See `08-vehicles.md` (VEH-021 through VEH-024).
 
 - [ ] 4.2 Add:
 
