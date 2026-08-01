@@ -12,6 +12,16 @@ All three fixes are moves or deletions. No sentence is reworded, because none is
 
 This is why `tasks.md` asserts byte-identity after each move, and why its verification counts occurrences rather than matching prose: the only failure mode worth guarding against is a paragraph being copied instead of moved, or subtly retyped.
 
+### DMG-004's paragraph goes back where it was, mid-list, on purpose
+
+The move puts a commentary paragraph between Example 4 and Example 5, interrupting an otherwise continuous list. That looks wrong at a glance and is worth stating plainly, because a reviewer will notice it.
+
+It is nonetheless correct. The paragraph was written as the closing commentary on Examples 3 and 4, when those were the final two examples in the rule. Examples 5 and 6 arrived with `resistance-clarification-review`, and Example 7 with #31 — each inserted ahead of the paragraph, each pushing it one step further from what it discusses. The paragraph did not drift; it was displaced three times.
+
+Restoring its original position is the fix that requires no new text. The alternatives were worse: rewording it to name Examples 3 and 4 explicitly means editing shipped prose that is not wrong, and giving it a heading means inventing a section the document's structure does not otherwise use — `---` inside a rule would also conflict with the convention that `---` separates rules.
+
+The paragraph does partly self-identify, since it cites "(Resistance 3)" and "(Resistance 4)". That is why this is the weakest of the three findings and is presented as such rather than as a correctness issue.
+
 ### Correct #31's spec delta rather than defer to archive time
 
 Defect 3 sits in a merged change's delta file. Two options existed.

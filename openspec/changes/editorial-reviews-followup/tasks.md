@@ -16,10 +16,15 @@ The paragraph to move is currently the last thing in DMG-004, immediately before
 A brick-built shield (Resistance 3) and a four-plate shield (Resistance 4) can occupy similar external bulk, yet resolve to different resistance values because the count of physical layers — not the external silhouette — is what matters. StudCraft rewards engineering, not appearance.
 ```
 
-- [ ] 1.1 Cut that paragraph from the end of DMG-004.
-- [ ] 1.2 Re-insert it immediately after Example 4's body — the line ending "Therefore `Resistance = 4`." — and immediately before the `## Example 5 — Bunker` heading.
+**Expect it to land mid-list, and leave it there.** After the move, DMG-004 reads Example 1–4, this paragraph, then Examples 5–7. That is deliberate: the paragraph was authored as the closing commentary on Examples 3 and 4, back when those were the last two. Examples 5 and 6 (`resistance-clarification-review`) and Example 7 (#31) were each inserted *before* it, which is what pushed it away from its subject. Moving it back restores its original position rather than inventing a new one.
+
+All three anchors below were confirmed unique in the file at the time of writing.
+
+- [ ] 1.1 Cut that paragraph from the end of DMG-004, along with the blank line that separated it from Example 7's last paragraph.
+- [ ] 1.2 Re-insert it immediately after Example 4's body — the line ending "Therefore `Resistance = 4`." — and immediately before the `## Example 5 — Bunker` heading, with one blank line on each side.
 - [ ] 1.3 Confirm DMG-004 now ends with Example 7's second paragraph ("The empty interior contributes nothing..."), followed by the `---` that closes the rule.
 - [ ] 1.4 Confirm the moved paragraph is byte-identical to what was cut. This is a move, not an edit.
+- [ ] 1.5 Confirm Examples 5, 6 and 7 remain in that order with their text untouched — only their position relative to the moved paragraph changes.
 
 ## 2. `docs/10-weapons.md` — move the Summary's architectural line to the end
 

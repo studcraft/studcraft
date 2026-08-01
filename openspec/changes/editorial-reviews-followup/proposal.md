@@ -12,7 +12,7 @@ None affects a rule's meaning. All three are placement or dead-weight problems t
 
 ## What Changes
 
-- `docs/16-damage-system.md` — move DMG-004's closing paragraph ("A brick-built shield (Resistance 3)...") from the end of the rule to directly after Example 4, the last example it discusses. Text unchanged.
+- `docs/16-damage-system.md` — move DMG-004's closing paragraph ("A brick-built shield (Resistance 3)...") from the end of the rule to directly after Example 4, the last example it discusses. Text unchanged. It will sit between Examples 4 and 5, which is its original position: it was written as the closer for Examples 3 and 4, and was displaced three times as Examples 5, 6 and 7 were each inserted ahead of it.
 - `docs/10-weapons.md` — reorder the Summary's three closing prose lines so the architectural line ends the block. Text unchanged.
 - `openspec/changes/editorial-reviews-cleanup/specs/weapon-construction/spec.md` — delete the scenario "Length is measured along the firing axis". The requirement prose above it keeps the firing-axis wording, which is where the content belongs.
 
