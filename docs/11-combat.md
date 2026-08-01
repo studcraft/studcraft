@@ -55,7 +55,7 @@ Combat uses the universal Physical Visibility rule (`02-core-rules.md`, CORE-008
 
 # CBT-003 — Weapon Range
 
-A target must be inside the weapon's maximum range: `Range = Weapon Length × 2` — see `10-weapons.md` (WPN-005) for the full definition.
+A target must be inside the weapon's maximum range: `Range = Weapon Length × 6` — see `10-weapons.md` (WPN-005) for the full definition, and for why that figure has no written maximum.
 
 ---
 

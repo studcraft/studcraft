@@ -110,7 +110,7 @@ The battlefield space, measured in Unit Bases, that a player's army may occupy b
 
 ## Weapon Range
 
-The maximum distance a ranged weapon may attack, equal to Weapon Length × 2. See `10-weapons.md` (WPN-005).
+The maximum distance a ranged weapon may attack, equal to Weapon Length × 6. Bounded in practice by Line of Sight and by what the attacker's platform can carry, rather than by a written maximum. See `10-weapons.md` (WPN-005).
 
 ---
 
