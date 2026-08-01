@@ -494,11 +494,11 @@ Determines Impact Strength (WPN-021). Muzzles are always round (WPN-002).
 
 ---
 
+Weapons define only how an Impact is generated. Every consequence of that Impact is determined by Combat Resolution (`11-combat.md`) and the Component Damage System (`16-damage-system.md`).
+
 No hidden statistics are required.
 
 A player should understand every weapon simply by looking at the LEGO model.
-
-Weapons define only how an Impact is generated. Every consequence of that Impact is determined by Combat Resolution (`11-combat.md`) and the Component Damage System (`16-damage-system.md`).
 
 ---
 

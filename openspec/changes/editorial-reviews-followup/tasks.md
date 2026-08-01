@@ -26,16 +26,25 @@ All three anchors below were confirmed unique in the file at the time of writing
 - [x] 1.4 Confirm the moved paragraph is byte-identical to what was cut. This is a move, not an edit.
 - [x] 1.5 Confirm Examples 5, 6 and 7 remain in that order with their text untouched — only their position relative to the moved paragraph changes.
 
-## 2. `docs/10-weapons.md` — move the Summary's architectural line to the end
+## 2. `docs/10-weapons.md` — WITHDRAWN
 
-#31 added the architectural line as a closing statement but placed it before two weaker closers. The Summary's prose block — after the `## Muzzle Size` subsection and its `---` — currently reads in this order:
+**This task was applied, then reverted. Do not re-apply it.** The Summary's prose block stays in the order #31 shipped:
 
 1. `Weapons define only how an Impact is generated. Every consequence of that Impact is determined by Combat Resolution (`11-combat.md`) and the Component Damage System (`16-damage-system.md`).`
 2. `No hidden statistics are required.`
 3. `A player should understand every weapon simply by looking at the LEGO model.`
 
-- [x] 2.1 Reorder to **2, 3, 1** — move line 1 so it becomes the last paragraph of the prose block.
-- [x] 2.2 Keep it before the `---` and the `> **Every Brick Matters.**` epigraph that close the document.
+The original finding claimed the document "no longer ends on its strongest line" and asked for the order **2, 3, 1**. That was wrong, and checking the other documents shows why. Every one of them closes its prose on a synthesis line, never on a cross-reference:
+
+- `01-foundations.md` — "...building and playing become one continuous experience."
+- `03-game-flow.md` — "StudCraft replaces traditional game phases with **alternating unit activations**..."
+- `11-combat.md` — "This keeps StudCraft modular and entirely construction-driven."
+- `16-damage-system.md` — "Every combat interaction emerges from two sources only: the physical LEGO construction, and the uncertainty introduced by the dice."
+
+Reordering made `10-weapons.md` close on two file paths and then jump straight to `> **Every Brick Matters.**` — a tonal break no other document has. The finding mistook "strongest" for "most architectural"; by house convention the philosophical line is the strongest closer, and "A player should understand every weapon simply by looking at the LEGO model" also echoes this document's own Design Philosophy opening.
+
+- [x] 2.1 ~~Reorder to **2, 3, 1**~~ — applied in `00e8f83`, reverted immediately after. Net effect on `main`: none.
+- [x] 2.2 Confirm `docs/10-weapons.md` matches its state at `main` exactly — the revert restores it, it is not a further edit.
 - [x] 2.3 Do not reword any of the three lines, and do not touch the `## Length`, `## Muzzle Count` or `## Muzzle Size` subsections above them.
 
 ## 3. `openspec/changes/editorial-reviews-cleanup/specs/weapon-construction/spec.md` — delete the vacuous scenario
@@ -57,9 +66,9 @@ Given `WPN-018` (Width is the smallest dimension of the Weapon Body) and `WPN-01
 ## 4. Verify
 
 - [x] 4.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues.
-- [x] 4.2 Run `git diff --stat main...HEAD` and confirm exactly these files changed: `docs/16-damage-system.md`, `docs/10-weapons.md`, `openspec/changes/editorial-reviews-cleanup/specs/weapon-construction/spec.md`, plus the four new files under `openspec/changes/editorial-reviews-followup/`.
+- [x] 4.2 Run `git diff --stat main...HEAD` and confirm exactly these files changed: `docs/16-damage-system.md`, `openspec/changes/editorial-reviews-cleanup/specs/weapon-construction/spec.md`, plus the four new files under `openspec/changes/editorial-reviews-followup/`. **`docs/10-weapons.md` must NOT appear** — section 2 was withdrawn and reverted, so the file is byte-identical to `main`.
 - [x] 4.3 Run `grep -c "A brick-built shield" docs/16-damage-system.md` and confirm exactly **1** — moved, not copied.
-- [x] 4.4 Run `grep -c "Weapons define only how an Impact is generated" docs/10-weapons.md` and confirm exactly **1**.
+- [x] 4.4 Run `grep -c "Weapons define only how an Impact is generated" docs/10-weapons.md` and confirm exactly **1** — the revert restored one copy, not zero and not two.
 - [x] 4.5 Run `grep -c "Length is measured along the firing axis" openspec/changes/editorial-reviews-cleanup/specs/weapon-construction/spec.md` and confirm **0**.
 - [x] 4.6 Run `git diff main...HEAD -- docs/ | grep -E "^[+-]# (CORE|FLOW|SCS|CMP|DEP|MOVE|VEH|TRN|WPN|CBT|MEL|GEO|DMG)-"` and confirm no output — no rule heading was touched.
 - [x] 4.7 Run `git diff main...HEAD --numstat -- docs/16-damage-system.md docs/10-weapons.md` and confirm added and removed line counts match in each file. A move adds back exactly what it removed; a mismatch means text was duplicated, dropped, or retyped.
