@@ -87,6 +87,8 @@ Resistance is never assigned as a statistic. It is read directly from the model.
 
 Resistance is the **smallest structural section that an impact must cross in its direction of travel**, measured in plate layers (the finest LEGO unit of height). This conversion applies to every component without exception: a plate counts as 1, a brick counts as 3, and any other LEGO element counts as the plate-equivalent of its own thickness in the direction of travel. No component type is exempt, and none is measured differently — a moulded piece (a minifig torso, a wheel, an accessory shield) is read the same way as a built assembly (a wall, a shield, a hull).
 
+Only material the Impact actually crosses contributes. Empty internal space contributes nothing — a component is assumed hollow unless it is physically built solid. Where an Impact would cross more than one wall of an enclosed structure, those walls are separate components (DMG-001), each with its own Resistance, and the outer one protects what lies behind it (DMG-007) — resolved one after another by Penetration (DMG-017). Their thicknesses are never added together into a single Resistance.
+
 Impact Strength (`10-weapons.md`, WPN-021) is expressed in the same unit.
 
 The Geometry Check (DMG-014) therefore compares two counts of plate layers rather than two different units.
@@ -122,6 +124,12 @@ A bunker wall built two bricks thick. The projectile crosses `6 plate layers` (2
 ## Example 6 — Moulded Windscreen
 
 A windscreen — a single moulded LEGO element, not a built assembly — measured the same way as any other component: `1 plate` thick in the direction of travel. Therefore `Resistance = 1`. No component type is exempt from this measurement — a thin moulded piece resolves low (this example), a thick one resolves high (Example 1, the minifig), by the same conversion.
+
+## Example 7 — Vehicle Hull
+
+A vehicle hull with 1-brick front armour, an empty interior, and 1-brick rear armour. An Impact striking the front crosses `3 plate layers` of structure. Therefore `Resistance = 3`.
+
+The empty interior contributes nothing, and the rear wall is a separate component (DMG-001) — not part of this one's Resistance. If the Impact penetrates the front wall, DMG-017 determines whether it continues toward whatever is inside.
 
 A brick-built shield (Resistance 3) and a four-plate shield (Resistance 4) can occupy similar external bulk, yet resolve to different resistance values because the count of physical layers — not the external silhouette — is what matters. StudCraft rewards engineering, not appearance.
 
@@ -333,6 +341,12 @@ Shield `Resistance 3`. Heavy Cannon `Strength 6`. Attack succeeds. Geometry succ
 ## Example 4 — Jeep Cannon
 
 Mounted Cannon (2 plates thick, `Resistance 2`). Enemy Cannon `Strength 3`. Attack succeeds. Geometry succeeds (`3 ≥ 2`). Damage Roll fails. Mounted Cannon becomes `Wounded`. A second successful impact kills it. Remaining Strength `1` continues toward the Jeep's hull (one brick, `Resistance 3`), but `1 < 3` — the impact stops there. The Jeep remains operational but without its weapon.
+
+## Example 5 — Rifle vs Bunker Wall
+
+Bunker wall (two bricks thick, `Resistance 6`). Rifle `Strength 3` (one 1×1 muzzle). Attack Roll: Success. Geometry: `3 < 6`. The Impact ends immediately — no Damage Roll is made and the wall is unaffected (DMG-014).
+
+Cracking it requires a larger muzzle, not more dice: a 2×2 muzzle generates `Strength 6`, which passes at `6 ≥ 6`.
 
 ---
 

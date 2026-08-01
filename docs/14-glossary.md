@@ -128,7 +128,7 @@ A full round in which every unit on the battlefield is activated once.
 
 ## Weapon Body
 
-The continuous physical structure of a weapon. Defines Weapon Length and Weapon Width.
+The continuous physical structure of a weapon. Defines Weapon Length (measured along the firing axis) and Weapon Width.
 
 ---
 
@@ -160,7 +160,7 @@ The size of a functional muzzle. No fixed maximum — scales with the Weapon Fro
 
 ## Functional Striking End
 
-The melee equivalent of a muzzle: the physical point of contact through which a melee weapon delivers an Impact. Sized like a muzzle (no fixed maximum), but not required to be round. See `12-melee.md` (MEL-013).
+The melee equivalent of a muzzle: the physical contact surface through which a melee weapon delivers an Impact. Sized like a muzzle (no fixed maximum), but not required to be round. See `12-melee.md` (MEL-013).
 
 ---
 
