@@ -24,6 +24,45 @@ optional escape hatches if a change is actually breaking.
 
 ---
 
+# [0.2.0] - 2026-08-01
+
+- Add GitHub Pages site via Actions (docs/ stays untouched) (#1)
+- Fix Gemfile.lock: bump pinned Bundler to 2.5.6 (#2)
+- Apply just-the-docs default layout to all pages (#3)
+- Split AGENTS.md into system/ docs and enforce mandatory git workflow (#4)
+- Add OpenSpec tooling: opsx commands, skills, and prompt files (#5)
+- Decouple version bumps from PR merges + automate release-cut (#6)
+- Add structural linter for docs/*.md ruleset (#8)
+- Add repository-strategy.md: block force-push and history rewrites (#9)
+- Move bump declaration from CHANGELOG.md to commit messages (#10)
+- Decouple archiving from a proposal's applying PR (#12)
+- Weapon construction system: geometry-driven Range/Attack Dice/Impact Strength (#7)
+- Geometry layers: formalize Gameplay Geometry vs Visual Geometry (#11)
+- Enforce archive/apply separation with a CI gate (#13)
+- Component damage system: geometry-driven damage resolution (#14)
+- Remove paths filter from docs-ruleset-linter trigger (#16)
+- Archive component-damage-system change (#15)
+- Batch archiving instead of one PR per merged proposal (#17)
+- Consolidate this session's lessons into system/ docs (#18)
+- Consolidate Unit Base and Action Point restatements to CORE-001/CORE-006 (#19)
+- Ruleset consistency fixes: 11 findings from manual review (#20)
+- Remove docs/13-materials.md; fold its two real mechanics into damage-system.md (#21)
+- Simplify melee combat: delegate resolution to the standard combat system (#22)
+- Apply melee review cleanup: 5 of 6 actionable comments (#23)
+- Unify Combat Flow diagram for ranged and melee delivery methods (#24)
+- Apply combat review cleanup: verify against current state, fix real gaps (#25)
+- Split Combat Flow diagram by actual ownership, simplify CBT-008, fix Summary (#26)
+- General consistency verification: unify diagrams, fix VEH-014 duplication (#27)
+- Full audit repairs: 34 of 35 findings from delete-me-audit.md (#28)
+- Audit round 2: fix all 24 findings from delete-me-audit-resut.md (#29)
+- Align Impact Strength and Resistance units; remove minifig exception (#30)
+- Apply editorial-reviews-cleanup: 10 of 15 items across three reviews (#31)
+- Add editorial-reviews-followup proposal (not applied) (#32)
+- Add movement-audit-repairs proposal (not applied) (#33)
+- Add vehicle-terrain-thresholds proposal (not applied) (#34)
+- Archive 16 changes and reconcile the living specs (#35)
+- Archive gameplay-visual-geometry; refresh its delta first (#36)
+
 # [0.1.0] - Initial Core Rule Set
 
 ## Added
