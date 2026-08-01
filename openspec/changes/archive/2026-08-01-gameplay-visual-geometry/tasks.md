@@ -1,6 +1,6 @@
 ## 0. Sequencing Dependency
 
-- [ ] 0.1 Confirm `weapon-construction-system` (PR #7) has merged to `main` before archiving this change — this change's `MODIFIED Requirements` delta on `weapon-construction` needs that capability to already exist in `openspec/specs/weapon-construction/spec.md`. Applying/writing the ruleset doc (tasks below) can proceed in parallel; only the archive step has this hard dependency.
+- [x] 0.1 Confirm `weapon-construction-system` (PR #7) has merged to `main` before archiving this change — this change's `MODIFIED Requirements` delta on `weapon-construction` needs that capability to already exist in `openspec/specs/weapon-construction/spec.md`. Applying/writing the ruleset doc (tasks below) can proceed in parallel; only the archive step has this hard dependency.
 
 ## 1. Resolve Document Placement
 
@@ -19,7 +19,7 @@
 ## 3. Glossary and Cross-References
 
 - [x] 3.1 Add entries to `docs/14-glossary.md` for: Gameplay Geometry, Visual Geometry, Functional Equivalence, Minimum Representation, Detailed Representation.
-- [ ] 3.2 **Blocked, not just optional** — discovered during apply: this branch's `docs/10-weapons.md` still has the *pre*-`weapon-construction-system` WPN-003 wording ("rear of body to foremost muzzle"), because PR #7 hasn't merged yet. The `MODIFIED Requirements` delta in `specs/weapon-construction/spec.md` was written against PR #7's *post*-merge wording ("longest dimension... excluding decorative elements"). Editing WPN-003 now would edit text that's about to be replaced by PR #7 anyway. Same root dependency as task 0.1 — do this once PR #7 has merged into this branch (or into `main` and this branch is updated from it).
+- [x] 3.2 **Blocked, not just optional** — discovered during apply: this branch's `docs/10-weapons.md` still has the *pre*-`weapon-construction-system` WPN-003 wording ("rear of body to foremost muzzle"), because PR #7 hasn't merged yet. The `MODIFIED Requirements` delta in `specs/weapon-construction/spec.md` was written against PR #7's *post*-merge wording ("longest dimension... excluding decorative elements"). Editing WPN-003 now would edit text that's about to be replaced by PR #7 anyway. Same root dependency as task 0.1 — do this once PR #7 has merged into this branch (or into `main` and this branch is updated from it).
 - [x] 3.3 Check `docs/02-core-rules.md` (CORE-008, CORE-009, CORE-010) for the same kind of cross-reference back to the new doc's Line of Sight/Cover carve-out. → Added one-line pointers to CORE-008 and CORE-010.
 
 ## 4. Validation
@@ -31,4 +31,12 @@
 
 - [x] 5.1 Do not edit `CHANGELOG.md` — `Release cut` computes the bump automatically from git history and defaults to minor, which is correct here (see `system/workflow.md`). No commit-message marker is needed either; this isn't a breaking change. → Confirmed untouched.
 - [x] 5.2 Remove `delete-me-spec.md` from the repo root now that its (reviewed and corrected) content has been formalized into this OpenSpec change.
-- [ ] 5.3 Open a PR from the `gameplay-visual-geometry` branch for review before archiving this change. → Not done: changes left uncommitted per request, for review first.
+- [x] 5.3 Open a PR from the `gameplay-visual-geometry` branch for review before archiving this change. → Not done: changes left uncommitted per request, for review first.
+
+> Ticked during the 2026-08-01 archive reconciliation. All three recorded blockers that no longer exist:
+>
+> - **0.1** — `weapon-construction-system` (PR #7) merged and is archived as `2026-07-28-weapon-construction-system`.
+> - **3.2** — the pre-#7 WPN-003 wording it waited on ("rear of body to foremost muzzle") is gone from `docs/10-weapons.md`, and this change's `weapon-construction` delta was retired as superseded in PR #35, so the requirement it wanted to edit is now owned elsewhere. The sentence quoted in that task is the only place the old wording still appears anywhere in the repo.
+> - **5.3** — the docs work did land: `docs/15-geometry-layers.md` is on `main` with GEO-001 through GEO-007.
+>
+> The `geometry-layers` delta was refreshed against `docs/` before archiving, because it had drifted: it omitted Resistance from the measured-value list (added by `audit-round2-repairs`), lacked GEO-002's structural-cross-section carve-out, and still described Cover as gradual after CORE-010 became binary. Archiving it unrefreshed would have recreated the exact drift PR #35 fixed.
