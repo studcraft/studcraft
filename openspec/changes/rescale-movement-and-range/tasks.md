@@ -1,6 +1,6 @@
 ## 0. Setup
 
-- [ ] 0.1 Work on branch `rescale-movement-and-range` (`openspec/config.yaml` requires one branch per proposal).
+- [x] 0.1 Work on branch `rescale-movement-and-range` (`openspec/config.yaml` requires one branch per proposal).
 
 ### How to read the replacement blocks
 
@@ -43,7 +43,7 @@ Everything in this change comes from exactly two substitutions. If you find your
 
 The current body states `1.5×`, gives three worked examples, and ends with "This rule scales naturally for all vehicle sizes."
 
-- [ ] 1.1 Replace the entire body of `VEH-004` with:
+- [x] 1.1 Replace the entire body of `VEH-004` with:
 
 > A vehicle moves:
 >
@@ -69,14 +69,14 @@ The current body states `1.5×`, gives three worked examples, and ends with "Thi
 >
 > This rule scales naturally for all vehicle sizes.
 
-- [ ] 1.2 Confirm the phrases "One and a half" and "1.5" no longer appear anywhere in `docs/08-vehicles.md`.
-- [ ] 1.3 Confirm the sentence beginning "After moving, the rear of the vehicle will approximately occupy..." is gone. It described the geometry of a 1.5× move specifically and is false at 3×.
+- [x] 1.2 Confirm the phrases "One and a half" and "1.5" no longer appear anywhere in `docs/08-vehicles.md`.
+- [x] 1.3 Confirm the sentence beginning "After moving, the rear of the vehicle will approximately occupy..." is gone. It described the geometry of a 1.5× move specifically and is false at 3×.
 
 ---
 
 ## 2. `docs/10-weapons.md` — `WPN-005`
 
-- [ ] 2.1 Replace the entire body of `WPN-005` with:
+- [x] 2.1 Replace the entire body of `WPN-005` with:
 
 > Weapon range is determined by construction.
 >
@@ -100,13 +100,13 @@ The current body states `1.5×`, gives three worked examples, and ends with "Thi
 >
 > Maximum Range is rarely the practical limit in any case. Line of Sight is a physical check (`02-core-rules.md`, CORE-008), so a weapon reaching 90 studs only matters where 90 studs of clear sight exist. On a battlefield with terrain, that is uncommon.
 
-- [ ] 2.2 Confirm every row of the new table is `length × 6`, and that the table replaced the old one rather than being added beside it.
+- [x] 2.2 Confirm every row of the new table is `length × 6`, and that the table replaced the old one rather than being added beside it.
 
 ---
 
 ## 3. `docs/11-combat.md` — `CBT-003`
 
-- [ ] 3.1 Replace the single sentence that is `CBT-003`'s body — "A target must be inside the weapon's maximum range: `Range = Weapon Length × 2` — see `10-weapons.md` (WPN-005) for the full definition." — with:
+- [x] 3.1 Replace the single sentence that is `CBT-003`'s body — "A target must be inside the weapon's maximum range: `Range = Weapon Length × 2` — see `10-weapons.md` (WPN-005) for the full definition." — with:
 
 > A target must be inside the weapon's maximum range: `Range = Weapon Length × 6` — see `10-weapons.md` (WPN-005) for the full definition, and for why that figure has no written maximum.
 
@@ -114,17 +114,17 @@ The current body states `1.5×`, gives three worked examples, and ends with "Thi
 
 ## 4. `docs/14-glossary.md` — `Weapon Range`
 
-- [ ] 4.1 Replace the body of the `## Weapon Range` entry — "The maximum distance a ranged weapon may attack, equal to Weapon Length × 2. See `10-weapons.md` (WPN-005)." — with:
+- [x] 4.1 Replace the body of the `## Weapon Range` entry — "The maximum distance a ranged weapon may attack, equal to Weapon Length × 2. See `10-weapons.md` (WPN-005)." — with:
 
 > The maximum distance a ranged weapon may attack, equal to Weapon Length × 6. Bounded in practice by Line of Sight and by what the attacker's platform can carry, rather than by a written maximum. See `10-weapons.md` (WPN-005).
 
-- [ ] 4.2 Verify only — the `Weapon Reach` entry immediately below is about melee and has no multiplier. It must not change.
+- [x] 4.2 Verify only — the `Weapon Reach` entry immediately below is about melee and has no multiplier. It must not change.
 
 ---
 
 ## 5. Spec delta
 
-- [ ] 5.1 `specs/weapon-construction/spec.md` is already written in this change directory. Verify it matches the text applied in task 2.1, and do not rewrite it from scratch.
+- [x] 5.1 `specs/weapon-construction/spec.md` is already written in this change directory. Verify it matches the text applied in task 2.1, and do not rewrite it from scratch.
 
 Note what deliberately gets **no** delta: `VEH-004`. `openspec/specs/` has no vehicles capability, so vehicle movement is not covered by any living spec. Creating one would mean capturing all 27 VEH rules, which is its own piece of work — not something to half-do inside a rescale.
 
@@ -132,13 +132,13 @@ Note what deliberately gets **no** delta: `VEH-004`. `openspec/specs/` has no ve
 
 ## 6. Verify
 
-- [ ] 6.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues. This also checks every `(WPN-NNN)`-style cross-reference added above resolves.
-- [ ] 6.2 Run `grep -rn "^# [A-Z]\{3,4\}-" docs/ | wc -l` before and after; confirm the count is identical — no rule ID added, removed or renumbered.
-- [ ] 6.3 Run `grep -rn "Length × 2\|× 2 \|1\.5\|One and a half" docs/` and confirm **zero** hits relating to Range or vehicle movement. A hit inside `WPN-018` (`Length ≥ 2 × Width`) is expected and correct — that is the weapon proportion rule, not a multiplier this change touches.
-- [ ] 6.4 Run `grep -rn "Weapon Length × 6" docs/` and confirm exactly **three** hits: `WPN-005`, `CBT-003` and the glossary. All three must agree.
-- [ ] 6.5 Run `grep -rn "Three (3×)\|3 × length\|three of its own lengths" docs/08-vehicles.md` and confirm `VEH-004` states the new multiplier.
-- [ ] 6.6 Confirm no numeric example anywhere in `docs/` still shows a half stud. Run `grep -rn "\.5 studs\|13\.5\|22\.5" docs/` and expect zero hits.
-- [ ] 6.7 Run `git diff --stat main...HEAD` and confirm exactly these paths changed: `docs/08-vehicles.md`, `docs/10-weapons.md`, `docs/11-combat.md`, `docs/14-glossary.md`, and the four files under `openspec/changes/rescale-movement-and-range/`.
-- [ ] 6.8 Confirm `MOVE-004` is untouched — infantry movement stays 12 studs. It is the reference every figure in this change was measured against.
-- [ ] 6.9 Confirm `WPN-021` (Impact Strength) is untouched. This change rescales reach, not power.
-- [ ] 6.10 Confirm `WPN-004` (Weapon Capacity) is untouched. Only the value derived from Weapon Length changes, not the cap on Weapon Length itself.
+- [x] 6.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues. This also checks every `(WPN-NNN)`-style cross-reference added above resolves.
+- [x] 6.2 Run `grep -rn "^# [A-Z]\{3,4\}-" docs/ | wc -l` before and after; confirm the count is identical — no rule ID added, removed or renumbered.
+- [x] 6.3 Run `grep -rn "Length × 2\|× 2 \|1\.5\|One and a half" docs/` and confirm **zero** hits relating to Range or vehicle movement. A hit inside `WPN-018` (`Length ≥ 2 × Width`) is expected and correct — that is the weapon proportion rule, not a multiplier this change touches.
+- [x] 6.4 Run `grep -rn "Weapon Length × 6" docs/` and confirm exactly **three** hits: `WPN-005`, `CBT-003` and the glossary. All three must agree.
+- [x] 6.5 Run `grep -rn "Three (3×)\|3 × length\|three of its own lengths" docs/08-vehicles.md` and confirm `VEH-004` states the new multiplier.
+- [x] 6.6 Confirm no numeric example anywhere in `docs/` still shows a half stud. Run `grep -rn "\.5 studs\|13\.5\|22\.5" docs/` and expect zero hits.
+- [x] 6.7 Run `git diff --stat main...HEAD` and confirm exactly these paths changed: `docs/08-vehicles.md`, `docs/10-weapons.md`, `docs/11-combat.md`, `docs/14-glossary.md`, and the four files under `openspec/changes/rescale-movement-and-range/`.
+- [x] 6.8 Confirm `MOVE-004` is untouched — infantry movement stays 12 studs. It is the reference every figure in this change was measured against.
+- [x] 6.9 Confirm `WPN-021` (Impact Strength) is untouched. This change rescales reach, not power.
+- [x] 6.10 Confirm `WPN-004` (Weapon Capacity) is untouched. Only the value derived from Weapon Length changes, not the cap on Weapon Length itself.

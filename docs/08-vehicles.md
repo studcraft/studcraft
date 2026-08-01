@@ -74,39 +74,25 @@ Decorative elements are ignored.
 
 A vehicle moves:
 
-**One and a half (1.5×) times its own length**
+**Three (3×) times its own length**
 
 Costing **1 Action Point** (`02-core-rules.md`, CORE-006), the same as any other Move action.
 
-Measure from the vehicle's front.
+Measure from the vehicle's front, along its facing.
 
-After moving, the rear of the vehicle will approximately occupy the previous position of the front, plus half its own length.
+Every vehicle therefore covers three of its own lengths per action, whatever its size. A small vehicle is not slow — it is small. Because the multiplier is a whole number, every resulting distance is a whole number of studs; there is no half stud to measure.
 
 Examples
 
-Vehicle length:
+| Vehicle | Longest dimension | Movement |
+|---|---:|---:|
+| Bike (1 × 2 UB) | 6 studs | 18 studs |
+| Buggy (2 × 2 UB) | 8 studs | 24 studs |
+| Jeep (2 × 3 UB) | 9 studs | 27 studs |
+| Tank (2 × 5 UB) | 15 studs | 45 studs |
+| Heavy Transport (3 × 8 UB) | 24 studs | 72 studs |
 
-8 studs
-
-Movement:
-
-12 studs
-
-Vehicle length:
-
-12 studs
-
-Movement:
-
-18 studs
-
-Vehicle length:
-
-20 studs
-
-Movement:
-
-30 studs
+Large vehicles rarely realise these figures. A 24-stud transport moving 72 studs needs a clear lane of nearly a hundred studs, and terrain seldom offers one — the limit in play is the battlefield, not the rule.
 
 This rule scales naturally for all vehicle sizes.
 
