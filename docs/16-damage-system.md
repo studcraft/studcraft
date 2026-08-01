@@ -117,6 +117,8 @@ A shield built from standard bricks (1 brick = 3 plates tall). The projectile cr
 
 A shield constructed from four stacked plates. Viewed from the front, the projectile must cross `4 plate layers`. Therefore `Resistance = 4`.
 
+A brick-built shield (Resistance 3) and a four-plate shield (Resistance 4) can occupy similar external bulk, yet resolve to different resistance values because the count of physical layers — not the external silhouette — is what matters. StudCraft rewards engineering, not appearance.
+
 ## Example 5 — Bunker
 
 A bunker wall built two bricks thick. The projectile crosses `6 plate layers` (2 bricks × 3 plates). Therefore `Resistance = 6`.
@@ -130,8 +132,6 @@ A windscreen — a single moulded LEGO element, not a built assembly — measure
 A vehicle hull with 1-brick front armour, an empty interior, and 1-brick rear armour. An Impact striking the front crosses `3 plate layers` of structure. Therefore `Resistance = 3`.
 
 The empty interior contributes nothing, and the rear wall is a separate component (DMG-001) — not part of this one's Resistance. If the Impact penetrates the front wall, DMG-017 determines whether it continues toward whatever is inside.
-
-A brick-built shield (Resistance 3) and a four-plate shield (Resistance 4) can occupy similar external bulk, yet resolve to different resistance values because the count of physical layers — not the external silhouette — is what matters. StudCraft rewards engineering, not appearance.
 
 ---
 

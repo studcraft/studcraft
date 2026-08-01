@@ -14,7 +14,3 @@ Weapon Length SHALL be measured as the longest dimension of the functional Weapo
 #### Scenario: Mounting hardware excluded from length
 - **WHEN** a weapon is attached to its platform by a mount, pintle, or grip
 - **THEN** that attachment is not part of the Weapon Body and is not counted when measuring Weapon Length
-
-#### Scenario: Length is measured along the firing axis
-- **WHEN** a Weapon Body's dimensions are measured
-- **THEN** Weapon Length is the dimension running perpendicular to the Weapon Front, not merely the largest dimension in any arbitrary direction
