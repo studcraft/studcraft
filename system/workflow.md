@@ -237,6 +237,12 @@ Before running the batch, for every change it will archive: open its delta and
 the `docs/` rule it describes, side by side, and reconcile. The tool checks
 structure, not truth.
 
+One half of this is now mechanised: `OpenSpec change is coherent` runs
+`scripts/check_delta_coverage.py` on every PR, so a delta that would drop a
+scenario the living spec has fails immediately instead of at archive time.
+It cannot tell you a delta is *stale* — only that it is not destructive.
+Reading it against `docs/` is still yours.
+
 ## When several changes modified the same requirement
 
 `openspec archive` refuses a `MODIFIED` block that omits a scenario the living

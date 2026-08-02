@@ -146,6 +146,71 @@ Both at once, never the second alone.
 
 ---
 
+# Check Late-Firing Failures Early
+
+Two checks used to fire only inside `Archive cut`, which runs whenever a
+maintainer decides it is time — potentially weeks after the proposal merged,
+long after the person who could explain a delta has moved on. This repo hit
+that once and untangling it cost two dedicated PRs.
+
+Both now also run per-PR, as `OpenSpec change is coherent`:
+
+- **`openspec validate --all`** — structural. Does every change and spec parse,
+  does each change carry at least one delta, does every requirement have a
+  scenario.
+- **`scripts/check_delta_coverage.py`** — semantic, and the one that matters.
+  For every `## MODIFIED Requirements` block, if the targeted requirement
+  already exists in the living spec, every scenario the living spec has for it
+  must also appear in the delta. Otherwise archiving would delete it silently.
+
+**`openspec validate` does not catch the second problem.** That was verified,
+not assumed: deliberately stripping a scenario from a delta left validate
+passing. The check lives inside `openspec archive`, which is exactly the thing
+that fires too late. `check_delta_coverage.py` reimplements it so it fires on
+the PR that introduces the drift.
+
+The general lesson: **if a mechanical check exists only inside a manually
+triggered batch step, it is not a gate — it is a landmine.** Move it to the PR
+that can still fix it cheaply.
+
+---
+
+# A Gate That Checks Presence Is Not Checking Substance
+
+`Docs require OpenSpec proposal` originally passed if the diff contained *any*
+path under `openspec/changes/`. An empty file satisfied it. With one
+maintainer that is a formality; with contributors it is a rule that can be
+complied with without being followed.
+
+It now additionally requires:
+
+- **All three artifacts exist** — `proposal.md`, `design.md`, `tasks.md`.
+  Checked against the working tree, not the diff, because a PR that only
+  applies an already-merged proposal legitimately touches `tasks.md` alone.
+- **One change per PR.** `openspec/config.yaml` has always required one branch
+  per proposal and nothing enforced it. Archive batches move many changes at
+  once and are exempt, by having no non-`archive/` change directory in their
+  diff at all.
+
+When adding a gate, ask what the cheapest way to satisfy it without doing the
+work is. If that way exists, the gate is checking the wrong thing.
+
+---
+
+# Error Messages Are Documentation for People Who Have Not Read Any
+
+A contributor meets this repo's process for the first time through a red
+check. Every gate's `::error::` says what is wrong, what the rule is, and where
+to read more — `system/workflow.md`, `CONTRIBUTING.md`, or a worked example
+under `openspec/changes/archive/`.
+
+`scripts/check_delta_coverage.py` goes further and explains the fix, because
+its failure mode is genuinely unobvious: a renamed scenario reads as a
+deletion, so the correct response is to restore the original heading and
+correct its body rather than to keep the new name.
+
+---
+
 # Batch, Don't Gate Per-PR, for Anything Writing to Shared State
 
 Any file or directory that multiple concurrent PRs might all want to modify

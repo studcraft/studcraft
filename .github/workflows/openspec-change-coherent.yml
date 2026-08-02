@@ -1,0 +1,54 @@
+name: OpenSpec change is coherent
+
+# Two checks that both used to happen far too late.
+#
+# `openspec validate` was only ever run inside the Archive cut action, and
+# scripts/check_delta_coverage.py reimplements a check that lived only inside
+# `openspec archive`. Both therefore fired whenever someone next ran the
+# archive batch — potentially weeks after the proposal merged, long after the
+# person who could explain the delta had moved on. This repo hit that once and
+# it cost two dedicated PRs to untangle. Running them per-PR moves the failure
+# to the moment it can still be fixed cheaply.
+#
+# No `paths:` filter at the `on:` level: this is a required status check, and a
+# filtered trigger never creates a check run at all for non-matching PRs, which
+# GitHub treats as permanently pending. See system/ci-gates.md.
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: OpenSpec change is coherent
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install OpenSpec
+        run: npm install -g @fission-ai/openspec
+
+      # Structural: does every change and spec parse, does each change carry at
+      # least one delta, does every requirement have a scenario. Catches a
+      # malformed proposal before anyone spends review time on its content.
+      - name: Validate every change and spec
+        run: openspec validate --all
+
+      # Semantic: would any MODIFIED block silently delete a scenario the living
+      # spec already has? `openspec validate` does not catch this — verified by
+      # stripping a scenario from a delta, which validate passed. Only
+      # `openspec archive` catches it, and by then it is weeks late.
+      - name: Deltas must not drop scenarios the living spec has
+        run: python3 scripts/check_delta_coverage.py
