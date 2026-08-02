@@ -84,7 +84,9 @@ What would have to be decided: whether any weapon in the current construction ru
 
 `WPN-014` (`docs/10-weapons.md`):
 
-> A unit carrying multiple weapons may use them according to its available Action Points. Future scenarios may limit the number of weapons fired during a single activation.
+> A unit carrying multiple weapons may use them according to its available Action Points.
+>
+> Future scenarios may limit the number of weapons fired during a single activation.
 
 What would have to be decided: whether such a limit should be a scenario-specific rule or a universal one, and what the limit would be.
 
@@ -92,7 +94,16 @@ What would have to be decided: whether such a limit should be a scenario-specifi
 
 `WPN-017` (`docs/10-weapons.md`):
 
-> Future supplements may introduce: Flamethrowers, Explosive Weapons, Beam Weapons, Energy Weapons, Indirect Fire, Smoke Launchers. These must continue to follow the StudCraft Weapon Construction Standard.
+> Future supplements may introduce:
+>
+> - Flamethrowers
+> - Explosive Weapons
+> - Beam Weapons
+> - Energy Weapons
+> - Indirect Fire
+> - Smoke Launchers
+>
+> These must continue to follow the StudCraft Weapon Construction Standard.
 
 What would have to be decided: how each of these weapon types generates Impacts within the existing muzzle/Impact Strength system (`10-weapons.md`), since none of them currently has construction rules of its own.
 
@@ -100,7 +111,13 @@ What would have to be decided: how each of these weapon types generates Impacts 
 
 `SCS-023` (`docs/04-construction-standard.md`) lists, among examples of transparent LEGO elements:
 
-> Examples: Glass, Energy shields (future), Cockpit canopies
+> Examples:
+>
+> Glass
+>
+> Energy shields (future)
+>
+> Cockpit canopies
 
 What would have to be decided: what construction and gameplay rules, if any, would distinguish an "energy shield" from ordinary transparent armour once such a component exists.
 
@@ -112,7 +129,17 @@ What would have to be decided: what construction and gameplay rules, if any, wou
 
 `CBT-014` (`docs/11-combat.md`):
 
-> Future versions may include: Suppression, Blast Weapons, Fire, Smoke, Explosions, Overwatch, Reaction Fire. These additions must preserve the Impact-based combat system.
+> Future versions may include:
+>
+> - Suppression
+> - Blast Weapons
+> - Fire
+> - Smoke
+> - Explosions
+> - Overwatch
+> - Reaction Fire
+>
+> These additions must preserve the Impact-based combat system.
 
 What would have to be decided: mechanics for each of these effects that stay within the Impact/Component Damage System rather than introducing a parallel damage mechanic (per `CODE_OF_DESIGN.md` Principle 15, Future Compatibility).
 
