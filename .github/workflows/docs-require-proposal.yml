@@ -53,9 +53,42 @@ jobs:
           echo "Changed files:"
           echo "$changed"
 
+          # Which change directories does this PR touch? (archive/ is not one.)
+          touched=$(echo "$changed" \
+            | grep -oE '^openspec/changes/[^/]+' \
+            | grep -v '^openspec/changes/archive$' \
+            | sort -u || true)
+
           if echo "$changed" | grep -qE '^docs/.*\.md$'; then
-            if ! echo "$changed" | grep -qE '^openspec/changes/'; then
-              echo "::error::This PR changes files under docs/ (the ruleset) but does not include an OpenSpec proposal under openspec/changes/. See system/workflow.md."
+            if [ -z "$touched" ]; then
+              echo "::error::This PR changes files under docs/ (the ruleset) but includes no OpenSpec proposal under openspec/changes/. Ruleset changes are proposed before they are made — see system/workflow.md (OpenSpec Workflow) and CONTRIBUTING.md."
               exit 1
             fi
           fi
+
+          [ -z "$touched" ] && { echo "No proposal touched, and no docs/ change. OK."; exit 0; }
+
+          # One proposal per PR. openspec/config.yaml requires one branch per
+          # proposal; without this check nothing enforced it. Archive batches
+          # legitimately move many changes at once and are exempt by prefix.
+          count=$(echo "$touched" | wc -l | tr -d ' ')
+          if [ "$count" -gt 1 ]; then
+            echo "$touched"
+            echo "::error::This PR touches $count OpenSpec changes. One proposal per pull request, on its own branch — see openspec/config.yaml. Split this into separate PRs so each proposal can be reviewed, applied and archived on its own."
+            exit 1
+          fi
+
+          # A proposal is three artifacts, not a directory with something in it.
+          # Checked against the working tree rather than the diff: a PR that only
+          # applies an already-merged proposal legitimately touches tasks.md alone.
+          missing=""
+          for f in proposal.md design.md tasks.md; do
+            [ -f "$touched/$f" ] || missing="$missing $f"
+          done
+
+          if [ -n "$missing" ]; then
+            echo "::error::$touched is missing:$missing. An OpenSpec proposal needs all three — proposal.md (what and why), design.md (the decisions and what was rejected), tasks.md (how to apply it, with verifiable steps). See system/workflow.md and an archived change under openspec/changes/archive/ for a worked example."
+            exit 1
+          fi
+
+          echo "Proposal $touched is complete. OK."

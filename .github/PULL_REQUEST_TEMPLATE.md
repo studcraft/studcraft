@@ -25,6 +25,7 @@ rules, name both. If it closes a gap, say where the gap was declared.
 - [ ] Every rule this touches was read in full, not just the lines being edited
 - [ ] No rule ID was renumbered, reused or deleted — IDs are stable, superseded rules keep their number with a note
 - [ ] `python3 scripts/lint_ruleset.py` passes
+- [ ] `python3 scripts/check_delta_coverage.py` passes — if you edited a spec delta, it must not drop a scenario the living spec already has. Renaming a scenario counts as dropping it: keep the heading, correct the body
 
 ## Design check
 
