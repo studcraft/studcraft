@@ -1,6 +1,6 @@
 ## 0. Setup
 
-- [ ] 0.1 Work on branch `scenario-defines-victory` (`openspec/config.yaml` requires one branch per proposal).
+- [x] 0.1 Work on branch `scenario-defines-victory` (`openspec/config.yaml` requires one branch per proposal).
 
 ### How to read the replacement blocks
 
@@ -31,7 +31,7 @@ Two documents change: `docs/03-game-flow.md` and `docs/14-glossary.md`. Nothing 
 
 ### 1.1 Add `FLOW-013` at the end of the rules
 
-- [ ] 1.1.1 Insert the following **after** `FLOW-012`'s closing `---` and **before** the `# Turn Sequence` heading:
+- [x] 1.1.1 Insert the following **after** `FLOW-012`'s closing `---` and **before** the `# Turn Sequence` heading:
 
 > # FLOW-013 — Scenario
 >
@@ -55,7 +55,7 @@ Two documents change: `docs/03-game-flow.md` and `docs/14-glossary.md`. Nothing 
 
 ### 1.2 `FLOW-010` — who has won, not only when it ended
 
-- [ ] 1.2.1 Replace the entire body of `FLOW-010` with:
+- [x] 1.2.1 Replace the entire body of `FLOW-010` with:
 
 > The active scenario determines when the game ends and who has won (FLOW-013).
 >
@@ -71,7 +71,7 @@ Two documents change: `docs/03-game-flow.md` and `docs/14-glossary.md`. Nothing 
 
 ### 1.3 `FLOW-001` — agree the objectives before building
 
-- [ ] 1.3.1 Replace the numbered list in `FLOW-001` with:
+- [x] 1.3.1 Replace the numbered list in `FLOW-001` with:
 
 > 1. Select a scenario (FLOW-013).
 > 2. Agree the objectives and how victory is judged.
@@ -82,7 +82,7 @@ Two documents change: `docs/03-game-flow.md` and `docs/14-glossary.md`. Nothing 
 > 7. Determine Priority.
 > 8. Begin Turn 1.
 
-- [ ] 1.3.2 Add this line after the list, before the closing `---`:
+- [x] 1.3.2 Add this line after the list, before the closing `---`:
 
 > Step 2 comes before step 5 deliberately: what a force is trying to achieve shapes what it should bring. If the scenario already states its objectives, this step is confirming them; if the players are inventing a scenario, this is where they do it.
 
@@ -90,9 +90,9 @@ Two documents change: `docs/03-game-flow.md` and `docs/14-glossary.md`. Nothing 
 
 ## 2. `docs/14-glossary.md`
 
-- [ ] 2.1 Add a `## Scenario` entry at the **end** of the definitions, immediately after the `## Penetration` entry and its `---` separator, and **before** the closing `> **Every Brick Matters.**` line. The glossary is in append order, not alphabetical or thematic order — verify this by reading it rather than assuming, then follow it.
+- [x] 2.1 Add a `## Scenario` entry at the **end** of the definitions, immediately after the `## Penetration` entry and its `---` separator, and **before** the closing `> **Every Brick Matters.**` line. The glossary is in append order, not alphabetical or thematic order — verify this by reading it rather than assuming, then follow it.
 
-- [ ] 2.2 Match the surrounding style exactly: a `## ` heading, one paragraph, a document-and-ID citation, then a `---` separator.
+- [x] 2.2 Match the surrounding style exactly: a `## ` heading, one paragraph, a document-and-ID citation, then a `---` separator.
 
 > ## Scenario
 >
@@ -102,22 +102,22 @@ Two documents change: `docs/03-game-flow.md` and `docs/14-glossary.md`. Nothing 
 
 ## 3. Verify only — make no edit
 
-- [ ] 3.1 `CORE-005`, `DEP-001`, `MOVE-004`, `VEH-006`, `WPN-014` and `CBT-007` all defer to a scenario and are **not** edited by this change. `FLOW-013` gives them something to cite; retrofitting citations into all six is separate work and is not done here.
-- [ ] 3.2 `02-core-rules.md`'s Universal Rule already places Scenario Rules fourth in the priority order. `FLOW-013` cites it; the Universal Rule itself does not change.
-- [ ] 3.3 No objective, marker, capture or scoring mechanic is added anywhere.
-- [ ] 3.4 **`TODO.md` is not edited.** A scenario library is worth having, but `TODO.md`'s own preamble scopes it to gaps *the documents declare in their own text*, each entry quoting the rule that declares it. "The repository ships no scenarios" is a repository gap, not a gap the ruleset declares — putting it there would break the file's stated contract. It is recorded in this change's `proposal.md` instead, which is what the archive preserves.
-- [ ] 3.5 No heading text changes. `FLOW-010`'s title stays **End of Game** even though its body now also covers victory: victory is judged when the game ends, so the title still fits, and heading churn is avoided on principle.
+- [x] 3.1 `CORE-005`, `DEP-001`, `MOVE-004`, `VEH-006`, `WPN-014` and `CBT-007` all defer to a scenario and are **not** edited by this change. `FLOW-013` gives them something to cite; retrofitting citations into all six is separate work and is not done here.
+- [x] 3.2 `02-core-rules.md`'s Universal Rule already places Scenario Rules fourth in the priority order. `FLOW-013` cites it; the Universal Rule itself does not change.
+- [x] 3.3 No objective, marker, capture or scoring mechanic is added anywhere.
+- [x] 3.4 **`TODO.md` is not edited.** A scenario library is worth having, but `TODO.md`'s own preamble scopes it to gaps *the documents declare in their own text*, each entry quoting the rule that declares it. "The repository ships no scenarios" is a repository gap, not a gap the ruleset declares — putting it there would break the file's stated contract. It is recorded in this change's `proposal.md` instead, which is what the archive preserves.
+- [x] 3.5 No heading text changes. `FLOW-010`'s title stays **End of Game** even though its body now also covers victory: victory is judged when the game ends, so the title still fits, and heading churn is avoided on principle.
 
 ---
 
 ## 4. Verify
 
-- [ ] 4.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues. This checks that `FLOW-013`'s ID is unique and increasing, and that every `(CORE-NNN)`, `(DEP-NNN)`, `(WPN-NNN)`, `(VEH-NNN)`, `(CBT-NNN)` and `(MOVE-NNN)` reference added above resolves.
-- [ ] 4.2 Run `grep -rcE '^#{1,2} [A-Z]{3,4}-[0-9]{3} ' docs/ | awk -F: '{s+=$2} END {print s}'` and confirm **219** — one more than the 218 before, that one being `FLOW-013`.
-- [ ] 4.3 Run `grep -n "^# FLOW-" docs/03-game-flow.md` and confirm `FLOW-001` through `FLOW-013` appear once each, in ascending order, with no gaps.
-- [ ] 4.4 Run `grep -rniE "\bwins?\b|winner|victory" docs/` and confirm the ruleset now answers how a game is won. Before this change that pattern had **zero** hits across all of `docs/`; the only nearby word was "defeats" in `WPN-021`'s brick shortcut (`docs/10-weapons.md`), which is unrelated, is not matched by this pattern, and must still be there.
-- [ ] 4.5 Run `grep -c "FLOW-013" docs/03-game-flow.md docs/14-glossary.md` and confirm `FLOW-013` is cited from `FLOW-001`, from `FLOW-010`, and from the glossary — the definition is reachable from every place that needs it. Note the count for `03-game-flow.md` also includes `FLOW-013`'s own heading.
-- [ ] 4.6 Confirm `FLOW-001`'s list has **eight** steps and that the objectives step is second.
-- [ ] 4.7 Run `git diff --stat main...HEAD` and confirm exactly these paths changed: `docs/03-game-flow.md`, `docs/14-glossary.md`, plus the four files under `openspec/changes/scenario-defines-victory/`.
-- [ ] 4.8 Confirm no numeric value changed anywhere in `docs/`.
-- [ ] 4.9 Run `python3 scripts/check_delta_coverage.py` and confirm it passes with zero MODIFIED requirements — this change carries no spec delta.
+- [x] 4.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues. This checks that `FLOW-013`'s ID is unique and increasing, and that every `(CORE-NNN)`, `(DEP-NNN)`, `(WPN-NNN)`, `(VEH-NNN)`, `(CBT-NNN)` and `(MOVE-NNN)` reference added above resolves.
+- [x] 4.2 Run `grep -rcE '^#{1,2} [A-Z]{3,4}-[0-9]{3} ' docs/ | awk -F: '{s+=$2} END {print s}'` and confirm **219** — one more than the 218 before, that one being `FLOW-013`.
+- [x] 4.3 Run `grep -n "^# FLOW-" docs/03-game-flow.md` and confirm `FLOW-001` through `FLOW-013` appear once each, in ascending order, with no gaps.
+- [x] 4.4 Run `grep -rniE "\bwins?\b|winner|victory" docs/` and confirm the ruleset now answers how a game is won. Before this change that pattern had **zero** hits across all of `docs/`; the only nearby word was "defeats" in `WPN-021`'s brick shortcut (`docs/10-weapons.md`), which is unrelated, is not matched by this pattern, and must still be there.
+- [x] 4.5 Run `grep -c "FLOW-013" docs/03-game-flow.md docs/14-glossary.md` and confirm `FLOW-013` is cited from `FLOW-001`, from `FLOW-010`, and from the glossary — the definition is reachable from every place that needs it. Note the count for `03-game-flow.md` also includes `FLOW-013`'s own heading.
+- [x] 4.6 Confirm `FLOW-001`'s list has **eight** steps and that the objectives step is second.
+- [x] 4.7 Run `git diff --stat main...HEAD` and confirm exactly these paths changed: `docs/03-game-flow.md`, `docs/14-glossary.md`, plus the four files under `openspec/changes/scenario-defines-victory/`.
+- [x] 4.8 Confirm no numeric value changed anywhere in `docs/`.
+- [x] 4.9 Run `python3 scripts/check_delta_coverage.py` and confirm it passes with zero MODIFIED requirements — this change carries no spec delta.

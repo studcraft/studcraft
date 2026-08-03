@@ -28,13 +28,16 @@ This creates a dynamic, cinematic and easy-to-follow flow of play.
 
 Before the first Turn:
 
-1. Select a scenario.
-2. Agree on the battlefield size.
-3. Select the deployment size (measured in Unit Bases).
-4. Build each player's force.
-5. Deploy all units.
-6. Determine Priority.
-7. Begin Turn 1.
+1. Select a scenario (FLOW-013).
+2. Agree the objectives and how victory is judged.
+3. Agree on the battlefield size.
+4. Select the deployment size (measured in Unit Bases).
+5. Build each player's force.
+6. Deploy all units.
+7. Determine Priority.
+8. Begin Turn 1.
+
+Step 2 comes before step 5 deliberately: what a force is trying to achieve shapes what it should bring. If the scenario already states its objectives, this step is confirming them; if the players are inventing a scenario, this is where they do it.
 
 ---
 
@@ -190,15 +193,17 @@ Then:
 
 # FLOW-010 — End of Game
 
-The active scenario determines when the game ends.
+The active scenario determines when the game ends and who has won (FLOW-013).
 
-Examples include:
+Examples of ending conditions include:
 
 - Survive a fixed number of Turns.
 - Capture objectives.
 - Eliminate a specific target.
 - Escort a convoy.
 - Evacuate the battlefield.
+
+Each of these is an ending condition, not a victory condition. A scenario states both: the game ends when the convoy reaches the far edge *or* Turn 6 passes, and the escorting player wins if it arrived. The ruleset supplies neither — it requires the scenario to supply both.
 
 ---
 
@@ -236,6 +241,28 @@ Every unit follows the same activation sequence:
 Construction determines what a unit can do.
 
 The activation system remains identical for all units.
+
+---
+
+# FLOW-013 — Scenario
+
+Every game is played under a scenario. The scenario is what makes one game different from another: the ruleset defines how models behave, and the scenario defines what the players are trying to do with them.
+
+A scenario **must** state:
+
+- **How the game ends** — a Turn limit, a condition being met, or both (FLOW-010).
+- **How victory is judged** — what each player must achieve, and how a winner is determined when the game ends. A scenario may declare that a game can be drawn.
+
+A scenario **may** also state:
+
+- The battlefield size (FLOW-001) and the Deployment Area (`06-deployment.md`, DEP-001).
+- Where terrain and structures are placed (`02-core-rules.md`, CORE-005).
+- Restrictions on otherwise-legal actions, such as limiting the weapons a unit may fire in one activation (`10-weapons.md`, WPN-014), restricting reverse movement (`08-vehicles.md`, VEH-006), or restricting how a weapon system's Attack Dice may be split (`11-combat.md`, CBT-007).
+- Additional movement options such as sprinting (`07-movement.md`, MOVE-004).
+
+Scenario rules sit fourth in the rule priority order (`02-core-rules.md`, Universal Rule): they may restrict or extend the ruleset for one game, and never contradict Foundations, Core Rules or Construction Standards.
+
+This ruleset defines no objectives of its own. It states what a scenario must declare, not what it may declare — the same way DEP-001 requires a Deployment Area to be agreed without dictating its size. A scenario that wants objective markers, capture rules or victory points describes them itself.
 
 ---
 
