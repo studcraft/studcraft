@@ -39,17 +39,11 @@ There is a fourth notation outside this document. `16-damage-system.md` writes a
 
 **That one is not an image job.** It appears inline, mid-sentence, twice, and an inline image would read worse than the text does. The fix is to write "a shotgun with two muzzles" in words and drop the glyph, which removes the fourth notation without adding anything. Recorded here because it surfaced from the same scan, and because someone tidying the weapon grids will otherwise leave it behind as the last inconsistent one. It needs its own change: `docs/16-damage-system.md` is the ruleset, so it needs a proposal.
 
-## Every character grid in the ruleset, and where it goes
+## Coverage of the character grids
 
-A full scan of `docs/` for block and shape glyphs (`█ ■ ● ○ · ▪ ▫ ░ ▒ □`) finds nine fenced grid blocks, all in `10-weapons.md`, all covered above:
+A full scan of `docs/` for block and shape glyphs (`█ ■ ● ○ · ▪ ▫ ░ ▒ □`) finds nine fenced grid blocks. All nine are in `10-weapons.md`, and all belong to the three rules listed in that section above — one in WPN-007, three in WPN-019, five in WPN-020. No other document represents LEGO geometry as characters, and there is no ASCII minifigure anywhere in the ruleset.
 
-| Rule | Blocks | Image |
-|---|---|---|
-| WPN-007 | 1 | `wpn-007-muzzle-adjacency.png` |
-| WPN-019 | 3 (Widths 1, 2, 4) | `wpn-019-front-footprint-sizes.png` |
-| WPN-020 | 5 (base footprint + four partitions) | `wpn-020-muzzle-placement.png` |
-
-No other document represents LEGO geometry as characters. The remaining fenced blocks are either formulas, which stay as text because an image would be worse, or directed graphs, which belong in Mermaid rather than in a raster image.
+The remaining fenced blocks stay as they are. Formulas are equations and an image would be worse than the text. Directed graphs belong in Mermaid, which stays diffable, rather than in a raster image.
 
 ---
 
@@ -84,9 +78,9 @@ No other document represents LEGO geometry as characters. The remaining fenced b
 | Rule | Filename | What it must show | Why text alone is not enough |
 |---|---|---|---|
 | WPN-003 | `assets/images/wpn-003-length-axis-front-face.png` | A weapon body with its firing axis drawn perpendicular through the Weapon Front, and the Weapon Front Footprint (WPN-019) outlined on that face, distinguished from the other five faces of the body. | Weapon Length is defined via an axis "perpendicular to the Weapon Front," and the Weapon Front is itself "the only face from which the weapon may fire" — two spatial definitions that depend on each other and are easy to reverse without a 3D view. |
-| WPN-007 | `assets/images/wpn-007-muzzle-adjacency.png` | Two muzzles sharing an edge inside a Weapon Front Footprint, alongside an overlapping pair marked invalid. The only placement restriction is overlap; no minimum separation exists. | The rule's `██··` block is the whole explanation, and it does not say what the two symbols mean. A reader must infer that `█` is a muzzle and `·` is unused footprint from an adjacent rule that uses the same characters differently. |
+| WPN-007 | `assets/images/wpn-007-muzzle-adjacency.png` | A Weapon Front Footprint holding two muzzles that share an edge, marked valid, beside the same footprint with two muzzles overlapping, marked invalid. Unused footprint cells visibly distinct from occupied ones. | The rule's `██··` block is the whole explanation and carries no legend, so a reader must infer that `█` is a muzzle and `·` is unused footprint from a later rule that uses the same characters for something narrower. The image also has to show that adjacency is allowed and only overlap is not — a distinction four characters cannot carry. |
 | WPN-019 | `assets/images/wpn-019-front-footprint-sizes.png` | The Weapon Front Footprint at Widths 1, 2 and 4 — a square of side Weapon Width — shown against the weapon body so the relationship between body width and available muzzle space is visible. | The rule shows three character squares with no indication of scale or of how they sit on the weapon. The footprint is the space every muzzle competes for, so getting its size wrong invalidates every weapon built from it. |
-| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` | The unpartitioned Weapon Front Footprint the rule starts from, then that same footprint partitioned four ways (twin barrel, quad barrel, heavy cannon, hybrid), each producing a different Attack Dice / Impact Strength combination. Five states in one image, matching the rule's five character blocks. | The rule's own ASCII diagrams compress a genuinely spatial muzzle layout into a flat character grid. A real image showing the same footprint yielding several distinct, valid weapons makes "no fixed weapon profile" concrete. |
+| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` | Five panels: the unpartitioned Weapon Front Footprint the rule starts from, then that same footprint partitioned as twin barrel, quad barrel, heavy cannon and hybrid, each labelled with the Attack Dice and Impact Strengths it produces. | The rule's own ASCII diagrams compress a genuinely spatial muzzle layout into a flat character grid. A real image showing the same footprint yielding several distinct, valid weapons makes "no fixed weapon profile" concrete. |
 
 ## docs/15-geometry-layers.md
 
