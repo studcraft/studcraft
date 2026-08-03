@@ -16,6 +16,27 @@ None of the files listed below exist yet. `assets/images/.gitkeep` holds the dir
 
 ---
 
+## Images supplement the text; they do not replace it
+
+When an image lands, **leave the ASCII block in the rule.** The column above is headed *"Why text alone is not enough"*, not *"what the text should be replaced by"*.
+
+`docs/` is read in a terminal, through `grep`, and by screen readers. A rule whose only diagram is a `.png` becomes unreadable in all three the moment images do not load. Two representations of one spatial fact in different media is not the duplication this repo works to remove — that is two *rules* stating the same mechanic, which can drift apart into a contradiction. A picture and its text alternative cannot contradict each other; at worst one is less clear.
+
+## Why the weapon grids are worth illustrating at all
+
+The three grid rules use overlapping symbols with different meanings, and no rule carries a legend:
+
+| Symbol | WPN-007 | WPN-019 | WPN-020 |
+|---|---|---|---|
+| `█` | a functional muzzle | — | a size-2 muzzle |
+| `■` | — | a footprint slot | the unpartitioned footprint |
+| `●` | — | — | a size-1 muzzle |
+| `·` | unused footprint | — | unused footprint |
+
+A reader meeting `██··` in WPN-007 has to reconstruct that legend from rules further down the document, where the same characters mean something narrower. One consistent visual language across the three images removes that problem entirely — which is a better reason for these images than any individual diagram being hard to picture.
+
+---
+
 ## docs/02-core-rules.md
 
 | Rule | Filename | What it must show | Why text alone is not enough |
@@ -47,6 +68,8 @@ None of the files listed below exist yet. `assets/images/.gitkeep` holds the dir
 | Rule | Filename | What it must show | Why text alone is not enough |
 |---|---|---|---|
 | WPN-003 | `assets/images/wpn-003-length-axis-front-face.png` | A weapon body with its firing axis drawn perpendicular through the Weapon Front, and the Weapon Front Footprint (WPN-019) outlined on that face, distinguished from the other five faces of the body. | Weapon Length is defined via an axis "perpendicular to the Weapon Front," and the Weapon Front is itself "the only face from which the weapon may fire" — two spatial definitions that depend on each other and are easy to reverse without a 3D view. |
+| WPN-007 | `assets/images/wpn-007-muzzle-adjacency.png` | Two muzzles sharing an edge inside a Weapon Front Footprint, alongside an overlapping pair marked invalid. The only placement restriction is overlap; no minimum separation exists. | The rule's `██··` block is the whole explanation, and it does not say what the two symbols mean. A reader must infer that `█` is a muzzle and `·` is unused footprint from an adjacent rule that uses the same characters differently. |
+| WPN-019 | `assets/images/wpn-019-front-footprint-sizes.png` | The Weapon Front Footprint at Widths 1, 2 and 4 — a square of side Weapon Width — shown against the weapon body so the relationship between body width and available muzzle space is visible. | The rule shows three character squares with no indication of scale or of how they sit on the weapon. The footprint is the space every muzzle competes for, so getting its size wrong invalidates every weapon built from it. |
 | WPN-020 | `assets/images/wpn-020-muzzle-placement.png` | The Weapon Front Footprint partitioned four different ways (twin barrel, quad barrel, heavy cannon, hybrid), each producing a different Attack Dice / Impact Strength combination from the same footprint size. | The rule's own ASCII diagrams compress a genuinely spatial muzzle layout into a flat character grid. A real image showing the same footprint yielding several distinct, valid weapons makes "no fixed weapon profile" concrete. |
 
 ## docs/15-geometry-layers.md
@@ -67,7 +90,7 @@ None of the files listed below exist yet. `assets/images/.gitkeep` holds the dir
 
 ## Total and rejected candidates
 
-**17 images** specified, across 6 of the 15 ruleset documents (`02-core-rules.md`, `07-movement.md`, `08-vehicles.md`, `10-weapons.md`, `15-geometry-layers.md`, `16-damage-system.md`).
+**19 images** specified, across 6 of the 15 ruleset documents (`02-core-rules.md`, `07-movement.md`, `08-vehicles.md`, `10-weapons.md`, `15-geometry-layers.md`, `16-damage-system.md`).
 
 The remaining 9 documents (`01-foundations.md`, `03-game-flow.md`, `04-construction-standard.md`, `05-construction-components.md`, `06-deployment.md`, `09-transport.md`, `11-combat.md`, `12-melee.md`, `14-glossary.md`) need no images of their own: they either restate rules already illustrated above, or are procedural/definitional throughout.
 
@@ -79,7 +102,9 @@ Rules considered and rejected, with reasons:
 - **VEH-009, VEH-010, VEH-011 (Track/Walker/Hover pivot)** — All three pivot around the model's centre, which is the intuitive case (a swivel, not a lever). Covered by the contrast panel in the VEH-008 image rather than three near-identical diagrams.
 - **VEH-025 (Stranded), VEH-026 (Vehicle Falling)** — Both are direct consequences of the Terrain Threshold already illustrated (VEH-022 – VEH-024) and the fall mechanic already illustrated (MOVE-016); no independent geometric fact to add.
 - **CMP-002 (Pilot), CMP-008 (Turrets)** — "A visible minifigure in an operating position" and "a mount that physically rotates" are easily verified by looking at the model; nothing in the text is hard to picture.
-- **WPN-002 (Functional Muzzle), WPN-007 (Muzzle Adjacency), WPN-018 (Weapon Proportion)** — All folded into the WPN-020 image (grid footprint, adjacency, and valid proportions are all visible in the same worked examples) or already unambiguous from the valid/invalid dimension lists in the text.
+- **WPN-002 (Functional Muzzle), WPN-018 (Weapon Proportion)** — Neither displays a character grid. WPN-002 is a definition, and WPN-018 states a proportion as an inequality with valid/invalid dimension lists that read perfectly well as text. An image would add nothing to either.
+- ~~**WPN-007 (Muzzle Adjacency)**~~ — **Reclassified; now specified above.** Originally folded into the WPN-020 image on the grounds that adjacency is visible in those worked examples. That was correct under the original criterion, which asked whether the *concept* needed illustrating. It was reclassified when the criterion widened: a folded image inside WPN-020 does nothing for a reader of WPN-007, who still meets a bare `██··` and no legend.
+- ~~**WPN-019 (Weapon Front Footprint)**~~ — **Reclassified; now specified above.** Originally covered by WPN-003's image, which outlines the footprint on the weapon front. Same reasoning as WPN-007: WPN-019 has three character grids of its own, and an illustration living in another rule does not replace them.
 - **WPN-008 / CBT-006, CBT-007 (Weapon Systems, Multiple Targets)** — "Each visible weapon is its own weapon system" is a counting rule, not a spatial one.
 - **DMG-007 (Internal Components)** — Introduces the "Armour → Pilot" concept that DMG-017's image already resolves mechanically; a separate diagram would repeat it.
 - **DMG-018 (Weapon Distribution)** — Whether a mount rotates is a binary construction check made directly on the model, not something prose obscures.
