@@ -14,7 +14,7 @@ Everything between that rule's `#` heading line and the `---` that ends it. **Ne
 
 ### Scope
 
-Two documents change: `docs/03-game-flow.md` and `docs/14-glossary.md`. Nothing else — `openspec/specs/` has no game-flow capability, so this change carries no spec delta, and `TODO.md` is **not** touched (see task 4.4).
+Two documents change: `docs/03-game-flow.md` and `docs/14-glossary.md`. Nothing else — `openspec/specs/` has no game-flow capability, so this change carries no spec delta, and `TODO.md` is **not** touched (see task 3.4).
 
 ### Coverage
 
