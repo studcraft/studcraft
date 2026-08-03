@@ -90,7 +90,7 @@ A powered vehicle occupies two or more Unit Bases.
 
 One of those is taken by its Pilot, who occupies a Unit Base like any other crew member (`09-transport.md`, TRN-014) and is required for the vehicle to move at all (`08-vehicles.md`, VEH-013). A single-Unit-Base vehicle would be entirely filled by its own driver, with no vehicle left around them.
 
-Their footprint is defined by the LEGO model itself.
+Its footprint is defined by the LEGO model itself.
 
 Vehicle movement and transport capacity are described in the Vehicle Rules.
 
