@@ -35,7 +35,7 @@ Instead, movement is determined by:
 
 # VEH-001 — Vehicle Footprint
 
-A vehicle occupies one or more Unit Bases (UB) — see `02-core-rules.md` (CORE-001) for the Unit Base definition (4 × 3 studs).
+A powered vehicle occupies two or more Unit Bases (UB) — see `02-core-rules.md` (CORE-001) for the Unit Base definition (4 × 3 studs), and VEH-013 for why one is not enough.
 
 Examples
 
@@ -195,6 +195,8 @@ A vehicle cannot combine locomotion systems unless explicitly designed to do so.
 # VEH-013 — Pilot
 
 Every powered vehicle — wheeled, tracked, walker, or hover (VEH-012) — requires a Pilot to move, a crew member (VEH-015) occupying a visible operating position.
+
+Because the Pilot occupies a Unit Base of its own (`09-transport.md`, TRN-014), a powered vehicle needs room for its Pilot in addition to its machinery. This is why the minimum footprint is two Unit Bases (`02-core-rules.md`, CORE-004; VEH-001) rather than one: at one, the Pilot is the whole vehicle. The floor is not a chosen number — it is whatever this rule and TRN-014 together imply.
 
 The Pilot resolves Impacts like any other component (`16-damage-system.md`, DMG-005: Operational / Wounded / Dead).
 
