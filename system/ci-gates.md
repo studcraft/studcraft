@@ -173,6 +173,32 @@ The general lesson: **if a mechanical check exists only inside a manually
 triggered batch step, it is not a gate — it is a landmine.** Move it to the PR
 that can still fix it cheaply.
 
+## A new gate must be tested against work it should let through
+
+`OpenSpec change is coherent` originally ran `openspec validate --all`, and
+was made a required check the same day. Its first encounter with a real
+proposal failed it:
+
+```
+✗ change/vehicle-minimum-footprint
+[ERROR] Change must have at least one delta. No deltas found.
+```
+
+The change was correct. `system/proposal-review.md` (Delta vs. Direct Edit)
+states this repo's own policy: several `docs/` documents predate the OpenSpec
+workflow and were never formalised as capabilities, so there is nothing to
+delta against, and inventing one is explicitly wrong. A required check had
+been shipped that blocks the repo's documented practice — and would have
+blocked most future ruleset work, since the un-formalised documents include
+core rules, combat, transport, movement and construction.
+
+The gate now validates the living specs always, and validates a change only
+when it actually ships a `specs/` directory.
+
+**Testing that a gate fails on bad input is half the work.** Test that it
+passes on every shape of legitimate work first — including the shapes
+documented elsewhere in `system/` as correct.
+
 ---
 
 # A Gate That Checks Presence Is Not Checking Substance
