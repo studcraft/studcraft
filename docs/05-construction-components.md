@@ -60,6 +60,7 @@ Current gameplay:
 
 - Required for all powered vehicles.
 - Losing the Pilot disables vehicle movement (`08-vehicles.md`, VEH-013).
+- Because the Pilot occupies a Unit Base, a powered vehicle must be built at least two Unit Bases in footprint (`02-core-rules.md`, CORE-004).
 
 ---
 

@@ -86,9 +86,11 @@ Infantry occupy one Unit Base.
 
 ## CORE-004 — Vehicles
 
-Vehicles occupy one or more Unit Bases.
+A powered vehicle occupies two or more Unit Bases.
 
-Their footprint is defined by the LEGO model itself.
+One of those is taken by its Pilot, who occupies a Unit Base like any other crew member (`09-transport.md`, TRN-014) and is required for the vehicle to move at all (`08-vehicles.md`, VEH-013). A single-Unit-Base vehicle would be entirely filled by its own driver, with no vehicle left around them.
+
+Its footprint is defined by the LEGO model itself.
 
 Vehicle movement and transport capacity are described in the Vehicle Rules.
 
