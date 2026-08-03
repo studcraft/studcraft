@@ -18,6 +18,20 @@ If a proposal violates the Design Code, it should be redesigned before being add
 
 ---
 
+## "The Model Is The Rules" and the written rules
+
+The rules live in `docs/`. There are over two hundred of them, and they are numbered, precise and binding. That is not in tension with this document's central claim, but the relationship is worth stating plainly, because it is the first thing a new reader asks.
+
+**The model supplies the values. The ruleset supplies the procedures.**
+
+A weapon's range is not written anywhere — you measure the weapon. But *that* range is `Weapon Length × 6`, and that a target must be inside it, and how the resulting Attack Dice are rolled, are all written down, because none of them can be read off a brick.
+
+So "The Model Is The Rules" does not mean there are no written rules. It means there is **no profile to consult before looking at the model** — no stat card, no unit entry, no hidden number that the model merely illustrates. Every quantity the rules consume is measured from the construction in front of you.
+
+This document states no rules of its own. Where a principle below mentions a specific value, it cites the rule in `docs/` that owns it, and that rule is the authority.
+
+---
+
 # The StudCraft Philosophy
 
 StudCraft is not a traditional tabletop wargame.
@@ -151,6 +165,8 @@ One Unit Base measures:
 
 **4 × 3 studs**
 
+— defined by `docs/02-core-rules.md` (CORE-001), which is the authority on its dimensions and orientation.
+
 Everything should be expressed using Unit Bases whenever practical.
 
 Examples:
@@ -173,6 +189,8 @@ Every unit receives:
 
 **3 Action Points (AP)**
 
+— defined by `docs/02-core-rules.md` (CORE-006), which is the authority on the amount and on what may be spent.
+
 Construction determines what a unit *can* do.
 
 Action Points determine *when* it can do it.
@@ -189,7 +207,7 @@ The core rule is simple:
 
 > **If you can see it, you can shoot it.**
 
-This is symmetric: if it can see you, you can be its target during its own activation — not an out-of-turn reaction. StudCraft has no reaction fire.
+Visibility is symmetric: what can see you can target you. Whether that produces a shot outside a unit's own activation is a rule, not a principle — `docs/02-core-rules.md` (CORE-009) decides it.
 
 Construction determines cover, exposure and firing opportunities.
 
