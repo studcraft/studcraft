@@ -4,6 +4,35 @@ This file indexes the example images the StudCraft ruleset needs. It does not co
 
 Entries are selective by design. A rule only appears here if the rule *is* a spatial or geometric fact — something a reader genuinely cannot picture correctly from text — not because an image would be a nice illustration. Purely procedural rules (action costs, turn order) and purely definitional rules are left out even when they are important, because an image adds nothing to them. The final section records the rules that were considered and rejected, and why, so they are not re-proposed without cause.
 
+## Entry format
+
+Every document that needs images gets its own `## docs/<file>.md` section holding one table. The table always has these four columns, in this order:
+
+| Rule | Filename | What it must show | Why text alone is not enough |
+|---|---|---|---|
+
+**Rule** — the rule ID exactly as it appears in `docs/` (`WPN-020`, `CORE-001`). For an unnumbered section, its heading text.
+
+**Filename** — the full path in backticks, following the naming convention below.
+
+**What it must show** — an instruction to whoever draws the image, and nothing else. Name the elements, their arrangement, and any labelling the image needs. Write it so someone who has not read the rule could still produce a correct drawing from it.
+
+This column must not contain:
+
+- the rule itself restated — that belongs in `docs/`, and a second copy here drifts;
+- justification for the image existing — that is the next column;
+- bookkeeping about the entry, such as how many blocks it replaces or when it was added.
+
+**Why text alone is not enough** — the argument. What is genuinely hard to picture, ambiguous, or unstated in the prose. This is where reasoning goes, and it is what a reviewer checks when deciding whether the entry belongs at all.
+
+### Rejecting a candidate
+
+Rules considered and turned down go in the final section, each with the reason. That record is the point: without it, the same candidate gets re-proposed by whoever next reads the ruleset and notices the same thing.
+
+### Reclassifying
+
+If a rejected candidate is later accepted, or an accepted one dropped, **do not silently move it.** Leave it in the rejected list struck through, marked reclassified, with a line saying what changed — normally the criterion, not the rule. A reader should be able to see that the earlier judgement was superseded rather than mistaken.
+
 ## Naming convention
 
 - For a numbered rule: `assets/images/<rule-id-lowercase>-<short-slug>.png`
