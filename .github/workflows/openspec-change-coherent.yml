@@ -40,11 +40,40 @@ jobs:
       - name: Install OpenSpec
         run: npm install -g @fission-ai/openspec
 
-      # Structural: does every change and spec parse, does each change carry at
-      # least one delta, does every requirement have a scenario. Catches a
-      # malformed proposal before anyone spends review time on its content.
-      - name: Validate every change and spec
-        run: openspec validate --all
+      # Structural: does every change and spec parse, does every requirement
+      # have a scenario.
+      #
+      # NOT `openspec validate --all`. That treats "change has no deltas" as an
+      # error, and this repo has legitimate delta-free changes: several docs/
+      # documents predate the OpenSpec workflow and were never formalised as
+      # capabilities, so there is nothing to write a delta against. See
+      # system/proposal-review.md (Delta vs. Direct Edit) — inventing a delta
+      # against a capability that does not exist is explicitly the wrong move.
+      #
+      # So: validate the living specs always, and validate a change only when
+      # it actually ships deltas.
+      - name: Validate specs, and any change that ships deltas
+        run: |
+          set -euo pipefail
+          failed=0
+
+          for spec in openspec/specs/*/; do
+            name=$(basename "$spec")
+            openspec validate "$name" || failed=1
+          done
+
+          for change in openspec/changes/*/; do
+            name=$(basename "$change")
+            [ "$name" = "archive" ] && continue
+            if [ -d "$change/specs" ]; then
+              echo "Validating change $name (ships deltas)"
+              openspec validate "$name" || failed=1
+            else
+              echo "Skipping change $name — no specs/, which is legitimate here (see system/proposal-review.md, Delta vs. Direct Edit)"
+            fi
+          done
+
+          exit $failed
 
       # Semantic: would any MODIFIED block silently delete a scenario the living
       # spec already has? `openspec validate` does not catch this — verified by
