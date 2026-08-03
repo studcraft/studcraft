@@ -266,4 +266,10 @@ Also called Overrun. When an Impact's strength exceeds a component's Resistance,
 
 ---
 
+## Scenario
+
+The definition of one particular game: how it ends and how victory is judged, at minimum, and optionally the battlefield, the terrain and any restriction on otherwise-legal actions. The ruleset defines how models behave; the scenario defines what the players are trying to do. See `03-game-flow.md` (FLOW-013).
+
+---
+
 > **Every Brick Matters.**
