@@ -79,6 +79,7 @@ The constraint originates in `VEH-013`: a powered vehicle needs a Pilot, and a P
 - [ ] 4.2 `TRN-014` and `CMP-013` still state that crew members occupy their own Unit Bases. This change depends on that and must not alter it.
 - [ ] 4.3 `VEH-004` is untouched. Movement still derives from length; this change alters the smallest legal length, not the formula.
 - [ ] 4.4 `DEP-003` and `DEP-004` are untouched. Deployment Area cost per Unit Base is unchanged.
+- [ ] 4.5 `TRN-001` still reads "Every transported object occupies one or more Unit Bases". That phrase is correct there — it describes cargo and passengers, not vehicle footprints — and must not be swept up by a find-and-replace.
 
 ---
 
@@ -86,7 +87,7 @@ The constraint originates in `VEH-013`: a powered vehicle needs a Pilot, and a P
 
 - [ ] 5.1 Run `python3 scripts/lint_ruleset.py`; confirm no structural issues. This also checks that every `(CORE-NNN)`, `(TRN-NNN)` and `(VEH-NNN)` reference added above resolves.
 - [ ] 5.2 Run `grep -rcE '^#{1,2} [A-Z]{3,4}-[0-9]{3} ' docs/ | awk -F: '{s+=$2} END {print s}'` and confirm the total is **218**, unchanged.
-- [ ] 5.3 Run `grep -rn "one or more Unit Bases" docs/` and confirm **zero** hits — both rules that said it have been corrected.
+- [ ] 5.3 Run `grep -rn "one or more Unit Bases" docs/` and confirm exactly **one** hit remains, in `docs/09-transport.md` (`TRN-001`). That is a different and correct use of the phrase — it is about transported objects, not vehicles, and must not be changed. Before this change there are three hits; `CORE-004` and `VEH-001` are the two that go.
 - [ ] 5.4 Run `grep -rn "two or more Unit Bases" docs/` and confirm exactly **two** hits, in `CORE-004` and `VEH-001`.
 - [ ] 5.5 Run `grep -rn "Pilot is the whole vehicle\|room for its Pilot" docs/` and confirm the derivation appears **once**, in `VEH-013`. It must not be restated in `CORE-004`, `VEH-001` or `CMP-002` — those cite it.
 - [ ] 5.6 Run `git diff --stat main...HEAD` and confirm exactly these paths changed: `docs/02-core-rules.md`, `docs/08-vehicles.md`, `docs/05-construction-components.md`, plus the four files under `openspec/changes/vehicle-minimum-footprint/`.
