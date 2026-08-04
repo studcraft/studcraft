@@ -31,6 +31,34 @@ This is not hypothetical. A `git add -A` swept those files into a commit once. B
 
 ---
 
+# Branch Naming
+
+Branch names are not cosmetic here. Three gates read `github.head_ref` and
+change what they allow based on what they find, so the name is an input to CI.
+`Branch name follows the convention` enforces the table below on every PR.
+
+| Name | Who creates it | What it may touch |
+|---|---|---|
+| `release/v<major>.<minor>.<patch>` | `Release cut` workflow, never by hand | `CHANGELOG.md` and the `**Version:**` header line in `docs/*.md` — nothing else |
+| `archive/batch-<date>-<run-id>` | `Archive cut` workflow, never by hand | `openspec/` only |
+| `<change-name>` — the directory name under `openspec/changes/`, exactly | you, for a ruleset proposal | `docs/*.md` plus that one change |
+| `<what-it-does>` in kebab-case | you, for anything else | anything except `docs/` and `openspec/specs/` |
+
+`release/` and `archive/` are **reserved prefixes**. Do not name a branch with
+one because it seems descriptive — those two names are how the automation's own
+PRs identify themselves to the gates that would otherwise block them.
+
+A ruleset branch takes its proposal's name because `openspec/config.yaml`
+requires one dedicated branch per proposal, and a name that matches is the only
+way to check that mechanically. Of the 22 merged PRs that changed `docs/`, 21
+already did this; the exception carried two proposals at once, which is
+separately forbidden.
+
+Everything else is lowercase kebab-case: `agent-definitions`,
+`consolidate-core-measurements`. No slashes, no underscores, no uppercase.
+
+---
+
 # Keeping a branch up to date with main/develop
 
 If GitHub shows "This branch is out-of-date with the base branch":

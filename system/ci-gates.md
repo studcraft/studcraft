@@ -73,6 +73,54 @@ The check is on content, not on the label, so a maliciously or carelessly
 named branch fails anyway. Add the same treatment to any future exemption
 before merging it.
 
+### One gate was fixed and the other two were not
+
+Writing the rule down did not apply it everywhere. `Docs require OpenSpec
+proposal` and `OpenSpec archive must be separate from apply` were both
+tightened; `Docs must not edit CHANGELOG.md directly` kept the bare
+`exit 0` for months afterwards, while this document already described the
+fix as the pattern used throughout the repo.
+
+What that leaves open is narrower than the original bypass but real: a branch
+called `release/v9` that touches only `**Version:**` headers satisfies the
+proposal gate, and the CHANGELOG gate waves it through on the name alone —
+so `CHANGELOG.md` can be written by hand, which is the one thing the gate
+exists to prevent. It now asserts the same content constraint as the other
+two: nothing outside `CHANGELOG.md` and `docs/*.md`, and inside `docs/`,
+nothing but the `**Version:**` line.
+
+**When a lesson is written here, grep for every gate it applies to and fix
+them in the same PR.** A rule recorded in `system/` and applied to one of
+three call sites reads, later, exactly like a rule that was applied
+everywhere.
+
+---
+
+# The Branch Name Is Itself an Input, So Validate It
+
+Three gates change their behaviour based on `github.head_ref`. That makes the
+branch name an untrusted input on the same footing as the diff, and until
+`Branch name follows the convention` was added, nothing checked its shape —
+only whether it started with a reserved prefix. `archive/anything-at-all`
+matched the archive exemption; `release/v9` matched the release one.
+
+Content constraints (above) already stop such a branch from *landing* anything
+it should not. The naming gate handles the other half: it rejects the
+ambiguous name outright, so no gate has to guess what a half-formed
+`release/` branch was meant to be.
+
+It also enforces one thing no content check can. `openspec/config.yaml`
+requires each proposal to live on its own dedicated branch, and `Docs require
+OpenSpec proposal` verifies a PR carries exactly one change — but nothing tied
+the branch to *that* change. The naming gate requires them to be equal.
+
+**Test a naming rule against the merged history before shipping it**, per the
+last section of this document. This one was: of the 22 merged PRs touching
+`docs/`, 21 already had `branch == change name`, and the single exception
+carried two proposals, which `Docs require OpenSpec proposal` rejects on its
+own. A convention that the repo's own history fails is a convention that needs
+changing, not a history that needs excusing.
+
 ---
 
 # Anything Mutating Shared State Needs a Concurrency Group
