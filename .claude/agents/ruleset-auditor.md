@@ -62,9 +62,13 @@ Each closes with one of two co-equal mottos — `> **Every Brick Matters.**` for
 
 Check that the **Summary** at the end of a document still reflects the rules above it — `system/proposal-review.md`, "The Summary Is Part of the Rule", records why this is one of the most frequent misses here.
 
-### 2b. Version and changelog
+### 2b. Version and changelog — the finding runs the other way
 
-`system/documentation-standards.md` requires Semantic Versioning and a changelog entry whenever behaviour changes. The linter only checks that the `**Version:**` headers agree with each other — it cannot tell that a behavioural change shipped without bumping them, or without a `CHANGELOG.md` entry. When a change alters what a rule does rather than how it reads, check both, and report a missing bump or missing entry as a finding.
+The intuitive check here is backwards, so read it carefully: **a change that alters behaviour must not bump anything and must not write a changelog entry.**
+
+`CHANGELOG.md` and every `**Version:**` header belong to the `Release cut` workflow alone. Several proposal branches are normally in flight at once; a version or entry chosen on one collides with every sibling that chose the same. `docs/*.md` changes default to a minor bump automatically, and a commit needing a major says so with a `**Bump:** major` line that `scripts/release_cut.py` reads from the git history. See `system/documentation-standards.md` (Versioning) and `system/workflow.md`.
+
+So report as a finding: a `tasks.md` that instructs anyone to edit `CHANGELOG.md`, and a diff that changes a `**Version:**` header. Both make the pull request red — `Docs must not edit CHANGELOG.md directly` is a required status check — and both are the proposal's defect, not the applier's.
 
 ### 3. Rule-ID stability
 
