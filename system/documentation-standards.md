@@ -38,16 +38,28 @@ a session and wrote it to its own local memory instead of here. Anything worth
 remembering about this repository is worth committing to it. If it is not worth
 a commit, it is not worth remembering.
 
-**This one is enforced rather than trusted.** `.claude/settings.json` defines a
-`PreToolUse` hook on `Write|Edit` that denies any path matching
-`/.claude/projects/*/memory/` and returns this rule as the reason. It is the
-only rule in `system/` a script can check, because it is the only one that is a
-path rather than a judgement — the rest depend on a reader deciding whether two
-paragraphs say the same thing.
+**This one is enforced rather than trusted**, by two settings in
+`.claude/settings.json` that do different jobs:
+
+- **`autoMemoryEnabled: false`** switches the auto-memory subsystem off for this
+  project. Nothing is read from that directory into an agent's context, and
+  nothing is written to it by the memory machinery. This removes the *motive*.
+- **A `PreToolUse` hook on `Write|Edit`** denies any path matching
+  `/.claude/projects/*/memory/` and returns this rule as the denial reason. This
+  removes the *capability*.
+
+The second is not redundant. `Write` is a file tool: it does not consult
+`autoMemoryEnabled` and will write wherever it is pointed. The violation that
+prompted all this went through exactly that path — an agent calling `Write` with
+a filename, not the memory subsystem. And a direct instruction to "remember
+this" outweighs a setting nobody is looking at. Without the hook that write
+succeeds silently; with it, the attempt returns this rule.
 
 The hook fails open by design: a path it does not recognise is allowed. It stops
 the default memory directory, not every conceivable location outside the
-repository.
+repository. It is also the only rule in `system/` a script can check at all,
+because it is the only one that is a path rather than a judgement — nothing can
+grep for whether two paragraphs say the same thing.
 
 ---
 
