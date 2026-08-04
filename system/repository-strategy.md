@@ -13,6 +13,16 @@ BLOCKER rules. No exceptions, ever — not for "my own branch," not to fix an ou
 
 ---
 
+# Staging — never `git add -A`
+
+- **Never run `git add -A` or `git add .`.** Stage only the specific paths you edited, by name. This applies to every agent and to every commit, including "obviously safe" ones.
+- `assets/studio/` holds the repository owner's untracked work-in-progress image sources (`.io` project files and their exports). They are **deliberately not tracked** and must never be staged or committed. `assets/IMAGES.md` specifies what the finished images must show; the studio files are the drafts on the way there, and they belong to the owner's machine.
+- Run `git status --short` before every commit and confirm nothing under `assets/studio/` is staged.
+
+This is not hypothetical. A `git add -A` swept those files into a commit once. Because history only grows (see above), the fix was a **new commit** doing `git rm --cached` — not an amend, and not a force-push. The files stayed on disk, untracked, which is where they belong.
+
+---
+
 # Creating a new branch
 
 - Before creating any new branch, update local `main` first: `git fetch origin` then `git checkout main` then `git pull origin main --ff-only` (or branch directly off `origin/main`). Never branch off a stale local `main`.

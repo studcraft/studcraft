@@ -9,6 +9,34 @@ it perfectly, and what the reviewer still has to do afterwards.
 
 ---
 
+# The Two Agents, and When to Raise Them
+
+Both roles are defined as repository agents in `.claude/agents/`, so the
+constraints below do not have to be retyped from memory each session. They
+had been, and they drifted.
+
+| Agent | Model | When |
+|---|---|---|
+| `ruleset-auditor` | Opus, read-only | **Twice per change** — on the proposal before it is applied, and on the applied text afterwards. Also on `docs/` at any time. |
+| `proposal-applier` | Sonnet | Once the proposal has passed its audit. Transcription only. |
+
+The order matters and is not decoration:
+
+1. Design the change and write `proposal.md`, `design.md`, `tasks.md`.
+2. **Raise `ruleset-auditor` on the proposal.** This is where the findings
+   are — see the evidence below. Fix what it reports before applying, not
+   after.
+3. **Raise `proposal-applier`** to apply it. Give it the absolute working
+   directory and the branch.
+4. **Raise `ruleset-auditor` again on the applied text.**
+5. Read the result yourself, then push and open the PR. Those last two steps
+   never belong to an agent.
+
+`ruleset-auditor` has no `Edit` or `Write` tool by construction, so it cannot
+quietly repair what it is measuring. Keep it that way.
+
+---
+
 # The Split, and the Evidence For It
 
 Across every delegated change so far, the executing agents applied the tasks
@@ -129,9 +157,16 @@ Remove worktrees when done: `git worktree remove <path> --force`.
 
 # Scope Agents Explicitly
 
-Give the working directory as an absolute path and state the boundaries: do
-not switch branches, do not push, do not open a PR, do not touch anything
-outside this directory. Ask for a short report — what was applied, what
-verification failed and how it was fixed, and what was ambiguous.
+`.claude/agents/proposal-applier.md` already carries the standing boundaries —
+never `git add -A`, never touch `assets/studio/`, no amend, no rebase, no
+force-push, no push, no PR. What still has to be said per invocation:
+
+- The working directory, as an absolute path.
+- The branch, and that it must not be left.
+- The change name.
+- Anything specific to this change that the agent could not infer.
+
+Ask for a short report — what was applied, what verification failed and how,
+and what was ambiguous.
 
 Pushing and opening PRs stays with the reviewer, who has read the result.
