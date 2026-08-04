@@ -1,20 +1,24 @@
 # Design Process
 
-Before proposing a new mechanic, ask:
+**The questions to ask before adding a rule are the Design Checklist in
+`CODE_OF_DESIGN.md`. There are seven. Ask them there, not here.**
 
-1. Can this be represented physically by the LEGO model?
-2. Can an existing system already solve this?
-3. Does this introduce hidden statistics?
-4. Does this make construction more meaningful?
-5. Does this remain intuitive for players?
+This document used to open with five of them, reworded. The two it dropped
+were *"Does it introduce unnecessary exceptions?"* and *"Does it reinforce
+'Every Brick Matters'?"* — so anyone running the filter from this file was
+running a checklist two criteria short of the constitution, without knowing
+it. A "Preferred Design Patterns" list did the same thing to Principles 1, 4,
+7, 11, 12 and 15, compressing each to a two-word bullet.
 
-If the answer to any question is negative, reconsider the proposal.
+What follows is the part that is genuinely this document's own.
 
 ---
 
 # Rule Hierarchy
 
-When multiple solutions exist, prioritize them in this order:
+The checklist tells you whether a rule belongs. This tells you **where to
+reach first** when it does. When several solutions would work, prefer them in
+this order:
 
 1. Physical construction
 2. Existing rules
@@ -23,28 +27,18 @@ When multiple solutions exist, prioritize them in this order:
 
 New subsystems should be introduced only when absolutely necessary.
 
----
-
-# Preferred Design Patterns
-
-Agents should favor:
-
-- Universal systems
-- Reusable mechanics
-- Component-based design
-- Physical representation
-- Consistent terminology
-- Minimal exceptions
-
-Avoid special-case rules whenever possible.
+The ordering is the point, and it is the reason this section survives.
+`CODE_OF_DESIGN.md` argues each level separately — Principle 3 for
+construction over abstraction, Principle 15 for extending rather than
+replacing, Principle 11 for the simpler of two solutions — but never ranks
+them against one another. The ranking is what tells you what to try when more
+than one would work.
 
 ---
 
 # Decision Filter
 
-Final check before submitting any proposal:
-
-- Does it still satisfy every question in Design Process above?
-- Does it fit the Design Code (see `CODE_OF_DESIGN.md`)?
-
-If not, redesign it.
+Before submitting a proposal, re-run the Design Checklist in
+`CODE_OF_DESIGN.md` against the finished text, not against the idea you
+started with. A proposal drifts while it is being written, and the version
+submitted is the one that has to pass.

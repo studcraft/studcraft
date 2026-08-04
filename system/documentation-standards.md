@@ -9,7 +9,6 @@
 ├── LICENSE
 ├── AGENTS.md
 ├── system/
-│   ├── agent-responsibilities.md
 │   ├── design-process.md
 │   ├── documentation-standards.md
 │   ├── workflow.md
@@ -17,8 +16,7 @@
 │   ├── delegating-to-agents.md
 │   ├── ci-gates.md
 │   ├── repository-strategy.md
-│   ├── communication.md
-│   └── vision.md
+│   └── communication.md
 │
 ├── openspec/
 │   ├── config.yaml
