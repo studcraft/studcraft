@@ -1,3 +1,45 @@
+# What `system/` Is For
+
+**`system/` is context for AI agents. It is not human-facing documentation.**
+
+That single fact decides how these documents are written, and it is the reason
+for the deletions in this repository's history rather than the tidy summaries
+someone might expect instead.
+
+Every line here is loaded into an agent's context window, where it competes
+with the line that actually decides something. A restatement a human reader
+would find harmlessly reassuring — the same principle in shorter words, one
+file closer to hand — is, for an agent, noise diluting the signal. And a
+shortened restatement is never merely redundant: `AGENTS.md` reprinted eight of
+fifteen principles and silently dropped the two that catch the most defects;
+`design-process.md` reprinted five of seven checklist questions the same way.
+
+So, when writing anything under `system/`:
+
+- **If it is already argued elsewhere — `CODE_OF_DESIGN.md`, another `system/`
+  file, a script's docstring — delete it and point at the owner.** Do not keep
+  a convenient summary. One owner per rule.
+- **Only content with no other home survives.** A file whose every line has a
+  destination is deleted, not preserved for its organisational role.
+- Prefer a pointer to a copy, always, even when the copy would be shorter to
+  read. The copy is what goes stale.
+
+## The context lives in the repository
+
+An agent's own memory, scratchpad or session notes are **not** a valid home for
+anything about this repository. Constraints live in `system/`, `AGENTS.md` and
+`.claude/agents/` — in the repository, versioned and reviewable — *"rather than
+in whoever is driving the session"* (`AGENTS.md`), and so they *"do not have to
+be retyped from memory each session. They had been, and they drifted"*
+(`system/delegating-to-agents.md`).
+
+This has been violated in practice, by an agent that learned a criterion during
+a session and wrote it to its own local memory instead of here. Anything worth
+remembering about this repository is worth committing to it. If it is not worth
+a commit, it is not worth remembering.
+
+---
+
 # Repository Structure
 
 ```

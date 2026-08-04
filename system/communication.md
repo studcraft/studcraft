@@ -12,3 +12,22 @@ to be on that list. They are Principle 15 (Future Compatibility) in
 
 Large architectural changes should be proposed before implementation — see
 `system/workflow.md` for what that means procedurally.
+
+---
+
+# Never state repository state you have not just checked
+
+**Do not say how many pull requests are open, which are merged, or what is left
+to land, without running `gh pr list` in that same turn.** The same goes for
+issues and for branch state.
+
+This was corrected three times in a single session. The reason it recurs is
+structural, not careless: the maintainer merges pull requests between turns, so
+any count carried forward from earlier in a conversation is stale by
+construction — it was true when it was written and false by the time it is
+repeated.
+
+A closing summary of "what is pending" needs its own fresh check, because that
+is exactly where a remembered count gets restated. And being wrong about
+something a command answers in one second reads as a rotten context, which
+costs trust in everything stated alongside it.
