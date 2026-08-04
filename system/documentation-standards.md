@@ -83,7 +83,18 @@ Every document should include:
 - Rule Definitions
 - Summary
 
+`scripts/lint_ruleset.py` checks for Purpose, Design Philosophy and Summary as
+headings, in every document that defines rules. "Rule Definitions" is not a
+heading anywhere in `docs/` — the rule headers are the definitions — so it is
+not checked as one. `01-foundations.md` and `14-glossary.md` define no rules
+and are not required to carry the sections; `02-core-rules.md` predates the
+standard and is missing Design Philosophy and Summary. That last one is a
+recorded exemption in the linter, not a precedent: a new document cannot be
+added to the list without editing the script.
+
 Every document closes with one of StudCraft's two co-equal mottos: `> **Every Brick Matters.**` for construction/gameplay documents, or `> **The Model Is The Rules.**` for the two documents specifically about the model-defines-values mechanism (`15-geometry-layers.md`, `16-damage-system.md`). This split is deliberate, not an inconsistency to fix.
+
+`01-foundations.md` carries **both**, because it introduces both — `> **The Model Is The Rules.**` first, then `> **Every Brick Matters.**` as the closing line. The linter checks the last non-empty line, so a document ending in either motto passes and this one is not a special case in the script.
 
 ---
 
