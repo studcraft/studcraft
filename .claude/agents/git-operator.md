@@ -34,14 +34,13 @@ git add -A                  git add .                       git add *
 git branch -D               git push --delete               gh pr merge
 ```
 
-`git add -A` is on that list because it happened. It swept `assets/studio/` — the repository owner's untracked image sources — into a commit. Stage the paths you were given, by name, one at a time.
+Stage the paths you were given, by name, one at a time.
 
 ## Stop and report, do not fix
 
 Stop before doing anything else, and report exactly what you saw, when:
 
 - `git status --short` shows changes outside the paths you were given.
-- `git status --short` shows anything under `assets/studio/`, staged or not.
 - The branch you were told to create already exists, locally or on the remote.
 - `git pull origin main --ff-only` does not fast-forward.
 - Any command exits non-zero.

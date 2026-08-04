@@ -51,7 +51,6 @@ Do not paraphrase, improve, shorten or expand the given text. If a task asks you
 ## Git constraints — these are hard
 
 - **Never run `git add -A` or `git add .`.** Stage only the specific paths you edited, by name.
-- `assets/studio/` holds the repository owner's untracked work-in-progress image files. **Never stage or commit anything under it.** Run `git status --short` before committing and confirm it is absent from the staged list.
 - Never force-push. Never amend an existing commit. Never rebase. **New commits only** — `system/repository-strategy.md` treats these as blockers.
 - Stay on the branch you were given. Do not create branches, do not switch branches, do not push, do not open a pull request. Pushing and opening the PR belong to the reviewer, who has read the result.
 - Touch only the paths the change's `tasks.md` lists under its scope, plus `tasks.md` itself for checkbox ticks.

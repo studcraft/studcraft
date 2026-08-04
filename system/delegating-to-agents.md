@@ -162,8 +162,8 @@ Remove worktrees when done: `git worktree remove <path> --force`.
 # Scope Agents Explicitly
 
 `.claude/agents/proposal-applier.md` already carries the standing boundaries —
-never `git add -A`, never touch `assets/studio/`, no amend, no rebase, no
-force-push, no push, no PR. What still has to be said per invocation:
+never `git add -A`, no amend, no rebase, no force-push, no push, no PR.
+What still has to be said per invocation:
 
 - The working directory, as an absolute path.
 - The branch, and that it must not be left.
