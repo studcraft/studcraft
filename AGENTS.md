@@ -73,14 +73,17 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 
 # Delegating Work
 
-Two roles are defined as repository agents in `.claude/agents/`, so their constraints live in the repository rather than in whoever is driving the session:
+Three roles are defined as repository agents in `.claude/agents/`, so their constraints live in the repository rather than in whoever is driving the session:
 
 | Agent | Model | When |
 |---|---|---|
 | [`ruleset-auditor`](.claude/agents/ruleset-auditor.md) | Opus, read-only | **Twice per change** — on the proposal before it is applied, and on the applied text afterwards. Also on `docs/` at any time. |
 | [`proposal-applier`](.claude/agents/proposal-applier.md) | Sonnet | Once the proposal has passed its audit. Transcription only. |
+| [`git-operator`](.claude/agents/git-operator.md) | Haiku | After you have read the result. Branch, commit, push, open the PR. Decides nothing. |
 
-Design the change, audit the proposal, apply it, audit the result, then read it yourself and open the pull request. **Pushing and opening PRs never belong to an agent.**
+Design the change, audit the proposal, apply it, audit the result, then **read it yourself**. That step never belongs to an agent.
+
+Deciding the result is fit to push is therefore yours. Issuing the commands afterwards is not — `git-operator` is handed the paths, the branch name and the message text, and selects none of them. Delegating the typing is not delegating the judgement.
 
 `system/delegating-to-agents.md` explains why the split works and how to write a change a less capable model applies perfectly.
 
