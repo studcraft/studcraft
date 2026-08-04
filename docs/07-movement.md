@@ -264,7 +264,7 @@ Friendly units may move around each other if enough space physically exists. Ene
 
 # MOVE-018 — Doors
 
-Closed doors block movement. Once opened, the doorway becomes a valid movement path.
+Closed doors block movement. Once opened, the doorway becomes a valid movement path for any model the opening physically passes (`05-construction-components.md`, CMP-018).
 
 Opening or closing a door is an interactive element action (`02-core-rules.md`, CORE-007).
 
@@ -272,7 +272,7 @@ Opening or closing a door is an interactive element action (`02-core-rules.md`, 
 
 # MOVE-019 — Ramps
 
-A lowered ramp immediately becomes usable terrain and is a legal access point (MOVE-011, MOVE-014).
+A lowered ramp immediately becomes usable terrain and is a legal access point (MOVE-011, MOVE-014). Where the ramp leads to an opening, that opening must physically pass the model as well (`05-construction-components.md`, CMP-018).
 
 Lowering or raising a ramp is an interactive element action (`02-core-rules.md`, CORE-007).
 

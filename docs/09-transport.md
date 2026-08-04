@@ -140,6 +140,8 @@ If there is insufficient space outside the vehicle, the unit cannot disembark.
 
 Only functional access points may be used.
 
+An access point's opening must physically pass the models that use it; one that does not is decorative (`05-construction-components.md`, CMP-018).
+
 Examples:
 
 - Doors
@@ -210,6 +212,8 @@ A transport may include:
 Only passengers with physical line of sight through these openings may attack.
 
 The opening determines the firing arc.
+
+A firing port passes a line of sight, not a model, so the access-opening requirement does not apply to it (`05-construction-components.md`, CMP-018). A roof hatch serving as both a firing port and an access point must satisfy that requirement in its access-point role only.
 
 ---
 
