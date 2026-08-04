@@ -9,9 +9,9 @@ it perfectly, and what the reviewer still has to do afterwards.
 
 ---
 
-# The Two Agents, and When to Raise Them
+# The Agents, and When to Raise Them
 
-Both roles are defined as repository agents in `.claude/agents/`, so the
+All three roles are defined as repository agents in `.claude/agents/`, so the
 constraints below do not have to be retyped from memory each session. They
 had been, and they drifted.
 
@@ -19,6 +19,7 @@ had been, and they drifted.
 |---|---|---|
 | `ruleset-auditor` | Opus, read-only | **Twice per change** — on the proposal before it is applied, and on the applied text afterwards. Also on `docs/` at any time. |
 | `proposal-applier` | Sonnet | Once the proposal has passed its audit. Transcription only. |
+| `git-operator` | Haiku | After you have read the result. Branch, commit, push, open the PR. Decides nothing. |
 
 The order matters and is not decoration:
 
@@ -29,8 +30,11 @@ The order matters and is not decoration:
 3. **Raise `proposal-applier`** to apply it. Give it the absolute working
    directory and the branch.
 4. **Raise `ruleset-auditor` again on the applied text.**
-5. Read the result yourself, then push and open the PR. Those last two steps
-   never belong to an agent.
+5. **Read the result yourself.** That step never belongs to an agent, and
+   nothing below changes it.
+6. Then `git-operator` may issue the commands. It is handed the paths, the
+   branch name and the message text — it chooses none of them. Delegating the
+   typing is not delegating the judgement, and the judgement is step 5.
 
 `ruleset-auditor` has no `Edit` or `Write` tool by construction, so it cannot
 quietly repair what it is measuring. Keep it that way.
@@ -169,4 +173,8 @@ force-push, no push, no PR. What still has to be said per invocation:
 Ask for a short report — what was applied, what verification failed and how,
 and what was ambiguous.
 
-Pushing and opening PRs stays with the reviewer, who has read the result.
+**Deciding that the result is fit to push stays with the reviewer, who has
+read it.** `git-operator` runs the commands afterwards and is given the paths,
+the branch name and the message text; it never selects them. `system/ci-gates.md`
+records why that step is local at all — the org blocks GitHub Actions from
+creating pull requests, so both cut workflows push a branch and stop.

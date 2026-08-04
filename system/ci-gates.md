@@ -7,6 +7,43 @@ worth writing down before adding another one.
 
 ---
 
+# Which Checks Are Required Right Now
+
+A check that exists is not a check that blocks. Marking one **required** is a
+branch-protection setting in the GitHub UI, done by hand, and nothing in this
+repository can do it for you — so a workflow can ship, pass on every PR, and
+still stop nothing.
+
+Required on `main`, with `enforce_admins` enabled so the single maintainer
+cannot merge past them:
+
+- `Docs require OpenSpec proposal`
+- `Docs must not edit CHANGELOG.md directly`
+- `OpenSpec archive must be separate from apply`
+- `Docs ruleset linter`
+- `OpenSpec change is coherent`
+
+**Not required, and therefore advisory only:**
+
+- `Branch name follows the convention` — passes on every PR since it landed;
+  add it to branch protection to make it block.
+
+Branch protection also sets `allow_force_pushes: false`, `allow_deletions:
+false`, `required_linear_history: true` and `strict: true` (a branch must be
+up to date before merging). Those cover `main` only. **No feature branch is
+protected**, so the force-push and rebase prohibitions in
+`system/repository-strategy.md` are rules someone keeps, not rules git
+enforces.
+
+Read the live state rather than trusting this list, which is a snapshot:
+
+```bash
+gh api repos/studcraft/studcraft/branches/main/protection \
+  --jq '.required_status_checks.contexts[]'
+```
+
+---
+
 # A Required Check Must Trigger on Every PR, Unconditionally
 
 `Docs ruleset linter` was originally scoped with `paths: docs/**` at the

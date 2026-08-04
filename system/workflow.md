@@ -19,18 +19,18 @@ See `openspec/config.yaml` for per-artifact rules.
 not filtered to PRs touching `docs/**`, because it's a required status
 check: a `paths:`-filtered trigger never creates a check run at all for
 non-matching PRs, which GitHub then treats as permanently pending and
-blocks the merge. It is a **structural** check only:
+blocks the merge. See `system/ci-gates.md`.
 
-- Rule IDs (`WPN-001`, `CORE-007`, ...) are unique and strictly
-  increasing within their document.
-- Cross-document rule references (e.g. `` `10-weapons.md` (WPN-002) ``)
-  point at an ID that actually exists in the target document.
-- Every `docs/*.md` file that defines rule IDs has a `**Version:**`
-  header, and all such headers agree with each other.
+**What it checks is listed in `system/documentation-standards.md`, and
+in the script's own docstring. Not here** — this section used to carry a
+third copy, and it went stale twice: once when the comma citation form
+was added, once when the document-skeleton checks were. Read one of
+those two.
 
-It does **not** catch semantic problems — contradicting rules, dangling
-narrative references, a rule that quietly invalidates another. That
-still requires a human (or an explicit review pass) reading the diff
+What is worth stating here is the boundary. It is a **structural** check
+only. It does **not** catch semantic problems — contradicting rules,
+dangling narrative references, a rule that quietly invalidates another.
+That still requires a human (or an explicit review pass) reading the diff
 against the existing ruleset, the way the `weapon-construction-system`
 proposal was reviewed before being applied.
 
@@ -43,24 +43,20 @@ Mandatory rules. No exceptions.
 - No document changes anywhere in the repo (`/docs`, `README.md`, `CODE_OF_DESIGN.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md`, `system/*.md`) may be committed directly to `main` or `develop`. Always use a branch.
 - Ruleset changes (`/docs/*.md`) additionally require an OpenSpec proposal first, on its own dedicated branch (see `openspec/config.yaml`). Non-ruleset docs (README, AGENTS.md, `system/*.md`, etc.) need a branch but not a proposal.
 - If asked to edit a ruleset document directly on `main`/`develop`, or without a proposal: stop, do not make the change, and tell the user why.
+- The branch's **name** is checked too, by `Branch name follows the convention` — a ruleset branch must be named for the OpenSpec change it carries, and `release/` and `archive/` are reserved for automation. The table is in `system/repository-strategy.md` (Branch Naming).
 
 ---
 
 # Versioning
 
-Multiple proposal branches can be in flight at the same time. Assigning a
-version number (e.g. bumping a `docs/*.md` header from 0.1.0 to 0.2.0) on
-a branch risks two branches picking the same next version and colliding
-at merge time.
+**The rule — nobody edits `CHANGELOG.md` or a `**Version:**` header by
+hand, and why — lives in `system/documentation-standards.md`
+(Versioning).** This section is the mechanism that makes that possible:
+how a version gets assigned when no PR assigns one.
 
-To avoid this:
-
-- A merging PR does **not** bump any version number, and does **not**
-  edit `CHANGELOG.md` at all. Ruleset document `Version:` headers stay
-  untouched too.
-- A version number is assigned only in a separate, later **release-cut**
-  step, which happens one at a time against `main` (git merges are
-  serialized), removing the collision case entirely.
+A version number is assigned only in a separate, later **release-cut**
+step, which happens one at a time against `main` (git merges are
+serialized), removing the collision case entirely.
 
 Earlier versions of this workflow had PRs hand-edit a `[Unreleased]`
 section in `CHANGELOG.md`, then later a required `**Bump:**` marker in
@@ -81,11 +77,9 @@ purely from git history, no commit message or file edit required:
 
 The only thing a PR must never do is edit `CHANGELOG.md` directly — that
 file is release-cut-only (see below), enforced by the `Docs must not
-edit CHANGELOG.md directly` GitHub Action. For this to actually block a
-merge, that check (and `Docs require OpenSpec proposal`) must be
-configured as **required status checks** in the branch protection rules
-for `main`/`develop`, with "Include administrators" enabled — otherwise
-the checks only advise and can be bypassed.
+edit CHANGELOG.md directly` GitHub Action. Which checks are actually
+required in branch protection is listed once, in `system/ci-gates.md`
+(Which Checks Are Required Right Now).
 
 Two fully optional escape hatches exist for the rare case that isn't
 "routine minor bump":
@@ -195,10 +189,9 @@ separate from apply` GitHub Action requires:
   `openspec/specs/` at all.
 
 So an apply PR that also tries to archive gets rejected, and an archive
-PR that also tries to sneak in a ruleset edit gets rejected too. For this
-to actually block a merge, `OpenSpec archive must be separate from
-apply` must be added to the **required status checks** in branch
-protection for `main`/`develop`, alongside the other required checks.
+PR that also tries to sneak in a ruleset edit gets rejected too. It is a
+required check — see `system/ci-gates.md` (Which Checks Are Required
+Right Now) for the current list.
 
 ## Archive close to the merge, not in batches of seventeen
 
