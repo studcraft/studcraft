@@ -148,4 +148,17 @@ Examples:
 - 0.2.0
 - 1.0.0
 
-Agents should update the changelog whenever behaviour changes.
+**Nobody edits `CHANGELOG.md` or a `**Version:**` header by hand — agents least
+of all.** Both are written by the `Release cut` workflow, which computes the
+next version from the commits since the last tag and rewrites every header in
+one pass. `Docs must not edit CHANGELOG.md directly` is a required status check
+that fails any PR changing `docs/*.md` which also touches `CHANGELOG.md`.
+
+This is not a style preference. Several proposal branches are usually in flight
+at once, and a version number or changelog entry chosen on a branch collides
+with every sibling branch that chose the same one. Deferring both to the cut is
+what makes concurrent proposals possible at all — see `system/workflow.md`.
+
+So a ruleset change declares nothing about its own version. `docs/*.md` changes
+default to a minor bump automatically; a commit that needs a major says so with
+a `**Bump:** major` line in its message, and `scripts/release_cut.py` reads it.
