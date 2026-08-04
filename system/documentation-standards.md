@@ -38,6 +38,17 @@ a session and wrote it to its own local memory instead of here. Anything worth
 remembering about this repository is worth committing to it. If it is not worth
 a commit, it is not worth remembering.
 
+**This one is enforced rather than trusted.** `.claude/settings.json` defines a
+`PreToolUse` hook on `Write|Edit` that denies any path matching
+`/.claude/projects/*/memory/` and returns this rule as the reason. It is the
+only rule in `system/` a script can check, because it is the only one that is a
+path rather than a judgement — the rest depend on a reader deciding whether two
+paragraphs say the same thing.
+
+The hook fails open by design: a path it does not recognise is allowed. It stops
+the default memory directory, not every conceivable location outside the
+repository.
+
 ---
 
 # Repository Structure
