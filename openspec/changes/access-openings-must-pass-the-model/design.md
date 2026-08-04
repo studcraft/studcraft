@@ -6,19 +6,21 @@ The interesting part is not that the gap exists. It is that the ruleset already 
 
 ## Decisions
 
-### The rule is a physical check, not a dimension
+### Width is derived from the Unit Base; only height is a physical check
 
-The natural first draft is a minimum size — "at least 1 Unit Base wide", or "at least 4 studs by 4 bricks".
+The first draft made the whole rule a physical check — "pass the model through, no dimensions stated" — on the grounds that a Unit Base is a floor footprint of 4 × 3 studs and carries no height, so deriving an aperture from it would leave the height undefined.
 
-Rejected, for two separate reasons.
+That reasoning was half right and reached the wrong conclusion. The correct response to "UB gives width but not height" is to take the width from the Unit Base and the height from the model, not to discard the Unit Base for both.
 
-A Unit Base is a floor footprint of 4 × 3 studs and carries no height. Deriving an aperture requirement from it constrains the width and says nothing about the height, which is the dimension that actually fails in practice: a 4-stud-wide slot one brick tall passes the test and passes nothing else.
+**Width was already defined and the draft was ignoring it.** Infantry is not a loose minifigure. `CORE-001` calls the 4 × 3 plate "the standard base for infantry", `04-construction-standard.md` requires every infantry model to be mounted on one, and `TRN-002` states that gear and posture never change the single Unit Base it occupies. The object crossing a doorway is a minifigure *on a 4-stud-wide plate*, invariably. `CORE-002` then makes the 4-stud edge the front, so it is precisely that edge which enters an opening first.
 
-And any fixed pair of numbers is wrong for something. It would be tuned to a minifigure and then be wrong for a cargo crate, a motorcycle, a droid, a walker's leg folding into a bay. Every one of those measures itself.
+Leaving width to a physical check invited an argument the game does not otherwise have. The first application of this change measured a bare minifigure's torso in millimetres and concluded the answer was 2 studs — a defensible measurement of the wrong object, and a sign that the rule had wandered out of the ruleset's own unit. Everything else in StudCraft is measured in Unit Bases; an aperture should not be the exception.
 
-So: the opening must pass the model, and it is verified by passing the model. No number appears in the rule, so no number can rot. This is Principle 13 one level down from where it usually applies — the game defines no fixed unit sizes, and it should define no fixed doorway either.
+**Height genuinely has no Unit Base**, so that half stays physical: take the model and pass it through.
 
-The minifigure figure survives only as an illustration, phrased as approximate. Its job is to make the failure case concrete ("a hinged 1×2 tile is not a door"), not to set the bar.
+This respects Principle 13 rather than bypassing it. 4 studs is not a magic constant introduced here — it is the Unit Base, and the whole ruleset expresses distances, deployment areas and footprints in it. A rule that refused to use the game's own measuring unit would be inventing arbitrariness, not avoiding it.
+
+The minifigure survives only as an illustration of the height failure: about 4 bricks tall on its base, against a 1 × 2 tile covering an opening under one brick high.
 
 ### The check is on the opening, not on the approach
 
@@ -64,7 +66,8 @@ That makes the aperture check the third member of a family, not a lone exception
 
 - **Marginal fits become a table judgment.** Two players may disagree about whether a model *quite* passes. Mitigated by it being a construction check made once, when the model is built, with the model in hand — not a mid-game measurement under time pressure. The ruleset already accepts judgment of this kind for Line of Sight, which is far more frequent and far more contested.
 - **Existing models may lose access points.** Deliberate, and the ruleset is a 0.x draft. The alternative is keeping doors that never functioned.
-- **The minifigure dimensions in the example are approximate.** They are prefaced as approximate and carry no rule weight, but a wrong-looking number in a rulebook invites correction regardless. Verify against a real minifigure before merging.
+- **Only the height figure is approximate.** The width is exact and derived (a Unit Base is 4 studs), so the one soft number left is "about 4 bricks tall", which carries no rule weight and only illustrates the failure.
+- **Marginal *heights* remain a judgment; marginal widths no longer are.** Splitting the rule this way removes most of the argument surface without pretending the rest away.
 - **Per-model results read strangely at first.** "This hatch is an access point for infantry and decorative for the motorcycle" is correct but needs the sentence that explains it, which the rule carries.
 - **The rule cannot be linted.** No script can check that a physical opening passes a physical model. It relies on the builder, like every other construction requirement in the document.
 

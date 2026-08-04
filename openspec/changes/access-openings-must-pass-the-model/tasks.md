@@ -72,9 +72,9 @@ The rule lives in `CMP-018`. Every other edit **cites** it in one short sentence
 >
 > An access point's opening must physically pass the models that use it. With the component in its open position, if a model cannot be moved through the opening, that component is decorative for that model and has no gameplay effect (CMP-009, CMP-010; `09-transport.md`, TRN-007).
 >
-> This is a physical check, not a measured value (`15-geometry-layers.md`, GEO-004): take the model and pass it through. No dimension is written here because none would hold — a minifigure, a droid, a cargo crate and a motorcycle each measure themselves.
+> **Width** is not a judgment call. Every model on the table stands on Unit Bases (`02-core-rules.md`, CORE-001), and a model's 4-stud edge is its front (`02-core-rules.md`, CORE-002) — so the opening must be at least as wide as the front edge of whatever passes through it. Infantry is invariably 1 Unit Base, 4 studs, whatever the minifigure carries and whether it stands or sits (`09-transport.md`, TRN-002). A vehicle W Unit Bases wide needs `W × 4` studs.
 >
-> Infantry is the common case. A minifigure stands about 4 bricks tall and about 2 studs across the arms, so height is usually what fails first. A hinged 1 × 2 tile covers an opening less than one brick high: it moves, which is all a door was ever asked to do, and a minifigure is four times too tall to walk through it.
+> **Height** has no Unit Base, so it is a physical check rather than a measured value (`15-geometry-layers.md`, GEO-004): take the model and pass it through. A minifigure on its base stands about 4 bricks tall. A hinged 1 × 2 tile covers an opening less than one brick high, which is why it moves and is still not a door.
 >
 > The check is made against the opening, not against the approach. A rear ramp is a surface a model climbs — whether it can be climbed is the Terrain Threshold's question (`08-vehicles.md`, VEH-022 – VEH-024). What a model must fit *through* is the hatch at the top of it. A perfectly drivable ramp leading to a portal too low for the vehicle is not an access point.
 >
@@ -86,7 +86,11 @@ The rule lives in `CMP-018`. Every other edit **cites** it in one short sentence
 
 - [x] 1.3.2 Before writing the minifigure sentence, **verify the two figures against a real minifigure**. They are illustrative and carry no rule weight, but a wrong number in a rulebook invites correction. If either is wrong, correct it in place and note the correction in your report; do not change the surrounding sentence structure.
 
-  **Outcome:** the first draft of this task said "roughly 4 studs across the arms". That was wrong — a stud is 8 mm and a minifigure's torso with arms down is about 16 mm, so 2 studs. The 4 came from the Unit Base's 4-stud width, which is a floor footprint and not a body. Corrected to 2 studs, and the sentence rewritten so that **height** carries the example: at 2 studs the width of a 1 × 2 tile no longer looks like the failure, and the failure was always the height. The block above is the corrected final text.
+  **Outcome, and the wrong turn it took.** The first draft said "roughly 4 studs across the arms". Applying it, that was measured against a bare minifigure — about 16 mm of torso, so 2 studs — and corrected to 2.
+
+  That correction measured the wrong object. Infantry is never a loose minifigure: `CORE-001` calls the 4 × 3 plate "the standard base for infantry", `04-construction-standard.md` requires every infantry model to be mounted on one, and `TRN-002` states that gear and posture never change it. What crosses a doorway is a minifigure **on a 4-stud-wide plate**, invariably — and `CORE-002` makes that 4-stud edge the front, so it is what enters an opening first.
+
+  The rule was restructured rather than renumbered: **width derives from the Unit Base, height stays a physical check.** The lesson worth keeping is that the moment this rule was measuring millimetres of plastic, it had left the ruleset's own unit — everything in StudCraft is expressed in Unit Bases, and an aperture is not the exception. The block above is the corrected final text.
 
 ---
 

@@ -35,15 +35,19 @@ Nothing else in the ruleset has this shape, which is why it is worth closing whi
 - **`GEO-004`** — the aperture check joins Line of Sight and Cover as a third physical check against the model as it sits on the table.
 - A glossary entry for **Access Opening**.
 
-### No dimension is written into the rule
+### Width comes from the Unit Base; height comes from the model
 
-The obvious formulation is "an opening must be at least 1 Unit Base wide". It is rejected.
+The two dimensions are answered by different means, because the ruleset defines one of them and not the other.
 
-A Unit Base is a floor footprint, 4 × 3 studs. It has no height. Deriving the requirement from it fixes the width and leaves the height undefined, which is the half that actually fails: a slot 4 studs wide and 1 brick tall would pass.
+**Width is already defined.** Every infantry model is *mounted on* a Unit Base — `CORE-001` calls the 4 × 3 plate "the standard base for infantry", `SCS` requires it, and `TRN-002` states that carrying gear or changing posture never changes the 1 UB it occupies. What crosses a doorway is therefore never a bare minifigure; it is a minifigure on a 4-stud-wide plate. And `CORE-002` makes the 4-stud edge the model's **front**, so that edge is exactly what enters an opening first.
 
-The rule is a **physical check** instead: the opening must pass the model, and you find out by passing the model. Every user measures itself — a minifigure, a droid, a cargo crate, a motorcycle. No stated number can be wrong because no number is stated. This is Principle 13 (the game defines no fixed units) applied to apertures.
+So the requirement derives with no new number: **the opening must be at least as wide as the front edge of what passes through it.** Infantry, invariably 4 studs. A vehicle W Unit Bases wide, `W × 4`.
 
-A minifigure appears in the text as an **example**, not as the rule: roughly 4 studs across the arms and 4 bricks tall, which is why a hinged 1×2 tile is not a door.
+**Height is not defined**, because a Unit Base is a floor footprint and carries none. That half stays a physical check: take the model and pass it through.
+
+This is Principle 13 respected rather than bypassed. 4 is not a magic constant — it is the Unit Base, the measuring unit the whole ruleset already uses. Every distance, deployment area and vehicle footprint in the game is expressed in it; an aperture is no different.
+
+A minifigure appears in the text only to make the failure concrete: about 4 bricks tall on its base, so a hinged 1 × 2 tile covering an opening under one brick high moves and is still not a door.
 
 ### The check is on the opening, not the approach
 

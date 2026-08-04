@@ -283,9 +283,9 @@ Good construction communicates functionality clearly.
 
 An access point's opening must physically pass the models that use it. With the component in its open position, if a model cannot be moved through the opening, that component is decorative for that model and has no gameplay effect (CMP-009, CMP-010; `09-transport.md`, TRN-007).
 
-This is a physical check, not a measured value (`15-geometry-layers.md`, GEO-004): take the model and pass it through. No dimension is written here because none would hold — a minifigure, a droid, a cargo crate and a motorcycle each measure themselves.
+**Width** is not a judgment call. Every model on the table stands on Unit Bases (`02-core-rules.md`, CORE-001), and a model's 4-stud edge is its front (`02-core-rules.md`, CORE-002) — so the opening must be at least as wide as the front edge of whatever passes through it. Infantry is invariably 1 Unit Base, 4 studs, whatever the minifigure carries and whether it stands or sits (`09-transport.md`, TRN-002). A vehicle W Unit Bases wide needs `W × 4` studs.
 
-Infantry is the common case. A minifigure stands about 4 bricks tall and about 2 studs across the arms, so height is usually what fails first. A hinged 1 × 2 tile covers an opening less than one brick high: it moves, which is all a door was ever asked to do, and a minifigure is four times too tall to walk through it.
+**Height** has no Unit Base, so it is a physical check rather than a measured value (`15-geometry-layers.md`, GEO-004): take the model and pass it through. A minifigure on its base stands about 4 bricks tall. A hinged 1 × 2 tile covers an opening less than one brick high, which is why it moves and is still not a door.
 
 The check is made against the opening, not against the approach. A rear ramp is a surface a model climbs — whether it can be climbed is the Terrain Threshold's question (`08-vehicles.md`, VEH-022 – VEH-024). What a model must fit *through* is the hatch at the top of it. A perfectly drivable ramp leading to a portal too low for the vehicle is not an access point.
 

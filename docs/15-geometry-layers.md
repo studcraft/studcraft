@@ -94,7 +94,7 @@ Some existing rules are not measured values — they are direct physical checks 
 
 - Line of Sight (`02-core-rules.md`, CORE-008, CORE-009): visibility is whatever can physically be seen from the attacker's point of view.
 - Cover (`02-core-rules.md`, CORE-010): binary — a component completely hidden cannot be selected as a target; a partially visible component has no separate cover level.
-- Access openings (`05-construction-components.md`, CMP-018): whether a model physically passes through an opening is settled by passing it, and decorative elements narrowing that opening count exactly as much as structural ones.
+- Access openings (`05-construction-components.md`, CMP-018): an opening's required width is measured in Unit Bases, but its height is settled by passing the model through — and decorative elements narrowing that opening count exactly as much as structural ones.
 
 These checks are not exceptions to "The Model Is The Rules" — they are the model's rules. Visual Geometry is real plastic on the table, so it physically blocks sight lines exactly like Gameplay Geometry does. It is only ignored when computing a measured value (GEO-003); it is never ignored when a rule asks what can physically be seen right now.
 
