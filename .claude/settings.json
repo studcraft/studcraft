@@ -1,0 +1,18 @@
+{
+  "autoMemoryEnabled": false,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | grep -qE '/\\.claude/projects/[^/]+/memory/' && printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"Blocked: that path is the agent-local memory directory, which lives outside this repository. Nothing about studcraft may be stored there — see system/documentation-standards.md, \\\"The context lives in the repository\\\". If it is worth remembering, commit it to system/, AGENTS.md or .claude/agents/. If it is not worth a commit, it is not worth remembering.\"}}' || true",
+            "timeout": 10,
+            "statusMessage": "Checking write target is inside the repo"
+          }
+        ]
+      }
+    ]
+  }
+}

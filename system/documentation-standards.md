@@ -1,3 +1,68 @@
+# What `system/` Is For
+
+**`system/` is context for AI agents. It is not human-facing documentation.**
+
+That single fact decides how these documents are written, and it is the reason
+for the deletions in this repository's history rather than the tidy summaries
+someone might expect instead.
+
+Every line here is loaded into an agent's context window, where it competes
+with the line that actually decides something. A restatement a human reader
+would find harmlessly reassuring — the same principle in shorter words, one
+file closer to hand — is, for an agent, noise diluting the signal. And a
+shortened restatement is never merely redundant: `AGENTS.md` reprinted eight of
+fifteen principles and silently dropped the two that catch the most defects;
+`design-process.md` reprinted five of seven checklist questions the same way.
+
+So, when writing anything under `system/`:
+
+- **If it is already argued elsewhere — `CODE_OF_DESIGN.md`, another `system/`
+  file, a script's docstring — delete it and point at the owner.** Do not keep
+  a convenient summary. One owner per rule.
+- **Only content with no other home survives.** A file whose every line has a
+  destination is deleted, not preserved for its organisational role.
+- Prefer a pointer to a copy, always, even when the copy would be shorter to
+  read. The copy is what goes stale.
+
+## The context lives in the repository
+
+An agent's own memory, scratchpad or session notes are **not** a valid home for
+anything about this repository. Constraints live in `system/`, `AGENTS.md` and
+`.claude/agents/` — in the repository, versioned and reviewable — *"rather than
+in whoever is driving the session"* (`AGENTS.md`), and so they *"do not have to
+be retyped from memory each session. They had been, and they drifted"*
+(`system/delegating-to-agents.md`).
+
+This has been violated in practice, by an agent that learned a criterion during
+a session and wrote it to its own local memory instead of here. Anything worth
+remembering about this repository is worth committing to it. If it is not worth
+a commit, it is not worth remembering.
+
+**This one is enforced rather than trusted**, by two settings in
+`.claude/settings.json` that do different jobs:
+
+- **`autoMemoryEnabled: false`** switches the auto-memory subsystem off for this
+  project. Nothing is read from that directory into an agent's context, and
+  nothing is written to it by the memory machinery. This removes the *motive*.
+- **A `PreToolUse` hook on `Write|Edit`** denies any path matching
+  `/.claude/projects/*/memory/` and returns this rule as the denial reason. This
+  removes the *capability*.
+
+The second is not redundant. `Write` is a file tool: it does not consult
+`autoMemoryEnabled` and will write wherever it is pointed. The violation that
+prompted all this went through exactly that path — an agent calling `Write` with
+a filename, not the memory subsystem. And a direct instruction to "remember
+this" outweighs a setting nobody is looking at. Without the hook that write
+succeeds silently; with it, the attempt returns this rule.
+
+The hook fails open by design: a path it does not recognise is allowed. It stops
+the default memory directory, not every conceivable location outside the
+repository. It is also the only rule in `system/` a script can check at all,
+because it is the only one that is a path rather than a judgement — nothing can
+grep for whether two paragraphs say the same thing.
+
+---
+
 # Repository Structure
 
 ```
@@ -9,7 +74,6 @@
 ├── LICENSE
 ├── AGENTS.md
 ├── system/
-│   ├── agent-responsibilities.md
 │   ├── design-process.md
 │   ├── documentation-standards.md
 │   ├── workflow.md
@@ -17,8 +81,7 @@
 │   ├── delegating-to-agents.md
 │   ├── ci-gates.md
 │   ├── repository-strategy.md
-│   ├── communication.md
-│   └── vision.md
+│   └── communication.md
 │
 ├── openspec/
 │   ├── config.yaml

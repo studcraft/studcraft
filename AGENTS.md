@@ -37,18 +37,13 @@ Avoid replacing physical representation with abstract mechanics.
 
 # Core Principles
 
-Every contribution should reinforce the following principles:
+**There are fifteen, and they are defined in [`CODE_OF_DESIGN.md`](CODE_OF_DESIGN.md) — `Principle 1` through `Principle 15`. Read them there.**
 
-- The Model Is The Rules
-- Every Brick Matters
-- Construction Over Abstraction
-- Components Over Statistics
-- Impacts Over Damage
-- Physical State Over Tokens
-- Modular Design
-- Simplicity Before Complexity
+This section used to reprint eight of them. The seven it left out included **One Universal Measurement** and **Consistency**, which `.claude/agents/ruleset-auditor.md` names as the two that catch real defects most often. A short list is worse than a link when the short list is the one an agent reads first.
 
-If a proposal conflicts with these principles, redesign it.
+Every contribution should reinforce all fifteen. If a proposal conflicts with any of them, redesign it.
+
+StudCraft should also stay **friendly to both human and AI contributors** — the one long-term commitment that is about this repository rather than about the game.
 
 ---
 
@@ -58,8 +53,7 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 
 | Document | Covers |
 |---|---|
-| [`system/agent-responsibilities.md`](system/agent-responsibilities.md) | What agents should and shouldn't do |
-| [`system/design-process.md`](system/design-process.md) | Design Process, Rule Hierarchy, Preferred Design Patterns, Decision Filter |
+| [`system/design-process.md`](system/design-process.md) | Rule Hierarchy — the order to reach for solutions in |
 | [`system/documentation-standards.md`](system/documentation-standards.md) | Repository Structure, Documentation Guidelines, Naming Conventions, Versioning |
 | [`system/workflow.md`](system/workflow.md) | OpenSpec Workflow, Git Workflow, Versioning (release-cut), Archiving (archive-cut) |
 | [`system/proposal-review.md`](system/proposal-review.md) | How to review a proposal before applying/archiving: cross-document checks, common failure classes, reviewing the applied text, delta vs. direct edit |
@@ -67,7 +61,6 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 | [`system/delegating-to-agents.md`](system/delegating-to-agents.md) | Writing a change a less capable model can apply perfectly, and what the reviewer still has to do |
 | [`system/repository-strategy.md`](system/repository-strategy.md) | BLOCKER git history rules: no force-push, no rewriting history, linear-only; squash-merge consequences for branch cleanup and conflicts |
 | [`system/communication.md`](system/communication.md) | Language, tone, proposal framing |
-| [`system/vision.md`](system/vision.md) | Long-term direction |
 
 ---
 
