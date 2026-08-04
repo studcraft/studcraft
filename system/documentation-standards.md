@@ -14,6 +14,7 @@
 │   ├── documentation-standards.md
 │   ├── workflow.md
 │   ├── proposal-review.md
+│   ├── delegating-to-agents.md
 │   ├── ci-gates.md
 │   ├── repository-strategy.md
 │   ├── communication.md
@@ -26,7 +27,8 @@
 │
 ├── scripts/
 │   ├── generate_site_docs.py   (builds site/docs/; TITLES dict must list every docs/*.md)
-│   ├── lint_ruleset.py         (structural check: rule IDs, cross-references, Version headers)
+│   ├── lint_ruleset.py         (structural check; see Documentation Guidelines below)
+│   ├── check_delta_coverage.py (a MODIFIED delta may not drop a living spec's scenario)
 │   ├── release_cut.py          (batches CHANGELOG.md + Version-header updates)
 │   └── archive_cut.py          (batches openspec/changes/ -> openspec/changes/archive/)
 │
@@ -53,11 +55,16 @@
 ```
 
 This tree is illustrative, not exhaustively re-verified on every change —
-`docs/` in particular grows with every ruleset proposal. Trust `ls docs/`
-over this list if they ever disagree, and see "Adding a New Ruleset
-Document" below for what to update when they do. The `13-*.md` gap is
-deliberate — `13-materials.md` was removed and its number retained as
-a gap, not reused, per the Naming Conventions below.
+`docs/` in particular grows with every ruleset proposal. **Trust `ls` over
+this list whenever they disagree**, for every directory here and not only
+`docs/`: the two entries that had actually gone stale were
+`system/delegating-to-agents.md` and `scripts/check_delta_coverage.py`,
+each added by a PR that updated the thing it introduced and not the tree
+describing it. See "Adding a New Ruleset Document" below for what to
+update when `docs/` changes.
+
+The `13-*.md` gap is deliberate — `13-materials.md` was removed and its
+number retained as a gap, not reused, per the Naming Conventions below.
 
 Agents should preserve this modular organization.
 
@@ -76,7 +83,7 @@ Rules should:
 - Be easy to reference.
 - Reuse existing terminology.
 
-Every document should include:
+Every document that defines rules should include:
 
 - Purpose
 - Design Philosophy
