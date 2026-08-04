@@ -11,7 +11,7 @@ You do hold `Bash`, and `Bash` can write. Use it for `grep`, `python3 scripts/*.
 
 `scripts/lint_ruleset.py` already catches mechanical breakage: duplicate rule IDs, IDs that are not strictly increasing, cross-document references pointing at IDs that do not exist, and malformed or disagreeing `**Version:**` headers. Run it first and treat its output as given. **Everything below is what the linter cannot see.** Do not spend your effort re-deriving what a script already checks.
 
-One limit of the linter matters enough to state here: its cross-reference check only recognises the parenthesised form `` `10-weapons.md` (WPN-021) ``. The convention this repository actually writes most is the comma form `` `08-vehicles.md`, VEH-013 ``, and the linter is blind to it — roughly two thirds of the citations in `docs/` are never checked by any script. Existence-checking those is your job, not the linter's. See section 4.
+Its cross-reference check reads **both** citation forms — the parenthesised `` `10-weapons.md` (WPN-021) `` and the comma form `` `08-vehicles.md`, VEH-013 ``, including comma-separated runs of IDs. Until that was added the comma form was checked by nothing, which was roughly two thirds of the citations in `docs/`. **Existence is no longer your job.** Aim still is — see section 4.
 
 ## Two moments, two jobs
 
@@ -58,7 +58,9 @@ Then read the target documents **in full**. Not the diff — the finished text. 
 
 Per `system/documentation-standards.md`, every document carries **Purpose**, **Design Philosophy**, **Rule Definitions** and **Summary**.
 
-Each closes with one of two co-equal mottos — `> **Every Brick Matters.**` for construction and gameplay documents, `> **The Model Is The Rules.**` for `15-geometry-layers.md` and `16-damage-system.md`. `docs/01-foundations.md` is the one document that closes with **both**, in that order, because it introduces both. **All three patterns are deliberate. Never report them as an inconsistency.**
+Each closes with one of two co-equal mottos — `> **Every Brick Matters.**` for construction and gameplay documents, `> **The Model Is The Rules.**` for `15-geometry-layers.md` and `16-damage-system.md`. `docs/01-foundations.md` is the one document that closes with **both**, `> **The Model Is The Rules.**` first and `> **Every Brick Matters.**` last, because it introduces both. **All three patterns are deliberate. Never report them as an inconsistency.**
+
+`scripts/lint_ruleset.py` now checks the closing motto and the Purpose / Design Philosophy / Summary headings, so do not spend effort re-deriving those. `02-core-rules.md` is missing Design Philosophy and Summary; that is a known exemption recorded in the script, not something to report again.
 
 Check that the **Summary** at the end of a document still reflects the rules above it — `system/proposal-review.md`, "The Summary Is Part of the Rule", records why this is one of the most frequent misses here.
 
@@ -80,10 +82,9 @@ Report any renumbering, any reuse, and any gap that is not deliberate.
 
 The convention is `` `08-vehicles.md`, VEH-013 `` across documents and a bare `VEH-013` within one.
 
-The linter only verifies existence for the *parenthesised* form `` `08-vehicles.md` (VEH-013) ``. The comma form above — the majority of the citations in `docs/` — is checked by nothing. So there are two jobs here:
+The linter verifies **existence** for both forms. Do not re-check it by hand.
 
-- **Existence, for comma-form citations.** Confirm the cited ID has a rule header in the file it names. `grep -n '^#\{1,2\} VEH-013 —' docs/08-vehicles.md` is the check.
-- **Aim, for every citation.** A cited ID that exists can still be **pointing at the wrong rule**, and a rule can lean on a concept nothing defines. No script sees either.
+What no script sees is **aim**: a cited ID that exists can still be pointing at the wrong rule, and a rule can lean on a concept nothing defines. That is the whole of your job here, and it is the half that finds defects.
 
 Dangling references are this repository's recurring defect. Look for terms a rule leans on that no rule or glossary entry defines.
 
