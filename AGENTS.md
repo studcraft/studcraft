@@ -71,6 +71,21 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 
 ---
 
+# Delegating Work
+
+Two roles are defined as repository agents in `.claude/agents/`, so their constraints live in the repository rather than in whoever is driving the session:
+
+| Agent | Model | When |
+|---|---|---|
+| [`ruleset-auditor`](.claude/agents/ruleset-auditor.md) | Opus, read-only | **Twice per change** — on the proposal before it is applied, and on the applied text afterwards. Also on `docs/` at any time. |
+| [`proposal-applier`](.claude/agents/proposal-applier.md) | Sonnet | Once the proposal has passed its audit. Transcription only. |
+
+Design the change, audit the proposal, apply it, audit the result, then read it yourself and open the pull request. **Pushing and opening PRs never belong to an agent.**
+
+`system/delegating-to-agents.md` explains why the split works and how to write a change a less capable model applies perfectly.
+
+---
+
 # Final Principle
 
 Whenever an agent is uncertain about a design decision, return to the project's central philosophy:
