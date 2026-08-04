@@ -19,15 +19,38 @@ jobs:
           set -euo pipefail
 
           branch="${{ github.head_ref }}"
-          if [[ "$branch" == release/v* ]]; then
-            echo "Release-cut branch ($branch) — skipping, it's expected to edit CHANGELOG.md."
-            exit 0
-          fi
-
           base="${{ github.event.pull_request.base.sha }}"
           head="${{ github.event.pull_request.head.sha }}"
 
           changed=$(git diff --name-only "$base" "$head")
+
+          if [[ "$branch" == release/v* ]]; then
+            # The branch name alone must not grant the exemption — see
+            # system/ci-gates.md (Branch-Naming Exemptions for Automation).
+            # A genuine release cut is `git add CHANGELOG.md docs/*.md` and
+            # nothing else (.github/workflows/release-cut.yml), and inside
+            # docs/ it rewrites only the **Version:** header line.
+            outside=$(echo "$changed" | grep -vE '^(CHANGELOG\.md|docs/[^/]+\.md)$' || true)
+            if [ -n "$outside" ]; then
+              echo "$outside"
+              echo "::error::Branch $branch is named like a release cut but changes files outside CHANGELOG.md and docs/*.md. A release cut touches only those two. Open a normal branch instead — the release/v* exemption is not a way to edit CHANGELOG.md by hand."
+              exit 1
+            fi
+
+            offending=$(git diff "$base" "$head" -- 'docs/*.md' \
+              | grep -E '^[+-]' \
+              | grep -vE '^(\+\+\+|---)' \
+              | grep -vE '^[+-]\*\*Version:\*\*' || true)
+
+            if [ -n "$offending" ]; then
+              echo "$offending"
+              echo "::error::Branch $branch is named like a release cut but changes docs/ content beyond the **Version:** header. A release cut only rewrites that one line. The release/v* exemption is not a way around the CHANGELOG.md rule."
+              exit 1
+            fi
+
+            echo "Release branch ($branch): exempt. Only CHANGELOG.md and **Version:** headers changed."
+            exit 0
+          fi
 
           if ! echo "$changed" | grep -qE '^docs/.*\.md$'; then
             echo "No docs/*.md changes in this PR — CHANGELOG.md is free to edit (e.g. tooling/process updates)."

@@ -1,0 +1,103 @@
+name: Branch name follows the convention
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+# No `paths:` filter, deliberately. This is a required status check, and a
+# required check filtered out of a PR never produces a check run at all —
+# GitHub then blocks the merge forever waiting for it. See system/ci-gates.md
+# (A Required Check Must Trigger on Every PR, Unconditionally).
+
+jobs:
+  check:
+    name: Branch name follows the convention
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify the head branch is named per system/repository-strategy.md
+        run: |
+          set -euo pipefail
+
+          branch="${{ github.head_ref }}"
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+
+          echo "Head branch: $branch"
+
+          # A develop -> main promotion PR carries a long-lived branch name that
+          # predates this convention and is not a working branch.
+          if [[ "$branch" == "main" || "$branch" == "develop" ]]; then
+            echo "Long-lived branch ($branch). Not subject to the convention. OK."
+            exit 0
+          fi
+
+          # --- Reserved prefixes ------------------------------------------
+          # Three other gates read these prefixes to decide whether to exempt a
+          # PR. A branch that wears a reserved prefix without matching its shape
+          # is the ambiguous case those gates were never written for, so reject
+          # the name here rather than letting them guess.
+
+          if [[ "$branch" == release/* ]]; then
+            if [[ ! "$branch" =~ ^release/v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "::error::Branch $branch uses the reserved release/ prefix but is not release/v<major>.<minor>.<patch>. That exact shape is what Release cut pushes and what the CHANGELOG and proposal gates key their exemption on. Rename the branch, or run the Release cut workflow instead of cutting by hand."
+              exit 1
+            fi
+            echo "Release-cut branch. Name OK — its contents are checked by Docs require OpenSpec proposal and Docs must not edit CHANGELOG.md directly."
+            exit 0
+          fi
+
+          if [[ "$branch" == archive/* ]]; then
+            # Intentionally loose after the prefix: scripts/archive_cut.py moved
+            # from archive/<name> to archive/batch-<date>-<run-id> without any
+            # gate change, and system/ci-gates.md records that flexibility as
+            # the point of the prefix. Only require that something follows it.
+            if [[ ! "$branch" =~ ^archive/[a-z0-9][a-z0-9._-]*$ ]]; then
+              echo "::error::Branch $branch uses the reserved archive/ prefix but the rest is empty or not lowercase kebab-case. Use archive/batch-<date>-<run-id>, which is what the Archive cut workflow pushes."
+              exit 1
+            fi
+            echo "Archive-cut branch. Name OK — its contents are checked by OpenSpec archive must be separate from apply."
+            exit 0
+          fi
+
+          # --- Working branches -------------------------------------------
+
+          if [[ ! "$branch" =~ ^[a-z0-9][a-z0-9-]*$ ]]; then
+            echo "::error::Branch $branch is not lowercase kebab-case. A working branch is words separated by single hyphens — no slashes (release/ and archive/ are reserved for automation), no underscores, no uppercase. See system/repository-strategy.md (Branch Naming)."
+            exit 1
+          fi
+
+          changed=$(git diff --name-only "$base" "$head")
+
+          if ! echo "$changed" | grep -qE '^docs/.*\.md$'; then
+            echo "Working branch, no docs/*.md changes. Name OK."
+            exit 0
+          fi
+
+          # A ruleset PR is one proposal on its own branch (openspec/config.yaml).
+          # Docs require OpenSpec proposal already enforces that a proposal exists
+          # and that there is exactly one; this gate adds the half nothing checked
+          # — that the branch is named for the proposal it carries. Without it
+          # "dedicated branch" is a checkbox in the PR template and nothing more.
+          touched=$(echo "$changed" \
+            | grep -oE '^openspec/changes/[^/]+' \
+            | grep -v '^openspec/changes/archive$' \
+            | sed 's|^openspec/changes/||' \
+            | sort -u || true)
+
+          count=$(echo "$touched" | grep -c . || true)
+          if [ "$count" -ne 1 ]; then
+            echo "Touches $count OpenSpec changes — Docs require OpenSpec proposal owns that error. Nothing to match a branch name against here. OK."
+            exit 0
+          fi
+
+          if [ "$branch" != "$touched" ]; then
+            echo "::error::Branch $branch carries the OpenSpec change '$touched' but is not named for it. A proposal lives on its own dedicated branch (openspec/config.yaml), and the branch takes the change's name so the two cannot drift. Rename the branch to $touched — or, if this branch is meant to carry a different change, split the PR."
+            exit 1
+          fi
+
+          echo "Working branch matches its OpenSpec change ($touched). OK."
