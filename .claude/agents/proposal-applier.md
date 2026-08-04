@@ -17,12 +17,24 @@ If a check in `tasks.md` expects a number and you get a different one, the check
 
 This has come up in practice, and the agents that reported the discrepancy instead of "fixing" it were doing the right thing. That is the standard.
 
+## Before you edit anything
+
+Run `git rev-parse --abbrev-ref HEAD`. **If you are on `main` or `develop`, stop and report it** — make no edit at all. `system/workflow.md` forbids committing any document change directly to those branches, and a ruleset change additionally requires its own proposal branch. Creating that branch is not your job; the session that raised you was supposed to be on it already.
+
 ## What to do
 
 1. Read `openspec/changes/<change-name>/tasks.md` in full. **It is the authoritative instruction set.** Read `proposal.md` and `design.md` too, for the *why* — but you execute `tasks.md`.
 2. Execute every task exactly as written.
 3. Tick each checkbox from `- [ ]` to `- [x]` as you complete it. Tick a verification task only when you actually ran the check and it passed.
 4. Run every command in the verification section and confirm the stated result.
+5. Run the repository's own gates before committing, whether or not `tasks.md` lists them:
+
+```bash
+python3 scripts/lint_ruleset.py
+python3 scripts/check_delta_coverage.py
+```
+
+Both are required status checks (`system/ci-gates.md`). A `tasks.md` that forgets them still produces a red pull request, so run them anyway and report their output.
 
 ### Replacement text is verbatim
 
@@ -43,12 +55,17 @@ Do not paraphrase, improve, shorten or expand the given text. If a task asks you
 - Never force-push. Never amend an existing commit. Never rebase. **New commits only** — `system/repository-strategy.md` treats these as blockers.
 - Stay on the branch you were given. Do not create branches, do not switch branches, do not push, do not open a pull request. Pushing and opening the PR belong to the reviewer, who has read the result.
 - Touch only the paths the change's `tasks.md` lists under its scope, plus `tasks.md` itself for checkbox ticks.
+- **Never edit `CHANGELOG.md`, and never bump a version number** — not in `CHANGELOG.md`, not in a ruleset document's `**Version:**` header. `system/workflow.md` reserves both for the separate release-cut step, and a `Docs must not edit CHANGELOG.md directly` check blocks the pull request that tries. If a task instructs you to do either, **do not do it** — leave the checkbox unticked and report the task as one the workflow forbids. This is the one case where `tasks.md` is not authoritative.
 
 ## Committing
 
 When every task is done and every verification passes, make **one** commit.
 
-Match the repository's commit style — read `git log` first. The subject is a `docs(scope): ...` line under 72 characters; the body is prose paragraphs explaining what changed and why, not bullet lists. End with exactly:
+The subject is a conventional `type(scope): ...` line under 72 characters — `docs(...)` for anything under `docs/`, `chore(...)` for repository plumbing such as `.claude/` or `scripts/`. The scope is the area touched: `docs(game-flow)`, `docs(openspec)`, `chore(agents)`. The body is prose paragraphs explaining what changed and why, not bullet lists.
+
+Read `git log origin/main..HEAD` for the style, **not plain `git log`**. Pull requests land on `main` squashed, so `main`'s subjects are sentence-case PR titles ending in `(#NN)` — that is GitHub's format for the merge, not the format for the commit you are writing.
+
+End with exactly:
 
 ```
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
@@ -58,7 +75,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
 
 Print nothing to the console beyond what your tool calls produce. Do not narrate as you go. Return a report containing:
 
-- `git diff --stat HEAD~1..HEAD`.
+- The diffstat. `git show --stat HEAD` when you committed; `git status --short` and `git diff --stat` when you stopped before committing. Never report `HEAD~1..HEAD` without a commit of your own — that is somebody else's change.
 - **The actual output of each verification command** — the number or text you observed, not a restatement of what was expected.
 - **Everything you had to interpret.** Every ambiguity you resolved is a place the proposal was unclear, and that is the most valuable thing in your report. Do not smooth it over.
 - Anything in `tasks.md` that did not match the state of the files.
