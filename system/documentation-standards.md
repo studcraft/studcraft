@@ -99,6 +99,10 @@ grep for whether two paragraphs say the same thing.
 │   ├── _config.yml, Gemfile, index.md   (Jekyll site source, hand-maintained)
 │   └── docs/   (generated copy of /docs, gitignored — do not hand-edit)
 │
+├── assets/
+│   ├── IMAGES.md   (owns the example-image spec and its filename convention)
+│   └── images/     (the .png files themselves)
+│
 └── docs/
     ├── 01-foundations.md
     ├── 02-core-rules.md
@@ -212,6 +216,11 @@ FLOW-001
 ```
 
 Each document owns its own namespace.
+
+Image filenames are a second namespace with a different owner. `assets/IMAGES.md`
+defines the convention and specifies every image the ruleset needs; do not restate
+either here. `scripts/lint_ruleset.py` checks the filenames in that file against
+the convention and against the rule IDs in `docs/`.
 
 ---
 
