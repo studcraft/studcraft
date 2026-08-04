@@ -272,4 +272,10 @@ The definition of one particular game: how it ends and how victory is judged, at
 
 ---
 
+## Access Opening
+
+The gap a model passes through when it uses a door, hatch or ramp. An access point whose opening does not physically pass a given model is decorative for that model and has no gameplay effect. See `05-construction-components.md` (CMP-018).
+
+---
+
 > **Every Brick Matters.**

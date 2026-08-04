@@ -153,6 +153,7 @@ Doors are interactive components.
 Requirements:
 
 - Must physically open and close.
+- The opening must physically pass the models that use the door (CMP-018).
 - Decorative doors have no gameplay effect.
 
 Doors are used for:
@@ -173,6 +174,7 @@ Ramps function like doors.
 Requirements:
 
 - Must physically move.
+- The opening the ramp gives access to must physically pass the models that use it (CMP-018).
 - Decorative ramps have no effect.
 
 Ramps may serve as vehicle access points.
@@ -274,6 +276,24 @@ Functional components should be easy to identify.
 Players should not need to ask whether a component exists.
 
 Good construction communicates functionality clearly.
+
+---
+
+# CMP-018 — Access Openings
+
+An access point's opening must physically pass the models that use it. With the component in its open position, if a model cannot be moved through the opening, that component is decorative for that model and has no gameplay effect (CMP-009, CMP-010; `09-transport.md`, TRN-007).
+
+This is a physical check, not a measured value (`15-geometry-layers.md`, GEO-004): take the model and pass it through. No dimension is written here because none would hold — a minifigure, a droid, a cargo crate and a motorcycle each measure themselves.
+
+Infantry is the common case. A minifigure is roughly 2 studs across the arms and 4 bricks tall, so a hinged 1 × 2 tile is not a door: it moves, and nothing can walk through it.
+
+The check is made against the opening, not against the approach. A rear ramp is a surface a model climbs — whether it can be climbed is the Terrain Threshold's question (`08-vehicles.md`, VEH-022 – VEH-024). What a model must fit *through* is the hatch at the top of it. A perfectly drivable ramp leading to a portal too low for the vehicle is not an access point.
+
+What must pass depends on what the component is declared to do. A roof hatch used to embark and disembark (`09-transport.md`, TRN-007) must pass the models that use it that way. The same hatch used as a firing port (`09-transport.md`, TRN-011) carries no such requirement in that role, and an observation slit that is only ever a firing port passes nothing but a line of sight. Windows (CMP-011) are exempt unless declared as access points.
+
+A component may therefore be an access point for one model and decorative for another — a hatch that passes a minifigure but not a motorcycle. The plastic has not changed; the question has.
+
+Openings are checked when the model is built, like every other construction requirement in this document.
 
 ---
 
