@@ -74,7 +74,7 @@ The rule lives in `CMP-018`. Every other edit **cites** it in one short sentence
 >
 > This is a physical check, not a measured value (`15-geometry-layers.md`, GEO-004): take the model and pass it through. No dimension is written here because none would hold — a minifigure, a droid, a cargo crate and a motorcycle each measure themselves.
 >
-> Infantry is the common case. A minifigure is roughly 4 studs across the arms and 4 bricks tall, so a hinged 1 × 2 tile is not a door: it moves, and nothing can walk through it.
+> Infantry is the common case. A minifigure stands about 4 bricks tall and about 2 studs across the arms, so height is usually what fails first. A hinged 1 × 2 tile covers an opening less than one brick high: it moves, which is all a door was ever asked to do, and a minifigure is four times too tall to walk through it.
 >
 > The check is made against the opening, not against the approach. A rear ramp is a surface a model climbs — whether it can be climbed is the Terrain Threshold's question (`08-vehicles.md`, VEH-022 – VEH-024). What a model must fit *through* is the hatch at the top of it. A perfectly drivable ramp leading to a portal too low for the vehicle is not an access point.
 >
@@ -84,7 +84,9 @@ The rule lives in `CMP-018`. Every other edit **cites** it in one short sentence
 >
 > Openings are checked when the model is built, like every other construction requirement in this document.
 
-- [x] 1.3.2 Before writing the minifigure sentence, **verify the two figures against a real minifigure** — roughly 4 studs across the arms, roughly 4 bricks tall. They are illustrative and carry no rule weight, but a wrong number in a rulebook invites correction. If either is wrong, correct it in place and note the correction in your report; do not change the surrounding sentence structure.
+- [x] 1.3.2 Before writing the minifigure sentence, **verify the two figures against a real minifigure**. They are illustrative and carry no rule weight, but a wrong number in a rulebook invites correction. If either is wrong, correct it in place and note the correction in your report; do not change the surrounding sentence structure.
+
+  **Outcome:** the first draft of this task said "roughly 4 studs across the arms". That was wrong — a stud is 8 mm and a minifigure's torso with arms down is about 16 mm, so 2 studs. The 4 came from the Unit Base's 4-stud width, which is a floor footprint and not a body. Corrected to 2 studs, and the sentence rewritten so that **height** carries the example: at 2 studs the width of a 1 × 2 tile no longer looks like the failure, and the failure was always the height. The block above is the corrected final text.
 
 ---
 

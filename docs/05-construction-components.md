@@ -285,7 +285,7 @@ An access point's opening must physically pass the models that use it. With the 
 
 This is a physical check, not a measured value (`15-geometry-layers.md`, GEO-004): take the model and pass it through. No dimension is written here because none would hold — a minifigure, a droid, a cargo crate and a motorcycle each measure themselves.
 
-Infantry is the common case. A minifigure is roughly 2 studs across the arms and 4 bricks tall, so a hinged 1 × 2 tile is not a door: it moves, and nothing can walk through it.
+Infantry is the common case. A minifigure stands about 4 bricks tall and about 2 studs across the arms, so height is usually what fails first. A hinged 1 × 2 tile covers an opening less than one brick high: it moves, which is all a door was ever asked to do, and a minifigure is four times too tall to walk through it.
 
 The check is made against the opening, not against the approach. A rear ramp is a surface a model climbs — whether it can be climbed is the Terrain Threshold's question (`08-vehicles.md`, VEH-022 – VEH-024). What a model must fit *through* is the hatch at the top of it. A perfectly drivable ramp leading to a portal too low for the vehicle is not an access point.
 
