@@ -148,9 +148,11 @@ StudCraft is intentionally built around a small number of universal systems.
 
 The universal measurement of the game.
 
-One Unit Base measures:
+One Unit Base is a volume:
 
-**4 × 3 studs**
+**4 studs wide × 3 studs deep × 12 plate layers tall**
+
+— defined by `docs/02-core-rules.md` (CORE-001), which is the authority on its dimensions, its orientation and which projection a rule reads.
 
 Everything is measured using Unit Bases.
 

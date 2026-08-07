@@ -80,6 +80,8 @@ This applies to:
 - buildings
 - terrain
 
+What must fit is measured in Unit Bases (`02-core-rules.md`, CORE-001): a minifigure needs one whole Unit Base, a vehicle its own volume in Unit Bases. A model that would slip into a gap smaller than its Unit Base does not fit there.
+
 ---
 
 # SCS-006 — Functional Components

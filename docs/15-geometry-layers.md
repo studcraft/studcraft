@@ -94,7 +94,7 @@ Some existing rules are not measured values — they are direct physical checks 
 
 - Line of Sight (`02-core-rules.md`, CORE-008, CORE-009): visibility is whatever can physically be seen from the attacker's point of view.
 - Cover (`02-core-rules.md`, CORE-010): binary — a component completely hidden cannot be selected as a target; a partially visible component has no separate cover level.
-- Access openings (`05-construction-components.md`, CMP-018): an opening's required width is measured in Unit Bases, but its height is settled by passing the model through — and decorative elements narrowing that opening count exactly as much as structural ones.
+- Access openings (`05-construction-components.md`, CMP-018): the clearance an opening must provide is read from the Unit Base, but whether a given opening provides it is settled against the plastic as built — decorative elements narrowing that opening count exactly as much as structural ones.
 
 These checks are not exceptions to "The Model Is The Rules" — they are the model's rules. Visual Geometry is real plastic on the table, so it physically blocks sight lines exactly like Gameplay Geometry does. It is only ignored when computing a measured value (GEO-003); it is never ignored when a rule asks what can physically be seen right now.
 
@@ -173,7 +173,7 @@ Every model contains Gameplay Geometry, and may contain Visual Geometry.
 - Gameplay Geometry defines the rules; Visual Geometry defines appearance.
 - Gameplay Geometry must be measurable; Visual Geometry is unrestricted.
 - Only Gameplay Geometry affects any measured rule value (Range, Attack Dice, Impact Strength, Weapon Capacity, Transport Capacity, Movement distance) — GEO-003.
-- Visual Geometry still counts for direct physical checks (Line of Sight, Cover) — GEO-004.
+- Visual Geometry still counts for direct physical checks (Line of Sight, Cover, access openings) — GEO-004.
 - Visually different models may be functionally identical — GEO-005.
 - Every playable model has a minimum valid representation — GEO-006.
 - Players may increase visual detail without affecting measured gameplay values — GEO-007.

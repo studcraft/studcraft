@@ -16,9 +16,7 @@ The universal action economy.
 
 Unit Base.
 
-The universal measurement of StudCraft.
-
-4 × 3 studs.
+The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 12 plate layers tall. See `02-core-rules.md` (CORE-001) for the projections a rule reads it through.
 
 ---
 
@@ -178,13 +176,13 @@ The limit on total mounted Weapon Length a platform may carry, equal to its Plat
 
 ## Platform Length
 
-The largest dimension of a platform's Unit Base or vehicle bounding box.
+The largest horizontal dimension of a platform's Unit Base or vehicle bounding box. The Unit Base's height is not a candidate. See `10-weapons.md` (WPN-004).
 
 ---
 
 ## Cargo Bay
 
-The interior space of a transport vehicle, measured in Unit Bases, used to carry passengers and cargo.
+The interior space of a transport vehicle, measured in Unit Bases, used to carry passengers and cargo. A closed bay with less than one Unit Base of clearance carries cargo but no infantry. See `09-transport.md` (TRN-019).
 
 ---
 
@@ -275,6 +273,24 @@ The definition of one particular game: how it ends and how victory is judged, at
 ## Access Opening
 
 The gap a model passes through when it uses a door, hatch or ramp. An access point whose opening does not physically pass a given model is decorative for that model and has no gameplay effect. See `05-construction-components.md` (CMP-018).
+
+---
+
+## Interior Clearance
+
+The clear height inside a closed compartment, measured in plate layers from the surface a model stands or sits on. Less than 12 plate layers — one Unit Base — carries cargo but no infantry. See `09-transport.md` (TRN-019).
+
+---
+
+## Slice
+
+The share of a Unit Base one cargo object occupies: 4 × 3 studs by that object's own height. Slices sharing a Unit Base may total no more than 12 plate layers, and infantry never occupies a slice — it occupies the whole Unit Base. See `09-transport.md` (TRN-013).
+
+---
+
+## Projection
+
+The reading of the Unit Base volume a rule takes: horizontal for distance, deployment and footprints; the whole volume for transport capacity; vertical for passing an opening. A projection is a measured value and never replaces a physical check. See `02-core-rules.md` (CORE-001).
 
 ---
 

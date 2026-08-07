@@ -71,21 +71,21 @@ Decoration is encouraged, but functional construction is the heart of StudCraft.
 
 The Unit Base (UB) is the universal measurement used throughout the game.
 
-One Unit Base measures:
+One Unit Base is a volume measuring:
 
-**4 × 3 studs**
+**4 studs wide × 3 studs deep × 12 plate layers tall**
 
-(see `02-core-rules.md`, CORE-001, for the canonical definition)
+(see `02-core-rules.md`, CORE-001, for the canonical definition, where the height comes from, and which projection each rule reads)
 
 Everything in StudCraft is ultimately measured using Unit Bases.
 
 Examples:
 
-- Infantry occupies 1 UB.
-- Deployment areas are measured in UB.
-- Vehicle footprints are measured in UB.
-- Transport capacity is measured in UB.
-- Cargo occupies UB.
+- Infantry occupies 1 UB, and never shares it.
+- Deployment areas are measured in UB, horizontally.
+- Vehicle footprints are measured in UB, horizontally.
+- Transport capacity is measured in UB, as a volume.
+- Cargo occupies UB, and several objects may share one (`09-transport.md`, TRN-013).
 
 Using a single measurement system keeps the rules simple and consistent.
 
