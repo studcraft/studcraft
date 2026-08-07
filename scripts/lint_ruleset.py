@@ -9,6 +9,12 @@ Checks things a human reviewer shouldn't have to catch by hand:
   in the target document, in both of the forms this repo writes:
   the parenthesised "`10-weapons.md` (WPN-002)" and the comma form
   "`08-vehicles.md`, VEH-013", including comma-separated runs of IDs.
+  A parenthesised ID carrying the citing document's own prefix is
+  checked against that document instead of against the filename that
+  happens to precede it — each document owns its namespace, so
+  "`09-transport.md`, TRN-001), ... its own Unit Base (DEP-004)" in
+  06-deployment.md is a reference to DEP-004 and not a broken one into
+  09-transport.md.
 - `**Version:**` headers that are missing, malformed, or disagree with
   each other (all docs/*.md are expected to share one project version).
 - The document skeleton required by system/documentation-standards.md:
@@ -216,11 +222,13 @@ def main() -> int:
     docs = sorted(DOCS_DIR.glob("*.md"))
     texts = {doc.name: doc.read_text() for doc in docs}
     ids_by_file: dict[str, set[str]] = {}
+    prefixes_by_file: dict[str, set[str]] = {}
     versions: dict[str, str] = {}
 
     for name, text in texts.items():
         rule_ids = collect_rule_ids(text)
         ids_by_file[name] = {f"{p}-{n:03d}" for p, n in rule_ids}
+        prefixes_by_file[name] = {p for p, _ in rule_ids}
 
         seen: dict[str, int] = {}
         last_number: dict[str, int] = {}
@@ -252,8 +260,23 @@ def main() -> int:
         for target_file, rule_id in CROSS_REF_RE.findall(text):
             if target_file not in ids_by_file:
                 continue
-            if rule_id not in ids_by_file[target_file]:
-                errors.append(f"{name}: references {target_file} ({rule_id}), which does not exist")
+            # The parenthesised form leaves up to 80 characters between the
+            # filename and the ID, which is what lets "see `10-weapons.md`
+            # (WPN-002)" and the continuation form "(`04-construction-standard.md`,
+            # SCS-011) and a lowered ramp (SCS-008)" both match. That window also
+            # lets the pattern reach past one citation and pick up a bare
+            # same-document ID that was never a reference into the cited file.
+            # The prefix settles it: each document owns its own namespace
+            # (system/documentation-standards.md, Naming Conventions), so an ID
+            # carrying this document's own prefix belongs to this document
+            # whatever filename precedes it, and it is checked against this
+            # document rather than dropped. That only reaches a same-document ID
+            # close enough to a filename citation to be caught by this pattern at
+            # all; a bare "(VEH-099)" standing on its own is still unchecked, the
+            # same as before.
+            owner = name if rule_id.split("-")[0] in prefixes_by_file[name] else target_file
+            if rule_id not in ids_by_file[owner]:
+                errors.append(f"{name}: references {owner} ({rule_id}), which does not exist")
 
         for target_file, id_run in COMMA_REF_RE.findall(text):
             if target_file not in ids_by_file:
