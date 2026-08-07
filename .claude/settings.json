@@ -1,6 +1,18 @@
 {
   "autoMemoryEnabled": false,
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf %s '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"Reply in the user'\\''s prompt language.\"}}'",
+            "timeout": 10,
+            "statusMessage": "Applying language rule"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Write|Edit",
