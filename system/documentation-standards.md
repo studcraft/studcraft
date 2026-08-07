@@ -61,6 +61,26 @@ repository. It is also the only rule in `system/` a script can check at all,
 because it is the only one that is a path rather than a judgement — nothing can
 grep for whether two paragraphs say the same thing.
 
+## Context in the repository still has to reach the agent
+
+Claude Code loads `CLAUDE.md`. It does not load `AGENTS.md`, and this
+repository had no `CLAUDE.md` at all, so every Claude session began with none
+of the above in context — a session was observed ignoring rules it had never
+been shown. Committing a constraint is necessary and not sufficient; something
+has to load it.
+
+Three mechanisms now do, and they are not interchangeable:
+
+- **`CLAUDE.md`** is one `@AGENTS.md` import and a comment. It carries no rules
+  of its own, for the same reason nothing else here does.
+- **`.claude/rules/*.md`** carry `paths:` frontmatter, so each loads only when
+  an agent touches the files it governs. This is how `system/`'s 1,600 lines
+  stay available without being resident: the rule files route to an owner, they
+  do not summarise one.
+- **The `PreToolUse` hook** in `.claude/settings.json` refuses edits that break
+  the branch, proposal and version rules. Loaded context is still only context
+  — an agent may read it and act otherwise, which is what a hook removes.
+
 ---
 
 # Repository Structure
@@ -73,6 +93,14 @@ grep for whether two paragraphs say the same thing.
 ├── CHANGELOG.md
 ├── LICENSE
 ├── AGENTS.md
+├── CLAUDE.md              (one `@AGENTS.md` import; Claude Code reads this name, not AGENTS.md)
+│
+├── .claude/
+│   ├── settings.json      (the enforcement hooks below)
+│   ├── agents/            (the three delegation roles AGENTS.md names)
+│   ├── rules/             (path-scoped pointers; each loads only for the files it names)
+│   └── hooks/             (guard_repo_edits.py, lint_after_edit.py)
+│
 ├── system/
 │   ├── design-process.md
 │   ├── documentation-standards.md
