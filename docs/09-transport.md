@@ -368,6 +368,8 @@ The `(N − 1)` term is the intermediate floors at their thinnest, one plate eac
 
 Each level is a cargo compartment like any other: its capacity is read from TRN-003 and its clearance from TRN-019.
 
+How many levels a vehicle has room for is bounded by its footprint rather than by this rule: a vehicle may rise 6 plate layers for every stud of its footprint's narrowest side (`08-vehicles.md`, VEH-028).
+
 ---
 
 # Summary

@@ -89,6 +89,8 @@ Deployment cost:
 
 This area is unavailable for any other model.
 
+That same footprint bounds the vehicle's height: 6 plate layers for every stud of its narrowest side (`08-vehicles.md`, VEH-028). Where an outline is not rectangular the height is read from the smallest rectangle of Unit Bases enclosing it, which never changes what is charged here.
+
 ---
 
 # DEP-004 — Infantry
@@ -134,6 +136,8 @@ Deployment Cost:
 Only the transport footprint.
 
 The infantry do not consume additional Deployment Area while embarked.
+
+The waiver is for **embarked** units. A model carried on the outside — on a roof, a bonnet, a hull top or the outside of a turret — is not embarked, so it is deployed individually and costs Deployment Area of its own: one Unit Base for an infantry model (DEP-004), its own footprint for a vehicle (DEP-003). Embarking means occupying a constructed interior space measured in Unit Bases (`09-transport.md`, TRN-001), and an externally carried model counts toward the carrier's height as well (`08-vehicles.md`, VEH-030).
 
 ---
 
