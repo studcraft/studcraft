@@ -214,7 +214,7 @@ Vehicle-mounted weapons follow the universal Weapon System rule (`10-weapons.md`
 
 Vehicles may carry one or more crew members.
 
-Crew must physically fit inside the vehicle.
+Crew must physically fit inside the vehicle. A crew member occupies a Unit Base like any other passenger (`09-transport.md`, TRN-014), so what must fit is that Unit Base (`02-core-rules.md`, CORE-001).
 
 Crew visibility depends on the construction.
 
@@ -228,7 +228,7 @@ A fully enclosed crew compartment protects the crew.
 
 Passenger capacity depends entirely on the interior volume.
 
-If a passenger physically fits, it may embark.
+If a passenger's Unit Base physically fits, it may embark (`02-core-rules.md`, CORE-001).
 
 If it does not fit, it cannot.
 

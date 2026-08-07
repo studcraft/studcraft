@@ -38,13 +38,33 @@ Only physical LEGO elements may affect gameplay.
 
 StudCraft uses a single measuring unit.
 
-One **Unit Base (UB)** is a LEGO Plate measuring:
+One **Unit Base (UB)** is a volume measuring:
 
-**4 × 3 studs**
+**4 studs wide × 3 studs deep × 12 plate layers tall**
 
 This is the standard base for infantry. The 4-stud edge is the front (CORE-002).
 
-All distances, deployment areas and vehicle footprints are expressed using this unit. When a footprint is written as `W × D` UB (e.g. "Jeep: 2 × 3 UB"), the first number is a count of 4-stud widths and the second a count of 3-stud depths — a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`.
+Height is counted in plate layers because that is the ruleset's vertical unit — a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). Twelve plate layers is therefore exactly 4 bricks. Height is measured from the top face of the plate an infantry model stands on: that plate is the model's floor, not part of the space above it.
+
+The height is read from the model rather than chosen. Infantry occupies exactly one Unit Base whether standing or seated (`09-transport.md`, TRN-002), so a Unit Base must contain a standing minifigure — about 4 bricks from its feet to the top of its head (`05-construction-components.md`, CMP-018). Twelve plate layers is the smallest whole-brick height that does, and a Unit Base is the minimum operational space an object needs (`09-transport.md`, TRN-001), so it takes exactly that and no more.
+
+**What must fit is the Unit Base.** Wherever a rule asks whether something physically fits — a passenger, a crew member, cargo, a model passing an opening — the volume that must fit is the Unit Base: one for a minifigure, its own volume in Unit Bases for a vehicle (`04-construction-standard.md`, SCS-005). Never the loose model. A minifigure that would slip into a smaller gap than its Unit Base does not fit there.
+
+**Projections.** A rule never reads more of the volume than it needs:
+
+| Reading | Used by |
+|---|---|
+| Horizontal projection — `4 × 3` studs | Distances, movement, deployment areas, footprints |
+| The volume itself — `4 × 3` studs by 12 plate layers | Transport capacity and interior space |
+| Vertical projection — 4 studs by 12 plate layers | Passing through an opening |
+
+The vertical projection is taken across the front, because the 4-stud edge is the front (CORE-002) and it is what enters an opening first.
+
+A projection supplies a measured value and nothing else — the boundary `15-geometry-layers.md` draws (GEO-003).
+
+It never replaces a physical check. Line of Sight (CORE-008) and Cover (CORE-010) are resolved against the plastic actually on the table, never against a Unit Base's silhouette (`15-geometry-layers.md`, GEO-004).
+
+All distances, deployment areas and vehicle footprints are expressed using this unit. When a footprint is written as `W × D` UB (e.g. "Jeep: 2 × 3 UB"), the first number is a count of 4-stud widths and the second a count of 3-stud depths — a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`. A footprint is a horizontal reading, and says nothing about a model's height.
 
 ---
 

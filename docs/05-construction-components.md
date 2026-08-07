@@ -281,11 +281,13 @@ Good construction communicates functionality clearly.
 
 # CMP-018 — Access Openings
 
-An access point's opening must physically pass the models that use it. With the component in its open position, if a model cannot be moved through the opening, that component is decorative for that model and has no gameplay effect (CMP-009, CMP-010; `09-transport.md`, TRN-007).
+An access point's opening must physically pass the models that use it. With the component in its open position, if a model cannot be moved through the opening, that component is decorative for that model and has no gameplay effect (CMP-009, CMP-010; `09-transport.md`, TRN-007). What must pass is the model's Unit Base, not the loose plastic — which is what makes the check a measurement rather than an attempt.
 
 **Width** is not a judgment call. Every model on the table stands on Unit Bases (`02-core-rules.md`, CORE-001), and a model's 4-stud edge is its front (`02-core-rules.md`, CORE-002) — so the opening must be at least as wide as the front edge of whatever passes through it. Infantry is invariably 1 Unit Base, 4 studs, whatever the minifigure carries and whether it stands or sits (`09-transport.md`, TRN-002). A vehicle W Unit Bases wide needs `W × 4` studs.
 
-**Height** has no Unit Base, so it is a physical check rather than a measured value (`15-geometry-layers.md`, GEO-004): take the model and pass it through. A minifigure on its base stands about 4 bricks tall. A hinged 1 × 2 tile covers an opening less than one brick high, which is why it moves and is still not a door.
+**Height** is measured the same way. The Unit Base's vertical projection is 4 studs by 12 plate layers (`02-core-rules.md`, CORE-001), so an opening that passes infantry must be at least that clear. A minifigure on its base stands about 4 bricks tall, which is where those 12 plate layers come from. A model taller than one Unit Base is measured by its own height in plate layers.
+
+Measure the *clear* opening rather than the nominal frame: an element hanging in the doorway reduces it exactly as much as the frame does — see `15-geometry-layers.md` (GEO-004). Anything protruding beyond the model's own Unit Base is repositioned; the doorway is measured against the Unit Base either way. A hinged 1 × 2 tile covers an opening less than one brick high, which is why it moves and is still not a door.
 
 The check is made against the opening, not against the approach. A rear ramp is a surface a model climbs — whether it can be climbed is the Terrain Threshold's question (`08-vehicles.md`, VEH-022 – VEH-024). What a model must fit *through* is the hatch at the top of it. A perfectly drivable ramp leading to a portal too low for the vehicle is not an access point.
 
