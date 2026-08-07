@@ -48,7 +48,7 @@ Examples
 | Heavy Transport | 3 × 8 UB |
 | Super Heavy | Player Built |
 
-No maximum vehicle size exists.
+No maximum vehicle size exists. The footprint does bound how high the vehicle may build on it — 6 plate layers for every stud of its narrowest side (VEH-028) — but no dimension of the footprint itself is capped.
 
 ---
 
@@ -401,6 +401,87 @@ This needs no separate walker rule. A walker whose knee clears the whole rise si
 
 ---
 
+# VEH-028 — Maximum Height
+
+A vehicle's footprint (VEH-001) governs how high it may build, as well as how much Deployment Area it costs (`06-deployment.md`, DEP-003).
+
+**For every stud across the narrowest side of its footprint, a vehicle may rise 6 plate layers.**
+
+The footprint is the Unit Bases the vehicle covers — the ones DEP-003 charges. Written `A × B` UB it measures `4A × 3B` studs (`02-core-rules.md`, CORE-001), so its narrowest side is the smaller of those two numbers. Where an outline is not rectangular, read `A × B` as the smallest rectangle of Unit Bases enclosing it. That rectangle serves this measurement only and changes no vehicle's Deployment Area, which DEP-003 still charges per Unit Base actually covered.
+
+Six plate layers is two standard bricks, and one Unit Base of height for every two studs (CORE-001). The limit is stated in plate layers because that is the unit VEH-021 already uses for vertical distance, and because a hull with plates in it reaches heights no whole brick count expresses: a vehicle 22 plate layers tall is legal where the limit is 24, and no count of bricks says so.
+
+The multiplier is read off the Unit Base rather than chosen. A Unit Base is 12 plate layers tall on a narrowest side of 3 studs — 4 plate layers for every stud, which is the proportion of the volume one person occupies (CORE-001). A vehicle is allowed half as much again. That is this rule's only design decision.
+
+Footprints below are VEH-001's; only the two right-hand columns belong to this rule.
+
+| Vehicle | Footprint | Studs | Narrowest side | Maximum Height |
+|---|---|---|---:|---:|
+| Bike | 1 × 2 UB | 4 × 6 | 4 | 24 plate layers (8 bricks) |
+| Buggy | 2 × 2 UB | 8 × 6 | 6 | 36 plate layers (12 bricks) |
+| Jeep | 2 × 3 UB | 8 × 9 | 8 | 48 plate layers (16 bricks) |
+| Tank | 2 × 5 UB | 8 × 15 | 8 | 48 plate layers (16 bricks) |
+| Heavy Transport | 3 × 8 UB | 12 × 24 | 12 | 72 plate layers (24 bricks) |
+
+Tank and Jeep share a limit because they share a narrowest side. Stretching a vehicle along its long axis buys it nothing: a long thin vehicle is still a thin vehicle.
+
+The same two Unit Bases give different limits depending on how they are arranged — side by side (2 × 1 UB, 8 × 3 studs) they allow 18 plate layers, front to back (1 × 2 UB, 4 × 6 studs) 24. That is not an exploit to close. The arrangement is built into the model, chosen once at the bench and paid for in the shape of the vehicle. Turning the finished model on the table changes nothing, because the narrowest side is a property of the rectangle and not of which way it points.
+
+A vehicle taller than its Maximum Height is not a legal vehicle. It cannot be deployed until it is rebuilt, either by lowering the construction or by widening the footprint, which raises the limit. There is no penalty, no marker and no in-game state: this is a construction check made once before the game, exactly like the two-Unit-Base minimum (`02-core-rules.md`, CORE-004; VEH-013). Legality is settled before deployment and never revisited, so a vehicle whose construction is altered in play (VEH-018) is not measured again.
+
+This caps no dimension of its own. VEH-001's "No maximum vehicle size exists" stays true as written — a footprint may be any size, and the height allowed grows with it. What this rule fixes is the relationship between the two, and it introduces no height statistic, vehicle class or size category to do it.
+
+It also bounds how many interior levels a footprint carries, while saying nothing about capacity. N levels need `12N + (N − 1)` plate layers above the lowest floor (`09-transport.md`, TRN-020), so a vehicle 4 studs across has room for one level, 8 studs for three, and 12 studs for five. A wide vehicle may still stack decks; a narrow one cannot.
+
+---
+
+# VEH-029 — Base Plane
+
+Maximum Height (VEH-028) is counted from the vehicle's own **Base Plane**: the lowest surface on which one of its Unit Bases rests — its interior floor. Where a vehicle has floors at several heights, the lowest governs. It is the same surface interior levels are measured from (`09-transport.md`, TRN-020).
+
+A powered vehicle always has one, because it carries a Pilot occupying a Unit Base of its own (VEH-013; `09-transport.md`, TRN-014), and that Unit Base rests on something. A vehicle with no Pilot and no interior — a trailer, a towed gun, an open flatbed — takes its lowest structural floor instead: the surface its load rests on.
+
+The Base Plane is a property of the model, not of the table. A vehicle on a hill, in a depression or part-way up a ramp measures exactly as it does on flat ground, so terrain elevation never changes what is legal. A vehicle carried inside another vehicle (`09-transport.md`, TRN-001, TRN-003) is read the same way: each vehicle is measured against its own Base Plane, and the carrier's floor is the carried vehicle's ground.
+
+**Ground clearance is not height.** Everything below the Base Plane is locomotion, measured by its own rules: a wheel by its axle (VEH-022), a leg by its knee (VEH-023), a hover assembly by its full height (VEH-024). Those rules already price height in silhouette — VEH-024 calls it "the same trade a walker makes with long legs" — and charging it twice here would make the walkers and hover vehicles they describe illegal. A long-legged walker stays legal however tall its legs. What it may not do is build a tower on top of them.
+
+A vehicle can therefore gain reach by standing on tall locomotion instead of by building upward, and this limit never sees it. That is deliberate rather than overlooked: it is the walker VEH-023 describes, and it is paid for in silhouette (`02-core-rules.md`, CORE-008) and in legs that are components like any other, destroyed like any other (VEH-017, VEH-018). It is not paid for here.
+
+Height is counted straight up from the Base Plane, never along a leaning element. A mast raked backwards is measured by how high it reaches, not by how long it is.
+
+---
+
+# VEH-030 — What Counts Toward Height
+
+Maximum Height (VEH-028) is counted to the highest point of the vehicle's **Gameplay Geometry** (`15-geometry-layers.md`, GEO-001). Visual Geometry above that point is unrestricted and never makes a vehicle illegal.
+
+Height is plastic, measured above the Base Plane (VEH-029) in plate layers. Nothing is converted into anything else: a weapon's Length is measured in studs along its own firing axis (`10-weapons.md`, WPN-003), and a weapon standing upright is measured by how high its plastic actually reaches.
+
+This rule adds no classification of its own, and writes no list of functional and decorative parts — a second list would drift from `15-geometry-layers.md` (GEO-002)'s. Which layer an element belongs to is GEO-001 and GEO-002's question, settled by the test those rules already apply: Gameplay Geometry is the minimum physical information required to play the game, and Visual Geometry is what remains when an element's purpose is purely aesthetic. The table below is that test applied to height, not a new one.
+
+| Element | Layer | Counts |
+|---|---|---|
+| Bare mast, flag, ornament, non-functional antenna | Visual | No |
+| Mast carrying an observation post | Gameplay | Yes |
+| Turret mounting a weapon (`10-weapons.md`, WPN-009) | Gameplay | Yes |
+| Superstructure holding a crew station (`09-transport.md`, TRN-014) | Gameplay | Yes |
+| Transport space (`09-transport.md`, TRN-003) | Gameplay | Yes |
+| Decorative armour bolted onto a structural wall | Visual | No |
+
+An element holding a crew position is Gameplay Geometry because a crew member occupies a Unit Base of its own (TRN-014). A mast holding nothing carries no Unit Base and feeds no measured value — GEO-002 lists antennas among its own examples of Visual Geometry for exactly that reason. A mast is therefore measured to the height of whatever it carries, and everything below that point is included automatically; only plastic continuing *above* the last functional element is free.
+
+This is not an exception to `15-geometry-layers.md` (GEO-004). GEO-007 settles it: a model does not become invalid, and its measured values do not change, solely as a result of adding Visual Geometry — and a height limit that counted decoration would invalidate a legal vehicle the moment a flag went on it. Access openings ask a different question, whether a model physically passes through (`05-construction-components.md`, CMP-018), and decoration obstructs passage, so it counts there. This rule asks how much functional construction one footprint carries, and a flag carries nothing.
+
+Decoration is never free in play, only in legality. A tall decorative mast is real plastic: visible, blocking sight lines and shootable (`02-core-rules.md`, CORE-008; GEO-004). The player who builds one pays in silhouette rather than in a rules violation.
+
+**A movable element is measured in the highest position it can physically be placed in during play**, not the position it happens to occupy when checked. A turret that rotates, a barrel that elevates and a ramp that lifts are Gameplay Geometry wherever they are placed; measured as found, the check would be answered by lowering the barrel first and raising it again afterwards.
+
+**A model carried on the outside counts too.** Transported models occupy a physically constructed interior space measured in Unit Bases (`09-transport.md`, TRN-001, TRN-003); a model on a roof, bonnet, hull top or the outside of a turret is not in such a space and is not embarked. Nothing forbids placing it there. It counts toward this height, measured in the highest position it can be placed in, because it can see, be seen and be shot at (`02-core-rules.md`, CORE-008, CORE-009) — and it costs Deployment Area of its own, which `06-deployment.md` (DEP-006) owns. The outside of a vehicle is never a cheaper way to carry a model than the inside.
+
+Externally carried models are counted at the one check VEH-028 describes, so a model that mounts, dismounts or is removed in play never causes the vehicle to be measured again.
+
+---
+
 # Summary
 
 Vehicle behaviour is defined by six physical characteristics.
@@ -415,6 +496,8 @@ Vehicle behaviour is defined by six physical characteristics.
 No predefined vehicle profiles are required.
 
 Terrain capability is read from the locomotion like everything else: a wheel's axle, a walker's knee, a hover assembly's height (VEH-021 through VEH-024).
+
+Height is read from the footprint the same way: a vehicle may rise 6 plate layers for every stud of its footprint's narrowest side, counted from its own Base Plane and measured to the top of its Gameplay Geometry (VEH-028 through VEH-030).
 
 A player should understand how a vehicle behaves simply by examining its construction.
 

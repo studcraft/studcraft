@@ -294,4 +294,16 @@ The reading of the Unit Base volume a rule takes: horizontal for distance, deplo
 
 ---
 
+## Maximum Height
+
+The greatest height a vehicle's Gameplay Geometry may reach above its Base Plane: 6 plate layers — two bricks, half a Unit Base — for every stud of its narrowest footprint side. A construction check made before deployment, never an in-game state. See `08-vehicles.md` (VEH-028).
+
+---
+
+## Base Plane
+
+A vehicle's lowest floor — the surface its own Unit Bases rest on — and the datum its Maximum Height is counted from. A property of the model rather than of the ground beneath it; everything below it is locomotion. See `08-vehicles.md` (VEH-029).
+
+---
+
 > **Every Brick Matters.**
