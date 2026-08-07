@@ -4,11 +4,15 @@
 TBD - created by archiving change weapon-construction-system. Update Purpose after archive.
 ## Requirements
 ### Requirement: Platform Length Definition
-Platform Length SHALL be the largest dimension of the platform's Unit Base or vehicle bounding box.
+Platform Length SHALL be the largest horizontal dimension of the platform's Unit Base or vehicle bounding box. The Unit Base's height SHALL NOT be a candidate for Platform Length.
 
 #### Scenario: Platform length from bounding box
 - **WHEN** a vehicle platform has a base of 8×9
 - **THEN** its Platform Length is 9
+
+#### Scenario: Infantry Platform Length ignores the Unit Base's height
+- **WHEN** an infantry platform of one Unit Base is measured
+- **THEN** its Platform Length is 4 studs, and the Unit Base's 12 plate layers of height are not considered
 
 ### Requirement: Weapon Capacity Constraint
 The sum of the Weapon Length of every weapon mounted on a platform SHALL NOT exceed that platform's Platform Length (`Σ(Weapon Length) ≤ Platform Length`).
