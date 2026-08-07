@@ -45,6 +45,14 @@ Mandatory rules. No exceptions.
 - If asked to edit a ruleset document directly on `main`/`develop`, or without a proposal: stop, do not make the change, and tell the user why.
 - The branch's **name** is checked too, by `Branch name follows the convention` — a ruleset branch must be named for the OpenSpec change it carries, and `release/` and `archive/` are reserved for automation. The table is in `system/repository-strategy.md` (Branch Naming).
 
+These rules are also checked locally, before a push, by
+`.claude/hooks/guard_repo_edits.py` — a `PreToolUse` hook that refuses the
+`Write` or `Edit` itself and returns the rule as the reason. It mirrors the
+gates above and adds nothing of its own; where the two could disagree, the gate
+is authoritative. It fails open, so it narrows the window in which a violation
+survives rather than closing it — the checks in CI are what actually block a
+merge.
+
 ---
 
 # Versioning

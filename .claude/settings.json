@@ -9,6 +9,12 @@
             "command": "printf %s '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"Reply in the user'\\''s prompt language.\"}}'",
             "timeout": 10,
             "statusMessage": "Applying language rule"
+          },
+          {
+            "type": "command",
+            "command": "printf %s '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"StudCraft constraints live in AGENTS.md (loaded through CLAUDE.md), system/*.md and .claude/rules/ - in the repository, not in session memory. Before editing any file, read the system/ document that owns it. Edits that break the branch, proposal or version rules are refused by a PreToolUse hook rather than left to CI.\"}}'",
+            "timeout": 10,
+            "statusMessage": "Pointing at the repository's own rules"
           }
         ]
       }
@@ -22,6 +28,30 @@
             "command": "jq -r '.tool_input.file_path // empty' | grep -qE '/\\.claude/projects/[^/]+/memory/' && printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"Blocked: that path is the agent-local memory directory, which lives outside this repository. Nothing about studcraft may be stored there — see system/documentation-standards.md, \\\"The context lives in the repository\\\". If it is worth remembering, commit it to system/, AGENTS.md or .claude/agents/. If it is not worth a commit, it is not worth remembering.\"}}' || true",
             "timeout": 10,
             "statusMessage": "Checking write target is inside the repo"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard_repo_edits.py\"",
+            "timeout": 20,
+            "statusMessage": "Checking the branch, proposal and version rules"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/lint_after_edit.py\"",
+            "timeout": 120,
+            "statusMessage": "Running the ruleset linter"
           }
         ]
       }
