@@ -46,11 +46,11 @@ Diagonal movement is never allowed.
 
 # MOVE-002 — Infantry Base
 
-All infantry are mounted on a standard Unit Base (UB) — see `02-core-rules.md` (CORE-001) for the definition (4 × 3 studs).
+Every infantry model is built on the base required by `04-construction-standard.md`, SCS-002.
 
-The 4-stud edge is always considered the front.
+Which edge of that base is its front is settled by the universal Facing rule (`02-core-rules.md`, CORE-002).
 
-This orientation defines movement and line of advance.
+The base's orientation defines movement and line of advance.
 
 ---
 
@@ -70,7 +70,7 @@ Standard infantry movement:
 
 12 is the maximum, not a fixed distance — a unit may move 3, 6, 9 or 12 studs, or stay put.
 
-The step size is the Unit Base's depth (`02-core-rules.md`, CORE-001): moving forward crosses the 3-stud axis, so forward movement counts whole base-depths, exactly as side movement counts whole base-widths of 4 (MOVE-005). Both numbers come from the base itself, so a player can measure either by laying spare Unit Bases end to end.
+The step size is the Unit Base's depth (`02-core-rules.md`, CORE-001): moving forward crosses the 3-stud axis, so forward movement counts whole base-depths, exactly as side movement counts whole base-widths of 4 (MOVE-005). Both numbers come from the base itself, so a player can measure either by laying spare infantry bases end to end.
 
 One movement action costs **1 Action Point** (`02-core-rules.md`, CORE-006) and moves the unit in a single direction. Changing direction requires a second movement action (MOVE-007).
 

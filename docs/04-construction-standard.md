@@ -30,9 +30,9 @@ Every functional element should be physically represented.
 
 # SCS-001 — Unit Base (UB)
 
-The fundamental building unit of StudCraft is the Unit Base — see `02-core-rules.md` (CORE-001) for its definition (4 × 3 studs).
+The fundamental building unit of StudCraft is the Unit Base — see `02-core-rules.md` (CORE-001) for its definition, where its height comes from, and which projection each rule reads.
 
-This corresponds to the footprint of a LEGO minifigure.
+Its horizontal projection corresponds to the footprint of a LEGO minifigure.
 
 Every measurement in the game is derived from this unit.
 
@@ -40,9 +40,9 @@ Every measurement in the game is derived from this unit.
 
 # SCS-002 — Infantry Base
 
-Every infantry model must be mounted on one Unit Base (`02-core-rules.md`, CORE-001 — 4 × 3 studs).
+Every infantry model must be built on one physical base measuring 4 × 3 studs — one Unit Base read horizontally (`02-core-rules.md`, CORE-001).
 
-The 4-stud edge defines the front of the unit.
+Which edge of that base is its front is settled by the universal Facing rule (`02-core-rules.md`, CORE-002).
 
 ---
 

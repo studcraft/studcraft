@@ -42,7 +42,7 @@ One **Unit Base (UB)** is a volume measuring:
 
 **4 studs wide × 3 studs deep × 12 plate layers tall**
 
-This is the standard base for infantry. The 4-stud edge is the front (CORE-002).
+Read horizontally, this is the size of the physical base an infantry model is built on — required by `04-construction-standard.md`, SCS-002. The 4-stud edge is the front (CORE-002).
 
 Height is counted in plate layers because that is the ruleset's vertical unit — a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). Twelve plate layers is therefore exactly 4 bricks. Height is measured from the top face of the plate an infantry model stands on: that plate is the model's floor, not part of the space above it.
 
@@ -98,7 +98,7 @@ Facing determines:
 
 ## CORE-003 — Infantry
 
-Infantry are represented by LEGO minifigures mounted on a standard Unit Base.
+Infantry are represented by LEGO minifigures.
 
 Infantry occupy one Unit Base.
 
