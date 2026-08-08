@@ -48,7 +48,7 @@ describe.
 |---|---|---|
 | `CORE-001` stops calling the volume the standard base | 1.1 | `docs/02-core-rules.md` |
 | `CORE-003` stops restating the mounting requirement | 1.2 | `docs/02-core-rules.md` |
-| `SCS-001` defers without quoting figures | 2.1, 2.2 | `docs/04-construction-standard.md` |
+| `SCS-001` calls it a measuring unit and defers without quoting figures | 2.1, 2.2 | `docs/04-construction-standard.md` |
 | `SCS-002` says what is required, stops naming the edge | 2.3, 2.4 | `docs/04-construction-standard.md` |
 | `MOVE-002` cites instead of restating | 3.1, 3.2, 3.3 | `docs/07-movement.md` |
 | `MOVE-004` stops asking a player to lay a volume down | 3.4 | `docs/07-movement.md` |
@@ -111,8 +111,18 @@ The fundamental building unit of StudCraft is the Unit Base — see `02-core-rul
 with:
 
 ```
-The fundamental building unit of StudCraft is the Unit Base — see `02-core-rules.md` (CORE-001) for its definition, where its height comes from, and which projection each rule reads.
+The fundamental measuring unit of StudCraft is the Unit Base — see `02-core-rules.md` (CORE-001) for its definition, where its height comes from, and which projection each rule reads.
 ```
+
+Two changes in one line. The pointer stops quoting figures, and `building` becomes
+`measuring` — `CORE-001`'s own word ("StudCraft uses a single measuring unit"), where
+"building unit" read as a part you build with, in the one document whose subject is
+building. Raised in review on PR #79.
+
+`consolidate-core-measurements` chose `building` deliberately, to "keep the
+construction-standard-specific framing (this is *the* fundamental building unit for
+construction purposes)". That framing rested on the Unit Base being a 4 × 3 plate; #73
+made it a volume, so the word it was chosen for no longer describes the thing.
 
 - [x] 2.2 In `SCS-001`, replace this anchor:
 
@@ -229,6 +239,7 @@ reasoned.
 - [x] 4.6 `grep -rnF 'laying spare Unit Bases end to end' docs/` → no hits (**1** before: `MOVE-004`).
 - [x] 4.7 `grep -rnF 'This orientation defines' docs/` → no hits (**1** before: `MOVE-002`).
 - [x] 4.8 `grep -rn 'definition (4 × 3 studs)' docs/` → exactly **2** hits, **4** before: `docs/06-deployment.md` (`DEP-001`) and `docs/08-vehicles.md` (`VEH-001`). Both are deliberately kept — `design.md`, Decision 3. `docs/04-construction-standard.md` and `docs/07-movement.md` must not appear.
+- [x] 4.9a `grep -rnF 'building unit' docs/` → no hits (**1** before: `SCS-001`). Then `grep -rn 'measuring unit' docs/` → exactly **2** hits, **1** before: `docs/02-core-rules.md` (`CORE-001`) and `docs/04-construction-standard.md` (`SCS-001`). One term, one word for it.
 - [x] 4.9 `grep -rin 'horizontal projection' docs/` → exactly **3** hits, **2** before: `docs/02-core-rules.md` (`CORE-001`'s projection table), `docs/10-weapons.md` (`WPN-004`, pre-existing and untouched) and `docs/04-construction-standard.md` (`SCS-001`, task 2.2). `06-deployment.md` and `08-vehicles.md` must **not** appear: naming the reading in either would restate `CORE-001`'s table in two more documents (`design.md`, Decision 3). `07-movement.md` must not appear for a different reason — `MOVE-002` states no size at all, so it has no reading to name.
 - [x] 4.10 `grep -rnF '4-stud edge' docs/` → exactly **3** hits, **5** before: `docs/02-core-rules.md` twice (`CORE-001`'s front-edge sentence, kept by task 1.1, and its vertical-projection sentence) and `docs/05-construction-components.md` once (`CMP-018`, pre-existing and out of scope). `SCS-002` and `MOVE-002` must not appear.
 - [x] 4.11 `grep -ro '4 × 3' docs/ | wc -l` → **10**, **12** before. The two removed are `SCS-001`'s and `MOVE-002`'s pointer parentheticals. No other figure moves.

@@ -58,9 +58,16 @@ deployment area and a footprint — uses, in #73's terms — and those stay as t
   end". One word changes, to *infantry bases*: a volume cannot be laid down, and the
   plate a player actually lays is `SCS-002`'s. #73 left this sentence standing on
   `CORE-001`'s old identification of plate with base, which this change removes.
-- **`SCS-001`** defers to `CORE-001` without quoting figures, in the form #73 gave
-  `01-foundations.md`. Its next sentence names the horizontal projection, so
+- **`SCS-001`** calls the Unit Base a *measuring* unit rather than "the fundamental
+  **building** unit", and defers to `CORE-001` without quoting figures, in the form
+  #73 gave `01-foundations.md`. Its next sentence names the horizontal projection, so
   "corresponds to the footprint of a LEGO minifigure" stays true against a volume.
+  `measuring` is `CORE-001`'s own word; `consolidate-core-measurements` chose
+  `building` on purpose, to keep a "construction-standard-specific framing", and that
+  framing rested on the unit being a 4 × 3 plate — which #73 ended. Principle 7's
+  unmodified "the fundamental unit of the game" would also have worked; `measuring`
+  wins because `SCS-001`'s own next clause points at `CORE-001`, so the noun and the
+  pointer agree.
 
 The requirement itself is stated in full in exactly one place, `SCS-002`. `CORE-001`
 and `MOVE-002` each mention that a base exists and cite it; `CORE-003` no longer
@@ -72,7 +79,8 @@ renumbered.
 ## Impact
 
 - Affected documents: `docs/02-core-rules.md`, `docs/04-construction-standard.md`,
-  `docs/07-movement.md`. Ten anchors: eight verbs or pointers, one subject
+  `docs/07-movement.md`. Ten anchors: eight verbs or pointers — one of which,
+  `SCS-001`'s first sentence, also renames the unit's kind — plus one subject
   (`SCS-001`'s second sentence) and one pronoun (`MOVE-002`'s third).
 - Affected capabilities: none. No requirement in `openspec/specs/unit-base/spec.md`
   changes — its scenario already reads "**WHEN** an infantry model is placed on its
@@ -117,6 +125,13 @@ renumbered.
   consistent with `Slice`, `Projection` and `Base Plane`, and adding one later breaks
   nothing. It is out of scope here because it would make a fourth document part of a
   change whose applied text has already been audited.
+- **`openspec/specs/unit-base/spec.md`'s "placed on its **standard base**".** After
+  this change that phrase survives nowhere in `docs/` and only there, in the scenario
+  this proposal cites as the reason no delta is needed. The reasoning still holds — a
+  standard base does exist and does occupy one Unit Base — but the wording is the
+  part-reading a reader of `docs/` will no longer meet. It cannot be repaired from
+  this branch: `openspec/specs/` is Archive-cut-only state and the `PreToolUse` hook
+  refuses the write. For the archive cut, or a later delta.
 - **`VEH-029` and the glossary's `Base Plane` entry saying a vehicle's Unit Bases
   "rest on" a surface.** Volumes do not rest. The same looseness as `CMP-018`'s
   "stands on Unit Bases", pre-existing and untouched, and sharper now that

@@ -20,7 +20,7 @@ it: facing and the origin of every movement measurement are read off a plate ins
 of tracked. Replacing it with "a geometric reference unit" moves two rules from
 level 1 to level 4.
 
-## Decision 2 — `SCS-002` states the requirement; three rules cite it
+## Decision 2 — `SCS-002` states the requirement; two rules cite it
 
 The requirement is a construction requirement, and `04-construction-standard.md` is
 where construction requirements live. `SCS-002` is already titled *Infantry Base*.
@@ -69,10 +69,10 @@ is one of the three voices of the mounting requirement, and stating the base's s
 there is the third copy of it. Nothing replaces the figures: `MOVE-002` cites
 `SCS-002` and states no size at all.
 
-`SCS-001` is the one it misses. Its subject is the unit itself — "The fundamental
-building unit of StudCraft is the Unit Base" — so there is no horizontal use for the
-exemption to attach to, and the sentence promises "its definition" before giving
-figures that are no longer it. #73 shipped the correct form into `09-transport.md`
+`SCS-001` is the one it misses. Its subject is the unit itself — pre-change, "The
+fundamental **building** unit of StudCraft is the Unit Base" — so there is no
+horizontal use for the exemption to attach to, and the sentence promises "its
+definition" before giving figures that are no longer it. #73 shipped the correct form into `09-transport.md`
 in the same change ("the Unit Base definition: a volume of 4 × 3 studs by 12 plate
 layers") and a fuller deferral into `01-foundations.md`. `SCS-001` borrows that
 deferral clause almost word for word, without `01-foundations.md`'s dimension line —
@@ -84,7 +84,37 @@ does not correspond to a footprint. Writing the volume into `SCS-001` would make
 own next line false; deferring, and naming the horizontal projection in that next
 line, leaves both true and copies no dimensions into a second document.
 
-## Decision 4 — Completing #73's Decision 4 rather than reversing it
+## Decision 4 — `SCS-001` calls it a measuring unit, not a building unit
+
+Raised in review on PR #79, and it is the same defect as the rest of this change in
+its smallest form. `CORE-001` says "StudCraft uses a single **measuring** unit";
+`SCS-001` said "the fundamental **building** unit". Two names for one term, and the
+divergent one sat in the document whose subject is building, where "building unit"
+reads as a part you build with — the reading this change exists to remove.
+
+`consolidate-core-measurements` chose that word deliberately, to "keep the
+construction-standard-specific framing (this is *the* fundamental building unit for
+construction purposes)". The framing was sound while a Unit Base was a 4 × 3 plate:
+something you build with. #73 made it a volume, so the word no longer describes the
+thing, and the reason it was chosen for is the reason it now has to go.
+
+**Rejected alternatives**, both defensible:
+
+- **`spatial unit`**, the reviewer's second suggestion. It appears nowhere in `docs/`
+  and would be a third name for one term.
+- **Principle 7's unmodified "the fundamental unit of the game"** (`CODE_OF_DESIGN.md`).
+  It carries no part-reading at all and would have matched the constitution's own
+  sentence. `measuring` wins only because `SCS-001`'s next clause points at
+  `CORE-001`, so the noun and the pointer agree; had `SCS-001` not carried that
+  pointer, the unmodified form would have been the better choice.
+
+Nothing else in `SCS-001` moves. Its third sentence, "Every measurement in the game is
+derived from this unit", is pre-existing and stays: it says measurements are expressed
+in this unit rather than a parallel one, which naming the unit does not imply. It is
+not a claim that no other unit exists — `CORE-001` calls the plate layer "the
+ruleset's vertical unit" two rules away.
+
+## Decision 5 — Completing #73's Decision 4 rather than reversing it
 
 #73's Decision 4 is titled **"Not a piece."** and says: "`CORE-001` keeps calling the
 4 × 3 plate the standard base for infantry — that sentence is about how infantry is
@@ -93,14 +123,14 @@ mounted, not about what the unit of measurement is."
 The intent is right and this change keeps it. What #73 left is a pronoun: the
 sentence reads "**This** is the standard base for infantry", and after #73 "this" is
 the volume defined two lines above, not a 4 × 3 plate. So the sentence now says a
-volume is a base — the conflation Decision 4 set out to dissolve, in the definition
+volume is a base — the conflation #73's Decision 4 set out to dissolve, in the definition
 rule itself.
 
 The repair says what the volume is to an infantry model — **read horizontally**, the
 size of its base — and hands the component to `SCS-002`. The qualifier is not
 optional: the base is 4 × 3 studs and the volume is 4 × 3 × 12, so a sentence
 equating them without it would reintroduce the conflation in the definition rule
-itself. That is Decision 4's own position stated in text that survives the unit being
+itself. That is #73's Decision 4's own position stated in text that survives the unit being
 a volume. Nothing about "not a piece" is reversed; the plate stays uncounted and
 outside the volume (`CORE-001`'s floor-plate sentence is untouched).
 
@@ -185,7 +215,7 @@ changes with no spec delta on the same reasoning.
   above Construction Standards, and a pointer beats a copy.
 - `MOVE-003`, `MOVE-005`, `MOVE-006`: untouched. No step size is stated by the new
   `MOVE-002` text, and `MOVE-003` keeps measuring from the base's edges. `MOVE-004`
-  changes one word, for the reason in Decision 4.
+  changes one word, for the reason in Decision 5.
 - `SCS-003`: untouched, its "size ceiling (none)" clause included — loose after #75
   and recorded in `proposal.md`, Out of Scope, rather than repaired here.
 - `DEP-001`, `VEH-001`, `CMP-018`, `DEP-004`, `TRN-002`, `TRN-014`: untouched, each

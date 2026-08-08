@@ -30,7 +30,7 @@ Every functional element should be physically represented.
 
 # SCS-001 — Unit Base (UB)
 
-The fundamental building unit of StudCraft is the Unit Base — see `02-core-rules.md` (CORE-001) for its definition, where its height comes from, and which projection each rule reads.
+The fundamental measuring unit of StudCraft is the Unit Base — see `02-core-rules.md` (CORE-001) for its definition, where its height comes from, and which projection each rule reads.
 
 Its horizontal projection corresponds to the footprint of a LEGO minifigure.
 
