@@ -100,9 +100,9 @@ Determines forward/rear movement and firing arcs.
 
 ---
 
-## Deployment Area
+## Deployment Volume
 
-The battlefield space, measured in Unit Bases, that a player's army may occupy before the game begins.
+The battlefield space a player's army must fit inside, agreed before the game and measured in Unit Bases: a floor `W × D` and a ceiling `H`. See `06-deployment.md` (DEP-001).
 
 ---
 
@@ -290,19 +290,7 @@ The share of a Unit Base one cargo object occupies: 4 × 3 studs by that object'
 
 ## Projection
 
-The reading of the Unit Base volume a rule takes: horizontal for distance, deployment and footprints; the whole volume for transport capacity; vertical for passing an opening. A projection is a measured value and never replaces a physical check. See `02-core-rules.md` (CORE-001).
-
----
-
-## Maximum Height
-
-The greatest height a vehicle's Gameplay Geometry may reach above its Base Plane: 6 plate layers — two bricks, half a Unit Base — for every stud of its narrowest footprint side. A construction check made before deployment, never an in-game state. See `08-vehicles.md` (VEH-028).
-
----
-
-## Base Plane
-
-A vehicle's lowest floor — the surface its own Unit Bases rest on — and the datum its Maximum Height is counted from. A property of the model rather than of the ground beneath it; everything below it is locomotion. See `08-vehicles.md` (VEH-029).
+The reading of the Unit Base volume a rule takes: horizontal for distance, deployment floors and footprints; the whole volume for transport capacity and for the Deployment Volume a model must fit inside; vertical for passing an opening. A projection is a measured value and never replaces a physical check. See `02-core-rules.md` (CORE-001).
 
 ---
 

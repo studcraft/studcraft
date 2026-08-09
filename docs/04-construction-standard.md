@@ -48,7 +48,7 @@ Which edge of that base is its front is settled by the universal Facing rule (`0
 
 # SCS-003 — Vehicle Footprint
 
-Vehicles are measured using Unit Bases — see `08-vehicles.md` (VEH-001) for the canonical footprint examples and the size ceiling (none — the agreed Deployment Area naturally limits model size).
+Vehicles are measured using Unit Bases — see `08-vehicles.md` (VEH-001) for the canonical footprint examples and the maximum size (none — the agreed Deployment Volume naturally limits model size).
 
 ---
 

@@ -362,7 +362,7 @@ The lowest level rests on the vehicle's own hull and pays nothing for it — whi
 
 Each level is a cargo compartment like any other: its capacity is read from TRN-003 and its clearance from TRN-019.
 
-How many levels a vehicle has room for is bounded by its footprint rather than by this rule: a vehicle may rise 6 plate layers for every stud of its footprint's narrowest side (`08-vehicles.md`, VEH-028).
+How many levels a vehicle has room for is bounded by the ceiling of the agreed Deployment Volume rather than by this rule (`06-deployment.md`, DEP-001; `08-vehicles.md`, VEH-028).
 
 ---
 

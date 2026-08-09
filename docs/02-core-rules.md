@@ -54,8 +54,8 @@ The height is read from the model rather than chosen. Infantry occupies exactly 
 
 | Reading | Used by |
 |---|---|
-| Horizontal projection — `4 × 3` studs | Distances, movement, deployment areas, footprints |
-| The volume itself — `4 × 3` studs by 12 plate layers | Transport capacity and interior space |
+| Horizontal projection — `4 × 3` studs | Distances, movement, deployment floors, footprints |
+| The volume itself — `4 × 3` studs by 12 plate layers | Transport capacity, interior space, and the Deployment Volume a model must fit inside |
 | Vertical projection — 4 studs by 12 plate layers | Passing through an opening |
 
 The vertical projection is taken across the front, because the 4-stud edge is the front (CORE-002) and it is what enters an opening first.
@@ -64,7 +64,7 @@ A projection supplies a measured value and nothing else — the boundary `15-geo
 
 It never replaces a physical check. Line of Sight (CORE-008) and Cover (CORE-010) are resolved against the plastic actually on the table, never against a Unit Base's silhouette (`15-geometry-layers.md`, GEO-004).
 
-All distances, deployment areas and vehicle footprints are expressed using this unit. When a footprint is written as `W × D` UB (e.g. "Jeep: 2 × 3 UB"), the first number is a count of 4-stud widths and the second a count of 3-stud depths — a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`. A footprint is a horizontal reading, and says nothing about how tall a model actually is — though for a vehicle it does bound how tall the model may be (`08-vehicles.md`, VEH-028).
+All distances, Deployment Volumes and vehicle footprints are expressed using this unit. When a footprint is written as `W × D` UB (e.g. "Jeep: 2 × 3 UB"), the first number is a count of 4-stud widths and the second a count of 3-stud depths — a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`. A footprint is a horizontal reading, and says nothing about how tall a model actually is.
 
 ---
 
@@ -120,7 +120,7 @@ Vehicle movement and transport capacity are described in the Vehicle Rules.
 
 Buildings, fortifications and scenery are permanent battlefield elements.
 
-Structures follow the Construction Standard. Structure-specific damage (collapse, breaching walls) and Deployment Area occupation for scenario-placed structures are not yet defined — a structure's individual components (doors, windows, walls) already resolve Impacts through the standard Component Damage System (`16-damage-system.md`) like any other component; only structure-wide consequences (e.g. a building collapsing) remain future work.
+Structures follow the Construction Standard. Structure-specific damage (collapse, breaching walls) and Deployment Volume occupation for scenario-placed structures are not yet defined — a structure's individual components (doors, windows, walls) already resolve Impacts through the standard Component Damage System (`16-damage-system.md`) like any other component; only structure-wide consequences (e.g. a building collapsing) remain future work.
 
 ---
 
