@@ -426,7 +426,7 @@ Tank and Jeep share a limit because they share a narrowest side. Stretching a ve
 
 The same two Unit Bases give different limits depending on how they are arranged — side by side (2 × 1 UB, 8 × 3 studs) they allow one and a half Unit Bases, front to back (1 × 2 UB, 4 × 6 studs) two. That is not an exploit to close. The arrangement is built into the model, chosen once at the bench and paid for in the shape of the vehicle. Turning the finished model on the table changes nothing, because the narrowest side is a property of the rectangle and not of which way it points.
 
-An odd narrowest side gives a limit of a whole number of Unit Bases and a half. Nothing is rounded: a vehicle's own height is measured in plate layers (VEH-030) and compared against the limit.
+An odd narrowest side gives a limit of a whole number of Unit Bases and a half, which is not a whole number of plate layers. Nothing is rounded: a vehicle's own height is measured in plate layers (VEH-030) and compared against the limit, so such a limit is met by the whole plate count below it.
 
 Height is counted once, from the surface the vehicle rests on (VEH-029) to the top of its Gameplay Geometry (VEH-030) — **locomotion included** — and that one figure is checked against both bounds. A walker's legs, a wheel's diameter and a hover assembly are height exactly as a hull is: they are what holds the rest of the model up there, and a base that cannot justify a tall hull cannot justify tall legs either.
 
