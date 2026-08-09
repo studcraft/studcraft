@@ -82,7 +82,7 @@ Everything in StudCraft is ultimately measured using Unit Bases.
 Examples:
 
 - Infantry occupies 1 UB, and never shares it.
-- Deployment areas are measured in UB, horizontally.
+- Deployment Volumes are measured in UB, as a volume — a floor and a ceiling (`06-deployment.md`, DEP-001).
 - Vehicle footprints are measured in UB, horizontally.
 - Transport capacity is measured in UB, as a volume.
 - Cargo occupies UB, and several objects may share one (`09-transport.md`, TRN-013).

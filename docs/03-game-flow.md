@@ -31,7 +31,7 @@ Before the first Turn:
 1. Select a scenario (FLOW-013).
 2. Agree the objectives and how victory is judged.
 3. Agree on the battlefield size.
-4. Select the deployment size (measured in Unit Bases).
+4. Agree the Deployment Volume — `W × D × H` in Unit Bases (`06-deployment.md`, DEP-001).
 5. Build each player's force.
 6. Deploy all units.
 7. Determine Priority.
@@ -255,14 +255,14 @@ A scenario **must** state:
 
 A scenario **may** also state:
 
-- The battlefield size (FLOW-001) and the Deployment Area (`06-deployment.md`, DEP-001).
+- The battlefield size (FLOW-001) and the Deployment Volume (`06-deployment.md`, DEP-001).
 - Where terrain and structures are placed (`02-core-rules.md`, CORE-005).
 - Restrictions on otherwise-legal actions, such as limiting the weapons a unit may fire in one activation (`10-weapons.md`, WPN-014), restricting reverse movement (`08-vehicles.md`, VEH-006), or restricting how a weapon system's Attack Dice may be split (`11-combat.md`, CBT-007).
 - Additional movement options such as sprinting (`07-movement.md`, MOVE-004).
 
 Scenario rules sit fourth in the rule priority order (`02-core-rules.md`, Universal Rule): they may restrict or extend the ruleset for one game, and never contradict Foundations, Core Rules or Construction Standards.
 
-This ruleset defines no objectives of its own. It states what a scenario must declare, not what it may declare — the same way DEP-001 requires a Deployment Area to be agreed without dictating its size. A scenario that wants objective markers, capture rules or victory points describes them itself.
+This ruleset defines no objectives of its own. It states what a scenario must declare, not what it may declare — the same way DEP-001 requires a Deployment Volume to be agreed without dictating its size. A scenario that wants objective markers, capture rules or victory points describes them itself.
 
 ---
 

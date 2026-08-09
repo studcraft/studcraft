@@ -138,7 +138,7 @@ Examples
 
 No additional range values exist.
 
-There is no maximum Range, for the same reason there is no maximum Impact Strength (WPN-021): the limit is what the attacker's platform can carry. That limit is real, it is simply not written as a number. Weapon Length is bounded by Platform Length (WPN-004), platform size by the agreed Deployment Area (`04-construction-standard.md`, SCS-003; `06-deployment.md`, DEP-003), and the Deployment Area by the battlefield the players agree on before it (`03-game-flow.md`, FLOW-001). Range therefore scales with the size of the game on its own.
+There is no maximum Range, for the same reason there is no maximum Impact Strength (WPN-021): the limit is what the attacker's platform can carry. That limit is real, it is simply not written as a number. Weapon Length is bounded by Platform Length (WPN-004), platform size by the agreed Deployment Volume (`04-construction-standard.md`, SCS-003; `06-deployment.md`, DEP-003), and the Deployment Volume by the battlefield the players agree on before it (`03-game-flow.md`, FLOW-001). Range therefore scales with the size of the game on its own.
 
 Maximum Range is rarely the practical limit in any case. Line of Sight is a physical check (`02-core-rules.md`, CORE-008), so a weapon reaching 72 studs only matters where 72 studs of clear sight exist. On a battlefield with terrain, that is uncommon.
 
