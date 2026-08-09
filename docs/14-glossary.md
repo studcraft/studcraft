@@ -182,7 +182,7 @@ The largest horizontal dimension of a platform's Unit Base or vehicle bounding b
 
 ## Cargo Bay
 
-The interior space of a transport vehicle, measured in Unit Bases, used to carry passengers and cargo. A closed bay with less than one Unit Base of clearance carries cargo but no infantry. See `09-transport.md` (TRN-019).
+The interior space of a transport vehicle, measured in Unit Bases, used to carry passengers and cargo. A closed bay with less than one Unit Base of clear height carries cargo but no infantry. See `09-transport.md` (TRN-019).
 
 ---
 

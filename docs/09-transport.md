@@ -329,7 +329,7 @@ Every structural element may become tactically relevant.
 
 # TRN-019 — Interior Clearance
 
-What must fit inside a vehicle is the Unit Base itself rather than the loose model (`02-core-rules.md`, CORE-001; `04-construction-standard.md`, SCS-005). A closed compartment is therefore measured by the clear height above the surface a model stands on, not by the space its contents could be squeezed into: a position offering less than one Unit Base of clear height is a partial Unit Base (TRN-003), and holds no whole one.
+What must fit inside a vehicle is the Unit Base itself rather than the loose model (`02-core-rules.md`, CORE-001; `04-construction-standard.md`, SCS-005). A position offering less than one Unit Base of clear height is therefore a partial Unit Base (TRN-003), and holds no whole one.
 
 Clearance is measured from the surface a model stands or sits on, upward to whatever is above it. That surface is the model's floor, not an obstruction: a bench 3 plate layers high needs one Unit Base of clear height *above the bench*. Seating raises the roof a compartment needs rather than shrinking its occupant — which is what TRN-017 already means by "benches reduce available cargo space".
 
@@ -348,11 +348,11 @@ A position with no roof over it has nothing above to measure against, so no clea
 
 # TRN-020 — Interior Levels
 
-A vehicle may stack interior levels, and each level above the lowest must pay for its own floor.
+A vehicle may stack interior levels.
 
 Each level needs one Unit Base of clear height above its own floor (`02-core-rules.md`, CORE-001), and each floor above the lowest costs what it measures — one plate at its thinnest.
 
-| Levels | Clear height needed above the lowest interior floor |
+| Levels | Height needed above the lowest interior floor |
 |---|---|
 | 1 | one Unit Base |
 | 2 | two Unit Bases + 1 plate |

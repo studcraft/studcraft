@@ -512,3 +512,119 @@ from "after" **without editing a document to make a check pass**.
 - [x] 9.12 `grep -rn "Version:" docs/*.md | grep -c "0.2.0 Draft"` — before: **15**, after: **15**. No header moves.
 
 - [x] 9.13 Report anything that had to be interpreted. Every interpretation is a place this proposal was unclear (`system/delegating-to-agents.md`).
+
+---
+
+## 10. Post-audit repairs
+
+The audit of the **applied** text (`system/delegating-to-agents.md`, step 4) returned
+one blocker and five findings, five of which are defects in this proposal's own
+replacement text rather than in its transcription — the pattern that document
+predicts. The blocker is a git one and is handled outside `tasks.md`: `d150aba`
+committed `tasks.md` alone, leaving `proposal.md` and `design.md` untracked, which
+`Docs require OpenSpec proposal` tests against the checkout and would fail. They are
+committed on top, not amended in (`system/repository-strategy.md`: history only
+grows).
+
+Anchors below were checked against the **applied** tree and each occurs exactly once.
+
+- [x] 10.1 In `TRN-019`, replace this anchor:
+
+```
+What must fit inside a vehicle is the Unit Base itself rather than the loose model (`02-core-rules.md`, CORE-001; `04-construction-standard.md`, SCS-005). A closed compartment is therefore measured by the clear height above the surface a model stands on, not by the space its contents could be squeezed into: a position offering less than one Unit Base of clear height is a partial Unit Base (TRN-003), and holds no whole one.
+```
+
+with:
+
+```
+What must fit inside a vehicle is the Unit Base itself rather than the loose model (`02-core-rules.md`, CORE-001; `04-construction-standard.md`, SCS-005). A position offering less than one Unit Base of clear height is therefore a partial Unit Base (TRN-003), and holds no whole one.
+```
+
+Task 5.8 replaced the deleted figure with a statement of where clearance is measured
+from — which the **next** paragraph already owns, in wider words ("the surface a model
+stands **or sits** on"). Two adjacent statements of one convention, and the earlier,
+narrower one drops the seated case that `TRN-002` and this rule's own bench sentence
+turn on. The premise the "therefore" needs is in the first sentence, which is enough.
+
+- [x] 10.2 In `TRN-020`, replace this anchor:
+
+```
+A vehicle may stack interior levels, and each level above the lowest must pay for its own floor.
+```
+
+with:
+
+```
+A vehicle may stack interior levels.
+```
+
+With the formula gone, this clause and "The lowest level rests on the vehicle's own
+hull and pays nothing for it" both restate the sentence between them ("each floor
+above the lowest costs what it measures — one plate at its thinnest"). Three
+statements of one cost in four sentences, in the rule this change simplified.
+
+- [x] 10.3 In `TRN-020`'s table, replace this anchor — the header row only:
+
+```
+| Levels | Clear height needed above the lowest interior floor |
+```
+
+with:
+
+```
+| Levels | Height needed above the lowest interior floor |
+```
+
+The column's values include the intermediate floors, which are solid plate and by
+definition not clear — `docs/14-glossary.md` defines *Interior Clearance* as the clear
+height, and `TRN-020`'s own sentence above the table separates the two correctly. Read
+literally, the old header required two levels to have 25 plate layers clear **plus**
+its floor. The figures in the cells are unchanged and remain correct.
+
+- [x] 10.4 In `docs/14-glossary.md`'s *Cargo Bay* entry, replace this anchor:
+
+```
+A closed bay with less than one Unit Base of clearance carries cargo but no infantry.
+```
+
+with:
+
+```
+A closed bay with less than one Unit Base of clear height carries cargo but no infantry.
+```
+
+Task 7.3 confirmed this entry as already-correct phrasing. It is not: "one Unit Base
+of clearance" is one of the five variants `design.md`, Decision 1 names and bans, and
+it sits six entries from *Interior Clearance*, which states the same `TRN-019`
+threshold in the sanctioned words.
+
+- [x] 10.5 In `assets/IMAGES.md`'s `TRN-019` image entry, replace this anchor:
+
+```
+First, a bare floor whose clear height to the roof is exactly one Unit Base, holding one Unit Base.
+```
+
+with:
+
+```
+First, a bare floor whose clear height to the roof is exactly one Unit Base — `02-core-rules.md` (CORE-001) gives that height in plate layers — holding one Unit Base.
+```
+
+The brief opens by requiring "every clear height dimensioned in plate layers" and,
+after task 8.2, named no plate count anywhere. `assets/IMAGES.md`'s own standard for
+that column is that someone who has not read the rule can draw from it; an illustrator
+told to write a number needs to be told where the number is.
+
+### Verification after section 10
+
+- [x] 10.6 `grep -c "one Unit Base of clear height" docs/09-transport.md docs/14-glossary.md` — after 5.x/7.x: `8`, `1`. After section 10: **8**, **2** (task 10.4 adds the *Cargo Bay* entry; 10.1 keeps its one occurrence while removing the duplicated clause around it).
+
+- [x] 10.7 `grep -rn "a full Unit Base\|the full Unit Base\|Unit Base of clearance" docs/` — before section 10: **1**, after: **0**. Every banned variant is gone.
+
+- [x] 10.8 `grep -c "Clear height needed" docs/09-transport.md` — before: **1**, after: **0**.
+
+- [x] 10.9 `grep -rn "12 plate layers" docs/ | wc -l` — **9**, unchanged by section 10. `grep -rn "12N" docs/ assets/IMAGES.md | wc -l` — **0**, unchanged.
+
+- [x] 10.10 `python3 scripts/lint_ruleset.py` and `python3 scripts/check_delta_coverage.py` — both exit 0.
+
+- [x] 10.11 `git status --porcelain` — three tracked paths modified (`docs/09-transport.md`, `docs/14-glossary.md`, `assets/IMAGES.md`) plus `tasks.md`, and the two untracked artefacts `proposal.md` and `design.md`. No other path.
