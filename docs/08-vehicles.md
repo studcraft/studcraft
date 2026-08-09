@@ -431,7 +431,7 @@ A vehicle taller than its Maximum Height is not a legal vehicle. It cannot be de
 
 This caps no dimension of its own. VEH-001's "No maximum vehicle size exists" stays true as written — a footprint may be any size, and the height allowed grows with it. What this rule fixes is the relationship between the two, and it introduces no height statistic, vehicle class or size category to do it.
 
-It also bounds how many interior levels a footprint carries, while saying nothing about capacity. N levels need `12N + (N − 1)` plate layers above the lowest floor (`09-transport.md`, TRN-020), so a vehicle 4 studs across has room for one level, 8 studs for three, and 12 studs for five. A wide vehicle may still stack decks; a narrow one cannot.
+It also bounds how many interior levels a footprint carries, while saying nothing about capacity. Each level needs one Unit Base of clear height and each floor above the lowest a plate of its own (`09-transport.md`, TRN-020), so a vehicle 4 studs across has room for one level, 8 studs for three, and 12 studs for five. A wide vehicle may still stack decks; a narrow one cannot.
 
 ---
 

@@ -278,13 +278,13 @@ The gap a model passes through when it uses a door, hatch or ramp. An access poi
 
 ## Interior Clearance
 
-The clear height inside a closed compartment, measured in plate layers from the surface a model stands or sits on. Less than 12 plate layers — one Unit Base — carries cargo but no infantry. See `09-transport.md` (TRN-019).
+The clear height inside a closed compartment, measured in plate layers from the surface a model stands or sits on. Less than one Unit Base of clear height carries cargo but no infantry. See `09-transport.md` (TRN-019).
 
 ---
 
 ## Slice
 
-The share of a Unit Base one cargo object occupies: 4 × 3 studs by that object's own height. Slices sharing a Unit Base may total no more than 12 plate layers, and infantry never occupies a slice — it occupies the whole Unit Base. See `09-transport.md` (TRN-013).
+The share of a Unit Base one cargo object occupies: 4 × 3 studs by that object's own height. Slices sharing a Unit Base may total no more than the Unit Base's height, and infantry never occupies a slice — it occupies the whole Unit Base. See `09-transport.md` (TRN-013).
 
 ---
 
