@@ -536,3 +536,57 @@ totals, and the brief is what an illustrator draws from.
 - [x] 10.14 `grep -c "^- \[ \]" openspec/changes/a-unit-base-is-thirteen-plate-layers/tasks.md` — after everything in this section is applied and ticked: **1**, and it is task 9.1.
 
 - [x] 10.15 `python3 scripts/lint_ruleset.py` and `python3 scripts/check_delta_coverage.py` — both exit 0, the second reporting one MODIFIED requirement and no dropped scenarios.
+
+
+---
+
+## 11. Review on PR #82 — the cargo heights move after all
+
+Task 6.1 kept `TRN-013`'s drone, motorbike and walker at `12 plate layers`, following
+#80's reasoning that a height read from a model is not the unit restated even when the
+two agree. The reviewer overrode it, and the override is right: those three rows were
+chosen to **equal** a Unit Base — it is what makes the drone illustrate cargo that
+fills one, against the crate's partial slice — so at 12 they quietly stop illustrating
+anything. `design.md`, Decision 3, is rewritten to record the reversal rather than
+leave the file arguing for the state it no longer describes.
+
+- [x] 11.1 In `TRN-013`, replace this table. **Four-backtick fences; the table inside is real markdown.** Three `Height` cells change and nothing else does:
+
+````
+| Cargo | Footprint | Height |
+|---|---|---|
+| Ammo crate | 1 UB | 4 plate layers |
+| Fuel drum pallet | 1 UB | 8 plate layers |
+| Drone | 1 UB | 12 plate layers |
+| Motorbike | 2 UB | 12 plate layers |
+| Walker | 2 UB or more | 12 plate layers |
+````
+
+with:
+
+````
+| Cargo | Footprint | Height |
+|---|---|---|
+| Ammo crate | 1 UB | 4 plate layers |
+| Fuel drum pallet | 1 UB | 8 plate layers |
+| Drone | 1 UB | 13 plate layers |
+| Motorbike | 2 UB | 13 plate layers |
+| Walker | 2 UB or more | 13 plate layers |
+````
+
+The crate and the pallet keep their figures: those are arbitrary example heights, not
+the unit in disguise. The other three are the unit, and they follow it.
+
+- [x] 11.2 **Verify only, change nothing.** The sentence below the table — "Three ammo crates of 4 plate layers therefore share one Unit Base" — stays true at 13: three take 12 of the 13, and a fourth would need 16. It is not edited.
+
+### Verification after section 11
+
+- [x] 11.3 `grep -rn "12 plate layers" docs/ assets/ README.md CODE_OF_DESIGN.md | wc -l` — before: **3**, after: **0**. The figure is gone from the ruleset entirely.
+
+- [x] 11.4 `grep -rn "13 plate layers" docs/ assets/ README.md CODE_OF_DESIGN.md | wc -l` — before: **8**, after: **11**.
+
+- [x] 11.5 `grep -c "4 plate layers\|8 plate layers" docs/09-transport.md` — before: **4**, after: **4**. The crate and pallet are untouched. Four lines, not three: `TRN-003`'s example at line 91 and `TRN-013`'s closing sentence both mention the 4-plate crate as well as its table row — the same count section 8.5 states and this task first got wrong.
+
+- [x] 11.6 `python3 scripts/lint_ruleset.py` and `python3 scripts/check_delta_coverage.py` — both exit 0, the second reporting one MODIFIED requirement and no dropped scenarios.
+
+- [x] 11.7 `grep -c "^- \[ \]" openspec/changes/a-unit-base-is-thirteen-plate-layers/tasks.md` — after ticking everything in this section: **1**, and it is still task 9.1.

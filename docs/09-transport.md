@@ -247,9 +247,9 @@ A Unit Base divides into **slices**. A slice measures 4 × 3 studs by the height
 |---|---|---|
 | Ammo crate | 1 UB | 4 plate layers |
 | Fuel drum pallet | 1 UB | 8 plate layers |
-| Drone | 1 UB | 12 plate layers |
-| Motorbike | 2 UB | 12 plate layers |
-| Walker | 2 UB or more | 12 plate layers |
+| Drone | 1 UB | 13 plate layers |
+| Motorbike | 2 UB | 13 plate layers |
+| Walker | 2 UB or more | 13 plate layers |
 
 Footprints and heights are read from the model like every other measured value; the figures above are examples, not assignments.
 

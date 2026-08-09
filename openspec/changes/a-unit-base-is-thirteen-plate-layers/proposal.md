@@ -59,11 +59,12 @@ it and stopped dividing at 13. What is left is short.
 - **`01-foundations.md`, `README.md` and `CODE_OF_DESIGN.md`** (Principle 7) carry the
   dimension line as an introduction and take the new figure.
 - **`14-glossary.md`**'s *Unit Base* entry takes it too.
-- **`TRN-013`'s cargo heights do not move.** #80 kept them literal on the grounds that
-  a height read from a model is not the unit restated even when the two agree, and
-  moving them by hand now would concede the opposite. A drone 12 plate layers tall is
-  a legal example of cargo; nothing claims it fills a Unit Base exactly, because #80
-  deleted the column that did.
+- **`TRN-013`'s drone, motorbike and walker heights move from 12 to 13.** All three
+  were chosen to be exactly one Unit Base tall — it is what makes the drone illustrate
+  cargo that fills one, beside a crate that takes part of one — so at 12 they stop
+  illustrating anything. Reversed twice before landing here; `design.md`, Decision 3,
+  records both turns and what the choice costs. The crate and the pallet keep their
+  figures.
 - **`assets/IMAGES.md`**'s `CORE-001` brief takes the new figure, moves the base plate
   **inside** the drawn volume, and gains a panel: the minifigure on its base, flush
   with a stack of four bricks and a plate, stud for stud. That panel is the derivation,

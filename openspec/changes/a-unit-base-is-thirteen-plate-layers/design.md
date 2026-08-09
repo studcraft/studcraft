@@ -86,27 +86,35 @@ still share one Unit Base — 12 of 13 — and a fourth still does not fit.
 
 ---
 
-## Decision 3 — `TRN-013`'s three cargo heights stay where they are
+## Decision 3 — `TRN-013`'s three cargo heights move with the unit
 
 The drone, motorbike and walker rows read `12 plate layers`. #80 deliberately left
 them alone, on the grounds that a height read from a model is not a restatement of
 `CORE-001` even when the two agree — and recorded in its Handover that the follow-up
 should decide whether the examples were still the examples it wanted.
 
-**They stay at 12**, and the reasoning in #80 is why.
+**They move to 13**, and this decision was reversed once before landing on that.
 
-The tempting move is to bump them, because all three were originally chosen to be
-exactly one Unit Base tall. But #80 kept them literal on the explicit grounds that "a
-height read from a model is not a restatement of `CORE-001` even when the two agree",
-and rejected replacing them with "one Unit Base" for the same reason. Moving them by
-hand now would concede that they *are* the unit restated — and would commit every
-future height change to hunting three table cells that no grep for the unit will find.
+The first draft moved them. The audit of the proposal argued they should stay, because
+moving them by hand concedes that they are the unit restated, and #80's own reasoning
+says they are not. That argument was followed, and the review on PR #82 overruled it.
 
-Nothing in the table claims they fill a Unit Base: #80 deleted the `Space` column that
-said so. A drone 12 plate layers tall is a legal example of cargo, and the slice rule
-above the table does the rest. If the table ever needs an example of cargo exactly one
-Unit Base tall, the honest way to write it is "one Unit Base", not a figure kept in
-lockstep by hand.
+The review is right, and the tell is what the rows are *for*. All three were chosen to
+be exactly one Unit Base tall — that is what makes the drone illustrate cargo filling
+a whole Unit Base, next to a crate that takes a third of one. At 12 they illustrate
+nothing: three arbitrary heights that happen to sit a plate below the unit, in a table
+whose job is to show how cargo divides it. An example that no longer exemplifies is
+worse than a figure kept in step by hand.
+
+What that costs is real and worth writing down for whoever moves the height next:
+these three cells are the unit expressed as a plate count, and no search for "Unit
+Base" will find them. The permanent repair is to write them as `one Unit Base` rather
+than a number — rejected here only because it puts two units in one `Height` column,
+beside the crate's `4 plate layers`. If the table is ever reworked, that is the shape
+to rework it into.
+
+The `Footprint` column and the crate and pallet heights are untouched: those are
+arbitrary example values, not the unit in disguise.
 
 ---
 
@@ -119,9 +127,9 @@ rows, the glossary's *Unit Base* entry, and the three overview surfaces —
 dimension line and names `CORE-001` as the authority in the next breath.
 
 This change edits exactly those, plus the `CORE-001` image brief, `SCS-002` (Decision
-6) and three sentences that name the surface a clearance is measured from. The only
-`12 plate layers` left standing in `docs/` afterwards is `TRN-013`'s three cargo
-heights, which Decision 3 keeps deliberately — that is the whole return on #80.
+6), three sentences that name the surface a clearance is measured from, and
+`TRN-013`'s three cargo heights (Decision 3). No `12 plate layers` is left standing
+anywhere in `docs/` afterwards — that is the whole return on #80.
 
 ---
 
