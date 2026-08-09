@@ -28,7 +28,7 @@ The interior layout of a vehicle is therefore a meaningful design decision.
 
 # TRN-001 — Unit Base Occupancy
 
-Every transported object occupies Unit Base volume — one or more whole Unit Bases, or a share of one where the object is cargo shorter than a Unit Base (TRN-013). See `02-core-rules.md` (CORE-001) for the Unit Base definition: a volume of 4 × 3 studs by 12 plate layers.
+Every transported object occupies Unit Base volume — one or more whole Unit Bases, or a share of one where the object is cargo shorter than a Unit Base (TRN-013). See `02-core-rules.md` (CORE-001) for the Unit Base definition.
 
 This represents the minimum operational space required by the object.
 
@@ -67,7 +67,7 @@ A Unit Base is a volume, and cargo may divide one (TRN-013) — see `02-core-rul
 
 A transport vehicle's capacity is the Unit Base volume available inside its cargo compartment — see `02-core-rules.md` (CORE-001).
 
-Count the Unit Bases its floor holds, then check its clearance (TRN-019): a position with less than 12 plate layers above it is a partial Unit Base, not a whole one.
+Count the Unit Bases its floor holds, then check its clearance (TRN-019): a position with less than one Unit Base of clear height above it is a partial Unit Base, not a whole one.
 
 A load is measured against that volume:
 
@@ -78,7 +78,7 @@ Example:
 
 Cargo bay:
 
-2 × 4 UB, 12 plate layers of clearance
+2 × 4 UB, one Unit Base of clear height
 
 Capacity:
 
@@ -88,7 +88,7 @@ Possible loads:
 
 - 8 infantry
 - 4 infantry + 1 light walker (2 UB) + 2 UB of cargo
-- 6 infantry + six ammo crates of 4 plate layers each — three crates fill one Unit Base, so six fill two
+- 6 infantry + six ammo crates of 4 plate layers each — three crates share one Unit Base, so six take two
 - Any legal combination occupying no more than 8 UB
 
 ---
@@ -238,22 +238,22 @@ Passengers and attackers may interact through them if line of sight exists (`02-
 
 Cargo occupies Unit Bases, and unlike infantry it may share one.
 
-A Unit Base divides into **slices**. A slice measures 4 × 3 studs by the height of the object standing in it, and the slices sharing one Unit Base may total no more than 12 plate layers — see `02-core-rules.md` (CORE-001).
+A Unit Base divides into **slices**. A slice measures 4 × 3 studs by the height of the object standing in it, and the slices sharing one Unit Base may total no more than the Unit Base's height — see `02-core-rules.md` (CORE-001).
 
 - An object **narrower** than 4 × 3 studs still takes a whole slice: the horizontal footprint is already spent, so sharing is only ever vertical.
 - An object **wider or longer** than one Unit Base takes a slice of its own height in every Unit Base its footprint covers.
 
-| Cargo | Footprint | Height | Space |
-|---|---|---|---|
-| Ammo crate | 1 UB | 4 plate layers | ⅓ UB |
-| Fuel drum pallet | 1 UB | 8 plate layers | ⅔ UB |
-| Drone | 1 UB | 12 plate layers | 1 UB |
-| Motorbike | 2 UB | 12 plate layers | 2 UB |
-| Walker | 2 UB or more | 12 plate layers | its footprint |
+| Cargo | Footprint | Height |
+|---|---|---|
+| Ammo crate | 1 UB | 4 plate layers |
+| Fuel drum pallet | 1 UB | 8 plate layers |
+| Drone | 1 UB | 12 plate layers |
+| Motorbike | 2 UB | 12 plate layers |
+| Walker | 2 UB or more | 12 plate layers |
 
 Footprints and heights are read from the model like every other measured value; the figures above are examples, not assignments.
 
-Three ammo crates of 4 plate layers therefore fill one Unit Base exactly. A crate and a minifigure never share one: the minifigure occupies a whole Unit Base standing or seated (TRN-002), and 4 + 12 plate layers does not fit in 12.
+Three ammo crates of 4 plate layers therefore share one Unit Base. A crate and a minifigure never share one: the minifigure occupies a whole Unit Base standing or seated (TRN-002), leaving no slice for the crate.
 
 Cargo and passengers compete equally for transport space.
 
@@ -329,42 +329,36 @@ Every structural element may become tactically relevant.
 
 # TRN-019 — Interior Clearance
 
-A Unit Base is 12 plate layers tall, and what must fit inside a vehicle is the Unit Base itself rather than the loose model (`02-core-rules.md`, CORE-001; `04-construction-standard.md`, SCS-005). A closed compartment offering less than 12 plate layers of clear height therefore holds no whole Unit Base.
+What must fit inside a vehicle is the Unit Base itself rather than the loose model (`02-core-rules.md`, CORE-001; `04-construction-standard.md`, SCS-005). A position offering less than one Unit Base of clear height is therefore a partial Unit Base (TRN-003), and holds no whole one.
 
-Clearance is measured from the surface a model stands or sits on, upward to whatever is above it. That surface is the model's floor, not an obstruction: a bench 3 plate layers high needs 12 clear layers *above the bench*. Seating raises the roof a compartment needs rather than shrinking its occupant — which is what TRN-017 already means by "benches reduce available cargo space".
+Clearance is measured from the surface a model stands or sits on, upward to whatever is above it. That surface is the model's floor, not an obstruction: a bench 3 plate layers high needs one Unit Base of clear height *above the bench*. Seating raises the roof a compartment needs rather than shrinking its occupant — which is what TRN-017 already means by "benches reduce available cargo space".
 
 Everything else physically in the way does count: a roof, a beam, a rack, a pipe. An element that reduces a compartment's usable volume is modifying Gameplay Geometry, not decorating it — see `15-geometry-layers.md` (GEO-002) — whatever it looks like.
 
-- **Infantry and crew need the full 12 plate layers.** An infantry model occupies exactly one Unit Base whether standing or seated (TRN-002), and a crew member occupies one like any other passenger (TRN-014). A compartment shorter than that carries neither.
-- **Cargo needs only its own height.** Cargo divides a Unit Base (TRN-013), so a compartment 9 plate layers high carries cargo up to 9 plate layers — three quarters of a Unit Base per position.
+- **Infantry and crew need one Unit Base of clear height.** An infantry model occupies exactly one Unit Base whether standing or seated (TRN-002), and a crew member occupies one like any other passenger (TRN-014). A compartment shorter than that carries neither.
+- **Cargo needs only its own height.** Cargo divides a Unit Base (TRN-013), so a compartment 9 plate layers high carries cargo up to 9 plate layers — a partial Unit Base per position, in TRN-003's sense.
 
 A low closed transport is therefore not an illegal model. It is a freight hull rather than a troop hull.
 
 A position with no roof over it has nothing above to measure against, so no clearance applies there. Where an enclosure is incomplete enough that its occupants stay visible, the transport is open by TRN-009's own test, and its passengers are targetable, able to attack, and without the hull protection TRN-010 gives them. The builder pays in survivability rather than in a legality ruling.
 
-**What this costs an existing model.** A closed compartment built under 12 plate layers stops carrying infantry, and that includes a closed cockpit: a Pilot with no Unit Base is no Pilot, and a vehicle without a Pilot cannot move — see `08-vehicles.md` (VEH-013). Raising the roof by a plate or two, or opening it, is the whole repair.
+**What this costs an existing model.** A closed compartment built under one Unit Base of clear height stops carrying infantry, and that includes a closed cockpit: a Pilot with no Unit Base is no Pilot, and a vehicle without a Pilot cannot move — see `08-vehicles.md` (VEH-013). Raising the roof by a plate or two, or opening it, is the whole repair.
 
 ---
 
 # TRN-020 — Interior Levels
 
-A vehicle may stack interior levels, and each level above the lowest must pay for its own floor.
+A vehicle may stack interior levels.
 
-N levels require:
+Each level needs one Unit Base of clear height above its own floor (`02-core-rules.md`, CORE-001), and each floor above the lowest costs what it measures — one plate at its thinnest.
 
-```
-12N + (N − 1) plate layers
-```
+| Levels | Height needed above the lowest interior floor |
+|---|---|
+| 1 | one Unit Base |
+| 2 | two Unit Bases + 1 plate |
+| 3 | three Unit Bases + 2 plates |
 
-measured above the lowest interior floor.
-
-| Levels | Plate layers | Bricks |
-|---|---|---|
-| 1 | 12 | 4 |
-| 2 | 25 | 8 + 1 plate |
-| 3 | 38 | 12 + 2 plates |
-
-The `(N − 1)` term is the intermediate floors at their thinnest, one plate each; a floor built thicker costs what it actually measures. The lowest level rests on the vehicle's own hull and pays nothing for it — which is why a vehicle exactly 8 bricks tall does not hold two levels. It is one plate short.
+The lowest level rests on the vehicle's own hull and pays nothing for it — which is why an interior exactly two Unit Bases tall does not hold two levels. It is one plate short.
 
 Each level is a cargo compartment like any other: its capacity is read from TRN-003 and its clearance from TRN-019.
 
@@ -379,7 +373,7 @@ Transport in StudCraft follows these principles:
 1. Everything occupies Unit Bases.
 2. Infantry always occupies exactly 1 UB, and never shares it.
 3. Transport capacity is the Unit Base volume available inside, and cargo may share a Unit Base.
-4. A closed compartment shorter than 12 plate layers carries cargo but no infantry, crew included.
+4. A closed compartment shorter than one Unit Base of clear height carries cargo but no infantry, crew included.
 5. Embarking costs 1 AP per occupied Unit Base.
 6. Disembarking costs 1 AP per occupied Unit Base.
 7. Open transports expose passengers.
