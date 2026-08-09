@@ -266,3 +266,88 @@ The argument was answered rather than dropped — a model's own height is still 
 in plate layers, so a 22-plate hull fits a two-Unit-Base ceiling — but if half-Unit-Base
 ceilings are ever wanted, `DEP-001` is where that decision goes, and at 13 plate layers
 a half Unit Base is not a whole plate.
+
+
+---
+
+## Decision 8 — both bounds, one measurement (review on PR #81)
+
+The first version of this change made the agreed ceiling the only bound on a vehicle's
+height. The review blocked on it, correctly: in a `10 × 10 × 6 UB` game a `2 × 2 UB`
+vehicle could then be built six Unit Bases tall. `VEH-028`'s proportion was not a
+substitute for the missing third dimension — it was a construction constraint that
+happened to be the only height rule there was — and deleting it reopened the
+narrow-tower case it existed to close.
+
+Both bounds apply. A vehicle is legal only if its height is under its footprint's
+proportion **and** under the agreed ceiling. They answer different questions: the
+proportion travels with the model, the ceiling is the size of the game.
+
+**The proportion is stated in Unit Bases, and that is what makes keeping it possible.**
+`design.md` originally rejected keeping the bound because at 13 plate layers
+`12 ÷ 3 × 1.5` becomes 6½ and the rule would need an arbitrary rounding. Written as
+*one Unit Base of height for every two studs of the narrowest side*, it is the same
+derivation with the conversion removed — `(UB ÷ 3) × 1.5 = UB ÷ 2` — and it needs no
+plate figure at all. It reproduces every limit the old table gave: 2, 3, 4, 4 and 6
+Unit Bases are the 24, 36, 48, 48 and 72 plate layers it printed. An odd narrowest
+side lands on half a Unit Base, and nothing rounds: a model's height is measured in
+plate layers and compared.
+
+That also answers the review's second point without a special case. No rule outside
+`CORE-001` now converts a Unit Base into plate layers.
+
+**One height, two comparisons — the Base Plane does not come back.** The obvious
+alternative was to keep the ceiling counting locomotion while the footprint bound
+measured only from the vehicle's interior floor, which is what the old `VEH-029` did.
+Rejected on three grounds:
+
+- **One word, one measurement.** Two datums for one noun is the defect the last three
+  changes have been removing. A player would have to know which "height" a check
+  means before picking up the ruler.
+- **The physics the bound rests on counts the legs.** The proportion asks whether a
+  base justifies a height. A hull one and a half Unit Bases up on legs another two
+  Unit Bases long is exactly as disproportionate as a hull three and a half Unit Bases
+  tall on the same base. The old argument — that a footprint does not support more
+  hull for being on legs, so charging legs against it was charging twice — measures
+  the hull where the bound measures the model.
+- **It would close one loophole and leave its twin open.** The old `VEH-029` said in
+  as many words that a vehicle "can gain reach by standing on tall locomotion instead
+  of by building upward, and this limit never sees it". Reach bought with legs and
+  reach bought with hull are the same reach on the table.
+
+**What it costs:** a long-legged walker on a small base stops existing. A tall walker
+is now a wide walker. That is a design statement rather than a casualty — but if
+walkers turn out to be squeezed in play, the repair is not to reopen the exclusion.
+It is to recognise that a walker's stance *is* wide and give it the footprint it
+occupies standing, which would be its own proposal.
+
+
+---
+
+## Open — is the floor packed or budgeted?
+
+`DEP-002` says an army is "any combination of models that fits inside the agreed
+Deployment Volume — on its floor and under its ceiling". Two readings survive that
+sentence, and the ruleset has always contained both:
+
+- **Packing**: the floor is a shape, and a `1 × 2 UB` vehicle needs two Unit Bases of
+  depth to sit in. `DEP-001`'s `W × D` framing implies this.
+- **Budget**: the floor is a count, and a `1 × 2 UB` vehicle costs 2 of the 25 a
+  `5 × 5 UB` game holds. `DEP-003`'s "This area is unavailable for any other model"
+  implies this.
+
+They differ wherever a footprint is deeper than the floor: under packing, no vehicle
+deeper than one Unit Base can be fielded in a `5 × 1 UB` game at all; under a budget,
+a Bike fits, and nothing says how a rotated `4 × 6`-stud footprint is counted against
+a grid of `4A × 3B`.
+
+This change did not create the ambiguity — `DEP-002`'s wording is unchanged from
+before it — but making the agreed thing a `W × D × H` volume sharpens it, and the
+audit found it by checking whether `DEP-009`'s Patrol ceiling can ever bind. It
+cannot, and `proposal.md`'s scenario table now says so rather than claiming a match
+that only holds under the budget reading.
+
+Settling it is a mechanical change to `DEP-002` and `DEP-003`, not a rewording, so it
+needs its own proposal. Recorded here so it is proposed rather than rediscovered — the
+second such question this change leaves standing, alongside vertical cargo overflow
+(Decision 3).

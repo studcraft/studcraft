@@ -22,7 +22,7 @@ StudCraft measures army size using physical volume instead of abstract points.
 
 Every vehicle and infantry model occupies space; a scenario-placed structure's Deployment Volume occupation is not yet defined (`02-core-rules.md`, CORE-005).
 
-The floor that space covers becomes the cost of including the model. Its height is not charged: how tall a model may be is a ceiling both players agreed to (DEP-001), not a price one of them pays.
+The floor that space covers becomes the cost of including the model, and it is also what a vehicle's height has to justify (`08-vehicles.md`, VEH-028). Height itself is never charged separately: the second thing bounding it is a ceiling both players agreed to (DEP-001), not a price one of them pays.
 
 Wider models provide greater capabilities but consume more deployment capacity.
 
@@ -40,7 +40,7 @@ A one-Unit-Base ceiling is an infantry game, and deliberately so. A powered vehi
 
 Deployment Volumes may have any dimensions agreed upon by the players, subject only to the one Unit Base of height an army needs to exist in.
 
-`H` is agreed in whole Unit Bases. A model's own height is measured as its rule measures it — a vehicle's in plate layers (`08-vehicles.md`, VEH-030) — so a hull 22 plate layers tall fits a ceiling of two Unit Bases with room to spare.
+`H` is agreed in whole Unit Bases. A model's own height is measured as its rule measures it — a vehicle's in plate layers (`08-vehicles.md`, VEH-030) — and compared against the ceiling rather than rounded up to it, so a hull built to whole bricks and a plate or two is legal wherever it measures under.
 
 Examples:
 
@@ -97,7 +97,7 @@ Deployment cost:
 
 This area is unavailable for any other model.
 
-The footprint is what this rule charges, and it bounds nothing else. How tall a vehicle may build is settled by the ceiling of the agreed Deployment Volume (DEP-001; `08-vehicles.md`, VEH-028), not by the space it covers.
+That same footprint bounds the vehicle's height: one Unit Base for every two studs of its narrowest side (`08-vehicles.md`, VEH-028). Where an outline is not rectangular the height is read from the smallest rectangle of Unit Bases enclosing it, which never changes what is charged here. The agreed ceiling (DEP-001) bounds it a second time, and a vehicle must satisfy both.
 
 ---
 
@@ -230,7 +230,7 @@ No upper limit exists.
 
 StudCraft intentionally replaces army points with physical space.
 
-Players pay for wider units by sacrificing floor space, and for taller ones by having to agree a Deployment Volume that admits them.
+Players pay for wider units by sacrificing floor space — and for taller ones twice over, since height is bounded by that same floor and again by the volume both players agreed to.
 
 Large vehicles gain transport capacity, survivability and firepower naturally.
 
@@ -245,7 +245,7 @@ Balance emerges from construction rather than army lists.
 Deployment follows four principles:
 
 1. Army size is measured in Unit Bases.
-2. Vehicles consume floor space according to their footprint, and must fit under the agreed ceiling.
+2. Vehicles consume floor space according to their footprint, which also bounds their height, and must fit under the agreed ceiling as well.
 3. Transport capacity depends on physical interior volume.
 4. Embarked units do not consume additional Deployment Volume.
 

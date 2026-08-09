@@ -294,4 +294,10 @@ The reading of the Unit Base volume a rule takes: horizontal for distance, deplo
 
 ---
 
+## Maximum Height
+
+The greatest height a vehicle's Gameplay Geometry may reach, counted from the surface it rests on and locomotion included: one Unit Base for every two studs of its narrowest footprint side, and never above the agreed Deployment Volume's ceiling. A construction check made before deployment, never an in-game state. See `08-vehicles.md` (VEH-028).
+
+---
+
 > **Every Brick Matters.**

@@ -96,10 +96,15 @@ Four consequences, stated plainly because each one changes what a player may bri
   the Deployment Volume is real space, and space is occupied by whatever occupies it.
   Terrain capability is still read from the same parts, and silhouette still costs
   what it costs.
-- **Narrow no longer means short.** A 1 × 2 UB bike may be built to the full agreed
-  ceiling. The coupling `VEH-028` enforced is gone, and nothing replaces it.
-- **Every Maximum Height figure disappears.** No vehicle has a height limit of its
-  own any more; there is one ceiling per game, agreed by both players.
+- **Locomotion counts against the footprint bound too.** One height is measured and
+  checked against both bounds, so a walker's legs consume the proportion its base has
+  to justify: a tall walker needs a wide walker. `VEH-029` used to say outright that a
+  vehicle "can gain reach by standing on tall locomotion instead of by building
+  upward, and this limit never sees it". That is now closed, as the narrow-tower case
+  is.
+- **Maximum Height is stated in Unit Bases.** The figures do not move — a Bike's two
+  Unit Bases is the 24 plate layers it had — but no rule outside `CORE-001` converts
+  between the two.
 - **A two-number Deployment Volume is an infantry game.** With a ceiling of one Unit
   Base, no powered vehicle can exist: a Pilot occupies a Unit Base (`VEH-013`), that
   Unit Base needs a Unit Base of clear height above the surface it sits on
@@ -110,16 +115,37 @@ Four consequences, stated plainly because each one changes what a player may bri
 The three suggested ceilings are chosen against what `VEH-028` allows today, so the
 scenarios stay the games they were:
 
-| Scenario | Ceiling | In plate layers | Today's `VEH-028` limit for its vehicles |
-|---|---|---|---|
-| Patrol `5 × 1 × 2 UB` | 2 UB | 24 | Bike, 4 studs across: 24 |
-| Skirmish `5 × 5 × 4 UB` | 4 UB | 48 | Jeep and Tank, 8 studs across: 48 |
-| Battle `10 × 10 × 6 UB` | 6 UB | 72 | Heavy Transport, 12 studs across: 72 |
+| Scenario | Ceiling | What actually binds at that scale |
+|---|---|---|
+| Patrol `5 × 1 × 2 UB` | 2 UB | the footprint: a floor one Unit Base deep takes only `A × 1 UB` vehicles, narrowest side 3 studs, bound 1½ UB |
+| Skirmish `5 × 5 × 4 UB` | 4 UB | either: a Jeep or Tank's 8-stud side gives 4 UB, exactly the ceiling |
+| Battle `10 × 10 × 6 UB` | 6 UB | either: a Heavy Transport's 12-stud side gives 6 UB, exactly the ceiling |
 
-Those figures are equal, not merely close — a Unit Base is 12 plate layers and
-`VEH-028` allowed 6 per stud. What changes for those vehicles is not the number but
-what it measures: the ceiling counts locomotion, so a walker that fitted its old
-allowance may not fit the equivalent ceiling.
+The two larger ceilings are set to the footprint bound of the largest vehicle each
+scale is played with, so neither bound is decorative. Patrol is different and worth
+saying plainly: its floor is one Unit Base deep, so every vehicle that fits it is
+bounded at 1½ Unit Bases by its own footprint before the ceiling is consulted. The
+ceiling is headroom there, not the constraint.
+
+None of the three shrinks against what `VEH-028` allowed. What changes for those
+vehicles is not the figure but what it measures: both bounds now count locomotion, so
+a walker that fitted its old allowance may not fit either.
+
+## Review on this PR
+
+The first review agreed with the Deployment Volume and blocked on one consequence:
+with `VEH-028` reduced to the ceiling alone, a `2 × 2 UB` vehicle could be built six
+Unit Bases tall in a `10 × 10 × 6 UB` game. The proportion between a footprint and the
+height it justifies was a construction constraint, not a stand-in for the missing
+third dimension, and removing it reopened the narrow-tower exploit. Both bounds now
+apply, and a vehicle is legal only under both. `design.md`, Decision 8, records the
+reversal, why the proportion is stated in Unit Bases this time, and why the Base Plane
+does not come back with it.
+
+The same review asked that no scenario rule restate a Unit Base in plate layers.
+`DEP-001`'s worked sentence and the scenario table above are rewritten accordingly,
+and the restored bound is written in Unit Bases; `CORE-001` is the only place that
+conversion lives.
 
 ## Out of Scope
 

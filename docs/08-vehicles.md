@@ -48,7 +48,7 @@ Examples
 | Heavy Transport | 3 × 8 UB |
 | Super Heavy | Player Built |
 
-No maximum vehicle size exists, and the footprint bounds no dimension of its own. How tall a vehicle may build is settled by the ceiling of the agreed Deployment Volume (`06-deployment.md`, DEP-001; VEH-028).
+No maximum vehicle size exists. The footprint does bound how high the vehicle may build on it — one Unit Base for every two studs of its narrowest side (VEH-028) — and the agreed Deployment Volume bounds it again (`06-deployment.md`, DEP-001), but no dimension of the footprint itself is capped.
 
 ---
 
@@ -345,7 +345,7 @@ Measuring the assembly rather than the visible gap matters for enclosed builds. 
 
 A hover model built with its hull flat on the ground has no assembly to measure and a Terrain Threshold of 0 — every obstacle blocks it. Nothing forbids that build; it simply cannot cross anything, which is the model telling you it is not finished. `CMP-005` already requires hover components to be visually distinguishable, and this is why: the assembly is the vehicle's terrain capability, so it has to be visible to be measured.
 
-A taller assembly clears more terrain at the cost of a taller silhouette, which is easier to see and therefore to shoot (`02-core-rules.md`, CORE-008), and of the height it takes under the agreed ceiling (VEH-029) — the same trade a walker makes with long legs.
+A taller assembly clears more terrain at the cost of a taller silhouette, which is easier to see and therefore to shoot (`02-core-rules.md`, CORE-008), and of the height it takes against both of VEH-028's bounds — the footprint's proportion as much as the agreed ceiling. That is the same trade a walker makes with long legs.
 
 Hover thresholds are usually the lowest of any locomotion type: a hover vehicle is stopped by walls a wheeled vehicle drives over. In exchange it is **never stranded by a drop** (VEH-025) — it passes over depressions instead of entering them, and their depth is irrelevant.
 
@@ -401,29 +401,50 @@ This needs no separate walker rule. A walker whose knee clears the whole rise si
 
 ---
 
-# VEH-028 — Height
+# VEH-028 — Maximum Height
 
-A vehicle may be built to any height that fits under the ceiling of the agreed Deployment Volume (`06-deployment.md`, DEP-001).
+A vehicle's height is bounded twice, and it is legal only under both bounds:
 
-The footprint bounds nothing here. A narrow vehicle may be as tall as a wide one, and turning or stretching a footprint changes no height: what a vehicle may reach is the height both players agreed to before the game, and it is the same height for every model on the table.
+- **By its own footprint.** For every two studs across the narrowest side of its footprint, a vehicle may rise one Unit Base.
+- **By the agreed ceiling.** No model may exceed the height agreed for the Deployment Volume (`06-deployment.md`, DEP-001).
 
-Height is counted from the surface the vehicle rests on (VEH-029) to the top of its Gameplay Geometry (VEH-030) — **locomotion included**. A walker's legs, a wheel's diameter and a hover assembly occupy the ceiling exactly as a hull does: they are what holds the rest of the model up there.
+The two answer different questions and neither replaces the other. The footprint bound is a proportion the model carries wherever it is played: a vehicle may be as tall as its own base justifies. The ceiling is the size of the game, agreed once and the same for every model on the table. A wide vehicle in a low-roofed scenario is stopped by the ceiling; a narrow one in a large game is stopped by its footprint.
 
-A vehicle taller than the ceiling is not a legal vehicle. It cannot be deployed until it is rebuilt, or until the players agree a taller volume. There is no penalty, no marker and no in-game state: this is a construction check made once before the game, exactly like the two-Unit-Base minimum (`02-core-rules.md`, CORE-004; VEH-013). Legality is settled before deployment and never revisited, so a vehicle whose construction is altered in play (VEH-018) is not measured again.
+The footprint is the Unit Bases the vehicle covers — the ones `06-deployment.md` (DEP-003) charges. Written `A × B` UB it measures `4A × 3B` studs (`02-core-rules.md`, CORE-001), so its narrowest side is the smaller of those two numbers. Where an outline is not rectangular, read `A × B` as the smallest rectangle of Unit Bases enclosing it. That rectangle serves this measurement only and changes no vehicle's Deployment Volume cost, which DEP-003 still charges per Unit Base actually covered.
 
-This rule caps nothing of its own. VEH-001's "No maximum vehicle size exists" stays true as written, and no height statistic, vehicle class or size category is introduced: the size of the game is agreed by the players, and every model is measured against that agreement rather than against a figure this ruleset invents.
+The proportion is read off the Unit Base rather than chosen. One Unit Base is the volume one person occupies, on a narrowest side of 3 studs; a vehicle is allowed half as much again, which is half a Unit Base of height for every stud and therefore one for every two. Stating it in Unit Bases rather than in plate layers keeps it true of the unit itself — `02-core-rules.md` (CORE-001) owns the conversion, and nothing here repeats it.
 
-How many interior levels a vehicle carries follows from the same ceiling rather than from its footprint, at the cost `09-transport.md` (TRN-020) sets.
+| Vehicle | Footprint | Studs | Narrowest side | Maximum Height |
+|---|---|---|---:|---:|
+| Bike | 1 × 2 UB | 4 × 6 | 4 | 2 UB |
+| Buggy | 2 × 2 UB | 8 × 6 | 6 | 3 UB |
+| Jeep | 2 × 3 UB | 8 × 9 | 8 | 4 UB |
+| Tank | 2 × 5 UB | 8 × 15 | 8 | 4 UB |
+| Heavy Transport | 3 × 8 UB | 12 × 24 | 12 | 6 UB |
+
+Tank and Jeep share a limit because they share a narrowest side. Stretching a vehicle along its long axis buys it nothing: a long thin vehicle is still a thin vehicle.
+
+The same two Unit Bases give different limits depending on how they are arranged — side by side (2 × 1 UB, 8 × 3 studs) they allow one and a half Unit Bases, front to back (1 × 2 UB, 4 × 6 studs) two. That is not an exploit to close. The arrangement is built into the model, chosen once at the bench and paid for in the shape of the vehicle. Turning the finished model on the table changes nothing, because the narrowest side is a property of the rectangle and not of which way it points.
+
+An odd narrowest side gives a limit of a whole number of Unit Bases and a half. Nothing is rounded: a vehicle's own height is measured in plate layers (VEH-030) and compared against the limit.
+
+Height is counted once, from the surface the vehicle rests on (VEH-029) to the top of its Gameplay Geometry (VEH-030) — **locomotion included** — and that one figure is checked against both bounds. A walker's legs, a wheel's diameter and a hover assembly are height exactly as a hull is: they are what holds the rest of the model up there, and a base that cannot justify a tall hull cannot justify tall legs either.
+
+A vehicle exceeding either bound is not a legal vehicle. It cannot be deployed until it is rebuilt — lower, or on a wider footprint — or, where the ceiling is what stops it, until the players agree a taller volume. There is no penalty, no marker and no in-game state: this is a construction check made once before the game, exactly like the two-Unit-Base minimum (`02-core-rules.md`, CORE-004; VEH-013). Legality is settled before deployment and never revisited, so a vehicle whose construction is altered in play (VEH-018) is not measured again.
+
+This introduces no height statistic, vehicle class or size category. VEH-001's "No maximum vehicle size exists" stays true as written: a footprint may be any size, and the height allowed grows with it.
+
+How many interior levels a vehicle carries follows from whichever bound is lower, at the cost `09-transport.md` (TRN-020) sets.
 
 ---
 
 # VEH-029 — Where Height Is Counted From
 
-Height (VEH-028) is counted from **the surface the vehicle rests on when it stands on its own locomotion**. A vehicle that begins the game inside another (`09-transport.md`, TRN-001, TRN-003) is measured the same way and against the same ceiling: its own height is what is checked, never its height plus the carrier's, and a vehicle stowed lying down or in a cradle is measured as it would stand.
+Height (VEH-028) is counted from **the surface the vehicle rests on when it stands on its own locomotion**. A vehicle that begins the game inside another (`09-transport.md`, TRN-001, TRN-003) is measured the same way and against its own two bounds: its own height is what is checked, never its height plus the carrier's, and a vehicle stowed lying down or in a cradle is measured as it would stand.
 
-**Locomotion counts.** Everything between that surface and the top of the vehicle's Gameplay Geometry occupies the ceiling: a walker two Unit Bases tall on legs another Unit Base long takes three Unit Bases of the room, and which part of it reaches the lid changes nothing about the space it takes.
+**Locomotion counts.** Everything between that surface and the top of the vehicle's Gameplay Geometry is the vehicle's height: a walker two Unit Bases tall on legs another Unit Base long stands three Unit Bases high, and which part of it reaches that far changes nothing — not for the room it takes under the ceiling, and not for the proportion its footprint has to justify (VEH-028).
 
-Terrain capability is still read from those same parts — a wheel by its axle (VEH-022), a leg by its knee (VEH-023), a hover assembly by its full height (VEH-024) — and tall locomotion still costs silhouette (`02-core-rules.md`, CORE-008). What it no longer buys is reach the ceiling cannot see. Reach gained by standing on long legs and reach gained by building upward are the same reach on the table, and they are paid for out of the same agreed height.
+Terrain capability is still read from those same parts — a wheel by its axle (VEH-022), a leg by its knee (VEH-023), a hover assembly by its full height (VEH-024) — and tall locomotion still costs silhouette (`02-core-rules.md`, CORE-008). What it no longer buys is reach no limit can see. This rule used to say a vehicle "can gain reach by standing on tall locomotion instead of by building upward, and this limit never sees it"; reach gained on long legs and reach gained by building upward are the same reach on the table, so both are now measured, and both are checked against both of VEH-028's bounds. A walker that wants long legs wants a wider footprint to justify them.
 
 This is a check made at the bench, not on the table. A vehicle on a hill, in a depression or part-way up a ramp is not measured again: legality was settled before deployment (VEH-028), so terrain elevation never enters it.
 
@@ -450,7 +471,7 @@ This rule adds no classification of its own, and writes no list of functional an
 
 An element holding a crew position is Gameplay Geometry because a crew member occupies a Unit Base of its own (TRN-014). A mast holding nothing carries no Unit Base and feeds no measured value — GEO-002 lists antennas among its own examples of Visual Geometry for exactly that reason. A mast is therefore measured to the height of whatever it carries, and everything below that point is included automatically; only plastic continuing *above* the last functional element is free.
 
-This is not an exception to `15-geometry-layers.md` (GEO-004). GEO-007 settles it: a model does not become invalid, and its measured values do not change, solely as a result of adding Visual Geometry — and a height limit that counted decoration would invalidate a legal vehicle the moment a flag went on it. Access openings ask a different question, whether a model physically passes through (`05-construction-components.md`, CMP-018), and decoration obstructs passage, so it counts there. The agreed ceiling asks how much functional construction a model raises into the volume, and a flag raises none.
+This is not an exception to `15-geometry-layers.md` (GEO-004). GEO-007 settles it: a model does not become invalid, and its measured values do not change, solely as a result of adding Visual Geometry — and a height limit that counted decoration would invalidate a legal vehicle the moment a flag went on it. Access openings ask a different question, whether a model physically passes through (`05-construction-components.md`, CMP-018), and decoration obstructs passage, so it counts there. Both of VEH-028's bounds ask how much functional construction a model raises into the volume, and a flag raises none.
 
 Decoration is never free in play, only in legality. A tall decorative mast is real plastic: visible, blocking sight lines and shootable (`02-core-rules.md`, CORE-008; GEO-004). The player who builds one pays in silhouette rather than in a rules violation.
 
@@ -477,7 +498,7 @@ No predefined vehicle profiles are required.
 
 Terrain capability is read from the locomotion like everything else: a wheel's axle, a walker's knee, a hover assembly's height (VEH-021 through VEH-024).
 
-Height is read from the agreed Deployment Volume instead: a vehicle may be built to any height that fits under its ceiling, counted from the surface the vehicle rests on and measured to the top of its Gameplay Geometry (VEH-028 through VEH-030).
+Height is read from both the footprint and the agreed Deployment Volume: one Unit Base for every two studs of the narrowest side, and never above the ceiling the players agreed, counted from the surface the vehicle rests on and measured to the top of its Gameplay Geometry (VEH-028 through VEH-030).
 
 A player should understand how a vehicle behaves simply by examining its construction.
 

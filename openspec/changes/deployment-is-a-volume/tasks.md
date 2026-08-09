@@ -1191,3 +1191,454 @@ it against the right file; no parenthesised ID is left in the sentence for the
 - [x] 13.2 `python3 scripts/lint_ruleset.py` — before: exit 1, one issue. After: **exit 0**, `Checked 15 docs, no structural issues found.` Then re-run `python3 scripts/check_delta_coverage.py` — still exit 0, one MODIFIED requirement, no dropped scenarios.
 
 - [x] 13.3 Tick task 12.17 once 13.2 passes: it was left unticked deliberately, because the check it names genuinely failed.
+
+
+---
+
+## 14. Review on PR #81 — the footprint bound comes back
+
+The review agreed with the Deployment Volume and blocked on one consequence: with
+`VEH-028` reduced to the agreed ceiling, nothing stops a `2 × 2 UB` vehicle being
+built six Unit Bases tall in a `10 × 10 × 6 UB` game. The proportion between a
+footprint and the height it can justify was a construction constraint, not a
+substitute for the missing third dimension, and deleting it reopened the narrow-tower
+exploit.
+
+Both bounds now apply, and a vehicle is legal only under both. The footprint bound
+returns **expressed in Unit Bases** — *one Unit Base of height for every two studs of
+the narrowest side* — which is the same derivation the old rule stated as 6 plate
+layers per stud (`(UB ÷ 3 studs) × 1.5 = UB ÷ 2`) and yields the same five limits it
+tabulated. Stated that way it needs no plate figure and survives the height change
+the next proposal makes, which is what `design.md` originally rejected keeping it for.
+
+**One height, two comparisons.** The model is measured once — from the surface it
+rests on to the top of its Gameplay Geometry, locomotion included (`VEH-029`,
+`VEH-030`) — and that one figure is checked against both bounds. `design.md`,
+Decision 8, records why the Base Plane does not come back with the bound it used to
+serve.
+
+The review's second point is applied as well: no scenario rule states a plate-layer
+equivalent of a Unit Base. `CORE-001` is the only place that conversion lives.
+
+Every anchor below was checked against the current working tree and occurs once.
+
+- [x] 14.1 Replace `VEH-028` — **heading title and entire body**, from the heading to the `---` that ends the rule. The rule ID does not change. Four-backtick fences; the `#` heading and `|` table inside are real markdown:
+
+````
+# VEH-028 — Height
+
+A vehicle may be built to any height that fits under the ceiling of the agreed Deployment Volume (`06-deployment.md`, DEP-001).
+
+The footprint bounds nothing here. A narrow vehicle may be as tall as a wide one, and turning or stretching a footprint changes no height: what a vehicle may reach is the height both players agreed to before the game, and it is the same height for every model on the table.
+
+Height is counted from the surface the vehicle rests on (VEH-029) to the top of its Gameplay Geometry (VEH-030) — **locomotion included**. A walker's legs, a wheel's diameter and a hover assembly occupy the ceiling exactly as a hull does: they are what holds the rest of the model up there.
+
+A vehicle taller than the ceiling is not a legal vehicle. It cannot be deployed until it is rebuilt, or until the players agree a taller volume. There is no penalty, no marker and no in-game state: this is a construction check made once before the game, exactly like the two-Unit-Base minimum (`02-core-rules.md`, CORE-004; VEH-013). Legality is settled before deployment and never revisited, so a vehicle whose construction is altered in play (VEH-018) is not measured again.
+
+This rule caps nothing of its own. VEH-001's "No maximum vehicle size exists" stays true as written, and no height statistic, vehicle class or size category is introduced: the size of the game is agreed by the players, and every model is measured against that agreement rather than against a figure this ruleset invents.
+
+How many interior levels a vehicle carries follows from the same ceiling rather than from its footprint, at the cost `09-transport.md` (TRN-020) sets.
+````
+
+with:
+
+````
+# VEH-028 — Maximum Height
+
+A vehicle's height is bounded twice, and it is legal only under both bounds:
+
+- **By its own footprint.** For every two studs across the narrowest side of its footprint, a vehicle may rise one Unit Base.
+- **By the agreed ceiling.** No model may exceed the height agreed for the Deployment Volume (`06-deployment.md`, DEP-001).
+
+The two answer different questions and neither replaces the other. The footprint bound is a proportion the model carries wherever it is played: a vehicle may be as tall as its own base justifies. The ceiling is the size of the game, agreed once and the same for every model on the table. A wide vehicle in a low-roofed scenario is stopped by the ceiling; a narrow one in a large game is stopped by its footprint.
+
+The footprint is the Unit Bases the vehicle covers — the ones DEP-003 charges. Written `A × B` UB it measures `4A × 3B` studs (`02-core-rules.md`, CORE-001), so its narrowest side is the smaller of those two numbers. Where an outline is not rectangular, read `A × B` as the smallest rectangle of Unit Bases enclosing it. That rectangle serves this measurement only and changes no vehicle's Deployment Volume cost, which DEP-003 still charges per Unit Base actually covered.
+
+The proportion is read off the Unit Base rather than chosen. One Unit Base is the volume one person occupies, on a narrowest side of 3 studs; a vehicle is allowed half as much again, which is half a Unit Base of height for every stud and therefore one for every two. Stating it in Unit Bases rather than in plate layers keeps it true of the unit itself — `02-core-rules.md` (CORE-001) owns the conversion, and nothing here repeats it.
+
+| Vehicle | Footprint | Studs | Narrowest side | Maximum Height |
+|---|---|---|---:|---:|
+| Bike | 1 × 2 UB | 4 × 6 | 4 | 2 UB |
+| Buggy | 2 × 2 UB | 8 × 6 | 6 | 3 UB |
+| Jeep | 2 × 3 UB | 8 × 9 | 8 | 4 UB |
+| Tank | 2 × 5 UB | 8 × 15 | 8 | 4 UB |
+| Heavy Transport | 3 × 8 UB | 12 × 24 | 12 | 6 UB |
+
+Tank and Jeep share a limit because they share a narrowest side. Stretching a vehicle along its long axis buys it nothing: a long thin vehicle is still a thin vehicle.
+
+The same two Unit Bases give different limits depending on how they are arranged — side by side (2 × 1 UB, 8 × 3 studs) they allow one and a half Unit Bases, front to back (1 × 2 UB, 4 × 6 studs) two. That is not an exploit to close. The arrangement is built into the model, chosen once at the bench and paid for in the shape of the vehicle. Turning the finished model on the table changes nothing, because the narrowest side is a property of the rectangle and not of which way it points.
+
+An odd narrowest side gives a limit of a whole number of Unit Bases and a half. Nothing is rounded: a vehicle's own height is measured in plate layers (VEH-030) and compared against the limit, so half a Unit Base of allowance is simply an allowance no model lands on exactly.
+
+Height is counted once, from the surface the vehicle rests on (VEH-029) to the top of its Gameplay Geometry (VEH-030) — **locomotion included** — and that one figure is checked against both bounds. A walker's legs, a wheel's diameter and a hover assembly are height exactly as a hull is: they are what holds the rest of the model up there, and a base that cannot justify a tall hull cannot justify tall legs either.
+
+A vehicle exceeding either bound is not a legal vehicle. It cannot be deployed until it is rebuilt — lower, or on a wider footprint — or, where the ceiling is what stops it, until the players agree a taller volume. There is no penalty, no marker and no in-game state: this is a construction check made once before the game, exactly like the two-Unit-Base minimum (`02-core-rules.md`, CORE-004; VEH-013). Legality is settled before deployment and never revisited, so a vehicle whose construction is altered in play (VEH-018) is not measured again.
+
+This introduces no height statistic, vehicle class or size category. VEH-001's "No maximum vehicle size exists" stays true as written: a footprint may be any size, and the height allowed grows with it.
+
+How many interior levels a vehicle carries follows from whichever bound is lower, at the cost `09-transport.md` (TRN-020) sets.
+````
+
+- [x] 14.2 In `VEH-029`, replace this anchor:
+
+```
+**Locomotion counts.** Everything between that surface and the top of the vehicle's Gameplay Geometry occupies the ceiling: a walker two Unit Bases tall on legs another Unit Base long takes three Unit Bases of the room, and which part of it reaches the lid changes nothing about the space it takes.
+```
+
+with:
+
+```
+**Locomotion counts.** Everything between that surface and the top of the vehicle's Gameplay Geometry is the vehicle's height: a walker two Unit Bases tall on legs another Unit Base long stands three Unit Bases high, and which part of it reaches that far changes nothing — not for the room it takes under the ceiling, and not for the proportion its footprint has to justify (VEH-028).
+```
+
+- [x] 14.3 In `VEH-029`, replace this anchor:
+
+```
+Terrain capability is still read from those same parts — a wheel by its axle (VEH-022), a leg by its knee (VEH-023), a hover assembly by its full height (VEH-024) — and tall locomotion still costs silhouette (`02-core-rules.md`, CORE-008). What it no longer buys is reach the ceiling cannot see. Reach gained by standing on long legs and reach gained by building upward are the same reach on the table, and they are paid for out of the same agreed height.
+```
+
+with:
+
+```
+Terrain capability is still read from those same parts — a wheel by its axle (VEH-022), a leg by its knee (VEH-023), a hover assembly by its full height (VEH-024) — and tall locomotion still costs silhouette (`02-core-rules.md`, CORE-008). What it no longer buys is reach no limit can see. This rule used to say a vehicle "can gain reach by standing on tall locomotion instead of by building upward, and this limit never sees it"; reach gained on long legs and reach gained by building upward are the same reach on the table, so both are now measured, and both are checked against both of VEH-028's bounds. A walker that wants long legs wants a wider footprint to justify them.
+```
+
+- [x] 14.4 In `VEH-001`, replace this anchor:
+
+```
+No maximum vehicle size exists, and the footprint bounds no dimension of its own. How tall a vehicle may build is settled by the ceiling of the agreed Deployment Volume (`06-deployment.md`, DEP-001; VEH-028).
+```
+
+with:
+
+```
+No maximum vehicle size exists. The footprint does bound how high the vehicle may build on it — one Unit Base for every two studs of its narrowest side (VEH-028) — and the agreed Deployment Volume bounds it again (`06-deployment.md`, DEP-001), but no dimension of the footprint itself is capped.
+```
+
+- [x] 14.5 In the vehicles Summary, replace this anchor:
+
+```
+Height is read from the agreed Deployment Volume instead: a vehicle may be built to any height that fits under its ceiling, counted from the surface the vehicle rests on and measured to the top of its Gameplay Geometry (VEH-028 through VEH-030).
+```
+
+with:
+
+```
+Height is read from both the footprint and the agreed Deployment Volume: one Unit Base for every two studs of the narrowest side, and never above the ceiling the players agreed, counted from the surface the vehicle rests on and measured to the top of its Gameplay Geometry (VEH-028 through VEH-030).
+```
+
+- [x] 14.6 In `docs/02-core-rules.md`, `CORE-001`, replace this anchor:
+
+```
+A footprint is a horizontal reading, and says nothing about how tall a model actually is.
+```
+
+with:
+
+```
+A footprint is a horizontal reading, and says nothing about how tall a model actually is — though for a vehicle it does bound how tall the model may be (`08-vehicles.md`, VEH-028).
+```
+
+This restores the sentence task 3.1 removed. It was removed because the footprint had
+stopped bounding height; it bounds it again.
+
+- [x] 14.7 In `docs/06-deployment.md`, `DEP-003`, replace this anchor:
+
+```
+The footprint is what this rule charges, and it bounds nothing else. How tall a vehicle may build is settled by the ceiling of the agreed Deployment Volume (DEP-001; `08-vehicles.md`, VEH-028), not by the space it covers.
+```
+
+with:
+
+```
+That same footprint bounds the vehicle's height: one Unit Base for every two studs of its narrowest side (`08-vehicles.md`, VEH-028). Where an outline is not rectangular the height is read from the smallest rectangle of Unit Bases enclosing it, which never changes what is charged here. The agreed ceiling (DEP-001) bounds it a second time, and a vehicle must satisfy both.
+```
+
+- [x] 14.8 In `docs/06-deployment.md`, `DEP-001`, replace this anchor:
+
+```
+`H` is agreed in whole Unit Bases. A model's own height is measured as its rule measures it — a vehicle's in plate layers (`08-vehicles.md`, VEH-030) — so a hull 22 plate layers tall fits a ceiling of two Unit Bases with room to spare.
+```
+
+with:
+
+```
+`H` is agreed in whole Unit Bases. A model's own height is measured as its rule measures it — a vehicle's in plate layers (`08-vehicles.md`, VEH-030) — and compared against the ceiling rather than rounded up to it, so a hull built to whole bricks and a plate or two is legal wherever it measures under.
+```
+
+The old sentence asserted that 22 plate layers fits two Unit Bases, which is true only
+by a conversion the review asks this document not to restate.
+
+- [x] 14.9 In `docs/09-transport.md`, `TRN-020`, replace this anchor:
+
+```
+How many levels a vehicle has room for is bounded by the ceiling of the agreed Deployment Volume rather than by this rule (`06-deployment.md`, DEP-001; `08-vehicles.md`, VEH-028).
+```
+
+with:
+
+```
+How many levels a vehicle has room for is bounded by its own height rather than by this rule, and that height answers to two limits — its footprint and the agreed ceiling (`08-vehicles.md`, VEH-028).
+```
+
+- [x] 14.10 In `docs/14-glossary.md`, restore a *Maximum Height* entry. Replace this anchor — the two entries that will sit either side of it, so the new one lands between them:
+
+```
+## Interior Clearance
+
+The clear height inside a closed compartment, measured in plate layers from the surface a model stands or sits on. Less than one Unit Base of clear height carries cargo but no infantry. See `09-transport.md` (TRN-019).
+```
+
+with:
+
+```
+## Interior Clearance
+
+The clear height inside a closed compartment, measured in plate layers from the surface a model stands or sits on. Less than one Unit Base of clear height carries cargo but no infantry. See `09-transport.md` (TRN-019).
+
+---
+
+## Maximum Height
+
+The greatest height a vehicle's Gameplay Geometry may reach, counted from the surface it rests on and locomotion included: one Unit Base for every two studs of its narrowest footprint side, and never above the agreed Deployment Volume's ceiling. A construction check made before deployment, never an in-game state. See `08-vehicles.md` (VEH-028).
+```
+
+The entry task 5.2 deleted returns, because the term does. It is not the old entry:
+the figure is in Unit Bases, locomotion counts, and the ceiling is named as the second
+bound.
+
+- [x] 14.11 In `assets/IMAGES.md`, replace the `VEH-028` entry — one table row, both content cells. Do not reflow the row:
+
+```
+| VEH-028 | `assets/images/veh-028-agreed-ceiling.png` | A Deployment Volume drawn as an open box, its floor dimensioned in Unit Bases and its ceiling marked at a height in Unit Bases. Inside it, three vehicles measured from the surface they rest on to the top of their Gameplay Geometry: a wide low hull well under the ceiling, a narrow tall one reaching it exactly, and a walker whose legs alone carry its hull past it, drawn as failing. Mark each measurement's start at the resting surface, and show a flag on the failing walker excluded from the measurement. | Two things a reader gets wrong about a ceiling that is agreed rather than derived: that a narrow vehicle must be a short one, and that locomotion is free. The third panel carries the one exclusion — decoration is not measured — which is only legible beside the leg that is. |
+```
+
+with:
+
+```
+| VEH-028 | `assets/images/veh-028-two-height-bounds.png` | A Deployment Volume drawn as an open box, its floor dimensioned in Unit Bases and its ceiling marked at a height in Unit Bases. Inside it, three vehicles measured from the surface they rest on to the top of their Gameplay Geometry, each with its own footprint-derived limit drawn as a second, lower or higher line above its base: a wide hull stopped by the ceiling with its footprint limit above it, a narrow hull stopped by its footprint limit with the ceiling above it, and a walker whose legs and hull together cross its footprint limit, drawn as failing. Mark each measurement's start at the resting surface, and show a flag on the failing walker excluded from the measurement. Beside them, a non-rectangular footprint over a stud grid with the smallest enclosing rectangle of whole Unit Bases drawn around it and its narrowest side dimensioned in studs. | Two bounds apply at once and either can be the one that stops a model, which no single dimension line shows; a reader who sees only the lower of the two concludes the other does not exist. Two further things go wrong without a picture: that locomotion is free, and which rectangle the narrowest side is read from when the outline is not one. |
+```
+
+- [x] 14.12 In `assets/IMAGES.md`, replace this anchor — the `DEP-003` rejection note:
+
+```
+What DEP-003 charges is that floor and nothing above it; the ceiling, which it does not bound, is drawn in VEH-028's image, not in a second one here.
+```
+
+with:
+
+```
+What DEP-003 charges is that floor; the two height bounds it feeds one of are drawn in VEH-028's image, not in a second one here.
+```
+
+### Verification after section 14
+
+- [x] 14.13 `grep -c "22 plate layers" docs/06-deployment.md` — before: **1**, after: **0**. That sentence was the only place a deployment rule asserted a Unit Base's worth in plate layers. `grep -c "plate layer" docs/06-deployment.md` stays at **1** before and after: `DEP-001` still says a vehicle's height is measured in plate layers, which is a unit, not a conversion.
+
+- [x] 14.14 `grep -c "one Unit Base for every two studs\|one Unit Base of height for every two studs" docs/08-vehicles.md docs/06-deployment.md docs/14-glossary.md docs/02-core-rules.md` — before: `0`, `0`, `0`, `0`. After: **2**, **1**, **1**, **0** — `CORE-001` points at `VEH-028` without restating the proportion.
+
+- [x] 14.15 `grep -c "6 plate layers" docs/08-vehicles.md` — before: **0**, after: **0**. The old per-stud figure does not come back with the bound. Repository-wide the phrase still returns **2** before and after, in `docs/07-movement.md` (a terrain threshold) and `docs/16-damage-system.md` (a wall's thickness); neither is this rule's figure.
+
+- [x] 14.16 `grep -c "^## " docs/14-glossary.md` — before: **46**, after: **47**. *Maximum Height* returns; *Base Plane* does not.
+
+- [x] 14.17 `grep -c "^# VEH-0" docs/08-vehicles.md` — before and after: **30**.
+
+- [x] 14.18 `python3 scripts/lint_ruleset.py` and `python3 scripts/check_delta_coverage.py` — both exit 0, the second still one MODIFIED requirement, no dropped scenarios. The linter checks `assets/IMAGES.md` filenames, so task 14.11's rename is verified here.
+
+
+---
+
+## 15. Second review pass — single-bound framings the restoration left behind
+
+The audit of section 14's result returned seven findings. Six are sentences written
+while the ceiling was the only bound and not revisited when the footprint bound came
+back, plus one arithmetic claim that was true of a future Unit Base height and is not
+true of the current one. The seventh is answered in `proposal.md` and `design.md`
+rather than in `docs/`.
+
+Every anchor below was checked against the current working tree and occurs once.
+
+- [x] 15.1 In `VEH-028`, replace this anchor:
+
+```
+An odd narrowest side gives a limit of a whole number of Unit Bases and a half. Nothing is rounded: a vehicle's own height is measured in plate layers (VEH-030) and compared against the limit, so half a Unit Base of allowance is simply an allowance no model lands on exactly.
+```
+
+with:
+
+```
+An odd narrowest side gives a limit of a whole number of Unit Bases and a half. Nothing is rounded: a vehicle's own height is measured in plate layers (VEH-030) and compared against the limit.
+```
+
+The deleted clause was false. Half a Unit Base is a whole number of plate layers at the
+height `CORE-001` currently states, so a model lands on it exactly rather often — the
+rule's own predecessor printed that figure for this very case. The claim was carried
+over from an argument about a *future* Unit Base height and never re-checked against
+the present one. Nothing is lost: the paragraph below already says a vehicle
+**exceeding** either bound is illegal, which settles equality.
+
+- [x] 15.2 In `VEH-028`, replace this anchor:
+
+```
+The footprint is the Unit Bases the vehicle covers — the ones DEP-003 charges.
+```
+
+with:
+
+```
+The footprint is the Unit Bases the vehicle covers — the ones `06-deployment.md` (DEP-003) charges.
+```
+
+`VEH-028` lost the sentence that used to carry this citation's filename, leaving two
+bare cross-document references to a rule in another file.
+
+- [x] 15.3 In `VEH-024`, replace this anchor:
+
+```
+A taller assembly clears more terrain at the cost of a taller silhouette, which is easier to see and therefore to shoot (`02-core-rules.md`, CORE-008), and of the height it takes under the agreed ceiling (VEH-029) — the same trade a walker makes with long legs.
+```
+
+with:
+
+```
+A taller assembly clears more terrain at the cost of a taller silhouette, which is easier to see and therefore to shoot (`02-core-rules.md`, CORE-008), and of the height it takes against both of VEH-028's bounds — the footprint's proportion as much as the agreed ceiling. That is the same trade a walker makes with long legs.
+```
+
+Two repairs. The cost is now two bounds, not the ceiling alone, and the citation aimed
+at `VEH-029`, which says where height is counted from; `VEH-028` owns the bounds.
+
+- [x] 15.4 In `VEH-029`, replace this anchor:
+
+```
+A vehicle that begins the game inside another (`09-transport.md`, TRN-001, TRN-003) is measured the same way and against the same ceiling: its own height is what is checked, never its height plus the carrier's, and a vehicle stowed lying down or in a cradle is measured as it would stand.
+```
+
+with:
+
+```
+A vehicle that begins the game inside another (`09-transport.md`, TRN-001, TRN-003) is measured the same way and against its own two bounds: its own height is what is checked, never its height plus the carrier's, and a vehicle stowed lying down or in a cradle is measured as it would stand.
+```
+
+- [x] 15.5 In `VEH-030`, replace this anchor:
+
+```
+The agreed ceiling asks how much functional construction a model raises into the volume, and a flag raises none.
+```
+
+with:
+
+```
+Both of VEH-028's bounds ask how much functional construction a model raises into the volume, and a flag raises none.
+```
+
+- [x] 15.6 In `docs/06-deployment.md`'s Design Philosophy, replace this anchor:
+
+```
+The floor that space covers becomes the cost of including the model. Its height is not charged: how tall a model may be is a ceiling both players agreed to (DEP-001), not a price one of them pays.
+```
+
+with:
+
+```
+The floor that space covers becomes the cost of including the model, and it is also what a vehicle's height has to justify (`08-vehicles.md`, VEH-028). Height itself is never charged separately: the second thing bounding it is a ceiling both players agreed to (DEP-001), not a price one of them pays.
+```
+
+Written while the ceiling was the only bound. `DEP-003`, three headings later, now says
+the footprint bounds height as well — so height *is* paid for, in the floor space this
+paragraph called the only cost.
+
+- [x] 15.7 In the Design Notes, replace this anchor:
+
+```
+Players pay for wider units by sacrificing floor space, and for taller ones by having to agree a Deployment Volume that admits them.
+```
+
+with:
+
+```
+Players pay for wider units by sacrificing floor space — and for taller ones twice over, since height is bounded by that same floor and again by the volume both players agreed to.
+```
+
+- [x] 15.8 In the Summary, replace this anchor:
+
+```
+2. Vehicles consume floor space according to their footprint, and must fit under the agreed ceiling.
+```
+
+with:
+
+```
+2. Vehicles consume floor space according to their footprint, which also bounds their height, and must fit under the agreed ceiling as well.
+```
+
+- [x] 15.9 In `assets/IMAGES.md`, replace this anchor:
+
+```
+How many levels fit is then a comparison against the agreed ceiling, which the VEH-028 image draws, so nothing is left for a picture to settle.
+```
+
+with:
+
+```
+How many levels fit is then a comparison against whichever of VEH-028's two bounds is lower, both of which the VEH-028 image draws, so nothing is left for a picture to settle.
+```
+
+- [x] 15.10 In `docs/14-glossary.md`, move the restored *Maximum Height* entry to the end of the file, where an appended term belongs. **Two edits.** First, delete it from where task 14.10 put it — replace this anchor:
+
+```
+## Maximum Height
+
+The greatest height a vehicle's Gameplay Geometry may reach, counted from the surface it rests on and locomotion included: one Unit Base for every two studs of its narrowest footprint side, and never above the agreed Deployment Volume's ceiling. A construction check made before deployment, never an in-game state. See `08-vehicles.md` (VEH-028).
+
+---
+
+## Slice
+```
+
+with:
+
+```
+## Slice
+```
+
+Then append it after the last entry — replace this anchor:
+
+```
+The reading of the Unit Base volume a rule takes: horizontal for distance, deployment floors and footprints; the whole volume for transport capacity and for the Deployment Volume a model must fit inside; vertical for passing an opening. A projection is a measured value and never replaces a physical check. See `02-core-rules.md` (CORE-001).
+
+---
+
+> **Every Brick Matters.**
+```
+
+with:
+
+```
+The reading of the Unit Base volume a rule takes: horizontal for distance, deployment floors and footprints; the whole volume for transport capacity and for the Deployment Volume a model must fit inside; vertical for passing an opening. A projection is a measured value and never replaces a physical check. See `02-core-rules.md` (CORE-001).
+
+---
+
+## Maximum Height
+
+The greatest height a vehicle's Gameplay Geometry may reach, counted from the surface it rests on and locomotion included: one Unit Base for every two studs of its narrowest footprint side, and never above the agreed Deployment Volume's ceiling. A construction check made before deployment, never an in-game state. See `08-vehicles.md` (VEH-028).
+
+---
+
+> **Every Brick Matters.**
+```
+
+The glossary is in append order. Reinserting a retired term where it used to sit put
+it ahead of two entries that were appended after it, which makes the file's history
+misleading about when the term entered.
+
+### Verification after section 15
+
+- [x] 15.11 `grep -c "no model lands on exactly" docs/08-vehicles.md` — before: **1**, after: **0**.
+
+- [x] 15.12 `grep -c "the ones DEP-003 charges" docs/08-vehicles.md` — before: **1**, after: **0**; `grep -c "06-deployment.md\` (DEP-003)" docs/08-vehicles.md` — before **0**, after **1**.
+
+- [x] 15.13 `grep -c "^## " docs/14-glossary.md` — **47** before and after: the entry moves, it is not duplicated or lost. Confirm by eye that *Maximum Height* is the last entry and the closing motto still follows it.
+
+- [x] 15.14 `grep -c "both bounds\|both of VEH-028's bounds\|two bounds" docs/08-vehicles.md` — before: **3**, after: **5**.
+
+- [x] 15.15 `python3 scripts/lint_ruleset.py` and `python3 scripts/check_delta_coverage.py` — both exit 0, the second still one MODIFIED requirement and no dropped scenarios.
