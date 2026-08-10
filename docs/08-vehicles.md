@@ -228,9 +228,9 @@ A fully enclosed crew compartment protects the crew.
 
 Passenger capacity depends entirely on the interior volume.
 
-If a passenger's Unit Base physically fits, it may embark (`02-core-rules.md`, CORE-001).
+A passenger may embark where the transport has as many free Unit Bases as the passenger occupies (`09-transport.md`, TRN-005).
 
-If it does not fit, it cannot.
+If it does not have them, the passenger cannot embark.
 
 No transport statistic exists.
 

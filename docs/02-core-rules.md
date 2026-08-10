@@ -146,6 +146,8 @@ Examples include:
 
 Every unit receives exactly **3 Action Points** per activation, regardless of its type or construction. No unit gains additional AP through its profile.
 
+**No Action Point cost scales with size.** Not with the size of the unit paying it — its footprint, its height, or the Unit Bases it occupies: an infantry model and a motorcycle pay the same to embark (`09-transport.md`, TRN-005). Not with the size of an interactive element it operates (CORE-007): a hatch and a cargo ramp cost the same to open. The allotment above is fixed, so a price that grew with the model would put a large enough model beyond acting at all — forbidden by arithmetic rather than by a rule, which is not how this ruleset forbids anything. A measurement may still decide **which** rule applies: an obstacle of 3 plate layers is crossed freely and one of 4 is climbed (`07-movement.md`, MOVE-009, MOVE-010). And where more than one Action Point is spent, the reason is stated in the rule that spends it and is never size — `11-combat.md`, CBT-001 charges per weapon system attacking, `08-vehicles.md`, VEH-008 per 90° turn, and MOVE-010 charges the climb itself: the second Action Point buys crossing the obstacle, not the obstacle's height.
+
 ---
 
 # Interactive Elements
