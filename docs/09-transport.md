@@ -121,9 +121,9 @@ Requirements:
 
 - The unit must be adjacent to a functional access point.
 - The access point must be open.
-- Free Unit Bases must exist inside the transport for everything the unit occupies (TRN-001) — free as a volume, so the compartment's clearance must admit them (TRN-019).
+- The transport must have as many free Unit Bases as the unit occupies (TRN-001) — free as a volume, so the compartment's clearance must admit them (TRN-019). For an infantry model that is one; for a motorcycle, two.
 
-The model is then physically placed inside them.
+The model is then physically placed in the Unit Bases it occupies.
 
 ---
 

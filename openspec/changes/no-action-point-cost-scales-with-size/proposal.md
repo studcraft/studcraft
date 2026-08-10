@@ -9,9 +9,9 @@ ruleset charge by size:
 > Embarking costs **1 Action Point per Unit Base** the embarking unit occupies — an
 > infantry model (1 UB) costs 1 AP; a motorcycle (2 UB) costs 2 AP (`TRN-005`)
 
-`TRN-006` says the same for disembarking. Everywhere else the price is already flat, and
-flat in both directions — it varies neither with the model paying it nor with the thing
-it acts on:
+`TRN-006` says the same for disembarking. Everywhere else the price is already flat: it
+varies neither with the model paying it nor with the size of an interactive element that
+model operates.
 
 - `CORE-007` — 1 AP to open or close any interactive element, a hatch and a gate alike.
   `SCS-007`, `SCS-008` and `TRN-008` charge doors, ramps and access points by citing it.
@@ -42,13 +42,20 @@ be spent.
 
 ## What Changes
 
-- **`CORE-006`** gains the rule in its own voice: no Action Point cost scales with size
-  — neither the size of the unit paying it nor the size of what it acts on. It also says
-  what to make of a rule that charges two: the reason is stated in that rule, and it is
-  never size.
+- **`CORE-006`** gains the rule in its own voice: no Action Point cost scales with size —
+  neither the size of the unit paying it nor the size of an interactive element it
+  operates. It also says what a measurement may still do (select which rule applies, as
+  `MOVE-009` and `MOVE-010` do) and what to make of a rule that spends two Action Points:
+  the reason is stated in that rule, and it is never size.
 - **`TRN-005`** — embarking costs **1 Action Point**, whatever the unit occupies. Its
-  motorcycle example goes with the multiplier; the requirements below it (adjacency, an
-  open access point, a free Unit Base inside) are untouched.
+  motorcycle example goes with the multiplier. Its requirements list is edited too, and
+  has to be: the per-Unit-Base price was the only text in the rule acknowledging that a
+  unit may occupy more than one Unit Base, so removing it would have left a singular
+  requirement denying what this change's own spec scenario asserts. The rule now asks for
+  as many free Unit Bases as the unit occupies. Adjacency and the open access point are
+  untouched.
+- **`VEH-016`** stated that same admission test a second time, independently, and still
+  in the singular. It now cites `TRN-005` instead of restating it.
 - **`TRN-006`** — disembarking costs **1 Action Point**. Its restatement of the infantry
   case ("An infantry model (1 UB) therefore costs: **1 AP**") existed only to work the
   multiplier through an example, and goes with it.
@@ -80,8 +87,11 @@ be spent.
   intended.
 - **Melee.** `12-melee.md`'s 2 AP for two weapon systems is two attacks, not a multiplier
   on one.
-- **Who may embark, and where.** `TRN-005`'s requirements, `TRN-019`'s clearance and
-  `DEP-005` are untouched. This change moves a price, not a permission.
+- **Who may embark, and where.** `TRN-019`'s clearance and `DEP-005` are untouched, and
+  no model that could embark before this change is refused after it. `TRN-005`'s
+  requirements list and `VEH-016` are reworded — see *What Changes* — but only to state
+  the quantity the old per-Unit-Base price implied. This change moves a price, not a
+  permission.
 
 ## Out of Scope
 

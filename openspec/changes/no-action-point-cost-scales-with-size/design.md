@@ -36,7 +36,7 @@ Rejected: repeating the principle in `TRN-005` and `TRN-006`. That is the restat
 spent a whole change removing from the Unit Base's height. Both rules state their own
 cost — 1 AP — and cite `CORE-006` for why it does not vary. For the same reason
 `CORE-006` does **not** restate `TRN-005`'s figure: it says an infantry model and a
-walker "pay the same to embark" and cites the rule that owns the number.
+motorcycle "pay the same to embark" and cites the rule that owns the number.
 
 ---
 
@@ -50,7 +50,7 @@ otherwise" open to exactly the large-gate rule the owner rejected.
 
 A repo-wide `grep` for AP charges in `docs/` finds them in `02-core-rules.md`,
 `04-construction-standard.md`, `07-movement.md`, `08-vehicles.md`, `09-transport.md`,
-`11-combat.md`, `12-melee.md`, `16-damage-system.md` and `17-components.md`. The rules
+`05-construction-components.md`, `11-combat.md`, `12-melee.md` and `16-damage-system.md`. The rules
 that set a price are these, and every one of them is flat once `TRN-005` and `TRN-006`
 are fixed. `VEH-004` is the clearest statement of the principle already in the ruleset:
 every vehicle covers three of its own lengths per action, "whatever its size".
@@ -58,7 +58,7 @@ every vehicle covers three of its own lengths per action, "whatever its size".
 | Rule | Charges | Varies with size? |
 |---|---|---|
 | `CORE-007` | 1 AP to open or close any interactive element | No — hatch and gate alike |
-| `SCS-007`, `SCS-008`, `TRN-008` | doors, ramps, access points, 1 AP, citing `CORE-007` | No |
+| `SCS-007`, `SCS-008`, `TRN-008`, `CMP-009`, `CMP-010` | doors, ramps, access points, 1 AP, citing `CORE-007` | No |
 | `CBT-001` | 1 AP per weapon system attacking | No — "regardless of how many Attack Dice" |
 | `12-melee.md` | 2 AP for two weapon systems | No — two attacks |
 | `MOVE-008` | 1 AP, infantry rotates to any facing | No |
@@ -101,9 +101,12 @@ stated, and it is true. The vehicle's extra Action Point is bought by its locomo
 which is read off the physical model (Principle 1); size buys nothing.
 
 `CORE-006`'s new paragraph therefore closes with what a reader should make of a rule that
-charges two: the reason is stated in that rule, and it is never size. `CBT-001`,
-`VEH-008` and `MOVE-010` are named there so the rules are read together rather than
-against each other.
+spends two Action Points: the reason is stated in that rule, and it is never size. All
+three are named there — `CBT-001` per weapon system, `VEH-008` per 90° turn, and
+`MOVE-010`, which is the ruleset's only rule where one action costs two. `MOVE-010` earns
+its own clause, because it is the case that could be read as size pricing an action and
+is not: the second Action Point buys crossing the obstacle, and the obstacle's height
+decides only which of `MOVE-009`, `MOVE-010` and `MOVE-011` applies.
 
 ---
 
@@ -171,8 +174,14 @@ message.
   since. Pre-existing, and a glossary sweep is its own change.
 - **Whether a multi-Unit-Base vehicle embarks or is loaded.** `TRN-001` lists a Light
   Walker and a Heavy Walker among the objects a transport carries and `TRN-005` prices a
-  unit embarking, while `TRN-013`'s table classes a motorbike and a walker as *cargo*,
-  which no rule prices in Action Points at all. This change does not settle it: it fixes
-  what embarking costs for whatever embarks, and `CORE-006`'s example is the motorcycle
-  `TRN-005` already uses rather than a walker, so the core document asserts nothing about
-  the open question.
+  unit embarking, while `TRN-013`'s table classes both a motorbike and a walker as
+  *cargo*, which no rule prices in Action Points at all. Those two entries are the whole
+  of the ambiguity, and `CORE-006`'s motorcycle is one of them: this change therefore
+  takes the reading `TRN-005` already had — a motorcycle embarks and pays for the action
+  — and states it in `02-core-rules.md` as well. It does not settle the general question,
+  and a later change must either confirm that reading for every multi-Unit-Base object or
+  overturn it. What it does settle is that whatever embarks pays the same.
+- **A price keyed to the size of a *target*.** The rule bars scaling by the size of the
+  unit paying and of an interactive element it operates. A future rule charging more to
+  attack something large is barred by neither clause. That is narrower than the sentence
+  in *Why*, and deliberately: the wider claim is the one `MOVE-009` falsifies.
