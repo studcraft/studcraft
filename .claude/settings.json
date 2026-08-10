@@ -5,7 +5,22 @@
       "Bash(python3 scripts/lint_ruleset.py)",
       "Bash(python3 scripts/check_delta_coverage.py)",
       "Bash(python3 scripts/preflight.py)",
-      "Bash(openspec validate *)"
+      "Bash(python3 scripts/build_index.py)",
+      "Bash(python3 scripts/rule.py *)",
+      "Bash(python3 scripts/check_task_anchors.py*)",
+      "Bash(python3 scripts/check_id_stability.py*)",
+      "Bash(python3 scripts/verify_tasks.py*)",
+      "Bash(python3 scripts/open_pr.py *)",
+      "Bash(openspec validate *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(sed -n *)",
+      "Bash(git *)",
+      "Bash(gh pr view*)",
+      "Bash(gh pr list*)",
+      "Bash(gh pr checks*)",
+      "Bash(gh run view*)",
+      "Bash(gh run list*)"
     ],
     "deny": [
       "Bash(git push --force*)",
@@ -13,6 +28,9 @@
       "Bash(git push --delete*)",
       "Bash(git commit --amend*)",
       "Bash(git rebase*)",
+      "Bash(git filter-branch*)",
+      "Bash(git reflog expire*)",
+      "Bash(git update-ref -d*)",
       "Bash(git reset --hard*)",
       "Bash(git checkout -- *)",
       "Bash(git clean*)",
@@ -55,6 +73,17 @@
       }
     ],
     "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard_shell_expansion.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking the command will not stop to ask"
+          }
+        ]
+      },
       {
         "matcher": "Write|Edit",
         "hooks": [

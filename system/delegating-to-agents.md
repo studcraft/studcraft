@@ -201,6 +201,36 @@ Remove worktrees when done: `git worktree remove <path> --force`.
 
 ---
 
+# Commands That Do Not Interrupt
+
+An agent that stops to ask for permission cannot be left running. The rule that
+decides whether it asks is not about danger — it is about whether the command is
+**static enough to be matched by a permission pattern**.
+
+**A command carrying a shell expansion can never be allowlisted.** `$id`, `$(…)`,
+a `for` loop, a chain of `;` or `&&`, a pipe, a redirection — each makes the
+command dynamic, and no rule can match what is not fixed until the shell runs it.
+Adding entries to `.claude/settings.json` does nothing for these. The only fix is
+not to write them.
+
+So, in an agent definition and in anything handed to an agent:
+
+- **One bare command per call.** Never `a && b`, never `a; b`, never a pipe.
+- **No `$VAR` and no `$(…)`** in arguments.
+- **No loops.** If a command needs running over seven rule IDs, pass seven
+  arguments — `scripts/rule.py`'s `show`, `refs`, `neighbors`, `touched` and `doc`
+  are variadic for exactly this reason, and that is the shape to reach for when
+  writing any new script an agent will call.
+- **No backticks inside a `grep` pattern.** A backtick is command substitution to
+  the shell, so an otherwise read-only `grep` stops being auto-allowed.
+
+The allowlist in `.claude/settings.json` covers the repository's own scripts, the
+read-only `git` subcommands and `grep`. `grep` is on it deliberately: it is
+auto-allowed only for arguments the harness can prove safe, and removing the
+explicit entry once made every pattern containing a backtick interrupt.
+
+---
+
 # Scope Agents Explicitly
 
 `.claude/agents/proposal-applier.md` already carries the standing boundaries —

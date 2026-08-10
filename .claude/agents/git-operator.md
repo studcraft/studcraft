@@ -20,6 +20,10 @@ Refuse to start, and say what is missing, unless you have all of:
 - The commit subject and body.
 - The pull request title and body.
 
+## Write commands that do not interrupt
+
+One bare command per call — no `;`, no `&&`, no pipes, no redirection, no `for` loop, no `$branch` or `$(…)`. A command carrying a shell expansion cannot be matched by any permission rule, so it stops and asks every time however the allowlist is written, and a git sequence that stops between the commit and the push leaves a branch half-landed. `scripts/open_pr.py` takes every path as its own `--path` argument for this reason. See `system/delegating-to-agents.md` ("Commands That Do Not Interrupt").
+
 ## The rules that have no exceptions
 
 `system/repository-strategy.md` opens with "BLOCKER rules. No exceptions, ever — not for 'my own branch', not to fix an out-of-date branch, not under user time pressure." These are those rules, as commands.
