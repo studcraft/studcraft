@@ -41,6 +41,24 @@ Usage:
     --existing-pr <number>   push to an open PR and replace its body instead
                              of opening a new one
     --dry-run                print the plan and touch nothing
+
+## The one thing it will not do
+
+**It cannot update a pull request's description on its own.** `--path` is
+required and it stops when nothing is staged, because it commits, and a commit
+needs a change. So correcting a description after the fact — the body file was
+stale, a reviewer asked for a clarification — is not this script's job, and the
+one command for it is:
+
+    gh api repos/<owner>/<repo>/pulls/<number> -X PATCH -F body=@<path>
+
+That is deliberate rather than missing. Adding a body-only mode would give this
+script a second purpose and a path through it that skips every guarantee the
+rest of the file exists to make — the staged-set check, the branch check, one
+commit per run. A separate command that does one thing is the smaller risk.
+
+It was hit once, immediately: a third commit was pushed to an open pull request
+with a body file that still described the first two.
 """
 
 from __future__ import annotations
