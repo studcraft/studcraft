@@ -12,7 +12,7 @@ Platform Length SHALL be the largest horizontal dimension of the platform's Unit
 
 #### Scenario: Infantry Platform Length ignores the Unit Base's height
 - **WHEN** an infantry platform of one Unit Base is measured
-- **THEN** its Platform Length is 4 studs, and the Unit Base's 12 plate layers of height are not considered
+- **THEN** its Platform Length is 4 studs, and the Unit Base's height is not considered
 
 ### Requirement: Weapon Capacity Constraint
 The sum of the Weapon Length of every weapon mounted on a platform SHALL NOT exceed that platform's Platform Length (`Σ(Weapon Length) ≤ Platform Length`).
