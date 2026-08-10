@@ -50,7 +50,7 @@ In every one of these cases the answer is the same: stop, report, wait. A stuck 
 
 ## The sequence
 
-Run these in order, and read the output of each before running the next.
+### 1. Look before you touch anything
 
 ```bash
 git status --short
@@ -58,7 +58,9 @@ git rev-parse --abbrev-ref HEAD
 git fetch origin
 ```
 
-If you are on `main` or `develop`, that is expected — you are about to leave it. `system/workflow.md` forbids committing document changes to either, so you must:
+### 2. Get onto the branch, if you are not on it
+
+If you are on `main` or `develop`, that is expected — you are about to leave it. `system/workflow.md` forbids committing document changes to either:
 
 ```bash
 git checkout main
@@ -68,21 +70,28 @@ git checkout -b <branch-name>
 
 The branch name comes from whoever raised you. It must match the convention in `system/repository-strategy.md` (Branch Naming) — a CI gate rejects it otherwise. **If the name you were given does not match that table, stop and say so; do not invent a name that does.**
 
-Then, one `git add` per path you were given:
+If you were told the branch already exists and is checked out, skip this step entirely — that is a thing the caller tells you up front, not a thing you discover and stop on.
+
+### 3. Hand the rest to the script
+
+**`scripts/open_pr.py` does the staging, the commit, the push and the pull request.** Write the commit message and the pull-request body to files first — the text is given to you, you do not compose it.
 
 ```bash
-git add <path-1>
-git add <path-2>
-git status --short
+python3 scripts/open_pr.py \
+  --branch <branch-name> \
+  --message-file <path to the commit message> \
+  --pr-title "<title>" \
+  --pr-body-file <path to the PR body> \
+  --path <path-1> --path <path-2>
 ```
 
-Read that last `git status --short` and confirm the staged set is exactly the paths you were given — nothing extra. Then:
+To add a commit to a branch whose pull request is already open, replace the last two options with `--existing-pr <number>`; the body file then replaces that PR's description.
 
-```bash
-git commit -m "<subject>" -m "<body>"
-git push -u origin <branch-name>
-gh pr create --base main --title "<title>" --body "<body>"
-```
+Run it with `--dry-run` first when the path list is long. It prints the plan and touches nothing.
+
+**Why a script and not the commands.** The rules above stop being things you are trusted to follow and become things you have no way to do. It issues `git add` once per path it is given and nothing else, so `-A` and `.` are unreachable. It verifies the staged set against the given set before committing, so a file nobody named stops the run. It opens pull requests through `gh api` rather than `gh pr create`, because the latter resolves organisation fields and fails on a token without `read:org` — which happened here, mid-run, after a commit had already landed.
+
+None of that removes your job. **The script cannot notice that something is off in a way nobody anticipated.** You can, and that is why you read what it printed rather than reporting that it exited 0.
 
 One commit. If you were given work that needs two, ask for it as two jobs.
 
@@ -90,8 +99,8 @@ One commit. If you were given work that needs two, ask for it as two jobs.
 
 Return, and nothing else:
 
-- `git show --stat HEAD` for the commit you made.
-- The pull request URL that `gh pr create` printed.
-- Anything you stopped on, quoted exactly as the command printed it — not summarised.
+- The diffstat `scripts/open_pr.py` printed for the commit.
+- The pull request URL it printed.
+- Anything you stopped on, quoted exactly as the command printed it — not summarised. A `STOPPED:` line from the script is quoted verbatim; it already says what went wrong and it is not yours to interpret.
 
 Do not narrate as you go. Do not say the work went well. Report what the commands printed.

@@ -753,7 +753,7 @@ were on this list and were taken off it — sections 5 and 6 edit both, for the 
 
 - [x] 6.18 `grep -c "MOVE-010 charges the climb itself" docs/02-core-rules.md` — before: **0**, after: **1**.
 
-- [x] 6.19 `grep -c "as many free Unit Bases as the" docs/` across `09-transport.md` and `08-vehicles.md` — after: **1** in each.
+- [x] 6.19 `grep -rc "as many free Unit Bases as the" docs/` across `09-transport.md` and `08-vehicles.md` — after: **1** in each. **This command was corrected after the change merged.** It was written without `-r`, which makes `grep` exit 2 with `grep: docs/: Is a directory` and match nothing, so the check could never have passed however the ruleset read. The corrected form was run against the applied text and returns **1** in each file, which is what the task claimed — the defect was in the verification, not in the rules. Found by `scripts/verify_tasks.py` on its first run.
 
 - [x] 6.20 `grep -c "physically placed inside them" docs/09-transport.md` — before: **1**, after: **0**.
 

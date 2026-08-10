@@ -11,32 +11,36 @@ it perfectly, and what the reviewer still has to do afterwards.
 
 # The Agents, and When to Raise Them
 
-All three roles are defined as repository agents in `.claude/agents/`, so the
+All four roles are defined as repository agents in `.claude/agents/`, so the
 constraints below do not have to be retyped from memory each session. They
 had been, and they drifted.
 
 | Agent | Model | When |
 |---|---|---|
-| `ruleset-auditor` | Opus, read-only | **Twice per change** — on the proposal before it is applied, and on the applied text afterwards. Also on `docs/` at any time. |
+| `proposal-auditor` | Opus, read-only | On the proposal, before it is applied. This is where the findings are. |
 | `proposal-applier` | Sonnet | Once the proposal has passed its audit. Transcription only. |
+| `ruleset-auditor` | Opus, read-only | On the applied text afterwards. Also on `docs/` at any time. |
 | `git-operator` | Haiku | After you have read the result. Branch, commit, push, open the PR. Decides nothing. |
 
 The order matters and is not decoration:
 
 1. Design the change and write `proposal.md`, `design.md`, `tasks.md`.
-2. **Raise `ruleset-auditor` on the proposal.** This is where the findings
-   are — see the evidence below. Fix what it reports before applying, not
-   after.
+2. **Raise `proposal-auditor`.** This is where the findings are — see the
+   evidence below. Fix what it reports before applying, not after.
 3. **Raise `proposal-applier`** to apply it. Give it the absolute working
    directory and the branch.
-4. **Raise `ruleset-auditor` again on the applied text.**
+4. **Raise `ruleset-auditor` on the applied text.**
 5. **Read the result yourself.** That step never belongs to an agent, and
    nothing below changes it.
 6. Then `git-operator` may issue the commands. It is handed the paths, the
    branch name and the message text — it chooses none of them. Delegating the
    typing is not delegating the judgement, and the judgement is step 5.
 
-`ruleset-auditor` has no `Edit` or `Write` tool by construction, so it cannot
+The two audits were one agent until the checks below became scripts. Auditing a
+proposal and auditing applied text read different inputs against different
+checklists, and one prompt holding both made each of them vaguer.
+
+Neither auditor has an `Edit` or `Write` tool, by construction, so neither can
 quietly repair what it is measuring. Keep it that way.
 
 ---
@@ -68,13 +72,27 @@ Never describe an edit. Write out exactly what the file should say. If
 applying a task requires composing prose, the task is underspecified and the
 result will drift.
 
-Replacement text is shown as a markdown blockquote so it is visually separable
-from the instructions around it. That creates two failure modes to pre-empt
-explicitly, both of which have happened:
+Replacement text goes inside a **triple-backtick fence**, so it is visually
+separable from the instructions around it. Two failure modes to pre-empt
+explicitly in the preamble, both of which have happened:
 
-- **The `> ` prefix is not part of the text.** Say so in the preamble.
-- **A `#` heading or a `|` table inside a block is real markdown**, not
-  quoted text. Say that too.
+- **The fence is not part of the text.** Say so.
+- **A `#` heading or a `|` table inside a fence is real markdown**, not quoted
+  text. Say that too.
+
+Changes up to 2026-08-07 used a `> ` blockquote instead, and the switch was an
+improvement rather than drift: a blockquote forces a `> ` onto every line of the
+replacement — including its blank lines and its table rows — and every one of
+those prefixes is a character the applier has to strip correctly. A fence has no
+per-line prefix to get wrong.
+
+The convention moved on 2026-08-10 and `.claude/agents/proposal-applier.md`
+went on describing the old one for several changes afterwards. Nothing broke,
+because each `tasks.md` states its own convention in its preamble and the file
+wins — but an applier reading one format in its instructions and meeting another
+in the file is the situation a weaker model is least able to recover from.
+`scripts/check_task_anchors.py` now rejects a `tasks.md` that uses the old form
+or mixes the two, so the two cannot drift apart again silently.
 
 ## Define the vocabulary the tasks use
 
@@ -84,9 +102,15 @@ and that the heading itself is never touched.
 
 ## Verify every anchor is unique before shipping the tasks
 
-Every quoted anchor must appear exactly once in its target file. Check with
-`grep -cF` and state in the tasks that it was checked. An anchor that matches
-twice produces a silent wrong edit.
+Every quoted anchor must appear exactly once in its target file. An anchor that
+matches twice produces a silent wrong edit.
+
+`python3 scripts/check_task_anchors.py <change-name>` counts every anchor
+against its target, and `scripts/preflight.py` runs it over every unarchived
+change. It also distinguishes the two readings of a zero-match anchor: on an
+unticked task that is a defect, and on a ticked one it is the expected state of
+an applied change. State in the tasks that anchors were checked; the script is
+how you can honestly say it.
 
 ## State what must NOT change
 
@@ -119,6 +143,18 @@ A verification that has never been run encodes a guess. Three shipped wrong:
 Run each check before shipping the tasks and write down the number it actually
 returns, along with the count expected afterwards.
 
+`python3 scripts/verify_tasks.py <change-name>` runs every verification command
+a `tasks.md` contains and prints, side by side, what the task said to expect and
+what the command actually printed. It judges neither — which half of a
+"before/after" applies depends on whether the change has been applied, and the
+file cannot say. It only puts both on one screen, which is enough: a fourth
+check shipped as `grep -c "..." docs/` with no `-r`, exiting 2 on a directory,
+and one run would have shown it.
+
+It executes read-only commands only. A `tasks.md` is a file anyone can open a
+pull request against, and running arbitrary commands out of one is how a
+checked-in file becomes a way to execute code.
+
 ## Provide a coverage table
 
 Map every defect or item in `proposal.md` to the task that addresses it, and
@@ -133,7 +169,13 @@ Delegation moves the work, it does not remove it.
 
 - **Read the applied text in full**, not the diff. See `system/proposal-review.md`
   — the findings are in how the result reads, and no grep sees that.
+  `python3 scripts/rule.py touched <change-name>` says which rules those are,
+  and — under `read also` — which rules cite them. A change to a rule five
+  others lean on has five more places to read, and nothing in the change itself
+  reveals them.
 - **Check the document's Summary and glossary entry** for every rule touched.
+  Neither is mechanically checkable: these Summaries are prose that mostly names
+  no rule IDs, so only reading catches drift.
 - **Ask what the executor had to interpret.** Requiring that in the agent's
   report is how the underspecified parts of a proposal surface. Every
   interpretation an executor reports is a place the proposal was unclear.
@@ -178,3 +220,11 @@ read it.** `git-operator` runs the commands afterwards and is given the paths,
 the branch name and the message text; it never selects them. `system/ci-gates.md`
 records why that step is local at all — the org blocks GitHub Actions from
 creating pull requests, so both cut workflows push a branch and stop.
+
+Most of that sequence is now `scripts/open_pr.py`, which `git-operator` calls.
+The BLOCKER rules in `system/repository-strategy.md` stop being instructions an
+agent is trusted to follow and become things it has no way to do: the script
+issues `git add` once per path it is given and nothing else, and it verifies the
+staged set against the given set before committing. The agent is kept in front
+of it deliberately — a script cannot notice that something is off in a way
+nobody anticipated, and that noticing is the whole reason a reader is there.

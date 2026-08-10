@@ -1,3 +1,12 @@
+# Generated ruleset index (built by scripts/build_index.py; docs/ is the source of truth)
+.studcraft/
+
+# Python bytecode from the scripts in scripts/
+__pycache__/
+
+# Local scratch handovers, deliberately never committed
+delete-me*
+
 # Generated Jekyll site source (built by scripts/generate_site_docs.py)
 site/docs/
 
