@@ -59,7 +59,7 @@ Whether standing or seated, the infantry model continues to occupy exactly one U
 
 Changing posture never changes transport capacity.
 
-A Unit Base is a volume, and cargo may divide one (TRN-013) — see `02-core-rules.md` (CORE-001). A minifigure never does: no Unit Base is shared with one, even when a seated model physically leaves room above it. The space was paid for on embarking (TRN-005).
+A Unit Base is a volume, and cargo may divide one (TRN-013) — see `02-core-rules.md` (CORE-001). A minifigure never does: no Unit Base is shared with one, even when a seated model physically leaves room above it. The space is claimed on embarking (TRN-005).
 
 ---
 
@@ -113,7 +113,7 @@ These elements occupy space and influence transport capacity.
 
 # TRN-005 — Embarking
 
-Embarking costs **1 Action Point per Unit Base** the embarking unit occupies — an infantry model (1 UB) costs 1 AP; a motorcycle (2 UB) costs 2 AP, matching Disembarking (TRN-006).
+Embarking costs **1 Action Point**, whatever the unit occupies (`02-core-rules.md`, CORE-006) — an infantry model of one Unit Base and a motorcycle of two pay the same, matching Disembarking (TRN-006).
 
 The AP is spent from the embarking unit's own pool, during its own activation (`03-game-flow.md`, FLOW-004) — the same 3 AP it can also spend moving, attacking, or otherwise acting that same activation (`FLOW-007`). It does not receive a separate activation later just because it ended up inside a transport.
 
@@ -121,9 +121,9 @@ Requirements:
 
 - The unit must be adjacent to a functional access point.
 - The access point must be open.
-- A free Unit Base must exist inside the transport — free as a volume, so the compartment's clearance must admit it (TRN-019).
+- Free Unit Bases must exist inside the transport for everything the unit occupies (TRN-001) — free as a volume, so the compartment's clearance must admit them (TRN-019).
 
-The model is then physically placed inside one available Unit Base.
+The model is then physically placed inside them.
 
 ---
 
@@ -131,11 +131,9 @@ The model is then physically placed inside one available Unit Base.
 
 Disembarking costs:
 
-**1 Action Point per Unit Base**
+**1 Action Point**
 
-An infantry model (1 UB) therefore costs:
-
-**1 AP**
+The cost is the same whatever the unit occupies (`02-core-rules.md`, CORE-006), matching Embarking (TRN-005).
 
 The AP is spent from the disembarking unit's own pool, during its own activation — a unit that begins its activation already embarked spends AP to disembark, then may spend any AP remaining from the same 3 AP allotment to move, attack, or otherwise act.
 
@@ -374,8 +372,8 @@ Transport in StudCraft follows these principles:
 2. Infantry always occupies exactly 1 UB, and never shares it.
 3. Transport capacity is the Unit Base volume available inside, and cargo may share a Unit Base.
 4. A closed compartment shorter than one Unit Base of clear height carries cargo but no infantry, crew included.
-5. Embarking costs 1 AP per occupied Unit Base.
-6. Disembarking costs 1 AP per occupied Unit Base.
+5. Embarking costs 1 AP, whatever the unit occupies.
+6. Disembarking costs 1 AP, whatever the unit occupies.
 7. Open transports expose passengers.
 8. Closed transports protect passengers.
 9. Interior design is part of gameplay.
