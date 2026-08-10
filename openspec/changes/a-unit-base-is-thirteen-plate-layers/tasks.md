@@ -590,3 +590,42 @@ the unit in disguise. The other three are the unit, and they follow it.
 - [x] 11.6 `python3 scripts/lint_ruleset.py` and `python3 scripts/check_delta_coverage.py` — both exit 0, the second reporting one MODIFIED requirement and no dropped scenarios.
 
 - [x] 11.7 `grep -c "^- \[ \]" openspec/changes/a-unit-base-is-thirteen-plate-layers/tasks.md` — after ticking everything in this section: **1**, and it is still task 9.1.
+
+
+---
+
+## 12. Review on PR #82 — say which whole plate count meets a fractional limit
+
+The review accepted `VEH-028`'s fractional limits and asked for one thing: that the
+rule state explicitly how a fractional limit is compared against a model measured in
+whole plate layers. The clause said "met by the whole plate count below it", which
+names a direction rather than a value.
+
+The review's worked example — a 3-stud narrowest side giving 19½ plate layers, so 19
+legal and 20 not — is arithmetically right, and the rule does **not** print it. That
+figure is `1.5 × 13`, and putting it in `VEH-028` would state a Unit Base's worth in
+plate layers in a second document, which the review on #81 asked this ruleset not to
+do. `CORE-001` owns the conversion; the rule states the comparison, and the reader
+does the multiplication with the figure they already have.
+
+- [x] 12.1 In `VEH-028`, replace this anchor:
+
+```
+An odd narrowest side gives a limit of a whole number of Unit Bases and a half, which is not a whole number of plate layers. Nothing is rounded: a vehicle's own height is measured in plate layers (VEH-030) and compared against the limit, so such a limit is met by the whole plate count below it.
+```
+
+with:
+
+```
+An odd narrowest side gives a limit of a whole number of Unit Bases and a half, which is not a whole number of plate layers. Nothing is rounded, in either direction: a vehicle's own height is measured in plate layers (VEH-030) and compared against the limit, so the greatest whole plate count that does not exceed the limit is legal and the next one up is not.
+```
+
+### Verification after section 12
+
+- [x] 12.2 `grep -c "greatest whole plate count that does not exceed" docs/08-vehicles.md` — before: **0**, after: **1**.
+
+- [x] 12.3 `grep -rn "19\.5\|19½\|nineteen and a half" docs/` — before: **0 lines**, after: **0 lines**. The worked example stays out of the ruleset; only `CORE-001` converts a Unit Base into plate layers.
+
+- [x] 12.4 `python3 scripts/lint_ruleset.py` and `python3 scripts/check_delta_coverage.py` — both exit 0.
+
+- [x] 12.5 `grep -c "^- \[ \]" openspec/changes/a-unit-base-is-thirteen-plate-layers/tasks.md` — after ticking this section: **1**, and it is still task 9.1.
