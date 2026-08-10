@@ -40,7 +40,7 @@ Every measurement in the game is derived from this unit.
 
 # SCS-002 — Infantry Base
 
-Every infantry model must be built on one physical base measuring 4 × 3 studs — one Unit Base read horizontally (`02-core-rules.md`, CORE-001).
+Every infantry model must be built on one physical base measuring 4 × 3 studs — one Unit Base read horizontally (`02-core-rules.md`, CORE-001) — and one plate thick, which is the plate `CORE-001` counts in the Unit Base's height.
 
 Which edge of that base is its front is settled by the universal Facing rule (`02-core-rules.md`, CORE-002).
 

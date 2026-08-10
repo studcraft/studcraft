@@ -40,13 +40,13 @@ StudCraft uses a single measuring unit.
 
 One **Unit Base (UB)** is a volume measuring:
 
-**4 studs wide × 3 studs deep × 12 plate layers tall**
+**4 studs wide × 3 studs deep × 13 plate layers tall**
 
 Read horizontally, this is the size of the physical base an infantry model is built on — required by `04-construction-standard.md`, SCS-002. The 4-stud edge is the front (CORE-002).
 
-Height is counted in plate layers because that is the ruleset's vertical unit — a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). Twelve plate layers is therefore exactly 4 bricks. Height is measured from the top face of the plate an infantry model stands on: that plate is the model's floor, not part of the space above it.
+Height is counted in plate layers because that is the ruleset's vertical unit — a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). Thirteen plate layers is therefore 4 bricks and a plate. Height is measured from the underside of the base an infantry model stands on: that base is part of the volume, not the floor beneath it.
 
-The height is read from the model rather than chosen. Infantry occupies exactly one Unit Base whether standing or seated (`09-transport.md`, TRN-002), so a Unit Base must contain a standing minifigure — about 4 bricks from its feet to the top of its head. Twelve plate layers is the smallest whole-brick height that does, and a Unit Base is the minimum operational space an object needs (`09-transport.md`, TRN-001), so it takes exactly that and no more.
+The height is read from the model rather than chosen. Infantry occupies exactly one Unit Base whether standing or seated (`09-transport.md`, TRN-002), so a Unit Base must contain a standing minifigure on the base it is built on (`04-construction-standard.md`, SCS-002): 4 bricks from its feet to the top of its head, and one plate beneath them. Thirteen plate layers is that model, base included, and a Unit Base is the minimum operational space an object needs (`09-transport.md`, TRN-001), so it takes that and no more. **The stud on top of the minifigure's head is not counted here.** The counts in the paragraph above are stacking heights: a stud sits inside the piece above it rather than adding to the stack, and this measurement is taken the same way. Nor do headgear, weapons or equipment change the figure — infantry occupies exactly one Unit Base whatever it carries (`09-transport.md`, TRN-002).
 
 **What must fit is the Unit Base.** Wherever a rule asks whether something physically fits — a passenger, a crew member, cargo, a model passing an opening — the volume that must fit is the Unit Base: one for a minifigure, its own volume in Unit Bases for a vehicle (`04-construction-standard.md`, SCS-005). Never the loose model. A minifigure that would slip into a smaller gap than its Unit Base does not fit there.
 
@@ -55,8 +55,8 @@ The height is read from the model rather than chosen. Infantry occupies exactly 
 | Reading | Used by |
 |---|---|
 | Horizontal projection — `4 × 3` studs | Distances, movement, deployment floors, footprints |
-| The volume itself — `4 × 3` studs by 12 plate layers | Transport capacity, interior space, and the Deployment Volume a model must fit inside |
-| Vertical projection — 4 studs by 12 plate layers | Passing through an opening |
+| The volume itself — `4 × 3` studs by 13 plate layers | Transport capacity, interior space, and the Deployment Volume a model must fit inside |
+| Vertical projection — 4 studs by 13 plate layers | Passing through an opening |
 
 The vertical projection is taken across the front, because the 4-stud edge is the front (CORE-002) and it is what enters an opening first.
 

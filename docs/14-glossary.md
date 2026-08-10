@@ -16,7 +16,7 @@ The universal action economy.
 
 Unit Base.
 
-The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 12 plate layers tall. See `02-core-rules.md` (CORE-001) for the projections a rule reads it through.
+The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 13 plate layers tall. See `02-core-rules.md` (CORE-001) for where that height comes from and the projections a rule reads it through.
 
 ---
 
@@ -278,7 +278,7 @@ The gap a model passes through when it uses a door, hatch or ramp. An access poi
 
 ## Interior Clearance
 
-The clear height inside a closed compartment, measured in plate layers from the surface a model stands or sits on. Less than one Unit Base of clear height carries cargo but no infantry. See `09-transport.md` (TRN-019).
+The clear height inside a closed compartment, measured in plate layers from the surface the model rests on — for infantry, the surface under its base rather than the top of it. Less than one Unit Base of clear height carries cargo but no infantry. See `09-transport.md` (TRN-019).
 
 ---
 
