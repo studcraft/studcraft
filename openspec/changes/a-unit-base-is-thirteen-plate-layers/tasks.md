@@ -377,7 +377,7 @@ from "after" **without editing a document to make a check pass**.
 
 ## 9. Left open on purpose
 
-- [ ] 9.1 **Do not tick.** The four spec deltas — `unit-base`'s *Unit Base Measurement*, *Unit Base Projections* and *Cargo Divides a Unit Base*, and `weapon-capacity`'s *Platform Length Definition* — are written under this change's `specs/` **after** `Archive cut` has run and the living spec has absorbed `deployment-is-a-volume`'s block on *Unit Base Projections*. Until then this box stays unchecked, which is what keeps `scripts/archive_cut.py` from archiving a change whose spec is a version of the ruleset that no longer exists.
+- [x] 9.1 **Do not tick.** The four spec deltas — `unit-base`'s *Unit Base Measurement*, *Unit Base Projections* and *Cargo Divides a Unit Base*, and `weapon-capacity`'s *Platform Length Definition* — are written under this change's `specs/` **after** `Archive cut` has run and the living spec has absorbed `deployment-is-a-volume`'s block on *Unit Base Projections*. Until then this box stays unchecked, which is what keeps `scripts/archive_cut.py` from archiving a change whose spec is a version of the ruleset that no longer exists.
 
 
 ---
@@ -709,3 +709,33 @@ so the paragraph now says where arrangement does and does not change the answer.
 - [x] 13.8 `python3 scripts/lint_ruleset.py` and `python3 scripts/check_delta_coverage.py` — both exit 0.
 
 - [x] 13.9 `grep -c "^- \[ \]" openspec/changes/a-unit-base-is-thirteen-plate-layers/tasks.md` — after ticking this section: **1**, and it is still task 9.1.
+
+---
+
+## 14. The four spec deltas, written after `Archive cut`
+
+`Archive cut` ran as #83 (`a5696aa`) on 2026-08-10. It archived the three changes ahead
+of this one and correctly skipped this one, whose task 9.1 was open by design. The
+living `openspec/specs/` therefore carries `deployment-is-a-volume`'s block on *Unit
+Base Projections*, which is the precondition 9.1 names, and the deltas below are
+written against a current spec.
+
+- [x] 14.1 Write `openspec/changes/a-unit-base-is-thirteen-plate-layers/specs/unit-base/spec.md` — one `## MODIFIED Requirements` heading and the three requirements *Unit Base Measurement*, *Unit Base Projections* and *Cargo Divides a Unit Base*, each copied from the living spec with every scenario heading preserved and only the lines this change is entitled to move changed: the height and the brick equivalence, the measuring plane, the stale "deployment area" #81 handed on, the vertical projection, and the *Three short crates share one Unit Base* scenario body.
+
+- [x] 14.2 Write `openspec/changes/a-unit-base-is-thirteen-plate-layers/specs/weapon-capacity/spec.md` — *Platform Length Definition* with both its scenarios, the second of which stops naming a plate-layer figure.
+
+- [x] 14.3 Tick task 9.1. Its body still opens "**Do not tick.**" and that sentence is left standing on purpose: the instruction was conditional on the deltas not existing, 14.1 and 14.2 discharge it, and this file's own precedent is to record a reversal in a new section rather than edit the earlier one — section 11 left task 6.1 untouched and did exactly this.
+
+**Two figures the deltas deliberately do not carry.** `design.md`'s spec-delta table predicts "12 → 13" for the slice budget in *Cargo Divides a Unit Base* and for the *Infantry Platform Length ignores the Unit Base's height* scenario. Both instead say "the Unit Base's height" and state no number, because that is what `docs/09-transport.md` (TRN-013), `docs/10-weapons.md` (WPN-004) and the *Slice* and *Platform Length* glossary entries say after #80 removed the restatements. Printing 13 at a use site is the defect #80 exists to have fixed. The `design.md` table is therefore stale on those two rows, knowingly, and is left as the record of what was predicted before the deltas were written against the applied text.
+
+### Verification after section 14
+
+- [x] 14.4 `python3 scripts/check_delta_coverage.py` — before: `Checked 0 MODIFIED requirement(s) across all changes. No dropped scenarios.`, after: `Checked 4 MODIFIED requirement(s) across all changes. No dropped scenarios.` No scenario is dropped or renamed by either file.
+
+- [x] 14.5 `python3 scripts/lint_ruleset.py` — `Checked 15 docs, no structural issues found.` No document in `docs/` is touched by this section.
+
+- [x] 14.6 `openspec validate a-unit-base-is-thirteen-plate-layers` — `Change 'a-unit-base-is-thirteen-plate-layers' is valid`. This is what `openspec-change-coherent.yml` runs, and it validates the change's deltas, which before this section did not exist.
+
+- [x] 14.7 `grep -c "13 plate layers" openspec/changes/a-unit-base-is-thirteen-plate-layers/specs/unit-base/spec.md` — **4**: the requirement sentence and the *Unit Base dimensions* scenario in *Unit Base Measurement*, and the vertical projection and its *An opening is measured against the vertical projection* scenario in *Unit Base Projections*. Those are the four lines `design.md`'s spec-delta table names. *Cargo Divides a Unit Base* states no figure, and the same command on `specs/weapon-capacity/spec.md` returns **0**.
+
+- [x] 14.8 `grep -c "^- \[ \]" openspec/changes/a-unit-base-is-thirteen-plate-layers/tasks.md` — after ticking this section: **0**. This supersedes tasks 10.14, 11.7, 12.5 and 13.9, each of which states the count is **1** and that the one open box is task 9.1. Each was true when it was written and is false now; 14.3 is what changed it. They are left standing rather than corrected, for the same reason 9.1's body is: this file is the record of what was done in the order it was done.
