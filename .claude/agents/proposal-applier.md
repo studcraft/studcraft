@@ -30,11 +30,14 @@ Run `git rev-parse --abbrev-ref HEAD`. **If you are on `main` or `develop`, stop
 5. Run the repository's own gates before committing, whether or not `tasks.md` lists them:
 
 ```bash
-python3 scripts/lint_ruleset.py
-python3 scripts/check_delta_coverage.py
+python3 scripts/preflight.py
 ```
 
-Both are required status checks (`system/ci-gates.md`). A `tasks.md` that forgets them still produces a red pull request, so run them anyway and report their output.
+**This is a postcondition, not a suggestion.** One command runs the ruleset linter, delta coverage, `openspec validate`, anchor uniqueness and local mirrors of four CI gates. Several are required status checks (`system/ci-gates.md`), so a `tasks.md` that forgets them still produces a red pull request.
+
+**Report its exit code and the name of every check that did not pass**, even when you believe the failure predates your work. Whether a red check is yours is the reviewer's call, and one they cannot make if you did not say the check was red.
+
+If it fails on something you caused, that is a finding to report — **not** a thing to fix by editing the ruleset. See the rule above.
 
 ### Replacement text is verbatim
 

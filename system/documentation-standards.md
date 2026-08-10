@@ -96,10 +96,10 @@ Three mechanisms now do, and they are not interchangeable:
 ├── CLAUDE.md              (one `@AGENTS.md` import; Claude Code reads this name, not AGENTS.md)
 │
 ├── .claude/
-│   ├── settings.json      (the enforcement hooks below)
-│   ├── agents/            (the three delegation roles AGENTS.md names)
+│   ├── settings.json      (the enforcement hooks below, and the permissions block)
+│   ├── agents/            (the four delegation roles AGENTS.md names)
 │   ├── rules/             (path-scoped pointers; each loads only for the files it names)
-│   └── hooks/             (guard_repo_edits.py, lint_after_edit.py)
+│   └── hooks/             (guard_repo_edits.py, lint_after_edit.py, session_orientation.py)
 │
 ├── system/
 │   ├── design-process.md
@@ -117,9 +117,14 @@ Three mechanisms now do, and they are not interchangeable:
 │   └── specs/             (canonical capability specs, written only by Archive cut)
 │
 ├── scripts/
+│   ├── preflight.py            (runs every gate answerable locally; a mirror, never the authority)
 │   ├── generate_site_docs.py   (builds site/docs/; TITLES dict must list every docs/*.md)
 │   ├── lint_ruleset.py         (structural check; see Documentation Guidelines below)
 │   ├── check_delta_coverage.py (a MODIFIED delta may not drop a living spec's scenario)
+│   ├── check_task_anchors.py   (a tasks.md anchor matching twice is a silent wrong edit)
+│   ├── build_index.py          (writes .studcraft/index.json; docs/ stays the source of truth)
+│   ├── rule.py                 (queries that index: show / refs / neighbors / touched / orphans)
+│   ├── verify_tasks.py         (runs a tasks.md's own verification commands; read-only allowlist)
 │   ├── release_cut.py          (batches CHANGELOG.md + Version-header updates)
 │   └── archive_cut.py          (batches openspec/changes/ -> openspec/changes/archive/)
 │

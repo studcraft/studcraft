@@ -1,6 +1,41 @@
 {
   "autoMemoryEnabled": false,
+  "permissions": {
+    "allow": [
+      "Bash(python3 scripts/lint_ruleset.py)",
+      "Bash(python3 scripts/check_delta_coverage.py)",
+      "Bash(python3 scripts/preflight.py)",
+      "Bash(openspec validate *)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push --delete*)",
+      "Bash(git commit --amend*)",
+      "Bash(git rebase*)",
+      "Bash(git reset --hard*)",
+      "Bash(git checkout -- *)",
+      "Bash(git clean*)",
+      "Bash(git add -A*)",
+      "Bash(git add --all*)",
+      "Bash(git add .)",
+      "Bash(git branch -D*)",
+      "Bash(gh pr merge*)"
+    ]
+  },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/session_orientation.py\"",
+            "timeout": 15,
+            "statusMessage": "Reading branch, tree and open changes"
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [

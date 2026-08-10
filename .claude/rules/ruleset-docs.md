@@ -20,11 +20,11 @@ Adding a new numbered document touches more files than the document itself.
 `system/documentation-standards.md` ("Adding a New Ruleset Document") is the
 checklist.
 
-After editing, run both required checks:
+After editing, run the required checks — one command runs every gate that can be
+answered without pushing, including both of those:
 
 ```bash
-python3 scripts/lint_ruleset.py
-python3 scripts/check_delta_coverage.py
+python3 scripts/preflight.py
 ```
 
 An edit that breaks the branch, proposal or version rules is refused by the

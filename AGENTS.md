@@ -66,19 +66,22 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 
 # Delegating Work
 
-Three roles are defined as repository agents in `.claude/agents/`, so their constraints live in the repository rather than in whoever is driving the session:
+Four roles are defined as repository agents in `.claude/agents/`, so their constraints live in the repository rather than in whoever is driving the session:
 
 | Agent | Model | When |
 |---|---|---|
-| [`ruleset-auditor`](.claude/agents/ruleset-auditor.md) | Opus, read-only | **Twice per change** — on the proposal before it is applied, and on the applied text afterwards. Also on `docs/` at any time. |
+| [`proposal-auditor`](.claude/agents/proposal-auditor.md) | Opus, read-only | On the proposal, before it is applied. This is where the findings are. |
 | [`proposal-applier`](.claude/agents/proposal-applier.md) | Sonnet | Once the proposal has passed its audit. Transcription only. |
+| [`ruleset-auditor`](.claude/agents/ruleset-auditor.md) | Opus, read-only | On the applied text afterwards. Also on `docs/` at any time. |
 | [`git-operator`](.claude/agents/git-operator.md) | Haiku | After you have read the result. Branch, commit, push, open the PR. Decides nothing. |
 
 Design the change, audit the proposal, apply it, audit the result, then **read it yourself**. That step never belongs to an agent.
 
+The two audits were one agent holding two jobs. They read different inputs against different checklists, and carrying both made each vaguer than it should have been.
+
 Deciding the result is fit to push is therefore yours. Issuing the commands afterwards is not — `git-operator` is handed the paths, the branch name and the message text, and selects none of them. Delegating the typing is not delegating the judgement.
 
-## Raising these three is mandatory
+## Raising these four is mandatory
 
 **Not a suggestion, and not a fallback for when the work is large.** Transcribing a proposal by hand, or issuing the git commands yourself, is a defect even when the result is byte-identical: the split is the control, and it is why these roles are committed to `.claude/agents/` instead of being retyped by whoever is driving the session.
 
