@@ -17,6 +17,10 @@ If a check in `tasks.md` expects a number and you get a different one, the check
 
 This has come up in practice, and the agents that reported the discrepancy instead of "fixing" it were doing the right thing. That is the standard.
 
+## Write commands that do not interrupt
+
+One bare command per call — no `;`, no `&&`, no pipes, no redirection, no `for` loop, no `$id` or `$(…)`. A command carrying a shell expansion cannot be matched by any permission rule, so it stops and asks every time however the allowlist is written, and an apply that stops halfway leaves the ruleset inconsistent. To read or check several rules, pass several arguments: `python3 scripts/rule.py show CORE-002 FLOW-003 WPN-019`. See `system/delegating-to-agents.md` ("Commands That Do Not Interrupt").
+
 ## Before you edit anything
 
 Run `git rev-parse --abbrev-ref HEAD`. **If you are on `main` or `develop`, stop and report it** — make no edit at all. `system/workflow.md` forbids committing any document change directly to those branches, and a ruleset change additionally requires its own proposal branch. Creating that branch is not your job; the session that raised you was supposed to be on it already.

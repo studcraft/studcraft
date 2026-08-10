@@ -42,7 +42,18 @@ FENCE_RE = re.compile(r"^```")
 TASK_LINE_RE = re.compile(r"^\s*- \[[ xX]\]")
 TASK_DONE_RE = re.compile(r"^\s*- \[[xX]\]")
 HEADING_RE = re.compile(r"^#{1,4} ")
-DOC_PATH_RE = re.compile(r"`(docs/[\w.-]+\.md)`")
+# Any path a task can name, not only one under docs/. It was `docs/` only, and a
+# task targeting `.claude/agents/ruleset-auditor.md` then resolved to whichever
+# docs/ file a previous section happened to name — which reports a missing anchor
+# at best and silently checks the wrong file at worst. A change is allowed to
+# touch more than the ruleset, so the checker has to be.
+#
+# **At least one `/` is required.** A first attempt without that matched the bare
+# `design.md`, `proposal.md` and `tasks.md` that every change mentions in its own
+# prose, resolved them against the repository root where no such files exist, and
+# turned nine harmless sentences into errors. A directory component is what
+# separates "the file this task edits" from "a document this task talks about".
+TARGET_PATH_RE = re.compile(r"`((?:[\w.-]+/)+[\w.-]+\.(?:md|py|json|ya?ml))`")
 CHANGELOG_RE = re.compile(r"\bCHANGELOG\.md\b")
 VERSION_RE = re.compile(r"\*\*Version:\*\*")
 
@@ -105,15 +116,20 @@ def task_is_done(lines: list[str], upto: int) -> bool:
 
 
 def target_for(lines: list[str], upto: int) -> str | None:
-    """Which docs/ file the anchor above line `upto` belongs to.
+    """Which file the anchor above line `upto` belongs to.
 
     Taken from the nearest preceding line that names one — a section heading
-    ("## 2. `docs/09-transport.md` — ...") or the task line itself. A block
-    whose target is a spec delta rather than a ruleset document names no
-    docs/ path, and is reported as unresolved rather than guessed at.
+    ("## 2. `docs/09-transport.md` — ...") or the task line itself. A block whose
+    target is a spec delta, or a task that never says which file it edits, names
+    no path and is reported as unresolved rather than guessed at.
+
+    The path may be anywhere in the repository. Restricting it to `docs/` meant a
+    task naming `.claude/agents/ruleset-auditor.md` fell through to whichever
+    ruleset document a previous section had named, and was then checked against
+    the wrong file.
     """
     for back in range(upto - 1, -1, -1):
-        match = DOC_PATH_RE.search(lines[back])
+        match = TARGET_PATH_RE.search(lines[back])
         if match and (HEADING_RE.match(lines[back]) or TASK_LINE_RE.match(lines[back])):
             return match.group(1)
     return None
@@ -134,14 +150,25 @@ def check_anchors(change: str, tasks: Path) -> list[Finding]:
         if path is None:
             findings.append(Finding(
                 "unresolved", where,
-                "block names no docs/ file — a spec delta, or a task that does not say "
-                "which document it edits",
+                "block names no file — a spec delta, or a task that does not say "
+                "which file it edits",
             ))
             continue
 
+        # A task may name a file in the repository, or one inside its own change
+        # directory — a spec delta is written as `specs/<capability>/spec.md`.
+        # Try both before concluding anything, and treat a path that resolves to
+        # neither as unresolved rather than as an error: a `tasks.md` is allowed
+        # to mention a file it does not edit.
         target = REPO_ROOT / path
-        if not target.exists():
-            findings.append(Finding("error", where, f"{path} does not exist"))
+        if not target.is_file():
+            target = tasks.parent / path
+        if not target.is_file():
+            findings.append(Finding(
+                "unresolved", where,
+                f"names {path}, which is neither in the repository nor in this change "
+                f"directory — a block that talks about a file rather than editing one",
+            ))
             continue
 
         if path not in cache:

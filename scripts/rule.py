@@ -12,6 +12,16 @@ questions an audit otherwise answers by opening fifteen documents:
   rule.py glossary            glossary entries that point at no rule
   rule.py doc 08-vehicles.md  one document's rules, one line each
 
+**Every command except `orphans` and `glossary` takes as many arguments as you
+like**, and runs once per argument:
+
+  rule.py show CORE-002 CORE-006 FLOW-002 FLOW-003 FLOW-004
+
+Use that rather than a shell loop. A loop needs `$id`, and a command carrying a
+shell expansion cannot be matched by any permission rule — it interrupts to ask,
+every time, however the allowlist is written. One command with seven arguments
+never asks.
+
 `show` prints from `docs/` rather than from the index: the index holds a
 summary, and a summary is a thing to decide with, never a thing to audit
 against. Everything else reads the index, which is rebuilt automatically
@@ -210,15 +220,23 @@ def cmd_doc(index: dict, name: str) -> int:
     return 0
 
 
+# arity: 0 takes none, 1 takes exactly one, "+" takes one or more and is run
+# once per argument. The variadic forms exist so that reading seven rules is one
+# command rather than a shell loop — a loop needs `$id`, and a command carrying a
+# shell expansion cannot be matched by any permission rule, so it prompts every
+# time however the allowlist is written. Removing the reason to write the loop is
+# the only fix that survives.
 COMMANDS = {
-    "show": (cmd_show, 1),
-    "refs": (cmd_refs, 1),
-    "neighbors": (cmd_neighbors, 1),
-    "touched": (cmd_touched, 1),
+    "show": (cmd_show, "+"),
+    "refs": (cmd_refs, "+"),
+    "neighbors": (cmd_neighbors, "+"),
+    "touched": (cmd_touched, "+"),
     "orphans": (cmd_orphans, 0),
     "glossary": (cmd_glossary, 0),
-    "doc": (cmd_doc, 1),
+    "doc": (cmd_doc, "+"),
 }
+
+SEPARATOR = "=" * 72
 
 
 def main(argv: list[str]) -> int:
@@ -228,11 +246,29 @@ def main(argv: list[str]) -> int:
 
     handler, arity = COMMANDS[argv[0]]
     args = argv[1:]
-    if len(args) != arity:
-        print(f"{argv[0]} takes {arity} argument(s), got {len(args)}.", file=sys.stderr)
+    index = load_index()
+
+    if arity == 0:
+        if args:
+            print(f"{argv[0]} takes no arguments, got {len(args)}.", file=sys.stderr)
+            return 1
+        return handler(index)
+
+    if not args:
+        print(f"{argv[0]} needs at least one argument.", file=sys.stderr)
         return 1
 
-    return handler(load_index(), *args)
+    status = 0
+    for position, argument in enumerate(args):
+        if position:
+            print(f"\n{SEPARATOR}\n")
+        try:
+            status |= handler(index, argument)
+        except SystemExit as exit_signal:
+            # `need()` exits on an unknown rule. With several arguments, report it
+            # and carry on: stopping on the third of seven wastes the other four.
+            status |= exit_signal.code or 1
+    return status
 
 
 if __name__ == "__main__":

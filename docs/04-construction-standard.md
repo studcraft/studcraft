@@ -84,9 +84,9 @@ What must fit is measured in Unit Bases (`02-core-rules.md`, CORE-001): a minifi
 
 ---
 
-# SCS-006 — Functional Components
+# SCS-006 — Interactive Elements
 
-Interactive elements must physically exist.
+Interactive elements must physically exist. What operating one costs is defined in `02-core-rules.md`, CORE-007.
 
 Examples:
 

@@ -26,6 +26,19 @@ and anything added to it that those two documents do not already forbid is a
 policy change wearing a configuration disguise. `.claude/settings.local.json` is
 per-machine and gitignored; nothing another checkout must have belongs there.
 
+**`allow` holds a broad `Bash(git *)`, and the `deny` list is what makes that
+safe.** Permission patterns match by prefix, so `Bash(git status*)` does not
+cover `git -C /path status` — and there is no end to the variants worth chasing
+one at a time. Denying the destructive commands and allowing the rest closes the
+whole class instead, and `deny` wins over `allow` where they overlap. The
+consequence to remember: **a new destructive git command is only forbidden if it
+is on the `deny` list.** Adding one there is now the control, not omitting it
+from `allow`.
+
+`gh` is deliberately *not* broad. Its read-only subcommands are listed one by
+one, because `gh api` can POST and PATCH — `scripts/open_pr.py` reaches it as a
+subprocess, which needs no permission entry of its own.
+
 A local hook and a CI gate are not alternatives. The gate is authoritative and
 runs for everyone; the hook only moves the same refusal earlier, before a push.
 When you change one, check whether the other now disagrees with it.
