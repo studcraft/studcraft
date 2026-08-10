@@ -405,7 +405,7 @@ This needs no separate walker rule. A walker whose knee clears the whole rise si
 
 A vehicle's height is bounded twice, and it is legal only under both bounds:
 
-- **By its own footprint.** For every two studs across the narrowest side of its footprint, a vehicle may rise one Unit Base.
+- **By its own footprint.** For every two studs across the narrowest side of its footprint, a vehicle may rise one Unit Base, rounded up to the next whole Unit Base where that comes out fractional.
 - **By the agreed ceiling.** No model may exceed the height agreed for the Deployment Volume (`06-deployment.md`, DEP-001).
 
 The two answer different questions and neither replaces the other. The footprint bound is a proportion the model carries wherever it is played: a vehicle may be as tall as its own base justifies. The ceiling is the size of the game, agreed once and the same for every model on the table. A wide vehicle in a low-roofed scenario is stopped by the ceiling; a narrow one in a large game is stopped by its footprint.
@@ -424,9 +424,9 @@ The proportion is read off the Unit Base rather than chosen. One Unit Base is th
 
 Tank and Jeep share a limit because they share a narrowest side. Stretching a vehicle along its long axis buys it nothing: a long thin vehicle is still a thin vehicle.
 
-The same two Unit Bases give different limits depending on how they are arranged — side by side (2 × 1 UB, 8 × 3 studs) they allow one and a half Unit Bases, front to back (1 × 2 UB, 4 × 6 studs) two. That is not an exploit to close. The arrangement is built into the model, chosen once at the bench and paid for in the shape of the vehicle. Turning the finished model on the table changes nothing, because the narrowest side is a property of the rectangle and not of which way it points.
+Arrangement changes a limit only when it changes the whole Unit Base the limit rounds to. The same two Unit Bases side by side (2 × 1 UB, 8 × 3 studs) and front to back (1 × 2 UB, 4 × 6 studs) have narrowest sides of 3 and 4 studs, and both allow two Unit Bases; a footprint 9 studs across allows five where one 8 studs across allows four. Either way the arrangement is built into the model, chosen once at the bench and paid for in the shape of the vehicle. Turning the finished model on the table changes nothing, because the narrowest side is a property of the rectangle and not of which way it points.
 
-An odd narrowest side gives a limit of a whole number of Unit Bases and a half, which is not a whole number of plate layers. Nothing is rounded, in either direction: a vehicle's own height is measured in plate layers (VEH-030) and compared against the limit, so the greatest whole plate count that does not exceed the limit is legal and the next one up is not.
+An odd narrowest side gives a whole number of Unit Bases and a half, and the limit is the next whole Unit Base above it: 3 studs allow two Unit Bases, 9 studs allow five. Every limit this rule states is therefore a whole number of Unit Bases, and the rule converts none of them — `02-core-rules.md` (CORE-001) is where a Unit Base becomes a count of plate layers, and it is the only place that happens.
 
 Height is counted once, from the surface the vehicle rests on (VEH-029) to the top of its Gameplay Geometry (VEH-030) — **locomotion included** — and that one figure is checked against both bounds. A walker's legs, a wheel's diameter and a hover assembly are height exactly as a hull is: they are what holds the rest of the model up there, and a base that cannot justify a tall hull cannot justify tall legs either.
 

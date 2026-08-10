@@ -629,3 +629,83 @@ An odd narrowest side gives a limit of a whole number of Unit Bases and a half, 
 - [x] 12.4 `python3 scripts/lint_ruleset.py` and `python3 scripts/check_delta_coverage.py` — both exit 0.
 
 - [x] 12.5 `grep -c "^- \[ \]" openspec/changes/a-unit-base-is-thirteen-plate-layers/tasks.md` — after ticking this section: **1**, and it is still task 9.1.
+
+
+---
+
+## 13. Review on PR #82 — a fractional limit resolves to a whole Unit Base
+
+The review clarified the intended behaviour: `VEH-028` works in whole Unit Bases, and
+a geometric limit that comes out fractional is rounded **up** to the next whole one.
+The rule converts nothing into plate layers — `CORE-001` owns that conversion — so the
+plate-layer comparison added in section 12 comes out.
+
+**This changes what is legal**, and only for the three narrowest sides that are odd
+multiples of three. A 3-stud narrowest side goes from a limit of one and a half Unit
+Bases to two; 9 studs from four and a half to five; 15 from seven and a half to eight.
+The five rows of `VEH-028`'s own table all have even narrowest sides and do not move.
+
+It also falsifies a paragraph of the rule, which task 13.3 rewrites: with 3 studs and
+4 studs both resolving to two Unit Bases, the two arrangements of a 2-Unit-Base
+footprint no longer differ.
+
+- [x] 13.1 In `VEH-028`, replace this anchor — the first bullet of the rule:
+
+```
+- **By its own footprint.** For every two studs across the narrowest side of its footprint, a vehicle may rise one Unit Base.
+```
+
+with:
+
+```
+- **By its own footprint.** For every two studs across the narrowest side of its footprint, a vehicle may rise one Unit Base, rounded up to the next whole Unit Base where that comes out fractional.
+```
+
+- [x] 13.2 In `VEH-028`, replace this anchor:
+
+```
+An odd narrowest side gives a limit of a whole number of Unit Bases and a half, which is not a whole number of plate layers. Nothing is rounded, in either direction: a vehicle's own height is measured in plate layers (VEH-030) and compared against the limit, so the greatest whole plate count that does not exceed the limit is legal and the next one up is not.
+```
+
+with:
+
+```
+An odd narrowest side gives a whole number of Unit Bases and a half, and the limit is the next whole Unit Base above it: 3 studs allow two Unit Bases, 9 studs allow five. Every limit this rule states is therefore a whole number of Unit Bases, and the rule converts none of them — `02-core-rules.md` (CORE-001) is where a Unit Base becomes a count of plate layers, and it is the only place that happens.
+```
+
+Rounding **up** is the review's instruction, and it is the more permissive of the two
+directions: it hands a narrow footprint the height of the next wider one rather than
+the one below it.
+
+- [x] 13.3 In `VEH-028`, replace this anchor:
+
+```
+The same two Unit Bases give different limits depending on how they are arranged — side by side (2 × 1 UB, 8 × 3 studs) they allow one and a half Unit Bases, front to back (1 × 2 UB, 4 × 6 studs) two. That is not an exploit to close. The arrangement is built into the model, chosen once at the bench and paid for in the shape of the vehicle. Turning the finished model on the table changes nothing, because the narrowest side is a property of the rectangle and not of which way it points.
+```
+
+with:
+
+```
+Arrangement changes a limit only when it changes the whole Unit Base the limit rounds to. The same two Unit Bases side by side (2 × 1 UB, 8 × 3 studs) and front to back (1 × 2 UB, 4 × 6 studs) have narrowest sides of 3 and 4 studs, and both allow two Unit Bases; a footprint 9 studs across allows five where one 8 studs across allows four. Either way the arrangement is built into the model, chosen once at the bench and paid for in the shape of the vehicle. Turning the finished model on the table changes nothing, because the narrowest side is a property of the rectangle and not of which way it points.
+```
+
+The old paragraph's worked example was the 3-stud case, and rounding up makes both
+arrangements land on two Unit Bases. Its argument survives — the arrangement is a
+construction choice, not a table-top one — but its example no longer demonstrates it,
+so the paragraph now says where arrangement does and does not change the answer.
+
+### Verification after section 13
+
+- [x] 13.4 `grep -c "greatest whole plate count" docs/08-vehicles.md` — before: **1**, after: **0**. The plate-layer comparison added in section 12 is gone.
+
+- [x] 13.5 `grep -c "rounded up to the next whole Unit Base" docs/08-vehicles.md` — before: **0**, after: **1**.
+
+- [x] 13.6 `grep -c "one and a half Unit Bases" docs/08-vehicles.md` — before: **1**, after: **0**. No fractional limit is stated as an outcome anywhere in the rule.
+
+- [x] 13.7 `awk '/^# VEH-028/,/^# VEH-029/' docs/08-vehicles.md | grep -cE "[0-9]+ plate layers"` — before: **0**, after: **0**. `VEH-028` states no *number* of plate layers, before this section or after it.
+
+  This check replaces one that was simply wrong. It read `grep -c "plate layers" docs/08-vehicles.md` and expected the count to fall from 8 to 7, conflating "states no plate-layer figure" with "contains no occurrence of the phrase". The rule names the unit twice — at "Stating it in Unit Bases rather than in plate layers" and in task 13.2's own replacement, "where a Unit Base becomes a count of plate layers" — and both mentions exist precisely to say the conversion belongs to `CORE-001`. The phrase count is **8 before and 8 after**; what matters is that no numeral is ever attached to it inside this rule, which is what the command above tests. The executing agent ran the original check, saw 8, and reported it rather than deleting words to reach 7.
+
+- [x] 13.8 `python3 scripts/lint_ruleset.py` and `python3 scripts/check_delta_coverage.py` — both exit 0.
+
+- [x] 13.9 `grep -c "^- \[ \]" openspec/changes/a-unit-base-is-thirteen-plate-layers/tasks.md` — after ticking this section: **1**, and it is still task 9.1.
