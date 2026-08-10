@@ -33,3 +33,11 @@ When you change one, check whether the other now disagrees with it.
 `scripts/preflight.py` is the same bargain in script form: it mirrors four of
 the workflows plus both checker scripts so a push is not the first thing to
 report a red gate. **Editing a workflow means checking the mirror against it.**
+
+`.claude/hooks/lint_after_edit.py` watches `Bash` as well as `Write` and `Edit`,
+because a shell command that writes carries no `file_path` for a hook to read.
+It decides by modification time rather than by reading the command — deciding
+intent from a shell string is a losing game, and the attempt matched a commit
+message quoting a path. Anything that adds a generated file under `.studcraft/`
+should keep that split in mind: the directory is a cache, gitignored, and never
+a source of truth.
