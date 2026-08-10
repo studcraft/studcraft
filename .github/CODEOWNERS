@@ -1,18 +1,27 @@
 # Code owners for StudCraft.
 #
-# Listing an owner here assigns them as a reviewer automatically. It does not
-# yet *require* their approval: `main` currently requires 0 approving reviews,
-# because there is one maintainer and GitHub does not allow approving your own
-# pull request. Raising that to 1 today would make every PR unmergeable,
-# `enforce_admins` being on.
+# **This file is enforced.** The repository ruleset "Require PR review except
+# jujorie" requires one approving review on `main` with `require_code_owner_review`
+# set, and lists a single bypass actor. So a pull request from anyone else that
+# touches a path below cannot merge without an owner's approval — which, while
+# there is one owner, is the same thing as "only an admin may change it".
 #
-# On the day a second maintainer joins, both of these change together:
-#   1. add them below,
-#   2. set required_approving_review_count to 1 and enable
-#      require_code_owner_reviews on the `main` branch protection.
+# The paragraph that used to sit here said the opposite: that `main` required 0
+# approvals and enabling code-owner review would deadlock a solo maintainer. That
+# is still true of the *branch protection* settings, and it was true when written.
+# It stopped being the whole picture when the ruleset was added, because rulesets
+# and branch protection are evaluated together and the more restrictive wins. A
+# comment describing one layer of two reads as a description of the whole.
 #
-# Until then this file does the useful half — routing review requests — without
-# the half that would deadlock.
+# What this file cannot do: a path restriction that blocks the push itself.
+# `file_path_restriction` lives in a *push* ruleset, and GitHub refuses those on
+# public repositories — "Source public repos cannot have push rules". Review is
+# the mechanism available here, so the coverage below has to be complete.
+#
+# On the day a second maintainer joins, add them below. Two other decisions
+# belong to that same day — whether the bypass actor stays, and whether a
+# path-guard CI gate is finally worth its cost. `system/ci-gates.md` ("The day a
+# non-admin collaborator appears") argues both, and is where they are decided.
 
 # Everything, by default.
 *                       @jujorie
@@ -26,8 +35,19 @@
 /CONTRIBUTING.md        @jujorie
 /AGENTS.md              @jujorie
 
+# CLAUDE.md is one line: an `@AGENTS.md` import. Owning AGENTS.md and not the
+# file that loads it leaves the loader free to point somewhere else.
+/CLAUDE.md              @jujorie
+
+# Agent definitions, path-scoped rules, permission allow/deny lists and the
+# PreToolUse hooks that refuse an edit before CI ever sees it. This directory
+# decides what every agent working on the repository is allowed to do, and it
+# was the one gap in this file.
+/.claude/               @jujorie
+
 # CI gates and the release/archive automation. Breaking these silently breaks
-# every other guarantee in the repo.
+# every other guarantee in the repo — including the review requirement that
+# makes this file mean anything.
 /.github/               @jujorie
 /scripts/               @jujorie
 

@@ -212,22 +212,76 @@ pushing a branch actually needs.
 
 ---
 
-# Do Not Require Approving Reviews While There Is One Maintainer
+# Required Reviews With One Maintainer: The Trap, and the Way Out
 
-Raising `required_approving_review_count` to 1 looks like the obvious hardening
-step and is currently a trap. `enforce_admins` is enabled, there is one
-maintainer, and GitHub does not allow approving your own pull request — so
-requiring one approval makes **every PR unmergeable, including the one that
-undoes the setting.**
+Raising `required_approving_review_count` **in branch protection** is a trap
+while there is one maintainer. `enforce_admins` is enabled and GitHub does not
+allow approving your own pull request, so requiring one approval there makes
+**every PR unmergeable, including the one that undoes the setting.**
 
-`.github/CODEOWNERS` exists and routes review requests, which is the useful
-half. It also records the exact pair of settings to flip on the day a second
-maintainer joins:
+**A repository ruleset escapes this, and one is already live.** Rulesets take a
+`bypass_actors` list; branch protection has nothing equivalent. So the same
+requirement can be enforced on everyone else while the solo maintainer merges
+their own work. What is configured today:
 
-1. add them to `CODEOWNERS`,
-2. set required reviews to 1 and enable `require_code_owner_reviews`.
+| Layer | Setting |
+|---|---|
+| Ruleset `Require PR review except jujorie`, on `refs/heads/main` | 1 approving review, `require_code_owner_review: true`, bypass actor `jujorie` (`always`) |
+| Branch protection on `main` | `required_approving_review_count: 0`, `require_code_owner_reviews: false`, `enforce_admins: true`, 6 required checks, linear history, no force-push |
 
-Both at once, never the second alone.
+The two are evaluated together and the more restrictive wins. **This section
+previously said the opposite** — that requiring a review was still a trap and
+`CODEOWNERS` only routed requests. That was true of branch protection alone, and
+stopped being the whole picture when the ruleset was added. Describing one layer
+of two reads as a description of both.
+
+So, stated plainly, because it is the question people actually ask:
+
+- **Anyone other than the bypass actor** needs one approving review from a
+  `CODEOWNERS` entry before a PR merges into `main`. The requirement is
+  *code-owner* approval, not *admin* approval — they coincide only because one
+  person is currently both.
+- **Before that**, merging needs write access at all. A contributor without it
+  opens from a fork and cannot merge whatever anyone approves.
+- **The bypass actor merges with no approval** — and still cannot merge with a
+  red check, because `enforce_admins` belongs to branch protection and a ruleset
+  bypass does not reach it.
+
+## Push-level path restrictions are not available here
+
+`file_path_restriction` — the rule that blocks a *commit* touching a path rather
+than blocking the merge — is a **push** ruleset rule, and the API refuses one on
+this repository:
+
+```
+422 Validation Failed
+"Source public repos cannot have push rules"
+```
+
+Not a plan limitation and not a permissions problem: GitHub does not allow push
+rulesets on public repositories. Review is the mechanism available, which is why
+`.github/CODEOWNERS` has to cover every sensitive path completely rather than
+representatively.
+
+## The day a non-admin collaborator appears
+
+Three things to decide together, and the first two are the ones that matter:
+
+1. **Do they go in `CODEOWNERS`?** Adding them means their approval satisfies
+   the review requirement on the paths they own. That is the whole point of the
+   file, and it is also the moment "code owner" and "admin" stop being the same
+   set.
+2. **Does the `jujorie` bypass stay?** With a second reviewer available, it is no
+   longer load-bearing, and removing it makes the rule apply to everyone.
+3. **A path-guard CI gate becomes worth reconsidering, and is not worth it
+   before.** It would fail a PR that touches `.claude/`, `scripts/`, `system/`,
+   `.github/`, `AGENTS.md`, `CLAUDE.md` or `CODE_OF_DESIGN.md` when its author
+   lacks admin permission — telling a contributor at PR-open time what code-owner
+   review would tell them at review time. **It blocks nothing `CODEOWNERS` does
+   not already block.** With one collaborator, who is an admin, it would fire for
+   nobody while adding a seventh required check that must pass on every PR
+   forever. Weigh it against the pitfalls at the top of this document before
+   adding it.
 
 ---
 
