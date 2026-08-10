@@ -174,6 +174,65 @@ def check_anchors(change: str, tasks: Path) -> list[Finding]:
     return findings
 
 
+def check_replacement_format(change: str, tasks: Path) -> list[Finding]:
+    """Replacement text must be fenced, not quoted.
+
+    Both conventions exist in this repository's history, and the switch was an
+    improvement rather than drift: every change up to 2026-08-07 wrapped
+    replacement text in a `> ` blockquote, and every change from 2026-08-10
+    fences it. A blockquote forces a `> ` onto every line of the replacement,
+    including the blank ones and the rows of a markdown table, and each of those
+    prefixes is a character the applier has to strip correctly. A fence has no
+    per-line prefix to get wrong.
+
+    What makes this worth a check rather than a preference is that
+    `.claude/agents/proposal-applier.md` described the blockquote form for
+    several changes after the convention had already moved. Nothing broke,
+    because each `tasks.md` explains its own convention in its preamble and the
+    file wins — but an applier reading one format in its instructions and
+    another in the file it is given is the exact situation a weaker model is
+    least able to recover from.
+
+    Archived changes legitimately use the old form. Only unarchived changes are
+    checked unless one is named explicitly.
+    """
+    lines = tasks.read_text().splitlines()
+    findings: list[Finding] = []
+
+    fenced = sum(1 for line in lines if FENCE_RE.match(line))
+
+    # A run of quoted lines long enough to be a replacement body, rather than a
+    # single quoted motto such as "> **Every Brick Matters.**" being discussed.
+    runs: list[int] = []
+    run_start = None
+    for number, line in enumerate(lines, start=1):
+        if line.startswith(">"):
+            run_start = run_start if run_start is not None else number
+        elif run_start is not None:
+            if number - run_start >= 3:
+                runs.append(run_start)
+            run_start = None
+
+    if runs:
+        findings.append(Finding(
+            "error", f"{change}/tasks.md:{runs[0]}",
+            f"{len(runs)} block(s) of replacement text are written as a `> ` "
+            f"blockquote. The convention is a triple-backtick fence, which has no "
+            f"per-line prefix for the applier to strip and does not force a `>` onto "
+            f"the blank lines and table rows inside the replacement. Convert them, and "
+            f"state in the preamble that the fence is not part of the text.",
+        ))
+
+    if runs and fenced:
+        findings.append(Finding(
+            "error", f"{change}/tasks.md",
+            "the file mixes both replacement conventions. One file, one convention — "
+            "an applier told which form to expect must find only that form.",
+        ))
+
+    return findings
+
+
 def check_version_instructions(change: str, tasks: Path) -> list[Finding]:
     findings: list[Finding] = []
 
@@ -222,6 +281,7 @@ def main(argv: list[str]) -> int:
             continue
         checked += 1
         findings += check_anchors(change, tasks)
+        findings += check_replacement_format(change, tasks)
         findings += check_version_instructions(change, tasks)
 
     errors = [f for f in findings if f.severity == "error"]

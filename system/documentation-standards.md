@@ -122,6 +122,8 @@ Three mechanisms now do, and they are not interchangeable:
 │   ├── lint_ruleset.py         (structural check; see Documentation Guidelines below)
 │   ├── check_delta_coverage.py (a MODIFIED delta may not drop a living spec's scenario)
 │   ├── check_task_anchors.py   (a tasks.md anchor matching twice is a silent wrong edit)
+│   ├── check_id_stability.py   (rule IDs are permanent — compares docs/ against a base revision)
+│   ├── open_pr.py              (stage/commit/push/PR; git-operator calls it, the BLOCKER rules are its code)
 │   ├── build_index.py          (writes .studcraft/index.json; docs/ stays the source of truth)
 │   ├── rule.py                 (queries that index: show / refs / neighbors / touched / orphans)
 │   ├── verify_tasks.py         (runs a tasks.md's own verification commands; read-only allowlist)

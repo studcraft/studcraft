@@ -41,7 +41,9 @@ If it fails on something you caused, that is a finding to report — **not** a t
 
 ### Replacement text is verbatim
 
-Tasks give you the new text as a markdown blockquote. **The `> ` prefix is not part of the text** — strip it from every line. A `#` heading, a `|` table or `**bold**` inside a block is real markdown and must be written as such.
+Tasks give you the new text inside a triple-backtick fence. **The fence is not part of the text** — never write the backticks into the document. A `#` heading, a `|` table or `**bold**` inside a fence is real markdown and must be written as such, not quoted text.
+
+Changes written before 2026-08-10 used a `> ` blockquote instead, and there the `> ` prefix is not part of the text either — strip it from every line. `scripts/check_task_anchors.py` rejects a new `tasks.md` that uses the old form or mixes the two, so you should only meet a blockquote in an archived change. **If the file you were given disagrees with this section, the file wins — and say so in your report**, because it means one of the two is stale.
 
 Do not paraphrase, improve, shorten or expand the given text. If a task asks you to compose prose rather than transcribe it, the task is underspecified: apply your best reading, and say so plainly in your report.
 

@@ -19,18 +19,21 @@ What it runs:
   1. scripts/lint_ruleset.py          (Docs ruleset linter)
   2. scripts/check_delta_coverage.py  (OpenSpec change is coherent, part 2)
   3. scripts/check_task_anchors.py    (no CI gate — a proposal defect, caught here)
-  4. openspec validate                (OpenSpec change is coherent, part 1)
-  5. scripts/build_index.py           (no CI gate — keeps the query index current)
-  6. branch name                      (Branch name follows the convention)
-  7. CHANGELOG.md untouched by a ruleset PR
+  4. scripts/check_id_stability.py    (no CI gate — IDs are permanent across revisions)
+  5. openspec validate                (OpenSpec change is coherent, part 1)
+  6. scripts/build_index.py           (no CI gate — keeps the query index current)
+  7. branch name                      (Branch name follows the convention)
+  8. CHANGELOG.md untouched by a ruleset PR
                                       (Docs must not edit CHANGELOG.md directly)
-  8. one complete proposal per change  (Docs require OpenSpec proposal)
-  9. archive is separate from apply    (OpenSpec archive must be separate from apply)
+  9. one complete proposal per change  (Docs require OpenSpec proposal)
+ 10. archive is separate from apply    (OpenSpec archive must be separate from apply)
 
-Two of those mirror no gate at all. Anchor uniqueness is a defect CI cannot
-see — by the time a change is applied wrongly, the diff looks deliberate — and
-the index is a local cache with nothing to enforce. Both belong to the moment
-before a push rather than after one, which is what this script is.
+Three of those mirror no gate at all. Anchor uniqueness is a defect CI cannot
+see — by the time a change is applied wrongly, the diff looks deliberate.
+ID stability needs a base revision to compare against, which a single-revision
+linter has not got. The index is a local cache with nothing to enforce. All
+three belong to the moment before a push rather than after one, which is what
+this script is.
 
 Checks 4-7 compare the working tree against the merge base with `origin/main`,
 which is the closest local equivalent of the base/head pair a pull request
@@ -351,6 +354,7 @@ def main() -> int:
         run_script("Docs ruleset linter", "lint_ruleset.py"),
         run_script("Deltas must not drop scenarios", "check_delta_coverage.py"),
         run_script("Task anchors are unique", "check_task_anchors.py"),
+        run_script("Rule IDs are stable", "check_id_stability.py"),
         check_openspec_validate(),
         # Last, and always: rebuilding the index cannot fail the run, but a stale
         # index is a wrong answer given confidently, which is worse than no index.

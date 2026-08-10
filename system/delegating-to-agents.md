@@ -72,13 +72,27 @@ Never describe an edit. Write out exactly what the file should say. If
 applying a task requires composing prose, the task is underspecified and the
 result will drift.
 
-Replacement text is shown as a markdown blockquote so it is visually separable
-from the instructions around it. That creates two failure modes to pre-empt
-explicitly, both of which have happened:
+Replacement text goes inside a **triple-backtick fence**, so it is visually
+separable from the instructions around it. Two failure modes to pre-empt
+explicitly in the preamble, both of which have happened:
 
-- **The `> ` prefix is not part of the text.** Say so in the preamble.
-- **A `#` heading or a `|` table inside a block is real markdown**, not
-  quoted text. Say that too.
+- **The fence is not part of the text.** Say so.
+- **A `#` heading or a `|` table inside a fence is real markdown**, not quoted
+  text. Say that too.
+
+Changes up to 2026-08-07 used a `> ` blockquote instead, and the switch was an
+improvement rather than drift: a blockquote forces a `> ` onto every line of the
+replacement — including its blank lines and its table rows — and every one of
+those prefixes is a character the applier has to strip correctly. A fence has no
+per-line prefix to get wrong.
+
+The convention moved on 2026-08-10 and `.claude/agents/proposal-applier.md`
+went on describing the old one for several changes afterwards. Nothing broke,
+because each `tasks.md` states its own convention in its preamble and the file
+wins — but an applier reading one format in its instructions and meeting another
+in the file is the situation a weaker model is least able to recover from.
+`scripts/check_task_anchors.py` now rejects a `tasks.md` that uses the old form
+or mixes the two, so the two cannot drift apart again silently.
 
 ## Define the vocabulary the tasks use
 
@@ -206,3 +220,11 @@ read it.** `git-operator` runs the commands afterwards and is given the paths,
 the branch name and the message text; it never selects them. `system/ci-gates.md`
 records why that step is local at all — the org blocks GitHub Actions from
 creating pull requests, so both cut workflows push a branch and stop.
+
+Most of that sequence is now `scripts/open_pr.py`, which `git-operator` calls.
+The BLOCKER rules in `system/repository-strategy.md` stop being instructions an
+agent is trusted to follow and become things it has no way to do: the script
+issues `git add` once per path it is given and nothing else, and it verifies the
+staged set against the given set before committing. The agent is kept in front
+of it deliberately — a script cannot notice that something is off in a way
+nobody anticipated, and that noticing is the whole reason a reader is there.
