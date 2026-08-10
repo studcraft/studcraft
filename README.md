@@ -63,6 +63,7 @@ These principles are fully described in:
 ├── CHANGELOG.md
 ├── LICENSE
 ├── AGENTS.md
+├── TODO.md
 │
 └── docs/
     ├── 01-foundations.md
@@ -217,6 +218,8 @@ Implemented systems:
 - Damage System
 
 The project is ready for its first full playtests.
+
+What the rules leave undefined is listed in [`TODO.md`](TODO.md) — every entry quotes the rule that declares the gap, so the file says what the ruleset says about itself and nothing more. Work someone has committed to doing lives in the issue tracker instead.
 
 ---
 

@@ -94,6 +94,7 @@ Three mechanisms now do, and they are not interchangeable:
 ├── LICENSE
 ├── AGENTS.md
 ├── CLAUDE.md              (one `@AGENTS.md` import; Claude Code reads this name, not AGENTS.md)
+├── TODO.md                (gaps the ruleset declares in its own text; every entry quotes the rule)
 │
 ├── .claude/
 │   ├── settings.json      (the enforcement hooks below, and the permissions block)
@@ -123,6 +124,7 @@ Three mechanisms now do, and they are not interchangeable:
 │   ├── check_delta_coverage.py (a MODIFIED delta may not drop a living spec's scenario)
 │   ├── check_task_anchors.py   (a tasks.md anchor matching twice is a silent wrong edit)
 │   ├── check_id_stability.py   (rule IDs are permanent — compares docs/ against a base revision)
+│   ├── check_todo_quotes.py    (TODO.md's blockquotes must still appear verbatim in docs/)
 │   ├── open_pr.py              (stage/commit/push/PR; git-operator calls it, the BLOCKER rules are its code)
 │   ├── build_index.py          (writes .studcraft/index.json; docs/ stays the source of truth)
 │   ├── rule.py                 (queries that index: show / refs / neighbors / touched / orphans)
