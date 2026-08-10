@@ -18,7 +18,10 @@
 # public repositories — "Source public repos cannot have push rules". Review is
 # the mechanism available here, so the coverage below has to be complete.
 #
-# On the day a second maintainer joins, add them below. Nothing else changes.
+# On the day a second maintainer joins, add them below. Two other decisions
+# belong to that same day — whether the bypass actor stays, and whether a
+# path-guard CI gate is finally worth its cost. `system/ci-gates.md` ("The day a
+# non-admin collaborator appears") argues both, and is where they are decided.
 
 # Everything, by default.
 *                       @jujorie
