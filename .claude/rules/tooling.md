@@ -15,9 +15,7 @@ paths:
 - `system/delegating-to-agents.md` — what belongs in a `.claude/agents/`
   definition, and what the reviewer still has to do afterwards.
 - `system/documentation-standards.md` — the Repository Structure tree records
-  what each script owns; update it when you add one, and note that
-  `scripts/generate_site_docs.py` carries a `TITLES` dict that must list every
-  `docs/*.md`.
+  what each script owns; update it when you add one.
 
 `.claude/settings.json` also carries the `permissions` block. Its `deny` list is
 the git commands `system/repository-strategy.md` forbids and

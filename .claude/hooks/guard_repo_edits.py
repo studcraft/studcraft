@@ -31,7 +31,7 @@ VERSION_HEADER = re.compile(r"^\*\*Version:\*\*", re.MULTILINE)
 
 # Anything here is a repository document in the sense system/workflow.md means:
 # it may not be changed directly on a long-lived branch.
-DOCUMENT_DIRS = {"docs", "system", "openspec", "scripts", ".github", ".claude", "assets", "site"}
+DOCUMENT_DIRS = {"docs", "system", "openspec", "scripts", ".github", ".claude", "assets"}
 
 # Machine-local permission list. Personal, not a document about the project.
 TRUNK_EXEMPT = {".claude/settings.local.json"}
@@ -106,16 +106,6 @@ def main():
     is_release = branch.startswith("release/v")
     is_archive = branch.startswith("archive/")
     is_ruleset = top == "docs" and rel.suffix == ".md"
-
-    # --- Generated output -------------------------------------------------
-    if rel_posix.startswith("site/docs/"):
-        deny(
-            f"{rel_posix} is generated. `scripts/generate_site_docs.py` builds "
-            "site/docs/ from docs/, and .gitignore excludes it — an edit here is "
-            "overwritten by the next build and never committed. Edit the source "
-            "under docs/ instead (which needs an OpenSpec proposal), or change "
-            "the generator."
-        )
 
     # --- CHANGELOG.md is release-cut-only ---------------------------------
     if rel_posix == "CHANGELOG.md" and not is_release:

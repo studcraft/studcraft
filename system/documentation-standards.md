@@ -119,7 +119,6 @@ Three mechanisms now do, and they are not interchangeable:
 │
 ├── scripts/
 │   ├── preflight.py            (runs every gate answerable locally; a mirror, never the authority)
-│   ├── generate_site_docs.py   (builds site/docs/; TITLES dict must list every docs/*.md)
 │   ├── lint_ruleset.py         (structural check; see Documentation Guidelines below)
 │   ├── check_delta_coverage.py (a MODIFIED delta may not drop a living spec's scenario)
 │   ├── check_task_anchors.py   (a tasks.md anchor matching twice is a silent wrong edit)
@@ -131,10 +130,6 @@ Three mechanisms now do, and they are not interchangeable:
 │   ├── verify_tasks.py         (runs a tasks.md's own verification commands; read-only allowlist)
 │   ├── release_cut.py          (batches CHANGELOG.md + Version-header updates)
 │   └── archive_cut.py          (batches openspec/changes/ -> openspec/changes/archive/)
-│
-├── site/
-│   ├── _config.yml, Gemfile, index.md   (Jekyll site source, hand-maintained)
-│   └── docs/   (generated copy of /docs, gitignored — do not hand-edit)
 │
 ├── assets/
 │   ├── IMAGES.md   (owns the example-image spec and its filename convention)
@@ -218,9 +213,6 @@ this repo — treat this as the checklist:
 - `docs/NN-name.md` itself, with a stable rule-ID prefix (see Naming
   Conventions below) and the required Purpose / Design Philosophy / Rule
   Definitions / Summary structure.
-- `scripts/generate_site_docs.py`'s `TITLES` dict — its own
-  `check_titles_match_source()` guard fails the site build if this is out
-  of sync, but only when the build actually runs; don't rely on that alone.
 - `README.md`: the Repository Structure tree, the Rulebook reading-order
   list (note its numbers are reading-order position, not filename number —
   inserting a document renumbers everything after it), and the Current
