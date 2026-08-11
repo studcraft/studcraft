@@ -17,8 +17,11 @@ Consequences of that split, in order of how much they matter:
 
 - **The forbidden commands are unreachable.** No `--force`, no `--amend`, no
   `rebase`, no `reset --hard`, no `git add -A`. Not because the caller was told
-  not to, but because this issues `git add <path>` once per path it was given
-  and nothing else.
+  not to, but because this issues one staging command per path it was given and
+  nothing else: `git add <path>` where the path is on disk, and `git update-index
+  --remove <path>` where it is in `HEAD` and gone from disk, which is what a
+  deletion looks like. Both take a single path and can touch nothing else. A path
+  that is in neither place stops the run.
 - **The staged set is verified against the given set** before committing. A
   change to a file nobody named stops the run.
 - **Pull requests are opened through `gh api`, not `gh pr create`.** `gh pr edit`
@@ -130,8 +133,14 @@ def main(argv: list[str]) -> int:
         stop(f"{branch} is protected — no document change may be committed to it directly.")
 
     for path in args.paths:
-        if not (REPO_ROOT / path).exists():
-            stop(f"{path} does not exist. Nothing here guesses at what was meant.")
+        if (REPO_ROOT / path).exists():
+            continue
+        in_head = run("git", "cat-file", "-e", f"HEAD:{path}", check=False)
+        if in_head.returncode != 0:
+            stop(
+                f"{path} is neither on disk nor in HEAD. Nothing here guesses at "
+                "what was meant."
+            )
 
     if args.dry_run:
         print(f"branch      {branch}")
@@ -143,7 +152,16 @@ def main(argv: list[str]) -> int:
         return 0
 
     for path in args.paths:
-        run("git", "add", "--", path)
+        if (REPO_ROOT / path).exists():
+            run("git", "add", "--", path)
+        else:
+            # The path is in HEAD and gone from disk: the change is a deletion.
+            # `git add` cannot express one — it matches nothing and errors — and
+            # the flag that would, `-A`, is the one thing
+            # system/repository-strategy.md forbids outright. `update-index
+            # --remove` stages exactly this path's removal and can do nothing
+            # else, which is the same bargain every other command here makes.
+            run("git", "update-index", "--remove", "--", path)
 
     staged = [
         line.split("\t", 1)[-1]

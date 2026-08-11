@@ -16,6 +16,7 @@ BLOCKER rules. No exceptions, ever — not for "my own branch," not to fix an ou
 # Staging — never `git add -A`
 
 - **Never run `git add -A` or `git add .`.** Stage only the specific paths you edited, by name. This applies to every agent and to every commit, including "obviously safe" ones.
+- **A deletion is staged with `git update-index --remove -- <path>`**, not with `git add -A`. `git add` cannot express one: the path matches nothing on disk, so it errors, and the flag that would fix that is the one this section forbids. `scripts/open_pr.py` does this itself — delete the file and pass its path like any other, and do not `git rm` first. Both commands take one path and can touch nothing else, which is the property the rule above is actually protecting.
 
 ---
 
