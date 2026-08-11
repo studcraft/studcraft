@@ -214,7 +214,7 @@ A partially visible component has no separate cover level; it is simply visible 
 
 # Infantry States
 
-Infantry uses the universal Component State machine (`16-damage-system.md`, DMG-005) exactly like any other component — CORE-011/012/013 describe the infantry-specific physical representation of each state, not a separate state system.
+Infantry uses the universal Component State machine (`16-damage-system.md`, DMG-005) exactly like any other component — CORE-011/012/013 describe the infantry-specific physical representation of each state, and what Wounded costs an infantry model, not a separate state system.
 
 ## CORE-011 — Operational
 
@@ -230,7 +230,7 @@ The minifigure is placed in a seated position, representing an injured soldier.
 
 The seated position is the game marker. No additional token is required.
 
-A Wounded unit has no penalty of any kind — it moves, attacks, rotates, and climbs exactly as if Operational (`16-damage-system.md`, DMG-005: Wounded "continues to function normally"). The seated pose is purely a visual marker. The only consequence of Wounded is that the next successful Impact advances the minifigure to Dead (`11-combat.md`, CBT-008), the same as any other component.
+A Wounded minifigure's movement is reduced — `07-movement.md` (MOVE-021) states by how much. Its own movement is the only thing reduced: it rotates and falls exactly as if Operational, and a climb still costs the additional Action Point MOVE-010 charges, on top of a move that is now shorter. The weapons it carries are components in their own right and are degraded only when they are themselves Wounded (`11-combat.md`, CBT-015) — but an unarmed attack is the one attack whose weapon system is the minifigure itself (`12-melee.md`, MEL-008), so a Wounded minifigure punches worse, and CBT-015 says by how much. The seated pose is the marker for all of it — a seated model moves less, and the next successful Impact advances it to Dead (`16-damage-system.md`, DMG-005), the same as any other component.
 
 ---
 

@@ -164,6 +164,8 @@ Examples
 | 4 | 4 |
 | 6 | 6 |
 
+A Wounded weapon still grants one die per muzzle; what changes is how each of those dice is read (`11-combat.md`, CBT-015).
+
 Rate of fire is entirely determined by construction.
 
 ---

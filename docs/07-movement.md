@@ -76,6 +76,8 @@ One movement action costs **1 Action Point** (`02-core-rules.md`, CORE-006) and 
 
 Each movement action is measured independently: a unit spending two Action Points on movement makes two separate moves of up to 12 studs each, not one move of 24.
 
+A Wounded model's limit is lower — see MOVE-021.
+
 Future scenarios may allow sprinting or other special movement.
 
 ---
@@ -89,6 +91,8 @@ Infantry may move sideways, left or right.
 The step size is the Unit Base's width (`02-core-rules.md`, CORE-001) — moving sideways crosses the 4-stud axis. Legal distances are therefore 4, 8 and 12 studs. Partial side movement is not allowed.
 
 Side movement is a movement action and costs **1 Action Point**, the same as moving forward (MOVE-004).
+
+A Wounded model's limit is lower — see MOVE-021.
 
 ---
 
@@ -155,7 +159,7 @@ Height: **4 to 6 plate layers** (more than one brick, up to two).
 
 Infantry may climb. Climbing costs **1 additional Action Point** on top of the movement action that crosses the obstacle, so a move over such an obstacle costs 2 AP in total.
 
-The climb is part of that movement action and does not increase the distance the unit may travel: the 12-stud limit (MOVE-004) still applies to the move as a whole.
+The climb is part of that movement action and does not increase the distance the unit may travel: the limit on that move still applies as a whole — 12 studs (MOVE-004), or a Wounded model's shorter limit (MOVE-021).
 
 ---
 
@@ -293,6 +297,18 @@ Operating one is an interactive element action (`02-core-rules.md`, CORE-007).
 
 ---
 
+# MOVE-021 — Wounded Movement
+
+A Wounded infantry model (`16-damage-system.md`, DMG-005) moves **at most two steps** in whichever direction it travels.
+
+The step is the one that direction already uses (`02-core-rules.md`, CORE-001): the Unit Base's 3-stud depth forward and backward (MOVE-004, MOVE-006), and its 4-stud width sideways (MOVE-005). So a Wounded model may move **up to 6 studs forward or backward** and **up to 8 studs sideways** — distances those rules already allow, with the longer ones removed.
+
+Nothing else about the move changes. It still costs **1 Action Point**, it still travels in a single direction (MOVE-007), and rotation (MOVE-008), slopes (MOVE-012), stairs (MOVE-013) and falling (MOVE-015, MOVE-016) are untouched. Climbing a two-brick obstacle still costs the 1 additional Action Point MOVE-010 charges — what changes there is the length of the move the climb belongs to, not the climb.
+
+The limit is counted in steps rather than taken as half the normal distance because half of a side move is 6 studs, which MOVE-005 does not allow. A fraction of a legal distance is not always a legal distance; a count of steps always is.
+
+---
+
 # Physical Priority
 
 If a movement question can be answered by observing the LEGO model,
@@ -303,7 +319,7 @@ the model always takes precedence over interpretation.
 
 # Summary
 
-Movement in StudCraft is based on six simple principles:
+Movement in StudCraft is based on seven simple principles:
 
 1. No diagonal movement.
 2. Infantry move up to 12 studs forward or backward, in multiples of 3.
@@ -311,6 +327,7 @@ Movement in StudCraft is based on six simple principles:
 4. Each movement action costs 1 Action Point and moves in one direction.
 5. Walls require physical access — a slope, a stair or a ramp.
 6. Physical construction always defines legal movement.
+7. A Wounded model moves at most two steps in any direction — 6 studs forward or backward, 8 sideways.
 
 ---
 

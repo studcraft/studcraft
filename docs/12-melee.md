@@ -76,6 +76,8 @@ If a weapon has more than one functional striking end, the attacker declares whi
 
 Each independently wielded weapon is its own weapon system (`10-weapons.md`, WPN-008) and costs its own **1 Action Point** to attack with (`11-combat.md`, CBT-001) — wielding two weapons and attacking with both is two attacks, not one attack producing two dice.
 
+If the weapon is Wounded, that die is rolled as `11-combat.md` (CBT-015) directs.
+
 Examples:
 
 ```
@@ -132,6 +134,8 @@ Decorative hilts, guards, and non-functional blades have no gameplay effect.
 If no dedicated melee weapon exists, a unit may attack using its bare hands — its own weapon system for AP-cost purposes (`11-combat.md`, CBT-001: 1 AP).
 
 An unarmed attack generates **1 Attack Die**, counting as a size-1 striking end (`10-weapons.md`, WPN-021) for Impact Strength purposes, representing punches, kicks, or physical force.
+
+Because the attacker is the weapon system here, it is the attacker's own Component State that is read: a Wounded minifigure rolls that die as `11-combat.md` (CBT-015) directs.
 
 ---
 

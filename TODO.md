@@ -44,6 +44,14 @@ What would have to be decided: whether hover vehicles should gain a side-movemen
 
 What would have to be decided: which crew positions are eligible to take over, whether taking over costs AP, and whether it requires a dedicated action or happens automatically.
 
+### What "locomotion damage" means
+
+`VEH-031` (`docs/08-vehicles.md`):
+
+> A Wounded wheel, track or hover assembly therefore reduces nothing on its own, and Terrain Thresholds (VEH-021 through VEH-024) are read from the locomotion's geometry whether it is Operational or Wounded. What VEH-019 calls "locomotion damage" is named there and defined by no rule; this rule does not define it either.
+
+What would have to be decided: which components count as a vehicle's locomotion, what state they must reach before the vehicle is Immobilized (`VEH-019`), and whether losing some of them short of all of them does anything at all.
+
 ### Freeing a stranded vehicle
 
 `VEH-025` (`docs/08-vehicles.md`):
