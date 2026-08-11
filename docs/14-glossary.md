@@ -60,7 +60,7 @@ A single visible physical part of a model that combat targets independently (Pil
 
 ## Priority
 
-The right to choose whether to activate first or second in a Turn, held by the player who rolled highest and cedable to the opponent. See `03-game-flow.md`, FLOW-003.
+The right, held by the player in first place when the Activation Order is determined, to choose whether to activate first or to move to the last place instead. See `03-game-flow.md`, FLOW-003.
 
 ---
 
@@ -303,6 +303,12 @@ The greatest height a vehicle's Gameplay Geometry may reach, counted from the su
 ## Interactive Element
 
 Any LEGO element that can physically move and be operated during play — a door, hatch, ramp, drawbridge, elevator or gate. It must physically exist on the model rather than be declared, and operating one costs 1 Action Point unless a rule says otherwise. See `02-core-rules.md`, CORE-007 and `04-construction-standard.md`, SCS-006.
+
+---
+
+## Activation Order
+
+The order in which players activate their units through a Turn: every player rolls 1D6 at its start, and the order runs from the highest result to the lowest. A player who cedes Priority moves to its last place. A player with no units left on the battlefield takes no place in it at all. See `03-game-flow.md`, FLOW-003.
 
 ---
 
