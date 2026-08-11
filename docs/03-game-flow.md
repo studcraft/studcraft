@@ -26,6 +26,8 @@ This creates a dynamic, cinematic and easy-to-follow flow of play.
 
 # FLOW-001 — Starting a Game
 
+StudCraft is played by **two or more players**, each fielding their own force. No upper limit is written here. The players agree the battlefield and the Deployment Volume before any force is built (steps 3 and 4; `06-deployment.md`, DEP-001), and how many forces the table will hold is settled in that agreement, with the models in front of them — a number written into this rule would settle it again in advance, for tables it has never seen.
+
 Before the first Turn:
 
 1. Select a scenario (FLOW-013).
@@ -48,8 +50,8 @@ Each game is divided into Turns.
 At the beginning of every Turn:
 
 1. Determine Priority.
-2. Players alternate activating one unit at a time.
-3. Continue until every unit has been activated once. If a player has no unactivated units remaining, the other player continues activating their own remaining units consecutively, with no alternation, until they too have all been activated.
+2. Players activate one unit each, one at a time, in the Activation Order (FLOW-003).
+3. Continue until every unit has been activated once. A player with no unactivated units left is skipped, and the order carries on without them.
 4. Resolve End of Turn effects.
 5. Begin a new Turn.
 
@@ -57,20 +59,22 @@ At the beginning of every Turn:
 
 # FLOW-003 — Priority
 
-At the beginning of every Turn, both players roll **1D6**.
+At the beginning of every Turn, every player with units still on the battlefield rolls **1D6**, simultaneously. A player with none does not roll, and takes no place in the order those rolls set.
 
-The player with the highest result gains **Priority**.
+The results set the **Activation Order** for that Turn, read from the highest result to the lowest. The player in first place **when the order is determined** holds **Priority**.
 
-On a tie, both players roll again until the tie is broken.
+Where players tie, each set of players who rolled the same result rolls again, and that roll orders their places among themselves and no others — every other place stands as the first roll left it, so no lower result can overtake a higher one. A tie inside a re-roll is broken the same way.
 
 The player with Priority chooses one of the following:
 
 - Activate one of their own units now, keeping the activation.
-- Cede Priority, letting the other player activate first instead.
+- Cede Priority, moving to the last place in the Activation Order. Every other player moves up one place, so the player who was second activates first.
 
-This is a single choice made once, at the start of the Turn. Whichever player activates first, both players then alternate activating one unit at a time (per FLOW-002) for the remainder of the Turn, until one player has no unactivated units left — at which point the other continues activating consecutively (FLOW-002).
+This is a single choice, made once, at the start of the Turn, and only the player holding Priority makes it. A player who reaches first place because someone else ceded does not inherit the choice — otherwise a Turn could open with every player ceding in sequence and the order arriving back where it started.
 
-Priority is determined again at the beginning of every Turn.
+Activation then follows the Activation Order for the remainder of the Turn, as FLOW-002 sets out.
+
+Priority and the Activation Order are determined again at the beginning of every Turn.
 
 ---
 
@@ -181,7 +185,7 @@ They may not activate again until the next Turn.
 
 # FLOW-009 — End of Turn
 
-A Turn ends when every unit from both players has completed one activation.
+A Turn ends when every unit from every player has completed one activation.
 
 Then:
 
@@ -274,17 +278,18 @@ Start Turn
 ↓
 
 Determine Priority
+(every player rolls 1D6 — highest to lowest sets the Activation Order)
 
 ↓
 
 Priority player chooses:
 • Activate own unit now (continue)
 or
-• Cede Priority (opponent activates first)
+• Cede Priority (moves to last place; the player who was second activates first)
 
 ↓
 
-Alternate Unit Activations
+One Unit Each, In Activation Order
 
 ↓
 
@@ -317,9 +322,9 @@ Begin Next Turn
 
 Every Turn follows the same structure:
 
-1. Determine Priority.
-2. The Priority player chooses who activates first.
-3. Players alternate activating one unit at a time.
+1. Determine Priority — every player rolls 1D6, and the results set the Activation Order.
+2. The Priority player chooses whether to activate first or to cede and take the last place.
+3. Players activate one unit each in that order, skipping any player with nothing left to activate.
 4. Each activated unit receives **3 AP**.
 5. Spend AP in any legal combination.
 6. Continue until every unit has activated.

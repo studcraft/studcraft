@@ -22,7 +22,7 @@ StudCraft measures army size using physical volume instead of abstract points.
 
 Every vehicle and infantry model occupies space; a scenario-placed structure's Deployment Volume occupation is not yet defined (`02-core-rules.md`, CORE-005).
 
-The floor that space covers becomes the cost of including the model, and it is also what a vehicle's height has to justify (`08-vehicles.md`, VEH-028). Height itself is never charged separately: the second thing bounding it is a ceiling both players agreed to (DEP-001), not a price one of them pays.
+The floor that space covers becomes the cost of including the model, and it is also what a vehicle's height has to justify (`08-vehicles.md`, VEH-028). Height itself is never charged separately: the second thing bounding it is a ceiling the players agreed to (DEP-001), not a price any one of them pays.
 
 Wider models provide greater capabilities but consume more deployment capacity.
 
@@ -230,7 +230,7 @@ No upper limit exists.
 
 StudCraft intentionally replaces army points with physical space.
 
-Players pay for wider units by sacrificing floor space — and for taller ones twice over, since height is bounded by that same floor and again by the volume both players agreed to.
+Players pay for wider units by sacrificing floor space — and for taller ones twice over, since height is bounded by that same floor and again by the volume the players agreed to.
 
 Large vehicles gain transport capacity, survivability and firepower naturally.
 
