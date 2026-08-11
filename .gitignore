@@ -6,15 +6,3 @@ __pycache__/
 
 # Local scratch handovers, deliberately never committed
 delete-me*
-
-# Generated Jekyll site source (built by scripts/generate_site_docs.py)
-site/docs/
-
-# Jekyll build output and cache
-site/_site/
-site/.jekyll-cache/
-site/.jekyll-metadata
-
-# Bundler
-site/.bundle/
-site/vendor/
