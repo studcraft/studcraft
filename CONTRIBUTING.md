@@ -117,6 +117,8 @@ Ask yourself:
 
 The simplest solution is usually the best one.
 
+Check [`TODO.md`](TODO.md) too: if the ruleset already declares your gap, the entry quotes the rule that declares it, and closing it means editing that rule rather than adding one beside it.
+
 ---
 
 # Rule Design Checklist

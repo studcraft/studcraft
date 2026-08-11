@@ -4,21 +4,25 @@ This file lists gaps the StudCraft ruleset acknowledges in its own text — plac
 
 This file is updated as gaps close (a future rule fills them) or as new gaps are declared in the documents. An entry appearing here is a record that the ruleset itself flagged the gap — it is not a commitment that the gap will be closed, and nothing here is prioritised or ordered.
 
+Every quote below is checked against the document it cites by `scripts/check_todo_quotes.py`, which `scripts/preflight.py` runs. Completeness is not checked — whether a passage declares a gap at all needs the sentence read, which is `ruleset-auditor`'s job.
+
+Work someone has decided to *do* belongs in the issue tracker, not here; see issue #57 for why the two are separate files and what `ROADMAP.md` would add to them.
+
 ---
 
 ## Structures
 
-### Structure-wide damage and Deployment Area occupation
+### Structure-wide damage and Deployment Volume occupation
 
 `CORE-005` (`docs/02-core-rules.md`):
 
-> Structures follow the Construction Standard. Structure-specific damage (collapse, breaching walls) and Deployment Area occupation for scenario-placed structures are not yet defined — a structure's individual components (doors, windows, walls) already resolve Impacts through the standard Component Damage System (`16-damage-system.md`) like any other component; only structure-wide consequences (e.g. a building collapsing) remain future work.
+> Structures follow the Construction Standard. Structure-specific damage (collapse, breaching walls) and Deployment Volume occupation for scenario-placed structures are not yet defined — a structure's individual components (doors, windows, walls) already resolve Impacts through the standard Component Damage System (`16-damage-system.md`) like any other component; only structure-wide consequences (e.g. a building collapsing) remain future work.
 
 The same gap is restated in the Design Philosophy section of `docs/06-deployment.md`:
 
-> Every vehicle and infantry model occupies space; a scenario-placed structure's Deployment Area occupation is not yet defined (`02-core-rules.md`, CORE-005).
+> Every vehicle and infantry model occupies space; a scenario-placed structure's Deployment Volume occupation is not yet defined (`02-core-rules.md`, CORE-005).
 
-What would have to be decided: whether a structure can suffer a whole-structure state (e.g. collapse) beyond its individual components reaching Dead, and how much Deployment Area a structure placed by a scenario (rather than brought by a player as part of their army) should be counted as consuming.
+What would have to be decided: whether a structure can suffer a whole-structure state (e.g. collapse) beyond its individual components reaching Dead, and how much Deployment Volume a structure placed by a scenario (rather than brought by a player as part of their army) should be counted as consuming.
 
 ---
 

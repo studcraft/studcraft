@@ -20,22 +20,24 @@ What it runs:
   2. scripts/check_delta_coverage.py  (OpenSpec change is coherent, part 2)
   3. scripts/check_task_anchors.py    (no CI gate — a proposal defect, caught here)
   4. scripts/check_id_stability.py    (no CI gate — IDs are permanent across revisions)
-  5. openspec validate                (OpenSpec change is coherent, part 1)
-  6. scripts/build_index.py           (no CI gate — keeps the query index current)
-  7. branch name                      (Branch name follows the convention)
-  8. CHANGELOG.md untouched by a ruleset PR
+  5. scripts/check_todo_quotes.py     (no CI gate — TODO.md must not misquote docs/)
+  6. openspec validate                (OpenSpec change is coherent, part 1)
+  7. scripts/build_index.py           (no CI gate — keeps the query index current)
+  8. branch name                      (Branch name follows the convention)
+  9. CHANGELOG.md untouched by a ruleset PR
                                       (Docs must not edit CHANGELOG.md directly)
-  9. one complete proposal per change  (Docs require OpenSpec proposal)
- 10. archive is separate from apply    (OpenSpec archive must be separate from apply)
+ 10. one complete proposal per change  (Docs require OpenSpec proposal)
+ 11. archive is separate from apply    (OpenSpec archive must be separate from apply)
 
-Three of those mirror no gate at all. Anchor uniqueness is a defect CI cannot
+Four of those mirror no gate at all. Anchor uniqueness is a defect CI cannot
 see — by the time a change is applied wrongly, the diff looks deliberate.
 ID stability needs a base revision to compare against, which a single-revision
-linter has not got. The index is a local cache with nothing to enforce. All
-three belong to the moment before a push rather than after one, which is what
-this script is.
+linter has not got. A TODO.md quote drifts when the rule it quotes is reworded,
+so the branch that breaks it is a ruleset branch that never touches TODO.md.
+The index is a local cache with nothing to enforce. All four belong to the
+moment before a push rather than after one, which is what this script is.
 
-Checks 4-7 compare the working tree against the merge base with `origin/main`,
+Checks 8-11 compare the working tree against the merge base with `origin/main`,
 which is the closest local equivalent of the base/head pair a pull request
 gives CI. Uncommitted work is included: the point is to fail before the commit,
 not after it.
@@ -355,6 +357,7 @@ def main() -> int:
         run_script("Deltas must not drop scenarios", "check_delta_coverage.py"),
         run_script("Task anchors are unique", "check_task_anchors.py"),
         run_script("Rule IDs are stable", "check_id_stability.py"),
+        run_script("TODO.md quotes the ruleset verbatim", "check_todo_quotes.py"),
         check_openspec_validate(),
         # Last, and always: rebuilding the index cannot fail the run, but a stale
         # index is a wrong answer given confidently, which is worse than no index.
