@@ -106,6 +106,8 @@ The unit keeps its facing. No rotation is required.
 
 Backward movement is a movement action and costs **1 Action Point**.
 
+A Wounded model's limit is lower — see MOVE-021.
+
 ---
 
 # MOVE-007 — No Diagonal Movement
@@ -296,6 +298,10 @@ Examples:
 Operating one is an interactive element action (`02-core-rules.md`, CORE-007).
 
 ---
+
+# Infantry Damage Effects
+
+What a damaged infantry model can still do. Unlike the rules above this heading, these are infantry-only.
 
 # MOVE-021 — Wounded Movement
 

@@ -96,9 +96,9 @@ Footprints below are VEH-001's; only the two right-hand columns belong to this r
 
 Large vehicles rarely realise these figures. A 24-stud transport moving 72 studs needs a clear lane of nearly a hundred studs, and terrain seldom offers one — the limit in play is the battlefield, not the rule.
 
-A vehicle whose Pilot is Wounded moves twice its length instead of three times — see VEH-031.
-
 This rule scales naturally for all vehicle sizes.
+
+A vehicle whose Pilot is Wounded moves twice its length instead of three times — see VEH-031.
 
 ---
 

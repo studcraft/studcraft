@@ -93,6 +93,8 @@ Result:
 
 3 Impacts
 
+A Wounded weapon reads each of these dice differently — see CBT-015.
+
 ---
 
 # CBT-006 — Independent Weapon Systems
@@ -177,7 +179,11 @@ These additions must preserve the Impact-based combat system.
 
 ---
 
-# CBT-015 — Wounded Weapon System
+# Damaged Weapons
+
+What a weapon's own damage does to the attack it makes.
+
+# CBT-015 — Attacking While Wounded
 
 A Wounded weapon (`16-damage-system.md`, DMG-005) still fires, less reliably.
 
@@ -188,6 +194,8 @@ For **each** Attack Die it generates (CBT-004; `10-weapons.md`, WPN-006; `12-mel
 This rule reads the state of the component that provides the attack. Usually that is the weapon, which is a component in its own right (`16-damage-system.md`, DMG-001; `02-core-rules.md`, CORE-014): a Wounded soldier carrying an Operational rifle attacks exactly as if unhurt, and an unhurt soldier carrying a Wounded rifle rolls the pair of dice above.
 
 An unarmed attack (`12-melee.md`, MEL-008) is the one case where the attacker *is* the weapon system, so there the rule reads the attacker: a Wounded minifigure punches with the pair of dice above.
+
+Degradations never stack. A Wounded minifigure firing a Wounded rifle rolls one pair per Attack Die, not two — this rule reads one component per attack, and for that attack the component is the rifle.
 
 Everything else the weapon has is unchanged: its Range (CBT-003), the Impact Strength of every die it rolls (`10-weapons.md`, WPN-021), the 1 Action Point the attack costs (CBT-001), and whether its dice may be split across targets (CBT-007).
 

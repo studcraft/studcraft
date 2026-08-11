@@ -199,6 +199,7 @@ Melee combat is a special case of the standard combat system, not an independent
 
 - Physical contact, not Line of Sight and Range, gates the attack (MEL-001, MEL-014).
 - Each independently wielded weapon generates exactly one Attack Die, regardless of striking-end count (MEL-003); a striking end's size still determines Impact Strength (MEL-013, WPN-021).
+- A Wounded weapon still generates that die and reads it worse — as does a Wounded minifigure attacking unarmed, the one attack whose weapon system is the attacker (MEL-008; `11-combat.md`, CBT-015).
 - A melee attack is one unit's own action — it never grants the target a free counter-attack (MEL-004, CBT-010).
 
 Every Impact — ranged or melee — then resolves through the exact same sequence: Attack Roll, Select Target Component, Geometry Check, Damage Roll, Component State Change, Penetration (`16-damage-system.md`, DMG-009). No separate damage system exists.

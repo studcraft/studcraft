@@ -40,7 +40,7 @@ The dice a weapon generates per attack: one per functional muzzle for ranged wea
 
 ## Attack Roll
 
-The die roll that determines whether a generated Attack Die becomes a successful Impact: 4, 5, or 6 succeeds, 1, 2, or 3 fails. See `11-combat.md` (CBT-005).
+The die roll that determines whether a generated Attack Die becomes a successful Impact: 4, 5, or 6 succeeds, 1, 2, or 3 fails. Where the component providing the attack is Wounded, the roll is two dice with only the lower read, against that same threshold (`11-combat.md`, CBT-015). See `11-combat.md` (CBT-005).
 
 ---
 
@@ -314,7 +314,7 @@ The order in which players activate their units through a Turn: every player rol
 
 ## Wounded
 
-The middle Component State: the component still functions, with the capability it provides degraded — a Wounded infantry model's movement (`07-movement.md`, MOVE-021), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded, whether that is the weapon or an unarmed attacker (`11-combat.md`, CBT-015). Nothing else about the component changes, and the next successful damaging Impact advances it to Dead. See `16-damage-system.md`, DMG-005.
+The middle Component State: the component still functions, and where the capability it provides is one of the three the ruleset degrades, it functions worse — a Wounded infantry model's movement (`07-movement.md`, MOVE-021), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded, whether that is the weapon or an unarmed attacker (`11-combat.md`, CBT-015). A component that provides none of those — a door, a wheel, a shield — loses nothing by being Wounded. Nothing else about any component changes, and the next successful damaging Impact advances it to Dead. See `16-damage-system.md`, DMG-005.
 
 ---
 

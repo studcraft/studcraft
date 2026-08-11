@@ -637,3 +637,335 @@ was produced by running the command against the pre-change files.
   `docs/12-melee.md`, `docs/14-glossary.md` and `docs/16-damage-system.md` — plus the untracked
   change directory `openspec/changes/wounded-degrades-capability/` reported as a single `??` entry.
   Anything else in the list is a mismatch: report it and stage nothing.
+
+---
+
+## 11. Repairs after the audit of the applied text
+
+The applied text was audited and returned seven findings and five observations; reading it
+afterwards produced one more. Eight repairs follow. **Every anchor in this section was checked
+against the applied files, not the pre-change ones**, and occurs exactly once.
+
+Three of the repairs are absolute claims this change itself introduced and then falsified a
+sentence later — the failure class it exists to remove. Two are placement: the increasing-ID
+requirement put a current rule under a heading that mislabels it, twice, and nothing was added to
+compensate. Two are the pointer convention applied unevenly. One writes down a case that was
+determinate and unstated.
+
+Each task below names its own file path. Section 11 has no per-document sub-sections, and
+`scripts/check_task_anchors.py` resolves a target from the nearest preceding path — without one on
+every task line, an anchor is checked against the previous task's document.
+
+- [x] 11.1 In `docs/16-damage-system.md`, `DMG-005`, replace this anchor — the opening of the `Wounded` bullet, up to and
+  including the sentence that closes the list. The rest of the bullet, from "Nothing else about a
+  Wounded component changes" onward, is **not** part of the anchor and is not touched:
+
+```
+**Wounded** — the component has suffered structural damage. It still functions, but the capability it provides is degraded. Exactly three degradations exist, each owned by the document that owns the capability: a Wounded infantry model's movement (`07-movement.md`, MOVE-021), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded (`11-combat.md`, CBT-015). That list is closed.
+```
+
+with:
+
+```
+**Wounded** — the component has suffered structural damage. It still functions, and where the capability it provides is one of the three the ruleset degrades, it functions worse. Exactly three degradations exist, each owned by the document that owns the capability: a Wounded infantry model's movement (`07-movement.md`, MOVE-021), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded (`11-combat.md`, CBT-015). That list is closed, so most components — a door, a window, a wheel, a shield, a hull — lose nothing at all by being Wounded, and are simply one Impact from Dead.
+```
+
+  The old opening said every Wounded component is degraded, and the next sentence closed the list
+  at three capabilities most components do not provide. `DMG-008` already had the right framing
+  ("**where** DMG-005's Wounded state costs a component something") and `VEH-031` already said a
+  Wounded wheel "reduces nothing on its own"; the owner was the one place that overstated it.
+
+- [x] 11.2 In `docs/14-glossary.md`, replace this anchor — the body of the `## Wounded` entry. The
+  heading is **not** part of the anchor:
+
+```
+The middle Component State: the component still functions, with the capability it provides degraded — a Wounded infantry model's movement (`07-movement.md`, MOVE-021), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded, whether that is the weapon or an unarmed attacker (`11-combat.md`, CBT-015). Nothing else about the component changes, and the next successful damaging Impact advances it to Dead. See `16-damage-system.md`, DMG-005.
+```
+
+with:
+
+```
+The middle Component State: the component still functions, and where the capability it provides is one of the three the ruleset degrades, it functions worse — a Wounded infantry model's movement (`07-movement.md`, MOVE-021), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded, whether that is the weapon or an unarmed attacker (`11-combat.md`, CBT-015). A component that provides none of those — a door, a wheel, a shield — loses nothing by being Wounded. Nothing else about any component changes, and the next successful damaging Impact advances it to Dead. See `16-damage-system.md`, DMG-005.
+```
+
+- [x] 11.3 In `openspec/changes/wounded-degrades-capability/specs/component-damage/spec.md`, replace
+  this anchor — one clause inside the *Component State Progression* requirement:
+
+```
+A `Wounded` component SHALL continue to function with the capability it provides degraded, and those degradations SHALL form a closed list:
+```
+
+with:
+
+```
+A `Wounded` component SHALL continue to function, and SHALL function worse only where the capability it provides is one of a closed list:
+```
+
+  The delta carries the same overstatement as `DMG-005` did, and it is the text that becomes the
+  living spec at archive time.
+
+- [x] 11.4 In `docs/02-core-rules.md`, `CORE-012`, replace this anchor — the whole third paragraph of the rule, as this
+  change left it:
+
+```
+A Wounded minifigure's movement is reduced — `07-movement.md` (MOVE-021) states by how much. Its own movement is the only thing reduced: it rotates and falls exactly as if Operational, and a climb still costs the additional Action Point MOVE-010 charges, on top of a move that is now shorter. The weapons it carries are components in their own right and are degraded only when they are themselves Wounded (`11-combat.md`, CBT-015) — but an unarmed attack is the one attack whose weapon system is the minifigure itself (`12-melee.md`, MEL-008), so a Wounded minifigure punches worse, and CBT-015 says by how much. The seated pose is the marker for all of it — a seated model moves less, and the next successful Impact advances it to Dead (`16-damage-system.md`, DMG-005), the same as any other component.
+```
+
+with:
+
+```
+A Wounded minifigure changes in exactly two ways. Its movement is reduced — `07-movement.md` (MOVE-021) states by how much. And it punches worse: an unarmed attack is the one attack whose weapon system is the minifigure itself (`12-melee.md`, MEL-008), so there its own Component State is read (`11-combat.md`, CBT-015). Nothing else changes. It rotates and falls exactly as if Operational, a climb still costs the additional Action Point MOVE-010 charges on top of a move that is now shorter, and the weapons it carries are components in their own right, degraded only when they are themselves Wounded (`11-combat.md`, CBT-015). The seated pose is the marker for all of it — a seated model moves less, punches worse, and dies to the next successful Impact (`16-damage-system.md`, DMG-005), the same as any other component.
+```
+
+  As applied, the paragraph said "Its own movement is the only thing reduced" and then reduced
+  something else two sentences later. This is the same defect as the "no penalty of any kind"
+  sentence the paragraph replaced, at smaller scale.
+
+- [x] 11.5 In `docs/11-combat.md`, replace this anchor — the heading of `CBT-015`:
+
+```
+# CBT-015 — Wounded Weapon System
+```
+
+with:
+
+```
+# Damaged Weapons
+
+# CBT-015 — Attacking While Wounded
+```
+
+  Two repairs in one anchor. The section heading separates a binding rule from `CBT-014 — Future
+  Combat Extensions` directly above it, which lists things that are explicitly *not* current rules
+  and which `CORE-009` cites for exactly that; without a heading `CBT-015` reads as its eighth
+  bullet. And the title stops saying *Weapon System* — a term the glossary and `WPN-008` define as
+  the whole mounted weapon, where this rule reads one component, which for a turret-mounted cannon
+  are not the same thing. The rule ID does not change.
+
+- [x] 11.6 In `docs/11-combat.md`, `CBT-015`, replace this anchor — the unarmed-attack paragraph:
+
+```
+An unarmed attack (`12-melee.md`, MEL-008) is the one case where the attacker *is* the weapon system, so there the rule reads the attacker: a Wounded minifigure punches with the pair of dice above.
+```
+
+with:
+
+```
+An unarmed attack (`12-melee.md`, MEL-008) is the one case where the attacker *is* the weapon system, so there the rule reads the attacker: a Wounded minifigure punches with the pair of dice above.
+
+Degradations never stack. A Wounded minifigure firing a Wounded rifle rolls one pair per Attack Die, not two — this rule reads one component per attack, and reading it twice would still leave one die to keep.
+```
+
+- [x] 11.7 In `docs/11-combat.md`, `CBT-005`, replace this anchor — the last line of the rule, inside its example:
+
+```
+3 Impacts
+```
+
+with:
+
+```
+3 Impacts
+
+A Wounded weapon reads each of these dice differently — see CBT-015.
+```
+
+  `CBT-005` states the reading `CBT-015` changes and was the only rule in either document to state
+  it without a pointer, while three rules in other documents got one.
+
+- [x] 11.8 In `docs/07-movement.md`, replace this anchor — the heading of `MOVE-021`:
+
+```
+# MOVE-021 — Wounded Movement
+```
+
+with:
+
+```
+# Infantry Damage Effects
+
+# MOVE-021 — Wounded Movement
+```
+
+  The last section heading above `MOVE-021` is `# Vehicle Movement`, whose own text contrasts
+  vehicles with infantry. `MOVE-021` is infantry-only and the increasing-ID requirement put it
+  there; the heading is what stops the document mislabelling it.
+
+- [x] 11.9 In `docs/07-movement.md`, `MOVE-006`, replace this anchor — the last line of the rule:
+
+```
+Backward movement is a movement action and costs **1 Action Point**.
+```
+
+with:
+
+```
+Backward movement is a movement action and costs **1 Action Point**.
+
+A Wounded model's limit is lower — see MOVE-021.
+```
+
+  `MOVE-004` and `MOVE-005` each carry this clause already. `MOVE-006` states its own 12-stud
+  limit and `MOVE-021` cites it by name, so it is the third rule the convention selects.
+
+- [x] 11.10 In `docs/08-vehicles.md`, `VEH-004`, replace this anchor — two lines, in the order this change left them:
+
+```
+A vehicle whose Pilot is Wounded moves twice its length instead of three times — see VEH-031.
+
+This rule scales naturally for all vehicle sizes.
+```
+
+with:
+
+```
+This rule scales naturally for all vehicle sizes.
+
+A vehicle whose Pilot is Wounded moves twice its length instead of three times — see VEH-031.
+```
+
+  "This rule scales naturally for all vehicle sizes" closes `VEH-004` and now follows a sentence
+  about `VEH-031`, so "this rule" reads as the wrong one. The pointer goes last instead.
+
+- [x] 11.11 In `docs/12-melee.md`'s `Summary`, replace this anchor — one bullet:
+
+```
+- Each independently wielded weapon generates exactly one Attack Die, regardless of striking-end count (MEL-003); a striking end's size still determines Impact Strength (MEL-013, WPN-021).
+```
+
+with:
+
+```
+- Each independently wielded weapon generates exactly one Attack Die, regardless of striking-end count (MEL-003); a striking end's size still determines Impact Strength (MEL-013, WPN-021).
+- A Wounded weapon still generates that die and reads it worse — as does a Wounded minifigure attacking unarmed, the one attack whose weapon system is the attacker (MEL-008; `11-combat.md`, CBT-015).
+```
+
+  `11-combat.md`'s Summary gained a line for the same change and this one did not, although
+  `MEL-008` carries the most surprising consequence in the ruleset: the only place an attacker's
+  own Component State is read.
+
+- [x] 11.12 In `docs/14-glossary.md`, replace this anchor — the body of the `## Attack Roll` entry:
+
+```
+The die roll that determines whether a generated Attack Die becomes a successful Impact: 4, 5, or 6 succeeds, 1, 2, or 3 fails. See `11-combat.md` (CBT-005).
+```
+
+with:
+
+```
+The die roll that determines whether a generated Attack Die becomes a successful Impact: 4, 5, or 6 succeeds, 1, 2, or 3 fails. Where the component providing the attack is Wounded, the roll is two dice with only the lower read, against that same threshold (`11-combat.md`, CBT-015). See `11-combat.md` (CBT-005).
+```
+
+### Verification after section 11
+
+- [x] 11.13 `grep -c -F "That list is closed, so most components" docs/16-damage-system.md` —
+  before: **0**, after: **1**.
+
+- [x] 11.14 `grep -c -F "changes in exactly two ways" docs/02-core-rules.md` — before: **0**,
+  after: **1**.
+
+- [x] 11.15 `grep -c -F "Wounded Weapon System" docs/11-combat.md` — before: **1**, after: **0**.
+  The old title, gone.
+
+- [x] 11.16 `grep -c -F "# Damaged Weapons" docs/11-combat.md` — before: **0**, after: **1**.
+
+- [x] 11.17 `grep -c -F "# Infantry Damage Effects" docs/07-movement.md` — before: **0**,
+  after: **1**.
+
+- [x] 11.18 `grep -c -F "Degradations never stack" docs/11-combat.md` — before: **0**, after: **1**.
+
+- [x] 11.19 `grep -c -F "see MOVE-021" docs/07-movement.md` — before: **2**, after: **3** —
+  `MOVE-004`, `MOVE-005` and now `MOVE-006`.
+
+- [x] 11.20 `grep -c -F "see CBT-015" docs/11-combat.md` — before: **0**, after: **1**. The
+  `CBT-005` pointer.
+
+- [x] 11.21 `python3 scripts/lint_ruleset.py` — `Checked 15 docs, no structural issues found.`
+
+- [x] 11.22 `python3 scripts/check_task_anchors.py wounded-degrades-capability` — must **exit 0**.
+
+- [x] 11.23 `python3 scripts/preflight.py` — must **exit 0**; report the summary line.
+
+- [x] 11.24 `grep -c "^- \[ \]" openspec/changes/wounded-degrades-capability/tasks.md` — after
+  ticking every box in this section: **0**.
+
+---
+
+## 12. Polish, from reading section 11's result
+
+Three small things, found by reading the repaired text rather than by any check. Every anchor was
+checked against the files **as section 11 left them** and occurs exactly once. Each task line names
+its own path, for the reason section 11 gives.
+
+- [x] 12.1 In `docs/11-combat.md`, replace this anchor — the section heading task 11.5 added, which
+  currently stands alone above the rule heading:
+
+```
+# Damaged Weapons
+
+# CBT-015 — Attacking While Wounded
+```
+
+with:
+
+```
+# Damaged Weapons
+
+What a weapon's own damage does to the attack it makes.
+
+# CBT-015 — Attacking While Wounded
+```
+
+  Every other section heading in the ruleset carries a line of its own before the first rule under
+  it. A bare heading between two rule headings reads as a stray line rather than as the divider it
+  is there to be.
+
+- [x] 12.2 In `docs/07-movement.md`, replace this anchor — the section heading task 11.8 added:
+
+```
+# Infantry Damage Effects
+
+# MOVE-021 — Wounded Movement
+```
+
+with:
+
+```
+# Infantry Damage Effects
+
+What a damaged infantry model can still do. Unlike the rules above this heading, these are infantry-only.
+
+# MOVE-021 — Wounded Movement
+```
+
+- [x] 12.3 In `docs/11-combat.md`, `CBT-015`, replace this anchor — the no-stacking paragraph task
+  11.6 added:
+
+```
+Degradations never stack. A Wounded minifigure firing a Wounded rifle rolls one pair per Attack Die, not two — this rule reads one component per attack, and reading it twice would still leave one die to keep.
+```
+
+with:
+
+```
+Degradations never stack. A Wounded minifigure firing a Wounded rifle rolls one pair per Attack Die, not two — this rule reads one component per attack, and for that attack the component is the rifle.
+```
+
+  The clause it replaces reasoned about reading the rule twice and did not finish the thought. The
+  answer is simpler than the argument for it: the rule names one component, and the rifle is it.
+
+### Verification after section 12
+
+- [x] 12.4 `grep -c -F "What a weapon's own damage does" docs/11-combat.md` — before: **0**,
+  after: **1**.
+
+- [x] 12.5 `grep -c -F "What a damaged infantry model can still do" docs/07-movement.md` —
+  before: **0**, after: **1**.
+
+- [x] 12.6 `grep -c -F "would still leave one die to keep" docs/11-combat.md` — before: **1**,
+  after: **0**.
+
+- [x] 12.7 `python3 scripts/preflight.py` — must **exit 0**; report the summary line.
+
+- [x] 12.8 `grep -c "^- \[ \]" openspec/changes/wounded-degrades-capability/tasks.md` — after
+  ticking every box in this section: **0**.
