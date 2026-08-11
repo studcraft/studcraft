@@ -145,7 +145,7 @@ Operational → Wounded → Dead
 
 **Operational** — the component functions normally.
 
-**Wounded** — the component has suffered structural damage. It continues to function normally. A second successful damaging impact will kill it.
+**Wounded** — the component has suffered structural damage. It still functions, and where the capability it provides is one of the three the ruleset degrades, it functions worse. Exactly three degradations exist, each owned by the document that owns the capability: a Wounded infantry model's movement (`07-movement.md`, MOVE-021), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded (`11-combat.md`, CBT-015). That list is closed, so most components — a door, a window, a wheel, a shield, a hull — lose nothing at all by being Wounded, and are simply one Impact from Dead. Nothing else about a Wounded component changes: its Resistance (DMG-003), the Impact Strength of a weapon (`10-weapons.md`, WPN-021), the Damage Roll rolled against it (DMG-015), its Unit Base occupancy, its footprint, its transport capacity and every Action Point cost are all read exactly as they are for an Operational component. A second successful damaging impact will kill it, and a repair (DMG-019) returns it to Operational.
 
 **Dead** — the component immediately ceases to exist. It is physically removed from the model. No dead component remains on the battlefield. This is the same physical-representation principle as `02-core-rules.md` (CORE-016) — see DMG-006.
 
@@ -179,7 +179,7 @@ This naturally creates layered protection without requiring additional rules.
 
 # DMG-008 — No Material-Specific Mechanics
 
-Every component follows exactly the same mechanical rules regardless of what it represents — glass, metal, wood, infantry, or anything else. Resistance (DMG-003/004), the Geometry Check (DMG-014), the Damage Roll (DMG-015), and the Component State machine (DMG-005) apply identically to every component. StudCraft does not define material-specific hit thresholds, Resistance modifiers, or damage tables of any kind.
+Every component follows exactly the same mechanical rules regardless of what it represents — glass, metal, wood, infantry, or anything else. Resistance (DMG-003/004), the Geometry Check (DMG-014), the Damage Roll (DMG-015), and the Component State machine (DMG-005) apply identically to every component; where DMG-005's Wounded state costs a component something, the cost is set by the capability that component provides — moving, or attacking — and never by the material it represents. StudCraft does not define material-specific hit thresholds, Resistance modifiers, or damage tables of any kind.
 
 A typical minifig (Resistance 3, per DMG-004 Example 1) takes exactly two failed Damage Rolls to go from Operational to Dead — the same as a wheel, a shield, or a cannon built with the same Resistance. Nothing about *what* a component represents changes how it resolves an Impact — only its Resistance does.
 
@@ -229,6 +229,8 @@ Example — Shotgun (`○ ○`, two muzzles) generates Impact A and Impact B.
 # DMG-011 — Attack Roll
 
 The attacker rolls one die for every generated impact. A result of 4, 5, or 6 succeeds and creates one valid impact (per `11-combat.md` CBT-005's existing threshold). A result of 1, 2, or 3 fails; the impact simply disappears.
+
+Where the component providing the attack is Wounded — the weapon, or the attacker itself in an unarmed attack (`12-melee.md`, MEL-008) — the roll for each impact is two dice read as one (`11-combat.md`, CBT-015). The number of impacts rolled for does not change.
 
 Example — two-barrel shotgun: one die succeeds, one fails. Only one impact continues.
 
@@ -366,7 +368,7 @@ Geometry determines capability. Dice determine uncertainty. Neither replaces the
 
 This document establishes the structural foundations of the damage system and the sequence that resolves it.
 
-It defines: Components, Resistance, Structural States, Destruction, Internal Protection, and the absence of any material-specific mechanic (DMG-008); and the combat resolution sequence — Generate Impacts, Attack Roll, Select Target Component, Composite Vehicle Targeting, Geometry Check, Damage Roll, Multiple Impacts, Penetration, Weapon Distribution, and Repairs.
+It defines: Components, Resistance, Structural States and what being Wounded costs (DMG-005), Destruction, Internal Protection, and the absence of any material-specific mechanic (DMG-008); and the combat resolution sequence — Generate Impacts, Attack Roll, Select Target Component, Composite Vehicle Targeting, Geometry Check, Damage Roll, Multiple Impacts, Penetration, Weapon Distribution, and Repairs.
 
 The system never requires: Hit Points, Armour Values, Damage Statistics, Lookup Tables, Hidden Unit Profiles.
 

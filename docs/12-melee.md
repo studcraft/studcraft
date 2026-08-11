@@ -76,6 +76,8 @@ If a weapon has more than one functional striking end, the attacker declares whi
 
 Each independently wielded weapon is its own weapon system (`10-weapons.md`, WPN-008) and costs its own **1 Action Point** to attack with (`11-combat.md`, CBT-001) — wielding two weapons and attacking with both is two attacks, not one attack producing two dice.
 
+If the weapon is Wounded, that die is rolled as `11-combat.md` (CBT-015) directs.
+
 Examples:
 
 ```
@@ -132,6 +134,8 @@ Decorative hilts, guards, and non-functional blades have no gameplay effect.
 If no dedicated melee weapon exists, a unit may attack using its bare hands — its own weapon system for AP-cost purposes (`11-combat.md`, CBT-001: 1 AP).
 
 An unarmed attack generates **1 Attack Die**, counting as a size-1 striking end (`10-weapons.md`, WPN-021) for Impact Strength purposes, representing punches, kicks, or physical force.
+
+Because the attacker is the weapon system here, it is the attacker's own Component State that is read: a Wounded minifigure rolls that die as `11-combat.md` (CBT-015) directs.
 
 ---
 
@@ -195,6 +199,7 @@ Melee combat is a special case of the standard combat system, not an independent
 
 - Physical contact, not Line of Sight and Range, gates the attack (MEL-001, MEL-014).
 - Each independently wielded weapon generates exactly one Attack Die, regardless of striking-end count (MEL-003); a striking end's size still determines Impact Strength (MEL-013, WPN-021).
+- A Wounded weapon still generates that die and reads it worse — as does a Wounded minifigure attacking unarmed, the one attack whose weapon system is the attacker (MEL-008; `11-combat.md`, CBT-015).
 - A melee attack is one unit's own action — it never grants the target a free counter-attack (MEL-004, CBT-010).
 
 Every Impact — ranged or melee — then resolves through the exact same sequence: Attack Roll, Select Target Component, Geometry Check, Damage Roll, Component State Change, Penetration (`16-damage-system.md`, DMG-009). No separate damage system exists.

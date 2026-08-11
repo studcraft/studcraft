@@ -98,6 +98,8 @@ Large vehicles rarely realise these figures. A 24-stud transport moving 72 studs
 
 This rule scales naturally for all vehicle sizes.
 
+A vehicle whose Pilot is Wounded moves twice its length instead of three times — see VEH-031.
+
 ---
 
 # VEH-005 — Forward Movement
@@ -483,6 +485,30 @@ Externally carried models are counted at the one check VEH-028 describes, so a m
 
 ---
 
+# VEH-031 — Wounded Pilot
+
+A vehicle whose Pilot (VEH-013) is Wounded (`16-damage-system.md`, DMG-005) moves **twice its own length** per movement action, instead of three times (VEH-004).
+
+Facing, measurement and Action Point cost are unchanged. One whole length is removed rather than a fraction taken, so the distance stays a whole number of studs at every vehicle size, exactly as VEH-004's own multiplier does.
+
+| Vehicle | Movement | With a Wounded Pilot |
+|---|---:|---:|
+| Bike | 18 studs | 12 studs |
+| Buggy | 24 studs | 16 studs |
+| Jeep | 27 studs | 18 studs |
+| Tank | 45 studs | 30 studs |
+| Heavy Transport | 72 studs | 48 studs |
+
+The middle column is VEH-004's, repeated so the pair can be read together; only the right-hand column belongs to this rule.
+
+The Pilot is the only component this rule reads, because VEH-013 already makes the Pilot the only component a powered vehicle needs in order to move at all — a Dead Pilot stops the vehicle, and a Wounded one slows it.
+
+A Wounded wheel, track or hover assembly therefore reduces nothing on its own, and Terrain Thresholds (VEH-021 through VEH-024) are read from the locomotion's geometry whether it is Operational or Wounded. What VEH-019 calls "locomotion damage" is named there and defined by no rule; this rule does not define it either.
+
+A destroyed locomotion is a different matter and is not this rule's: VEH-019 already governs a vehicle that cannot move at all.
+
+---
+
 # Summary
 
 Vehicle behaviour is defined by six physical characteristics.
@@ -499,6 +525,8 @@ No predefined vehicle profiles are required.
 Terrain capability is read from the locomotion like everything else: a wheel's axle, a walker's knee, a hover assembly's height (VEH-021 through VEH-024).
 
 Height is read from both the footprint and the agreed Deployment Volume: one Unit Base for every two studs of the narrowest side, and never above the ceiling the players agreed, counted from the surface the vehicle rests on and measured to the top of its Gameplay Geometry (VEH-028 through VEH-030).
+
+A Wounded Pilot costs the vehicle one of its three lengths of movement (VEH-031); no other component's Wounded state changes how far it travels.
 
 A player should understand how a vehicle behaves simply by examining its construction.
 
