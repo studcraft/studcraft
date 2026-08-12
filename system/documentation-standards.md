@@ -20,8 +20,10 @@ Rules here and in `docs/` are read under load, by agents and by people with a
 task in hand. Length is a cost paid on every read.
 
 - **A rule is one imperative sentence.** Its reason is one clause at most.
-- **No postmortem.** The incident that produced the rule lives in git history,
-  not in the paragraph. "This cost two PRs" changes nothing a reader does.
+- **No postmortem narration.** Name a past defect only where a reader needs it
+  to recognise the case — that is what `system/proposal-review.md` is. Never
+  narrate the cost of fixing it: "this cost two PRs" changes nothing a reader
+  does.
 - **No "this used to say X".** The diff records that. A correction left in the
   text reads later like a rule.
 - **No section for a case that does not exist yet.** Write it when it exists.
@@ -67,9 +69,6 @@ it. Three mechanisms do, and they are not interchangeable:
 | `scripts/` | the checkers and the cut/PR automation; each states its job in its own docstring |
 | `.claude/` | `settings.json` (hooks, permissions), `agents/`, `rules/`, `hooks/` |
 | `assets/` | `IMAGES.md` owns the example-image spec; `images/` holds the files |
-
-Root carries `README.md`, `CODE_OF_DESIGN.md`, `CONTRIBUTING.md`,
-`CHANGELOG.md`, `AGENTS.md`, `CLAUDE.md` and `TODO.md`.
 
 `ls` is the authority on contents. The `13-*.md` gap in `docs/` is deliberate:
 `13-materials.md` was removed and its number retained, per Naming Conventions

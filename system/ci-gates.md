@@ -5,21 +5,22 @@ mechanically. What follows is what to get right before adding another one.
 
 ---
 
-# Which Checks Are Required Right Now
+# Which Checks Block a Merge
 
-A check that exists is not a check that blocks. Marking one **required** is a
-branch-protection setting done by hand in the GitHub UI.
+**A check that exists is not a check that blocks.** Marking one required is a
+branch-protection setting made by hand in the GitHub UI, and nothing in this
+repository can do it — so a workflow can ship, pass on every PR, and stop
+nothing. A check nobody added there is advisory, however it reads.
 
-Read the live list rather than trusting a snapshot:
+Which ones are required, and every other protection on `main`:
 
 ```bash
-gh api repos/studcraft/studcraft/branches/main/protection --jq '.required_status_checks.contexts[]'
+gh api repos/studcraft/studcraft/branches/main/protection
 ```
 
-Branch protection on `main` also sets `enforce_admins`, no force-push, no
-deletions, linear history and `strict: true`. **No feature branch is
-protected**, so the prohibitions in `system/repository-strategy.md` are rules
-someone keeps, not rules git enforces.
+**No feature branch is protected at all**, so the prohibitions in
+`system/repository-strategy.md` are rules someone keeps, not rules git
+enforces.
 
 ---
 
@@ -56,10 +57,10 @@ exactly like a rule applied everywhere.
 
 # The Branch Name Is Itself an Input, So Validate It
 
-Three gates change behaviour based on `github.head_ref`, which makes the name
-untrusted input. `Branch name follows the convention` rejects an ambiguous name
-outright, and enforces the one thing no content check can: a ruleset branch
-must equal the name of the change it carries.
+A name several gates read is untrusted input on the same footing as the diff
+(`system/repository-strategy.md`, Branch Naming). `Branch name follows the
+convention` rejects an ambiguous name outright, and enforces the one thing no
+content check can: which change a ruleset branch belongs to.
 
 **Test a naming rule against merged history before shipping it.** A convention
 the repo's own history fails is a convention that needs changing.

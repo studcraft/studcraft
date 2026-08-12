@@ -10,8 +10,9 @@ changing it — read the one that governs this edit before making it:
 
 - `system/workflow.md` — OpenSpec Workflow and Git Workflow: a ruleset change
   is proposed first, on its own branch, named for the change it carries.
-- `system/documentation-standards.md` — required document skeleton, rule-ID
-  stability, image naming, and Versioning.
+- `system/documentation-standards.md` — **How a Rule Is Written** (one
+  imperative sentence, reason in one clause, no over-explanation), the required
+  document skeleton, rule-ID stability, image naming, and Versioning.
 - `CODE_OF_DESIGN.md` — the fifteen principles every rule must reinforce.
 - `system/proposal-review.md` — what to check before applying a change and
   after applying it.

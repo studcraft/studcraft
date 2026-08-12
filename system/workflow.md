@@ -71,8 +71,8 @@ it survives), and an explicit `severity` input at dispatch time.
 # Archiving
 
 `openspec/specs/` is shared state: `openspec archive` reads a capability's
-current spec and writes the result back, so two PRs archiving against it
-collide or silently clobber each other.
+current spec and writes the result back. That is the shape `system/ci-gates.md`
+("Batch, Don't Gate Per-PR") describes, applied here.
 
 - **Archiving is a separate PR from the change that applies `docs/*.md`.** An
   apply PR merges `docs/*.md` and its own `openspec/changes/<name>/`, and never
@@ -86,8 +86,9 @@ touching `openspec/specs/` must come from an `archive/*` branch and must not
 touch `docs/*.md`; any other PR must not touch `openspec/specs/` at all.
 
 **Run the batch after each merge, or after a small group.** Batching removes
-concurrent writes; it is not permission to accumulate. Sixteen unarchived
-changes once aborted the run and cost two dedicated PRs to untangle.
+concurrent writes; it is not permission to accumulate. A backlog is what turns
+this script into a project: with sixteen changes waiting, four had modified the
+same requirement and the run aborted on the first.
 
 ## Refresh every delta against `docs/` before archiving
 

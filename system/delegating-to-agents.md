@@ -94,8 +94,8 @@ totals mechanically. Counts stated in prose go stale.
 - **Read the applied text in full**, not the diff (`system/proposal-review.md`).
   `python3 scripts/rule.py touched <change-name>` names the rules changed and,
   under `read also`, the rules that cite them.
-- **Check the document's Summary and glossary entry** for every rule touched.
-  Neither is mechanically checkable.
+- **Check the document's Summary and glossary entry** for every rule touched —
+  `system/proposal-review.md` ("The Summary Is Part of the Rule").
 - **Ask what the executor had to interpret.** Every interpretation reported is
   a place the proposal was unclear.
 
