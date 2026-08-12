@@ -62,8 +62,8 @@ A test imports the script it covers by module name (`import verify_tasks`),
 which works because `pytest.ini` sets `pythonpath = scripts`. **That is a
 runtime setting and an editor does not read it**, so `pyrightconfig.json`
 repeats the path for the language server — the two have to agree, and a test
-that resolves in one and not the other is the symptom. `.vscode/settings.json`
-carries no paths: it points at `.venv` and turns on the test runner.
+that resolves in one and not the other is the symptom. Nothing else states it:
+no editor's own settings are committed here.
 
 `preflight.py` runs the suite when it can find pytest and reports it skipped
 when it cannot. A test that mutates a repository builds one in `tmp_path` and
