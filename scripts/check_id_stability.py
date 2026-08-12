@@ -1,31 +1,34 @@
 #!/usr/bin/env python3
-"""Compare the ruleset's rule IDs against a base revision. IDs are permanent.
+"""Compare the ruleset's rule IDs against a base revision. IDs are never reissued.
 
 `system/documentation-standards.md` makes rule identifiers stable: they are
-never renumbered and never reused. A superseded rule keeps its number and
-carries a note saying so — `MEL-010`, `CBT-011` and `WPN-021` are the
-precedents, and the `13-*.md` gap in `docs/` exists for the same reason.
+never renumbered and never reused. A rule may be deleted once another document
+owns what it said, and its number is then retired rather than handed to a new
+rule — the `13-*.md` gap in `docs/` is the same thing at document scale.
 
 That invariant is enforced by nobody. `scripts/lint_ruleset.py` checks IDs
 within a single revision — duplicates, and ordering inside a document — which
 cannot see a rule that quietly changed number or moved to another document
 between two revisions. Only a comparison against the base can.
 
-**This has never fired.** Scanning the last twenty-five commits on `main` found
-no renumbering, no reuse and no disappearance, which is the honest case for
-running it: it is insurance on an invariant that is cheap to check and expensive
-to break, not a tool that finds things. An ID is cited from other documents,
-from `docs/14-glossary.md` and from `assets/IMAGES.md`, so a silent renumber
-breaks references in places nothing points at.
+An ID is cited from other documents, from `docs/14-glossary.md` and from
+`assets/IMAGES.md`, so a silent renumber breaks references in places nothing
+points at. This is insurance on an invariant that is cheap to check and
+expensive to break, not a tool that finds things.
 
-Three things are reported:
+Two things are reported:
 
-  disappeared   an ID present in the base and absent now. A rule may be
-                superseded, but its number stays and carries a note.
   moved         an ID that changed document. Each document owns its prefix
                 namespace, so this is a renumbering wearing the same number.
   reused        an ID absent from the base, present now, and whose number is
                 below the highest its document already had. New rules append.
+
+An ID present in the base and absent now is **not** reported. Deleting a rule
+whose content another document already states is an ordinary edit, and the one
+way it can go wrong — stranding a citation aimed at the deleted ID — is caught
+by `scripts/lint_ruleset.py`, which fails on a reference to a rule ID that does
+not exist. What this script adds is the case that one cannot see: a number
+reappearing on a different rule.
 
 Usage:
 
@@ -83,13 +86,6 @@ def main(argv: list[str]) -> int:
     after = ids_in_worktree()
     errors: list[str] = []
 
-    for rule_id in sorted(set(before) - set(after)):
-        errors.append(
-            f"{rule_id} was in {before[rule_id]} at {base} and is gone. Rule IDs are "
-            f"never removed — a superseded rule keeps its number and carries a note "
-            f"saying so (MEL-010, CBT-011, WPN-021 are the precedents)."
-        )
-
     for rule_id in sorted(set(before) & set(after)):
         if before[rule_id] != after[rule_id]:
             errors.append(
@@ -120,10 +116,14 @@ def main(argv: list[str]) -> int:
         return 1
 
     added = len(set(after) - set(before))
-    print(
-        f"Compared {len(after)} rule ID(s) against {base}: none renumbered, reused or "
-        f"removed{f', {added} appended' if added else ''}."
+    retired = len(set(before) - set(after))
+    tail = "".join(
+        (
+            f", {added} appended" if added else "",
+            f", {retired} retired" if retired else "",
+        )
     )
+    print(f"Compared {len(after)} rule ID(s) against {base}: none renumbered or reused{tail}.")
     return 0
 
 
