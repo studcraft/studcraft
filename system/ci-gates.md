@@ -1,172 +1,72 @@
 # CI Gates
 
-This repo relies on required GitHub Actions status checks to enforce process
-rules mechanically instead of trusting anyone (human or agent) to remember
-them. Building and debugging those gates surfaced a few non-obvious pitfalls
-worth writing down before adding another one.
+Required GitHub Actions status checks enforce this repo's process rules
+mechanically. What follows is what to get right before adding another one.
 
 ---
 
 # Which Checks Are Required Right Now
 
 A check that exists is not a check that blocks. Marking one **required** is a
-branch-protection setting in the GitHub UI, done by hand, and nothing in this
-repository can do it for you — so a workflow can ship, pass on every PR, and
-still stop nothing.
+branch-protection setting done by hand in the GitHub UI.
 
-Required on `main`, with `enforce_admins` enabled so the single maintainer
-cannot merge past them:
-
-- `Docs require OpenSpec proposal`
-- `Docs must not edit CHANGELOG.md directly`
-- `OpenSpec archive must be separate from apply`
-- `Docs ruleset linter`
-- `OpenSpec change is coherent`
-
-**Not required, and therefore advisory only:**
-
-- `Branch name follows the convention` — passes on every PR since it landed;
-  add it to branch protection to make it block.
-
-Branch protection also sets `allow_force_pushes: false`, `allow_deletions:
-false`, `required_linear_history: true` and `strict: true` (a branch must be
-up to date before merging). Those cover `main` only. **No feature branch is
-protected**, so the force-push and rebase prohibitions in
-`system/repository-strategy.md` are rules someone keeps, not rules git
-enforces.
-
-Read the live state rather than trusting this list, which is a snapshot:
+Read the live list rather than trusting a snapshot:
 
 ```bash
-gh api repos/studcraft/studcraft/branches/main/protection \
-  --jq '.required_status_checks.contexts[]'
+gh api repos/studcraft/studcraft/branches/main/protection --jq '.required_status_checks.contexts[]'
 ```
+
+Branch protection on `main` also sets `enforce_admins`, no force-push, no
+deletions, linear history and `strict: true`. **No feature branch is
+protected**, so the prohibitions in `system/repository-strategy.md` are rules
+someone keeps, not rules git enforces.
 
 ---
 
 # A Required Check Must Trigger on Every PR, Unconditionally
 
-`Docs ruleset linter` was originally scoped with `paths: docs/**` at the
-workflow's `on:` trigger level. That seemed right — why run a docs linter on
-a PR that doesn't touch `docs/`? But once it was marked as a **required**
-status check in branch protection, an archive-only PR (touching only
-`openspec/specs/`) never triggered the workflow at all — no check run was
-ever created for it. GitHub does not treat "this check never ran because it
-was filtered out" the same as "this check passed" or "this check was
-skipped" — it shows the required check as permanently pending, and blocks
-the merge indefinitely.
-
-**Every required check's workflow must trigger on every PR event, with no
-`paths:` filter at the `on:` level.** If the check should only meaningfully
-apply to some PRs, do that filtering *inside* the job (read the diff, decide
-to pass/skip, always produce a check-run result), the way `Docs require
-OpenSpec proposal`, `Docs must not edit CHANGELOG.md directly`, and `OpenSpec
-archive must be separate from apply` already do. Only non-required,
-purely-advisory checks are safe to gate with a `paths:` filter, because
-nothing blocks on their absence.
+**No `paths:` filter at a required workflow's `on:` level.** GitHub does not
+treat "filtered out" as passed or skipped — the check stays pending and blocks
+the merge forever. Filter inside the job instead: read the diff, decide to
+pass or skip, always produce a result. Only advisory checks may use `paths:`.
 
 ---
 
 # Branch-Naming Exemptions for Automation
 
-Some gates need an escape hatch for the automation that's supposed to do the
-thing the gate normally forbids — e.g. `Docs must not edit CHANGELOG.md
-directly` has to let the `Release cut` action's own PR edit `CHANGELOG.md`.
-The pattern used throughout this repo: the automation always opens its PR
-from a branch matching a fixed prefix (`release/v*`, `archive/*`), and the
-gate's script checks `github.head_ref` against that prefix as its first
-step, exiting success immediately if matched.
+Automation opens its PRs from a fixed prefix (`release/v*`, `archive/*`), and a
+gate that must let it through checks `github.head_ref` first.
 
-This only works if the exemption is scoped as narrowly as the prefix allows
-— `archive/*` matches any archive-related branch name, which is why
-`scripts/archive_cut.py` could switch from one-branch-per-change
-(`archive/<name>`) to one-branch-per-batch (`archive/batch-<date>-<run-id>`)
-without needing any change to the gate itself.
+**Every branch-prefix exemption must also assert what the diff may contain.**
+The name is a string the author chose; `release/v9` is otherwise a free pass.
 
-## The branch name alone is not enough — constrain by content too
+- `release/v*` — the `docs/` diff may change nothing but `**Version:**` lines,
+  and nothing outside `CHANGELOG.md` and `docs/*.md`.
+- `archive/*` — the diff may touch nothing outside `openspec/`.
 
-Matching on the prefix and stopping there is a bypass, and it stays invisible
-for exactly as long as one person can push branches. `Docs require OpenSpec
-proposal` originally read:
+Scope the prefix no more narrowly than needed: `archive/*` matches any archive
+branch, which is why `archive_cut.py` could move from one branch per change to
+one per batch without touching a gate.
 
-```bash
-if [[ "$branch" == release/v* ]]; then exit 0; fi
-```
-
-Anyone able to push could name their branch `release/v9` and land arbitrary
-ruleset changes with no proposal at all. The gate trusted a string the author
-chose.
-
-**Every branch-prefix exemption must also assert what the diff is allowed to
-contain.** The automation's output is narrow and known, so the constraint is
-easy to state and impossible to forge:
-
-- `release/v*` — the `docs/` diff may change nothing except `**Version:**`
-  header lines. A real release cut rewrites that one line and nothing else.
-- `archive/*` — the diff may touch nothing outside `openspec/`. A real archive
-  cut moves changes and writes capability specs, and never edits a rule.
-
-The check is on content, not on the label, so a maliciously or carelessly
-named branch fails anyway. Add the same treatment to any future exemption
-before merging it.
-
-### One gate was fixed and the other two were not
-
-Writing the rule down did not apply it everywhere. `Docs require OpenSpec
-proposal` and `OpenSpec archive must be separate from apply` were both
-tightened; `Docs must not edit CHANGELOG.md directly` kept the bare
-`exit 0` for months afterwards, while this document already described the
-fix as the pattern used throughout the repo.
-
-What that leaves open is narrower than the original bypass but real: a branch
-called `release/v9` that touches only `**Version:**` headers satisfies the
-proposal gate, and the CHANGELOG gate waves it through on the name alone —
-so `CHANGELOG.md` can be written by hand, which is the one thing the gate
-exists to prevent. It now asserts the same content constraint as the other
-two: nothing outside `CHANGELOG.md` and `docs/*.md`, and inside `docs/`,
-nothing but the `**Version:**` line.
-
-**When a lesson is written here, grep for every gate it applies to and fix
-them in the same PR.** A rule recorded in `system/` and applied to one of
-three call sites reads, later, exactly like a rule that was applied
-everywhere.
+**When a lesson is recorded here, grep for every gate it applies to and fix
+them in the same PR.** A rule applied to one of three call sites reads later
+exactly like a rule applied everywhere.
 
 ---
 
 # The Branch Name Is Itself an Input, So Validate It
 
-Three gates change their behaviour based on `github.head_ref`. That makes the
-branch name an untrusted input on the same footing as the diff, and until
-`Branch name follows the convention` was added, nothing checked its shape —
-only whether it started with a reserved prefix. `archive/anything-at-all`
-matched the archive exemption; `release/v9` matched the release one.
+Three gates change behaviour based on `github.head_ref`, which makes the name
+untrusted input. `Branch name follows the convention` rejects an ambiguous name
+outright, and enforces the one thing no content check can: a ruleset branch
+must equal the name of the change it carries.
 
-Content constraints (above) already stop such a branch from *landing* anything
-it should not. The naming gate handles the other half: it rejects the
-ambiguous name outright, so no gate has to guess what a half-formed
-`release/` branch was meant to be.
-
-It also enforces one thing no content check can. `openspec/config.yaml`
-requires each proposal to live on its own dedicated branch, and `Docs require
-OpenSpec proposal` verifies a PR carries exactly one change — but nothing tied
-the branch to *that* change. The naming gate requires them to be equal.
-
-**Test a naming rule against the merged history before shipping it**, per the
-last section of this document. This one was: of the 22 merged PRs touching
-`docs/`, 21 already had `branch == change name`, and the single exception
-carried two proposals, which `Docs require OpenSpec proposal` rejects on its
-own. A convention that the repo's own history fails is a convention that needs
-changing, not a history that needs excusing.
+**Test a naming rule against merged history before shipping it.** A convention
+the repo's own history fails is a convention that needs changing.
 
 ---
 
 # Anything Mutating Shared State Needs a Concurrency Group
-
-`Release cut` and `Archive cut` both write files that everything else reads —
-`CHANGELOG.md`, the `**Version:**` headers, `openspec/specs/`. Neither had a
-`concurrency:` block, so two dispatches could run at once, each branching from
-its own snapshot of `main`, producing two branches that both claim to archive
-the same changes.
 
 Every `workflow_dispatch` action that writes repository state gets:
 
@@ -177,244 +77,127 @@ concurrency:
 ```
 
 `cancel-in-progress` must be **false**. These scripts commit and push partway
-through; cancelling one mid-run leaves a branch pushed with an incomplete
-batch. Queueing is correct, cancelling is not.
+through; cancelling mid-run leaves a branch pushed with an incomplete batch.
 
 ---
 
 # GitHub Actions Cannot Open Pull Requests Here
 
-The org policy blocks `GITHUB_TOKEN` from creating pull requests:
+Org policy blocks `GITHUB_TOKEN` from creating pull requests:
 
 ```
 GitHub Actions is not permitted to create or approve pull requests
 ```
 
-Both cut workflows originally ended with `gh pr create`, so both reported a
-**red run despite having done all of their actual work** — computing the
-version, updating the files, pushing the branch. Only the final convenience
-step failed.
+The setting that would permit it governs *create* **and** *approve*, so
+enabling it would let workflows approve PRs across every repo in the org.
 
-The setting that would permit it is one flag governing *create* **and**
-*approve*; GitHub does not split them. Enabling it would let a workflow
-approve pull requests, which quietly hollows out any future review requirement
-across every repo in the org, permanently, to save one click per release.
-
-**The workflows therefore push their branch and stop.** Each writes the
-compare URL to `$GITHUB_STEP_SUMMARY`, so opening the PR is one click from the
-run page, and the run reports success when it succeeded. Do not reintroduce
-`gh pr create`, and do not route around the policy with a personal access
-token stored as a secret — that recreates exactly the risk the org disabled.
-
-While you are there: both workflows requested `pull-requests: write` for those
-steps and nothing else. They now request `contents: write` only, which is what
-pushing a branch actually needs.
+**Both cut workflows therefore push their branch, write the compare URL to
+`$GITHUB_STEP_SUMMARY`, and stop.** Do not reintroduce `gh pr create`, and do
+not route around the policy with a personal access token. They request
+`contents: write` only.
 
 ---
 
-# Required Reviews With One Maintainer: The Trap, and the Way Out
+# Required Reviews With One Maintainer
 
 Raising `required_approving_review_count` **in branch protection** is a trap
-while there is one maintainer. `enforce_admins` is enabled and GitHub does not
-allow approving your own pull request, so requiring one approval there makes
-**every PR unmergeable, including the one that undoes the setting.**
+with one maintainer: `enforce_admins` is on and GitHub forbids self-approval,
+so every PR becomes unmergeable, including the one that undoes the setting.
 
-**A repository ruleset escapes this, and one is already live.** Rulesets take a
-`bypass_actors` list; branch protection has nothing equivalent. So the same
-requirement can be enforced on everyone else while the solo maintainer merges
-their own work. What is configured today:
+**A repository ruleset escapes this** because it takes a `bypass_actors` list.
+What is live: ruleset `Require PR review except jujorie` on `refs/heads/main`
+(1 approval, `require_code_owner_review: true`, bypass `jujorie`), alongside
+branch protection with 0 required reviews and `enforce_admins: true`. The two
+are evaluated together and the more restrictive wins.
 
-| Layer | Setting |
-|---|---|
-| Ruleset `Require PR review except jujorie`, on `refs/heads/main` | 1 approving review, `require_code_owner_review: true`, bypass actor `jujorie` (`always`) |
-| Branch protection on `main` | `required_approving_review_count: 0`, `require_code_owner_reviews: false`, `enforce_admins: true`, 6 required checks, linear history, no force-push |
+- **Anyone but the bypass actor** needs one `CODEOWNERS` approval to merge.
+- **The bypass actor** merges with no approval, and still cannot merge red —
+  `enforce_admins` belongs to branch protection, which a ruleset bypass does
+  not reach.
 
-The two are evaluated together and the more restrictive wins. **This section
-previously said the opposite** — that requiring a review was still a trap and
-`CODEOWNERS` only routed requests. That was true of branch protection alone, and
-stopped being the whole picture when the ruleset was added. Describing one layer
-of two reads as a description of both.
-
-So, stated plainly, because it is the question people actually ask:
-
-- **Anyone other than the bypass actor** needs one approving review from a
-  `CODEOWNERS` entry before a PR merges into `main`. The requirement is
-  *code-owner* approval, not *admin* approval — they coincide only because one
-  person is currently both.
-- **Before that**, merging needs write access at all. A contributor without it
-  opens from a fork and cannot merge whatever anyone approves.
-- **The bypass actor merges with no approval** — and still cannot merge with a
-  red check, because `enforce_admins` belongs to branch protection and a ruleset
-  bypass does not reach it.
-
-## Push-level path restrictions are not available here
-
-`file_path_restriction` — the rule that blocks a *commit* touching a path rather
-than blocking the merge — is a **push** ruleset rule, and the API refuses one on
-this repository:
-
-```
-422 Validation Failed
-"Source public repos cannot have push rules"
-```
-
-Not a plan limitation and not a permissions problem: GitHub does not allow push
-rulesets on public repositories. Review is the mechanism available, which is why
-`.github/CODEOWNERS` has to cover every sensitive path completely rather than
-representatively.
+`file_path_restriction` is unavailable: it is a **push** rule, and the API
+refuses push rulesets on public repositories (`422 "Source public repos cannot
+have push rules"`). Review is the mechanism, so `.github/CODEOWNERS` must cover
+every sensitive path completely.
 
 ## The day a non-admin collaborator appears
 
-Three things to decide together, and the first two are the ones that matter:
-
-1. **Do they go in `CODEOWNERS`?** Adding them means their approval satisfies
-   the review requirement on the paths they own. That is the whole point of the
-   file, and it is also the moment "code owner" and "admin" stop being the same
-   set.
-2. **Does the `jujorie` bypass stay?** With a second reviewer available, it is no
-   longer load-bearing, and removing it makes the rule apply to everyone.
-3. **A path-guard CI gate becomes worth reconsidering, and is not worth it
-   before.** It would fail a PR that touches `.claude/`, `scripts/`, `system/`,
-   `.github/`, `AGENTS.md`, `CLAUDE.md` or `CODE_OF_DESIGN.md` when its author
-   lacks admin permission — telling a contributor at PR-open time what code-owner
-   review would tell them at review time. **It blocks nothing `CODEOWNERS` does
-   not already block.** With one collaborator, who is an admin, it would fire for
-   nobody while adding a seventh required check that must pass on every PR
-   forever. Weigh it against the pitfalls at the top of this document before
-   adding it.
+- **Do they go in `CODEOWNERS`?** That is the moment "code owner" and "admin"
+  stop being the same set.
+- **Does the `jujorie` bypass stay?** With a second reviewer it is no longer
+  load-bearing.
+- A path-guard CI gate becomes worth reconsidering then, and **blocks nothing
+  `CODEOWNERS` does not already block** before then.
 
 ---
 
 # Check Late-Firing Failures Early
 
-Two checks used to fire only inside `Archive cut`, which runs whenever a
-maintainer decides it is time — potentially weeks after the proposal merged,
-long after the person who could explain a delta has moved on. This repo hit
-that once and untangling it cost two dedicated PRs.
+**If a mechanical check exists only inside a manually triggered batch step, it
+is not a gate — it is a landmine.** Move it to the PR that can still fix it
+cheaply.
 
-Both now also run per-PR, as `OpenSpec change is coherent`:
+Two checks used to fire only inside `Archive cut`, weeks after the proposal
+merged. Both now run per-PR as `OpenSpec change is coherent`:
 
-- **`openspec validate --all`** — structural. Does every change and spec parse,
-  does each change carry at least one delta, does every requirement have a
-  scenario.
-- **`scripts/check_delta_coverage.py`** — semantic, and the one that matters.
-  For every `## MODIFIED Requirements` block, if the targeted requirement
-  already exists in the living spec, every scenario the living spec has for it
-  must also appear in the delta. Otherwise archiving would delete it silently.
-
-**`openspec validate` does not catch the second problem.** That was verified,
-not assumed: deliberately stripping a scenario from a delta left validate
-passing. The check lives inside `openspec archive`, which is exactly the thing
-that fires too late. `check_delta_coverage.py` reimplements it so it fires on
-the PR that introduces the drift.
-
-The general lesson: **if a mechanical check exists only inside a manually
-triggered batch step, it is not a gate — it is a landmine.** Move it to the PR
-that can still fix it cheaply.
+- `openspec validate --all` — structural: does everything parse, does each
+  change carry a delta, does every requirement have a scenario.
+- `scripts/check_delta_coverage.py` — semantic, and the one that matters: a
+  `MODIFIED` block must keep every scenario the living spec already has.
+  Verified, not assumed: stripping a scenario left `validate` passing.
 
 ## A new gate must be tested against work it should let through
 
-`OpenSpec change is coherent` originally ran `openspec validate --all`, and
-was made a required check the same day. Its first encounter with a real
-proposal failed it:
-
-```
-✗ change/vehicle-minimum-footprint
-[ERROR] Change must have at least one delta. No deltas found.
-```
-
-The change was correct. `system/proposal-review.md` (Delta vs. Direct Edit)
-states this repo's own policy: several `docs/` documents predate the OpenSpec
-workflow and were never formalised as capabilities, so there is nothing to
-delta against, and inventing one is explicitly wrong. A required check had
-been shipped that blocks the repo's documented practice — and would have
-blocked most future ruleset work, since the un-formalised documents include
-core rules, combat, transport, movement and construction.
-
-The gate now validates the living specs always, and validates a change only
-when it actually ships a `specs/` directory.
+`OpenSpec change is coherent` shipped as required, then failed its first real
+proposal for having no delta — which `system/proposal-review.md` (Delta vs.
+Direct Edit) documents as correct here. It now validates a change only when it
+ships a `specs/` directory.
 
 **Testing that a gate fails on bad input is half the work.** Test that it
-passes on every shape of legitimate work first — including the shapes
-documented elsewhere in `system/` as correct.
+passes on every shape of legitimate work first, including the shapes `system/`
+documents as correct.
 
 ---
 
 # A Gate That Checks Presence Is Not Checking Substance
 
-`Docs require OpenSpec proposal` originally passed if the diff contained *any*
-path under `openspec/changes/`. An empty file satisfied it. With one
-maintainer that is a formality; with contributors it is a rule that can be
-complied with without being followed.
+`Docs require OpenSpec proposal` originally passed on *any* path under
+`openspec/changes/`; an empty file satisfied it. It now requires all three
+artifacts (checked against the working tree, since an apply-only PR
+legitimately touches `tasks.md` alone) and one change per PR.
 
-It now additionally requires:
-
-- **All three artifacts exist** — `proposal.md`, `design.md`, `tasks.md`.
-  Checked against the working tree, not the diff, because a PR that only
-  applies an already-merged proposal legitimately touches `tasks.md` alone.
-- **One change per PR.** `openspec/config.yaml` has always required one branch
-  per proposal and nothing enforced it. Archive batches move many changes at
-  once and are exempt, by having no non-`archive/` change directory in their
-  diff at all.
-
-When adding a gate, ask what the cheapest way to satisfy it without doing the
-work is. If that way exists, the gate is checking the wrong thing.
+**When adding a gate, ask what the cheapest way to satisfy it without doing the
+work is.** If that way exists, the gate is checking the wrong thing.
 
 ---
 
 # Error Messages Are Documentation for People Who Have Not Read Any
 
-A contributor meets this repo's process for the first time through a red
-check. Every gate's `::error::` says what is wrong, what the rule is, and where
-to read more — `system/workflow.md`, `CONTRIBUTING.md`, or a worked example
-under `openspec/changes/archive/`.
-
-`scripts/check_delta_coverage.py` goes further and explains the fix, because
-its failure mode is genuinely unobvious: a renamed scenario reads as a
-deletion, so the correct response is to restore the original heading and
-correct its body rather than to keep the new name.
+A contributor meets this process for the first time through a red check. Every
+gate's `::error::` says what is wrong, what the rule is, and where to read
+more. Where a failure mode is unobvious, it also says how to fix it — a renamed
+scenario reads as a deletion, so the fix is to restore the heading, not keep
+the new name.
 
 ---
 
 # Batch, Don't Gate Per-PR, for Anything Writing to Shared State
 
-Any file or directory that multiple concurrent PRs might all want to modify
-(`CHANGELOG.md`'s version entries, `openspec/specs/`) has the same underlying
-problem: two PRs editing it independently either collide at merge time, or
-worse, one silently clobbers what the other just wrote (e.g. a `MODIFIED`
-delta applied against a stale copy of a capability). This repo hit that
-problem twice — versioning, then archiving — and solved it the same way both
-times:
+Any file several concurrent PRs might modify (`CHANGELOG.md`,
+`openspec/specs/`) gets the same shape, and reuse it rather than inventing a
+third:
 
-1. No individual PR touches the shared state directly. A gate enforces this
-   (`Docs must not edit CHANGELOG.md directly`, `OpenSpec archive must be
-   separate from apply`).
-2. A separate, manually-triggered `workflow_dispatch` action
-   (`Release cut`, `Archive cut`) does the actual write, in one batch,
-   whenever a human decides it's time. Batching means the collision case
-   never happens — there's only ever one writer, running at one point in
-   time, from a script that reads the current state of `main` fresh.
-3. The action commits the batch result to its own exempted branch (see
-   above) and opens a PR — never pushes to `main` directly.
-
-If a third kind of shared state ever needs this treatment, reuse this shape
-rather than inventing a new one: gate + batch script + `workflow_dispatch`
-action + branch-naming exemption.
+1. A gate stops individual PRs touching it.
+2. A manually-triggered `workflow_dispatch` script does the write in one batch,
+   reading `main` fresh, so there is only ever one writer.
+3. The action commits to its own exempted branch and never pushes to `main`.
 
 ---
 
 # Test Any Repo-Mutating Script in an Isolated Worktree
 
-Both `release_cut.py` and `archive_cut.py` mutate real repository files
-(`CHANGELOG.md`, `docs/*.md` version headers, `openspec/specs/`,
-`openspec/changes/`). Never run a first test of a script like this directly
-against your real working directory — use `git worktree add <path> HEAD`,
-run the script there, inspect the result, then `git worktree remove <path>
---force`. This showed its value directly: an early test of `release_cut.py`
-against the real working directory, followed by `git reset --hard` to clean
-up, wiped out a real uncommitted fix in the same working tree that had
-nothing to do with the test. Committing work before testing helps, but a
-worktree removes the risk entirely — the real working directory is never
-touched, so there's nothing to accidentally reset away. See
-`system/repository-strategy.md` for the related rule against destructive git
-operations on work that hasn't been reviewed.
+Never run a first test of a script that writes repository files against your
+real working directory: `git worktree add <path> HEAD`, run it there, inspect,
+then `git worktree remove <path> --force`. An early `release_cut.py` test
+followed by `git reset --hard` wiped an unrelated uncommitted fix.

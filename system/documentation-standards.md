@@ -2,282 +2,141 @@
 
 **`system/` is context for AI agents. It is not human-facing documentation.**
 
-That single fact decides how these documents are written, and it is the reason
-for the deletions in this repository's history rather than the tidy summaries
-someone might expect instead.
+Every line here is loaded into a context window, where it competes with the
+line that actually decides something. So, when writing anything under
+`system/`:
 
-Every line here is loaded into an agent's context window, where it competes
-with the line that actually decides something. A restatement a human reader
-would find harmlessly reassuring — the same principle in shorter words, one
-file closer to hand — is, for an agent, noise diluting the signal. And a
-shortened restatement is never merely redundant: `AGENTS.md` reprinted eight of
-fifteen principles and silently dropped the two that catch the most defects;
-`design-process.md` reprinted five of seven checklist questions the same way.
-
-So, when writing anything under `system/`:
-
-- **If it is already argued elsewhere — `CODE_OF_DESIGN.md`, another `system/`
-  file, a script's docstring — delete it and point at the owner.** Do not keep
-  a convenient summary. One owner per rule.
+- **If it is already stated elsewhere, delete it and point at the owner.** One
+  owner per rule. A convenient summary is what goes stale, and a shortened
+  restatement silently drops what it left out.
 - **Only content with no other home survives.** A file whose every line has a
-  destination is deleted, not preserved for its organisational role.
-- Prefer a pointer to a copy, always, even when the copy would be shorter to
-  read. The copy is what goes stale.
+  destination is deleted, not kept for its organisational role.
 
-## The context lives in the repository
+---
+
+# How a Rule Is Written
+
+Rules here and in `docs/` are read under load, by agents and by people with a
+task in hand. Length is a cost paid on every read.
+
+- **A rule is one imperative sentence.** Its reason is one clause at most.
+- **No postmortem.** The incident that produced the rule lives in git history,
+  not in the paragraph. "This cost two PRs" changes nothing a reader does.
+- **No "this used to say X".** The diff records that. A correction left in the
+  text reads later like a rule.
+- **No section for a case that does not exist yet.** Write it when it exists.
+- **No snapshot a command can print.** Give the command.
+- **If the rule is clear in two lines, three lines is a defect.**
+
+Prose that argues, rather than states, belongs in a proposal's `design.md`.
+
+---
+
+# The context lives in the repository
 
 An agent's own memory, scratchpad or session notes are **not** a valid home for
 anything about this repository. Constraints live in `system/`, `AGENTS.md` and
-`.claude/agents/` — in the repository, versioned and reviewable — *"rather than
-in whoever is driving the session"* (`AGENTS.md`), and so they *"do not have to
-be retyped from memory each session. They had been, and they drifted"*
-(`system/delegating-to-agents.md`).
+`.claude/agents/` — versioned and reviewable. If it is not worth a commit, it
+is not worth remembering.
 
-This has been violated in practice, by an agent that learned a criterion during
-a session and wrote it to its own local memory instead of here. Anything worth
-remembering about this repository is worth committing to it. If it is not worth
-a commit, it is not worth remembering.
+Two settings enforce it: `autoMemoryEnabled: false` removes the motive, and a
+`PreToolUse` hook denying `/.claude/projects/*/memory/` removes the capability.
+The second is not redundant — `Write` never consults the setting, and that is
+the path the one real violation took.
 
-**This one is enforced rather than trusted**, by two settings in
-`.claude/settings.json` that do different jobs:
+Committing a constraint is necessary and not sufficient; something has to load
+it. Three mechanisms do, and they are not interchangeable:
 
-- **`autoMemoryEnabled: false`** switches the auto-memory subsystem off for this
-  project. Nothing is read from that directory into an agent's context, and
-  nothing is written to it by the memory machinery. This removes the *motive*.
-- **A `PreToolUse` hook on `Write|Edit`** denies any path matching
-  `/.claude/projects/*/memory/` and returns this rule as the denial reason. This
-  removes the *capability*.
-
-The second is not redundant. `Write` is a file tool: it does not consult
-`autoMemoryEnabled` and will write wherever it is pointed. The violation that
-prompted all this went through exactly that path — an agent calling `Write` with
-a filename, not the memory subsystem. And a direct instruction to "remember
-this" outweighs a setting nobody is looking at. Without the hook that write
-succeeds silently; with it, the attempt returns this rule.
-
-The hook fails open by design: a path it does not recognise is allowed. It stops
-the default memory directory, not every conceivable location outside the
-repository. It is also the only rule in `system/` a script can check at all,
-because it is the only one that is a path rather than a judgement — nothing can
-grep for whether two paragraphs say the same thing.
-
-## Context in the repository still has to reach the agent
-
-Claude Code loads `CLAUDE.md`. It does not load `AGENTS.md`, and this
-repository had no `CLAUDE.md` at all, so every Claude session began with none
-of the above in context — a session was observed ignoring rules it had never
-been shown. Committing a constraint is necessary and not sufficient; something
-has to load it.
-
-Three mechanisms now do, and they are not interchangeable:
-
-- **`CLAUDE.md`** is one `@AGENTS.md` import and a comment. It carries no rules
-  of its own, for the same reason nothing else here does.
-- **`.claude/rules/*.md`** carry `paths:` frontmatter, so each loads only when
-  an agent touches the files it governs. This is how `system/`'s 1,600 lines
-  stay available without being resident: the rule files route to an owner, they
-  do not summarise one.
-- **The `PreToolUse` hook** in `.claude/settings.json` refuses edits that break
-  the branch, proposal and version rules. Loaded context is still only context
-  — an agent may read it and act otherwise, which is what a hook removes.
+- **`CLAUDE.md`** — one `@AGENTS.md` import. Claude Code loads this name, not
+  `AGENTS.md`. It carries no rules of its own.
+- **`.claude/rules/*.md`** — `paths:` frontmatter, so each loads only for the
+  files it governs. They route to an owner; they do not summarise one.
+- **The `PreToolUse` hook** in `.claude/settings.json` — refuses edits that
+  break the branch, proposal and version rules. Context can be read and
+  ignored; a hook cannot.
 
 ---
 
 # Repository Structure
 
-```
-/
-├── README.md
-├── CODE_OF_DESIGN.md
-├── CONTRIBUTING.md
-├── CHANGELOG.md
-├── LICENSE
-├── AGENTS.md
-├── CLAUDE.md              (one `@AGENTS.md` import; Claude Code reads this name, not AGENTS.md)
-├── TODO.md                (gaps the ruleset declares in its own text; every entry quotes the rule)
-│
-├── .claude/
-│   ├── settings.json      (the enforcement hooks below, and the permissions block)
-│   ├── agents/            (the four delegation roles AGENTS.md names)
-│   ├── rules/             (path-scoped pointers; each loads only for the files it names)
-│   └── hooks/             (guard_repo_edits.py, lint_after_edit.py, session_orientation.py)
-│
-├── system/
-│   ├── design-process.md
-│   ├── documentation-standards.md
-│   ├── workflow.md
-│   ├── proposal-review.md
-│   ├── delegating-to-agents.md
-│   ├── ci-gates.md
-│   ├── repository-strategy.md
-│   └── communication.md
-│
-├── openspec/
-│   ├── config.yaml
-│   ├── changes/          (active proposals; changes/archive/ holds completed ones)
-│   └── specs/             (canonical capability specs, written only by Archive cut)
-│
-├── scripts/
-│   ├── preflight.py            (runs every gate answerable locally; a mirror, never the authority)
-│   ├── lint_ruleset.py         (structural check; see Documentation Guidelines below)
-│   ├── check_delta_coverage.py (a MODIFIED delta may not drop a living spec's scenario)
-│   ├── check_task_anchors.py   (a tasks.md anchor matching twice is a silent wrong edit)
-│   ├── check_id_stability.py   (rule IDs are permanent — compares docs/ against a base revision)
-│   ├── check_todo_quotes.py    (TODO.md's blockquotes must still appear verbatim in docs/)
-│   ├── open_pr.py              (stage/commit/push/PR; git-operator calls it, the BLOCKER rules are its code)
-│   ├── build_index.py          (writes .studcraft/index.json; docs/ stays the source of truth)
-│   ├── rule.py                 (queries that index: show / refs / neighbors / touched / orphans)
-│   ├── verify_tasks.py         (runs a tasks.md's own verification commands; read-only allowlist)
-│   ├── release_cut.py          (batches CHANGELOG.md + Version-header updates)
-│   └── archive_cut.py          (batches openspec/changes/ -> openspec/changes/archive/)
-│
-├── assets/
-│   ├── IMAGES.md   (owns the example-image spec and its filename convention)
-│   └── images/     (the .png files themselves)
-│
-└── docs/
-    ├── 01-foundations.md
-    ├── 02-core-rules.md
-    ├── 03-game-flow.md
-    ├── 04-construction-standard.md
-    ├── 05-construction-components.md
-    ├── 06-deployment.md
-    ├── 07-movement.md
-    ├── 08-vehicles.md
-    ├── 09-transport.md
-    ├── 10-weapons.md
-    ├── 11-combat.md
-    ├── 12-melee.md
-    ├── 14-glossary.md
-    ├── 15-geometry-layers.md
-    └── 16-damage-system.md
-```
+| Path | Holds |
+|---|---|
+| `docs/` | the ruleset — numbered documents, the only accepted rules |
+| `system/` | this directory: agent context, one owner per rule |
+| `openspec/` | `changes/` (active proposals, `archive/` for completed) and `specs/` (capability specs, written only by Archive cut) |
+| `scripts/` | the checkers and the cut/PR automation; each states its job in its own docstring |
+| `.claude/` | `settings.json` (hooks, permissions), `agents/`, `rules/`, `hooks/` |
+| `assets/` | `IMAGES.md` owns the example-image spec; `images/` holds the files |
 
-This tree is illustrative, not exhaustively re-verified on every change —
-`docs/` in particular grows with every ruleset proposal. **Trust `ls` over
-this list whenever they disagree**, for every directory here and not only
-`docs/`: the two entries that had actually gone stale were
-`system/delegating-to-agents.md` and `scripts/check_delta_coverage.py`,
-each added by a PR that updated the thing it introduced and not the tree
-describing it. See "Adding a New Ruleset Document" below for what to
-update when `docs/` changes.
+Root carries `README.md`, `CODE_OF_DESIGN.md`, `CONTRIBUTING.md`,
+`CHANGELOG.md`, `AGENTS.md`, `CLAUDE.md` and `TODO.md`.
 
-The `13-*.md` gap is deliberate — `13-materials.md` was removed and its
-number retained as a gap, not reused, per the Naming Conventions below.
-
-Agents should preserve this modular organization.
+`ls` is the authority on contents. The `13-*.md` gap in `docs/` is deliberate:
+`13-materials.md` was removed and its number retained, per Naming Conventions
+below.
 
 ---
 
 # Documentation Guidelines
 
-Each document should have one clear responsibility.
+Each document has one responsibility. Rules are deterministic, concise, easy to
+reference, and reuse existing terminology. Write them per **How a Rule Is
+Written** above.
 
-Avoid mixing unrelated systems.
+Every document that defines rules carries: Purpose, Design Philosophy, Rule
+Definitions, Summary. `scripts/lint_ruleset.py` checks the first, second and
+fourth as headings — the rule headers are the definitions, so "Rule
+Definitions" is not one. `01-foundations.md` and `14-glossary.md` define no
+rules; `02-core-rules.md` predates the standard and is a recorded exemption in
+the linter, not a precedent.
 
-Rules should:
-
-- Be deterministic.
-- Be concise.
-- Be easy to reference.
-- Reuse existing terminology.
-
-Every document that defines rules should include:
-
-- Purpose
-- Design Philosophy
-- Rule Definitions
-- Summary
-
-`scripts/lint_ruleset.py` checks for Purpose, Design Philosophy and Summary as
-headings, in every document that defines rules. "Rule Definitions" is not a
-heading anywhere in `docs/` — the rule headers are the definitions — so it is
-not checked as one. `01-foundations.md` and `14-glossary.md` define no rules
-and are not required to carry the sections; `02-core-rules.md` predates the
-standard and is missing Design Philosophy and Summary. That last one is a
-recorded exemption in the linter, not a precedent: a new document cannot be
-added to the list without editing the script.
-
-Every document closes with one of StudCraft's two co-equal mottos: `> **Every Brick Matters.**` for construction/gameplay documents, or `> **The Model Is The Rules.**` for the two documents specifically about the model-defines-values mechanism (`15-geometry-layers.md`, `16-damage-system.md`). This split is deliberate, not an inconsistency to fix.
-
-`01-foundations.md` carries **both**, because it introduces both — `> **The Model Is The Rules.**` first, then `> **Every Brick Matters.**` as the closing line. The linter checks the last non-empty line, so a document ending in either motto passes and this one is not a special case in the script.
+Every document closes with a motto: `> **Every Brick Matters.**` for
+construction and gameplay documents, `> **The Model Is The Rules.**` for the
+two about the model-defines-values mechanism (`15-geometry-layers.md`,
+`16-damage-system.md`). `01-foundations.md` carries both, closing with the
+first. The linter checks the last non-empty line.
 
 ---
 
 # Adding a New Ruleset Document
 
-Adding a new numbered `docs/*.md` file touches more than the file itself.
-Every one of these was missed at least once while shipping a proposal in
-this repo — treat this as the checklist:
+Adding a numbered `docs/NN-name.md` touches more than the file. Each of these
+has been missed at least once:
 
-- `docs/NN-name.md` itself, with a stable rule-ID prefix (see Naming
-  Conventions below) and the required Purpose / Design Philosophy / Rule
-  Definitions / Summary structure.
-- `README.md`: the Repository Structure tree, the Rulebook reading-order
-  list (note its numbers are reading-order position, not filename number —
-  inserting a document renumbers everything after it), and the Current
-  Status implemented-systems list.
-- `docs/14-glossary.md`: at least the new terms a reader can't infer from
-  context.
-- `python3 scripts/lint_ruleset.py`, after writing the document, to catch
-  rule-ID and cross-reference mistakes before they ship.
+- The document itself, with a stable rule-ID prefix and the required skeleton.
+- `README.md` — structure list, Rulebook reading order (its numbers are
+  positions, so inserting renumbers everything after), Current Status.
+- `docs/14-glossary.md` — the new terms a reader cannot infer.
+- `python3 scripts/lint_ruleset.py`, after writing it.
 
-One OpenSpec change can introduce multiple capabilities while still
-shipping as a single document when they're tightly coupled — see
+One change may introduce several capabilities and still ship as one document —
 `system/proposal-review.md` ("Capability Boundaries Don't Have to Match
-Document Boundaries") for when to do that instead of one document per
-capability.
+Document Boundaries").
 
 ---
 
 # Naming Conventions
 
-Rule identifiers should remain stable.
+Rule identifiers are permanent: `MOV-001`, `WPN-001`, `CBT-001`, `FLOW-001`.
+Each document owns its own prefix. A removed document's number is never reused.
 
-Examples:
-
-```
-MOV-001
-WPN-001
-CBT-001
-TRN-001
-FLOW-001
-```
-
-Each document owns its own namespace.
-
-Image filenames are a second namespace with a different owner. `assets/IMAGES.md`
-defines the convention and specifies every image the ruleset needs; do not restate
-either here. `scripts/lint_ruleset.py` checks the filenames in that file against
-the convention and against the rule IDs in `docs/`.
+Image filenames are a separate namespace owned by `assets/IMAGES.md`.
+`scripts/lint_ruleset.py` checks them against that convention and against the
+rule IDs in `docs/`.
 
 ---
 
 # Versioning
 
-StudCraft follows Semantic Versioning.
+StudCraft follows Semantic Versioning (`MAJOR.MINOR.PATCH`).
 
-```
-MAJOR.MINOR.PATCH
-```
+**Nobody edits `CHANGELOG.md` or a `**Version:**` header by hand.** Both are
+written by the `Release cut` workflow in one pass. Several proposal branches
+are usually in flight, and a version chosen on one collides with every sibling
+that chose the same one — deferring to the cut is what makes concurrent
+proposals possible. `Docs must not edit CHANGELOG.md directly` fails the PR
+that tries.
 
-Examples:
-
-- 0.1.0
-- 0.2.0
-- 1.0.0
-
-**Nobody edits `CHANGELOG.md` or a `**Version:**` header by hand — agents least
-of all.** Both are written by the `Release cut` workflow, which computes the
-next version from the commits since the last tag and rewrites every header in
-one pass. `Docs must not edit CHANGELOG.md directly` is a required status check
-that fails any PR changing `docs/*.md` which also touches `CHANGELOG.md`.
-
-This is not a style preference. Several proposal branches are usually in flight
-at once, and a version number or changelog entry chosen on a branch collides
-with every sibling branch that chose the same one. Deferring both to the cut is
-what makes concurrent proposals possible at all — see `system/workflow.md`.
-
-So a ruleset change declares nothing about its own version. `docs/*.md` changes
-default to a minor bump automatically; a commit that needs a major says so with
-a `**Bump:** major` line in its message, and `scripts/release_cut.py` reads it.
+A ruleset change declares nothing about its own version. `docs/*.md` changes
+default to a minor bump; a commit needing a major says `**Bump:** major` in its
+message. `system/workflow.md` (Versioning) has the mechanism.
