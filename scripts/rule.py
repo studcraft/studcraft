@@ -35,18 +35,15 @@ command narrows 225 rules to the handful worth a human look.
 from __future__ import annotations
 
 import json
-import re
 import subprocess
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-DOCS_DIR = REPO_ROOT / "docs"
-CHANGES_DIR = REPO_ROOT / "openspec" / "changes"
-INDEX_PATH = REPO_ROOT / ".studcraft" / "index.json"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-RULE_ID_RE = re.compile(r"[A-Z]{2,6}-\d{3}")
-HEADING_RE = re.compile(r"^#{1,2} \S")
+from repo import CHANGES_DIR, DOCS_DIR, HEADING_RE, REPO_ROOT, RULE_ID_RE  # noqa: E402
+
+INDEX_PATH = REPO_ROOT / ".studcraft" / "index.json"
 
 
 def load_index() -> dict:

@@ -32,11 +32,12 @@ import re
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-DOCS_DIR = REPO_ROOT / "docs"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from repo import DOCS_DIR, REPO_ROOT, RULE_HEADER_RE, RULE_ID_RE  # noqa: E402
+
 IMAGES_INDEX = REPO_ROOT / "assets" / "IMAGES.md"
 
-RULE_HEADER_RE = re.compile(r"^#{1,2} ([A-Z]{2,6})-(\d{3}) — ", re.MULTILINE)
 VERSION_RE = re.compile(r"^\*\*Version:\*\*\s*(\d+\.\d+\.\d+)\s*(.*)$", re.MULTILINE)
 CROSS_REF_RE = re.compile(r"`([\w.-]+\.md)`[^\n]{0,80}?\(([A-Z]{2,6}-\d{3})\)")
 
@@ -48,7 +49,6 @@ CROSS_REF_RE = re.compile(r"`([\w.-]+\.md)`[^\n]{0,80}?\(([A-Z]{2,6}-\d{3})\)")
 # is what keeps "`16-damage-system.md`, DMG-019, Repairs)" from swallowing the
 # word Repairs.
 COMMA_REF_RE = re.compile(r"`([\w.-]+\.md)`,\s+((?:[A-Z]{2,6}-\d{3}(?:,\s+)?)+)")
-RULE_ID_RE = re.compile(r"[A-Z]{2,6}-\d{3}")
 
 MOTTOS = ("> **Every Brick Matters.**", "> **The Model Is The Rules.**")
 

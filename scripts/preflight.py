@@ -55,7 +55,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from repo import REPO_ROOT, git  # noqa: E402
 
 PASS, FAIL, SKIP = "PASS", "FAIL", "SKIP"
 
@@ -74,13 +76,6 @@ class Result:
         self.name = name
         self.status = status
         self.detail = detail or []
-
-
-def git(*args: str) -> tuple[int, str]:
-    proc = subprocess.run(
-        ["git", *args], cwd=REPO_ROOT, capture_output=True, text=True
-    )
-    return proc.returncode, proc.stdout.strip()
 
 
 def run_script(name: str, script: str) -> Result:

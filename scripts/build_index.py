@@ -10,12 +10,8 @@ The output is `.studcraft/index.json` — regenerable, gitignored, never edited 
 hand and never a source of truth. `docs/` is the source of truth; this is a
 cache in front of it. `scripts/rule.py` is the query side.
 
-The citation patterns are **imported from `scripts/lint_ruleset.py`**, not
-copied. They are subtle — the parenthesised form allows 80 characters between
-the filename and the ID, the comma form takes runs of IDs, and a parenthesised
-ID carrying the citing document's own prefix belongs to the citing document
-rather than to the filename in front of it. A second copy of that would drift
-from the first, and the drift would be silent.
+The rule-ID pattern is **imported from `scripts/repo.py`**, not copied. A second
+copy of a convention would drift from the first, and the drift would be silent.
 
 What each rule entry holds:
 
@@ -38,18 +34,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from lint_ruleset import RULE_ID_RE  # noqa: E402
+from repo import DOCS_DIR, HEADING_RE, REPO_ROOT, RULE_ID_RE  # noqa: E402
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-DOCS_DIR = REPO_ROOT / "docs"
 GLOSSARY = "14-glossary.md"
 INDEX_PATH = REPO_ROOT / ".studcraft" / "index.json"
 
-# The same header shape lint_ruleset.py matches, kept line-anchored here because
-# this needs the line number and the title text, which its MULTILINE findall of
-# prefix/number pairs does not return.
+# The same header shape repo.RULE_HEADER_RE matches, kept line-anchored here
+# because this needs the line number and the title text, which that pattern's
+# findall of prefix/number pairs does not return.
 RULE_HEADER_LINE_RE = re.compile(r"^#{1,2} ([A-Z]{2,6})-(\d{3}) — (.+?)\s*$")
-HEADING_RE = re.compile(r"^#{1,2} \S")
 GLOSSARY_TERM_RE = re.compile(r"^## (.+?)\s*$")
 
 
