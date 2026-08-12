@@ -138,6 +138,19 @@ the change name, and anything specific the agent could not infer. Ask for a
 short report — what was applied, what verification failed and how, what was
 ambiguous.
 
+## The commit message
+
+Whoever read the result writes it; `git-operator` is handed the text. The
+subject is a conventional `type(scope): …` under 72 characters — `docs(...)`
+for `docs/`, `chore(...)` for repository plumbing. The body is prose
+paragraphs. Read `git log origin/main..HEAD` for the style, **not** plain
+`git log`: `main` carries squashed PR titles ending in `(#NN)`, which is
+GitHub's format for a merge, not the format for a commit. End with:
+
+```
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+```
+
 **Deciding the result is fit to push stays with the reviewer, who has read it.**
 `git-operator` then calls `scripts/open_pr.py`, which stages one path at a time
 and verifies the staged set against the given set, so the BLOCKER rules in

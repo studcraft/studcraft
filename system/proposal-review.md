@@ -45,6 +45,56 @@ After fixing, re-read the whole change. A fix can expose another defect.
 
 ---
 
+# The Principles That Catch Defects Here
+
+`CODE_OF_DESIGN.md` holds fifteen, and every rule is measured against all of
+them. These six account for most findings in this repository:
+
+- **Principle 1 — The Model Is The Rules.** Does the rule take a label at its
+  word where it should be checking the plastic?
+- **Principle 7 — One Universal Measurement.** Is the value in Unit Bases, or
+  has the rule wandered into raw studs, millimetres or an invented unit?
+- **Principle 11 — Simplicity Before Complexity.** A subsystem where a
+  criterion on an existing category would do?
+- **Principle 12 — Consistency.** Solved differently from the way the same
+  problem was solved elsewhere?
+- **Principle 13 — Build Freedom.** A fixed number the model should be
+  deriving?
+- **Principle 15 — Future Compatibility.** A damage or resolution path parallel
+  to the Impact system rather than inside it?
+
+The **Design Checklist** closing `CODE_OF_DESIGN.md` applies too: any "no" is
+worth raising even where no single principle is squarely violated.
+
+---
+
+# What an Audit Reports, and What It Does Not
+
+Findings first, ordered by severity. Each names **where** — file, rule ID, line
+or task number; **what** the defect is, in one sentence; **why** it is a defect
+— the principle, standard or failure class it violates; and **what it would
+take to fix**, in one sentence. A finding that cannot name what it violates is
+a preference: drop it, or label it an observation.
+
+Then state what was checked and found clean. An audit that reports only
+problems leaves the reviewer unable to tell thoroughness from luck. Finding
+nothing is a result — say what was looked at, and never manufacture a finding
+to justify the run.
+
+Out of scope for every audit here:
+
+- **Balance.** This ruleset has no points system by design; deployment size in
+  Unit Bases does that work.
+- **Rewriting.** The reviewer decides. Suggest a direction in one sentence
+  where it is obvious; never draft replacement rule text unless asked.
+- **Style.** Report formatting only where it changes meaning or breaks a stated
+  standard.
+- **Versions.** `docs/*.md` defaults to a minor bump computed by
+  `scripts/release_cut.py`, and a required check already blocks a PR that
+  touches a `**Version:**` header.
+
+---
+
 # Review the Applied Text, Not Only the Diff
 
 **Every review pass here that found something real found it by reading the
