@@ -1,0 +1,9 @@
+# Development only. Nothing under scripts/ may import anything from this file:
+# every script runs as `python3 scripts/<name>.py` in CI and on a laptop with no
+# environment set up, so scripts/ stays stdlib-only.
+#
+#   python3 -m venv .venv
+#   .venv/bin/pip install -r requirements-dev.txt
+#   .venv/bin/pytest
+
+pytest>=8,<9

@@ -55,7 +55,13 @@ def modified_blocks(text: str) -> dict[str, set[str]]:
         reqs = list(REQ_RE.finditer(body))
         for j, r in enumerate(reqs):
             r_end = reqs[j + 1].start() if j + 1 < len(reqs) else len(body)
-            out[r.group(1)] = set(SCENARIO_RE.findall(body[r.start():r_end]))
+            # Merged, not replaced: one delta file may carry two MODIFIED
+            # sections naming the same requirement, and assignment would drop
+            # the scenarios of the first — the exact silent deletion this
+            # script exists to catch.
+            out.setdefault(r.group(1), set()).update(
+                SCENARIO_RE.findall(body[r.start():r_end])
+            )
     return out
 
 

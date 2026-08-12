@@ -1,6 +1,7 @@
 ---
 paths:
   - "scripts/*.py"
+  - "tests/*.py"
   - ".github/workflows/*.yml"
   - ".claude/**/*.md"
   - ".claude/*.json"
@@ -45,6 +46,30 @@ When you change one, check whether the other now disagrees with it.
 `scripts/preflight.py` is the same bargain in script form: it mirrors four of
 the workflows plus both checker scripts so a push is not the first thing to
 report a red gate. **Editing a workflow means checking the mirror against it.**
+
+**`tests/` covers `scripts/`, and a change to a script belongs in the same
+commit as the test that pins it.** pytest is a development dependency and
+`scripts/` stays stdlib-only — every script runs as `python3 scripts/<name>.py`
+on a machine with nothing set up:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-dev.txt
+.venv/bin/pytest
+```
+
+A test imports the script it covers by module name (`import verify_tasks`),
+which works because `pytest.ini` sets `pythonpath = scripts`. **That is a
+runtime setting and an editor does not read it**, so `pyrightconfig.json`
+repeats the path for the language server — the two have to agree, and a test
+that resolves in one and not the other is the symptom. Nothing else states it:
+no editor's own settings are committed here.
+
+`preflight.py` runs the suite when it can find pytest and reports it skipped
+when it cannot. A test that mutates a repository builds one in `tmp_path` and
+copies `scripts/` into it — never the real working directory
+(`system/ci-gates.md`, "Test Any Repo-Mutating Script in an Isolated
+Worktree").
 
 `.claude/hooks/lint_after_edit.py` watches `Bash` as well as `Write` and `Edit`,
 because a shell command that writes carries no `file_path` for a hook to read.

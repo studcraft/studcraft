@@ -1,0 +1,6 @@
+{
+  "include": ["scripts", "tests"],
+  "exclude": [".venv", "**/__pycache__"],
+  "extraPaths": ["scripts"],
+  "typeCheckingMode": "basic"
+}

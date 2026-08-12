@@ -1,0 +1,39 @@
+name: Tests
+
+# The pytest suite over scripts/. Those scripts decide whether a pull request
+# can land — the ruleset linter, the delta-coverage check, the branch-name
+# mirror, the release and archive cuts — and until this existed nothing checked
+# them at all.
+#
+# No `paths:` filter at the `on:` level, on purpose. This check is advisory
+# until someone adds it to branch protection by hand, and a filtered trigger
+# never creates a check run for a non-matching pull request, which GitHub then
+# treats as permanently pending. A check that is safe to filter today becomes a
+# permanent block the day it is made required. See system/ci-gates.md.
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the development dependencies
+        run: pip install -r requirements-dev.txt
+
+      # Every test that touches a repository builds one under tmp_path and
+      # copies scripts/ into it, so nothing here writes to the checkout.
+      - name: Run the suite
+        run: pytest -q

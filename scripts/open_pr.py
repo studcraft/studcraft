@@ -142,6 +142,15 @@ def main(argv: list[str]) -> int:
                 "what was meant."
             )
 
+    already_staged = run("git", "diff", "--cached", "--name-only").stdout.strip()
+    if already_staged and not args.dry_run:
+        stop(
+            "something is staged already:\n"
+            + already_staged
+            + "\nThis stages the paths it was given and nothing else, and it "
+            "cannot tell your staged work from its own. Unstage first."
+        )
+
     if args.dry_run:
         print(f"branch      {branch}")
         print(f"base        {args.base}")
@@ -170,10 +179,15 @@ def main(argv: list[str]) -> int:
     ]
     unexpected = sorted(set(staged) - set(args.paths))
     if unexpected:
+        # Put the index back the way it was found. Stopping with the paths still
+        # staged leaves the next run to start on top of this one's leftovers,
+        # and the check above would then blame whoever ran it.
+        for path in args.paths:
+            run("git", "restore", "--staged", "--", path, check=False)
         stop(
             "the staged set is not the set given. Unexpected: "
             + ", ".join(unexpected)
-            + ". Nothing was committed."
+            + ". Nothing was committed, and the index was left as it was found."
         )
     if not staged:
         stop("nothing staged — the named paths hold no changes.")

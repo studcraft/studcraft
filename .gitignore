@@ -4,5 +4,10 @@
 # Python bytecode from the scripts in scripts/
 __pycache__/
 
+# The local test environment. scripts/ stays stdlib-only; pytest is a
+# development dependency and lives here, per requirements-dev.txt.
+.venv/
+.pytest_cache/
+
 # Local scratch handovers, deliberately never committed
 delete-me*

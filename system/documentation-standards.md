@@ -67,6 +67,7 @@ it. Three mechanisms do, and they are not interchangeable:
 | `system/` | this directory: agent context, one owner per rule |
 | `openspec/` | `changes/` (active proposals, `archive/` for completed) and `specs/` (capability specs, written only by Archive cut) |
 | `scripts/` | the checkers and the cut/PR automation; each states its job in its own docstring |
+| `tests/` | the pytest suite over `scripts/`; pytest is a development dependency and `scripts/` stays stdlib-only |
 | `.claude/` | `settings.json` (hooks, permissions), `agents/`, `rules/`, `hooks/` |
 | `assets/` | `IMAGES.md` owns the example-image spec; `images/` holds the files |
 

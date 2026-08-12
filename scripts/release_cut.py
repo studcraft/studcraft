@@ -125,6 +125,20 @@ def split_unreleased(text: str) -> tuple[str, str, str]:
     return text[:start], rest[:body_end], rest[body_end:]
 
 
+def unreleased_content(section: str) -> str:
+    """Whatever somebody wrote under `# [Unreleased]`, ignoring the furniture.
+
+    A cut leaves the section holding a `---` rule and blank lines, which is not
+    content. Anything else is text this script would otherwise replace without
+    saying so.
+    """
+    kept = [
+        line for line in section.splitlines()
+        if line.strip() and line.strip() != "---"
+    ]
+    return "\n".join(kept)
+
+
 def main() -> None:
     tag = latest_tag()
 
@@ -143,7 +157,23 @@ def main() -> None:
     if UNRELEASED_HEADER not in text:
         sys.exit("No [Unreleased] section found in CHANGELOG.md")
 
-    before, _, tail = split_unreleased(text)
+    before, unreleased, tail = split_unreleased(text)
+    if unreleased_content(unreleased):
+        # The entry below is built from commit subjects, and this section is
+        # rewritten empty. Anything written here by hand would be discarded
+        # silently, which is how a hand-written note disappears at the next cut.
+        # `Docs must not edit CHANGELOG.md directly` only fires on a pull request
+        # that also touches docs/*.md, so one that touches neither can land text
+        # here; stop rather than delete it.
+        sys.exit(
+            "CHANGELOG.md's [Unreleased] section is not empty:\n\n"
+            f"{unreleased_content(unreleased)}\n\n"
+            "That text was written by hand, and this script would replace it. "
+            "Nobody edits CHANGELOG.md directly — system/documentation-standards.md "
+            "(Versioning). Move whatever belongs in the release into the commit "
+            "subjects it is built from, empty the section, and run the cut again."
+        )
+
     new_text = (
         before
         + f"{UNRELEASED_HEADER}\n\n---\n\n# [{next_version}] - {today}\n\n{changes}\n"
