@@ -10,18 +10,17 @@ paths:
 
 # Editing this repository's own prose
 
-`system/` is context for AI agents, not human-facing documentation. Every line
-competes with the line that actually decides something.
+Two sections of `system/documentation-standards.md` own this. Read them before
+adding a paragraph:
 
-`system/documentation-standards.md` ("What `system/` Is For") owns that
-standard and its consequences: one owner per rule, a pointer instead of a copy
-always, and a file whose every line has another home is deleted rather than
-kept for its organisational role. Read it before adding a paragraph.
+- **"What `system/` Is For"** — one owner per rule, a pointer instead of a copy
+  always. Before writing, search for a document that already states this; if
+  one does, point at it and write nothing else.
+- **"How a Rule Is Written"** — one imperative sentence, reason in one clause.
+  No postmortem, no "this used to say X", no section for a case that does not
+  exist yet, no snapshot a command can print.
 
-So, before writing: search for whether another document already argues this.
-If one does, point at it and write nothing else. A shortened restatement is
-never merely redundant — `AGENTS.md` once reprinted eight of fifteen principles
-and dropped the two that catch the most defects.
+Shorter is the goal, and a deletion is a valid edit on its own.
 
 These files need a branch but not an OpenSpec proposal — `system/workflow.md`
 (Git Workflow). `CHANGELOG.md` is not in this set: nobody edits it by hand.

@@ -39,8 +39,6 @@ Avoid replacing physical representation with abstract mechanics.
 
 **There are fifteen, and they are defined in [`CODE_OF_DESIGN.md`](CODE_OF_DESIGN.md) — `Principle 1` through `Principle 15`. Read them there.**
 
-This section used to reprint eight of them. The seven it left out included **One Universal Measurement** and **Consistency**, which `.claude/agents/ruleset-auditor.md` names as the two that catch real defects most often. A short list is worse than a link when the short list is the one an agent reads first.
-
 Every contribution should reinforce all fifteen. If a proposal conflicts with any of them, redesign it.
 
 StudCraft should also stay **friendly to both human and AI contributors** — the one long-term commitment that is about this repository rather than about the game.
@@ -54,7 +52,7 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 | Document | Covers |
 |---|---|
 | [`system/design-process.md`](system/design-process.md) | Rule Hierarchy — the order to reach for solutions in |
-| [`system/documentation-standards.md`](system/documentation-standards.md) | Repository Structure, Documentation Guidelines, Naming Conventions, Versioning |
+| [`system/documentation-standards.md`](system/documentation-standards.md) | What `system/` is for, How a Rule Is Written, Repository Structure, Documentation Guidelines, Naming Conventions, Versioning |
 | [`system/workflow.md`](system/workflow.md) | OpenSpec Workflow, Git Workflow, Versioning (release-cut), Archiving (archive-cut) |
 | [`system/proposal-review.md`](system/proposal-review.md) | How to review a proposal before applying/archiving: cross-document checks, common failure classes, reviewing the applied text, delta vs. direct edit |
 | [`system/ci-gates.md`](system/ci-gates.md) | Required-check design pitfalls, branch-naming exemptions and why the name alone is not enough, concurrency guards, checking late-firing failures early, batch-vs-per-PR pattern for shared state |
@@ -77,9 +75,7 @@ Four roles are defined as repository agents in `.claude/agents/`, so their const
 
 Design the change, audit the proposal, apply it, audit the result, then **read it yourself**. That step never belongs to an agent.
 
-The two audits were one agent holding two jobs. They read different inputs against different checklists, and carrying both made each vaguer than it should have been.
-
-Deciding the result is fit to push is therefore yours. Issuing the commands afterwards is not — `git-operator` is handed the paths, the branch name and the message text, and selects none of them. Delegating the typing is not delegating the judgement.
+Deciding the result is fit to push is yours. Issuing the commands afterwards is not — `git-operator` is handed the paths, the branch name and the message text, and selects none of them. Delegating the typing is not delegating the judgement.
 
 ## Raising these four is mandatory
 

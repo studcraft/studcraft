@@ -35,21 +35,14 @@ Usage:
 
 from __future__ import annotations
 
-import re
-import subprocess
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-DOCS_DIR = REPO_ROOT / "docs"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-RULE_HEADER_RE = re.compile(r"^#{1,2} ([A-Z]{2,6})-(\d{3}) — ", re.MULTILINE)
+from repo import DOCS_DIR, RULE_HEADER_RE, git  # noqa: E402
+
 DEFAULT_BASE = "origin/main"
-
-
-def git(*args: str) -> tuple[int, str]:
-    proc = subprocess.run(["git", *args], cwd=REPO_ROOT, capture_output=True, text=True)
-    return proc.returncode, proc.stdout
 
 
 def ids_at_revision(revision: str) -> dict[str, str] | None:

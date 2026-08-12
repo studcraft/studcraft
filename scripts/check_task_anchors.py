@@ -35,8 +35,9 @@ import re
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-CHANGES_DIR = REPO_ROOT / "openspec" / "changes"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from repo import CHANGES_DIR, REPO_ROOT, unarchived_changes  # noqa: E402
 
 FENCE_RE = re.compile(r"^```")
 TASK_LINE_RE = re.compile(r"^\s*- \[[ xX]\]")
@@ -292,11 +293,7 @@ def main(argv: list[str]) -> int:
     if argv:
         names = argv
     else:
-        names = [
-            path.name
-            for path in sorted(CHANGES_DIR.iterdir())
-            if path.is_dir() and path.name != "archive"
-        ]
+        names = unarchived_changes()
 
     findings: list[Finding] = []
     checked = 0

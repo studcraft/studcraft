@@ -20,19 +20,11 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-CHANGES_DIR = REPO_ROOT / "openspec" / "changes"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from repo import CHANGES_DIR, REPO_ROOT, unarchived_changes  # noqa: E402
 
 UNCHECKED = "- [ ]"
-
-
-def pending_changes() -> list[str]:
-    if not CHANGES_DIR.exists():
-        return []
-    return sorted(
-        p.name for p in CHANGES_DIR.iterdir()
-        if p.is_dir() and p.name != "archive"
-    )
 
 
 def is_fully_applied(name: str) -> bool:
@@ -46,7 +38,7 @@ def main() -> None:
     archived = []
     skipped = []
 
-    for name in pending_changes():
+    for name in unarchived_changes():
         if is_fully_applied(name):
             subprocess.run(
                 ["openspec", "archive", name, "--yes"],

@@ -35,8 +35,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-CHANGES_DIR = REPO_ROOT / "openspec" / "changes"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from repo import CHANGES_DIR, REPO_ROOT, unarchived_changes  # noqa: E402
 
 TASK_RE = re.compile(r"^\s*- \[([ xX])\]\s*(\d+\.\d+)\s+(.*)$")
 CODE_RE = re.compile(r"`([^`]+)`")
@@ -177,11 +178,7 @@ def main(argv: list[str]) -> int:
         print("No openspec/changes/ directory.")
         return 0
 
-    names = argv or [
-        path.name
-        for path in sorted(CHANGES_DIR.iterdir())
-        if path.is_dir() and path.name != "archive"
-    ]
+    names = argv or unarchived_changes()
 
     status = 0
     for change in names:

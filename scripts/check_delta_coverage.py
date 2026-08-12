@@ -34,9 +34,9 @@ import re
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-CHANGES_DIR = REPO_ROOT / "openspec" / "changes"
-SPECS_DIR = REPO_ROOT / "openspec" / "specs"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from repo import CHANGES_DIR, SPECS_DIR, unarchived_changes  # noqa: E402
 
 OP_HEADER_RE = re.compile(r"^## (ADDED|MODIFIED|REMOVED|RENAMED) Requirements\s*$", re.M)
 REQ_RE = re.compile(r"^### Requirement:\s*(.+?)\s*$", re.M)
@@ -77,9 +77,8 @@ def main() -> int:
     errors: list[str] = []
     checked = 0
 
-    for change_dir in sorted(CHANGES_DIR.iterdir()):
-        if not change_dir.is_dir() or change_dir.name == "archive":
-            continue
+    for name in unarchived_changes():
+        change_dir = CHANGES_DIR / name
         specs_root = change_dir / "specs"
         if not specs_root.exists():
             continue
