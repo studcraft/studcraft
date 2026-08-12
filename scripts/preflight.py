@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Run, in one command, every gate that can be answered locally before a push.
 
-Seven checks currently run in CI (`.github/workflows/`). Four of them read
-nothing but the branch name and the list of changed files, so they can be
-answered here, before a push, instead of a minute after one. Two are scripts
-this repository already owns. One needs the `openspec` CLI and is skipped when
-it is not installed.
+Some checks read nothing but the branch name and the list of changed files, so
+they can be answered here instead of a minute after a push. Others are scripts
+this repository already owns. Two need something that may not be installed —
+the `openspec` CLI and pytest — and are reported as skipped when it is missing.
+`gh api repos/studcraft/studcraft/branches/main/protection` says which of the
+mirrored gates actually block a merge.
 
 **The gate is authoritative; this is a mirror.** `.claude/rules/tooling.md`
 states that a local check and a CI gate are not alternatives — the gate runs
@@ -22,22 +23,24 @@ What it runs:
   4. scripts/check_id_stability.py    (no CI gate — IDs are permanent across revisions)
   5. scripts/check_todo_quotes.py     (no CI gate — TODO.md must not misquote docs/)
   6. openspec validate                (OpenSpec change is coherent, part 1)
-  7. scripts/build_index.py           (no CI gate — keeps the query index current)
-  8. branch name                      (Branch name follows the convention)
-  9. CHANGELOG.md untouched by a ruleset PR
+  7. pytest                           (Tests — skipped when pytest is absent)
+  8. scripts/build_index.py           (no CI gate — keeps the query index current)
+  9. branch name                      (Branch name follows the convention)
+ 10. CHANGELOG.md untouched by a ruleset PR
                                       (Docs must not edit CHANGELOG.md directly)
- 10. one complete proposal per change  (Docs require OpenSpec proposal)
- 11. archive is separate from apply    (OpenSpec archive must be separate from apply)
+ 11. one complete proposal per change  (Docs require OpenSpec proposal)
+ 12. archive is separate from apply    (OpenSpec archive must be separate from apply)
 
-Four of those mirror no gate at all. Anchor uniqueness is a defect CI cannot
+Five of those mirror no gate at all. Anchor uniqueness is a defect CI cannot
 see — by the time a change is applied wrongly, the diff looks deliberate.
 ID stability needs a base revision to compare against, which a single-revision
 linter has not got. A TODO.md quote drifts when the rule it quotes is reworded,
 so the branch that breaks it is a ruleset branch that never touches TODO.md.
-The index is a local cache with nothing to enforce. All four belong to the
-moment before a push rather than after one, which is what this script is.
+The index is a local cache with nothing to enforce, and the tests cover
+`scripts/` rather than the ruleset. All of them belong to the moment before a
+push rather than after one, which is what this script is.
 
-Checks 8-11 compare the working tree against the merge base with `origin/main`,
+Checks 9-12 compare the working tree against the merge base with `origin/main`,
 which is the closest local equivalent of the base/head pair a pull request
 gives CI. Uncommitted work is included: the point is to fail before the commit,
 not after it.
@@ -346,6 +349,37 @@ def check_openspec_validate() -> Result:
     return Result(name, PASS, [f"Validated {len(targets)} spec(s) and change(s)."])
 
 
+def check_tests() -> Result:
+    """Run the pytest suite over `scripts/`, if pytest is installed.
+
+    pytest is a development dependency (`requirements-dev.txt`) and `scripts/`
+    stays stdlib-only, so this is the one check that can be unavailable on a
+    working machine. It reports SKIP rather than PASS when it is: a suite that
+    did not run is not a suite that passed.
+    """
+    name = "Tests"
+
+    venv_python = REPO_ROOT / ".venv" / "bin" / "python3"
+    interpreter = str(venv_python) if venv_python.is_file() else sys.executable
+
+    probe = subprocess.run(
+        [interpreter, "-c", "import pytest"], cwd=REPO_ROOT, capture_output=True
+    )
+    if probe.returncode != 0:
+        return Result(name, SKIP, [
+            "pytest is not installed. python3 -m venv .venv && "
+            ".venv/bin/pip install -r requirements-dev.txt"
+        ])
+
+    proc = subprocess.run(
+        [interpreter, "-m", "pytest", "-q"], cwd=REPO_ROOT, capture_output=True, text=True
+    )
+    output = (proc.stdout + proc.stderr).strip().splitlines()
+    if proc.returncode == 0:
+        return Result(name, PASS, output[-1:])
+    return Result(name, FAIL, output)
+
+
 def main() -> int:
     results: list[Result] = [
         run_script("Docs ruleset linter", "lint_ruleset.py"),
@@ -354,6 +388,7 @@ def main() -> int:
         run_script("Rule IDs are stable", "check_id_stability.py"),
         run_script("TODO.md quotes the ruleset verbatim", "check_todo_quotes.py"),
         check_openspec_validate(),
+        check_tests(),
         # Last, and always: rebuilding the index cannot fail the run, but a stale
         # index is a wrong answer given confidently, which is worse than no index.
         run_script("Ruleset index is current", "build_index.py"),

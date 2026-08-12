@@ -42,16 +42,46 @@ from repo import CHANGES_DIR, REPO_ROOT, unarchived_changes  # noqa: E402
 TASK_RE = re.compile(r"^\s*- \[([ xX])\]\s*(\d+\.\d+)\s+(.*)$")
 CODE_RE = re.compile(r"`([^`]+)`")
 
-# Read-only verbs only, and for the two that can write, the exact read-only
-# form. `python3` is restricted to this repository's own scripts by the check
-# in `is_runnable`, never to a bare interpreter.
-ALLOWED = {
-    "grep", "rg", "wc", "ls", "find", "head", "tail", "cat", "sort", "uniq", "diff",
+# Verbs that cannot write or execute anything, whatever flags they carry.
+#
+# `sort` and `uniq` were here and are not any more: both write a file when given
+# the right operands (`sort -o`, `uniq in out`), and with no pipe to feed them —
+# a pipe is refused below — neither has a use in a verification line anyway.
+ALLOWED = {"grep", "wc", "ls", "head", "tail", "cat", "diff"}
+
+# Verbs that read, unless carrying the flag that makes them run another program.
+# `find -exec` and `rg --pre` are full command execution, out of a file anyone
+# can propose by pull request, which is the whole thing this allowlist exists to
+# stop.
+CONDITIONAL = {
+    "find": ("-exec", "-execdir", "-ok", "-okdir", "-delete",
+             "-fprint", "-fprint0", "-fprintf", "-fls"),
+    "rg": ("--pre", "--pre-glob", "--hostname-bin", "--search-zip", "-z"),
 }
+
 ALLOWED_PAIRS = {
     ("git", "status"), ("git", "diff"), ("git", "log"), ("git", "show"),
     ("git", "branch"), ("git", "ls-files"), ("git", "rev-parse"),
     ("openspec", "validate"), ("openspec", "list"), ("openspec", "show"),
+}
+
+# `python3 scripts/<anything>.py` was accepted by prefix, which covered
+# `release_cut.py` (rewrites every **Version:** header), `archive_cut.py` and
+# `open_pr.py` (commits and pushes). Only these read.
+#
+# `build_index.py` writes `.studcraft/index.json`, and `preflight.py` runs it.
+# That file is a gitignored cache of `docs/`, regenerated on demand and never a
+# source of truth, so a task that runs either changes nothing that is reviewed.
+# `verify_tasks.py` is absent deliberately: a task naming it would recurse.
+READ_ONLY_SCRIPTS = {
+    "build_index.py",
+    "check_delta_coverage.py",
+    "check_id_stability.py",
+    "check_task_anchors.py",
+    "check_todo_quotes.py",
+    "lint_ruleset.py",
+    "preflight.py",
+    "rule.py",
 }
 
 
@@ -70,11 +100,22 @@ def is_runnable(command: str) -> tuple[bool, str]:
             return False, f"contains {operator!r}; only a single plain command is run"
 
     if tokens[0] == "python3":
-        if len(tokens) >= 2 and tokens[1].startswith("scripts/") and tokens[1].endswith(".py"):
+        script = tokens[1] if len(tokens) >= 2 else ""
+        if script.startswith("scripts/") and script[len("scripts/"):] in READ_ONLY_SCRIPTS:
             return True, ""
-        return False, "python3 is only run against this repository's own scripts/"
+        return False, (
+            "python3 runs only this repository's read-only scripts: "
+            + ", ".join(sorted(READ_ONLY_SCRIPTS))
+        )
 
     if tokens[0] in ALLOWED:
+        return True, ""
+
+    if tokens[0] in CONDITIONAL:
+        for token in tokens[1:]:
+            flag = token.split("=", 1)[0]
+            if flag in CONDITIONAL[tokens[0]]:
+                return False, f"{tokens[0]} {flag} runs or writes; only its reading form is allowed"
         return True, ""
 
     if len(tokens) >= 2 and (tokens[0], tokens[1]) in ALLOWED_PAIRS:
@@ -86,7 +127,9 @@ def is_runnable(command: str) -> tuple[bool, str]:
 def looks_like_command(text: str) -> bool:
     """A first-inline-code span that is a command rather than a filename or ID."""
     head = text.split()[0] if text.split() else ""
-    return head in ALLOWED or head == "python3" or head in {"git", "openspec"}
+    # CONDITIONAL is in here too, so a `find -delete` in a tasks.md is reported
+    # as NOT RUN rather than mistaken for prose and skipped silently.
+    return head in ALLOWED or head in CONDITIONAL or head == "python3" or head in {"git", "openspec"}
 
 
 def tasks_with_commands(text: str) -> list[tuple[str, bool, str, str]]:

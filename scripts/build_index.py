@@ -28,6 +28,7 @@ stale without someone noticing.
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -153,10 +154,33 @@ def build() -> dict:
     }
 
 
+def write_index(index: dict) -> None:
+    """Write the index in one step, so a reader never sees half of it.
+
+    `scripts/rule.py` rebuilds this file whenever a document is newer than it,
+    which means two processes can be writing while a third reads — `preflight.py`
+    running the build while an agent runs a query. A plain `write_text` truncates
+    first and fills in afterwards, so the reader gets a `JSONDecodeError` on a
+    file that is merely mid-write. Writing beside it and renaming is atomic:
+    the reader sees either the old index or the new one.
+
+    The temporary file carries the writing process's pid, so two concurrent
+    builds do not write to the same one.
+    """
+    INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
+    payload = json.dumps(index, indent=2, ensure_ascii=False) + "\n"
+    tmp = INDEX_PATH.parent / f"{INDEX_PATH.name}.{os.getpid()}.tmp"
+    tmp.write_text(payload)
+    try:
+        os.replace(tmp, INDEX_PATH)
+    except BaseException:
+        tmp.unlink(missing_ok=True)
+        raise
+
+
 def main() -> int:
     index = build()
-    INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
-    INDEX_PATH.write_text(json.dumps(index, indent=2, ensure_ascii=False) + "\n")
+    write_index(index)
 
     orphans = [rid for rid, rule in index["rules"].items() if not rule["cited_by"]]
     print(

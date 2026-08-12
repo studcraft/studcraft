@@ -27,35 +27,71 @@ from repo import CHANGES_DIR, REPO_ROOT, unarchived_changes  # noqa: E402
 UNCHECKED = "- [ ]"
 
 
+def tasks_file(name: str) -> Path:
+    return CHANGES_DIR / name / "tasks.md"
+
+
 def is_fully_applied(name: str) -> bool:
-    tasks_file = CHANGES_DIR / name / "tasks.md"
-    if not tasks_file.exists():
-        return False
-    return UNCHECKED not in tasks_file.read_text()
+    return UNCHECKED not in tasks_file(name).read_text()
 
 
-def main() -> None:
-    archived = []
-    skipped = []
+def main() -> int:
+    """Archive what can be archived, and say exactly what happened either way.
+
+    `openspec archive` can refuse one change in the middle of a batch — deltas
+    that disagree with the living spec are the usual reason
+    (`system/workflow.md`, Archiving). The ones before it in the run have
+    already been archived on disk at that point, so the report has to name them:
+    stopping without one leaves whoever picks it up guessing which directories
+    moved.
+    """
+    archived: list[str] = []
+    unfinished: list[str] = []
+    untracked: list[str] = []
+    failure: tuple[str, str] | None = None
 
     for name in unarchived_changes():
-        if is_fully_applied(name):
-            subprocess.run(
-                ["openspec", "archive", name, "--yes"],
-                cwd=REPO_ROOT,
-                check=True,
-            )
-            archived.append(name)
-        else:
-            skipped.append(name)
+        if not tasks_file(name).is_file():
+            untracked.append(name)
+            continue
+        if not is_fully_applied(name):
+            unfinished.append(name)
+            continue
+
+        proc = subprocess.run(
+            ["openspec", "archive", name, "--yes"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
+        if proc.returncode != 0:
+            failure = (name, (proc.stdout + proc.stderr).strip())
+            break
+        archived.append(name)
+
+    if archived:
+        print("Archived:", ", ".join(archived))
+    if unfinished:
+        print("Skipped (tasks.md still has unchecked items):", ", ".join(unfinished))
+    if untracked:
+        print("Skipped (no tasks.md, so nothing says it was applied):", ", ".join(untracked))
+
+    if failure:
+        name, output = failure
+        print(f"\nSTOPPED on {name}:\n{output}", file=sys.stderr)
+        print(
+            f"{len(archived)} change(s) were archived before it and are already "
+            f"moved on disk. Fix this delta against docs/ and run the batch again.",
+            file=sys.stderr,
+        )
+        return 1
 
     if not archived:
-        sys.exit("Nothing to archive: no change has a fully-checked tasks.md.")
+        print("Nothing to archive: no change has a fully-checked tasks.md.")
+        return 1
 
-    print("Archived:", ", ".join(archived))
-    if skipped:
-        print("Skipped (tasks.md still has unchecked items):", ", ".join(skipped))
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
