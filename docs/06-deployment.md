@@ -113,7 +113,7 @@ Transport capacity is not purchased.
 
 It is determined entirely by the physical cargo compartment.
 
-If a Unit Base fits inside the vehicle, a minifigure may be transported in it (`02-core-rules.md`, CORE-001; `09-transport.md`, TRN-019).
+If a Unit Base fits inside the vehicle, a minifigure may be transported in it (`09-transport.md`, TRN-019).
 
 If it does not fit, it cannot.
 

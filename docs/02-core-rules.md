@@ -58,6 +58,8 @@ Each rule states which dimensions of the Unit Base it reads, and a measured valu
 
 Every unit has a facing.
 
+Every model must have an obvious front.
+
 For infantry:
 
 The 4-stud side of the base is the front.
@@ -74,7 +76,6 @@ Facing determines:
 - Right side
 - Front firing arcs
 - Rear firing arcs
-- Shield direction
 
 ---
 
@@ -155,6 +156,8 @@ A target is visible if any part of it can be physically seen from the attacker's
 No visibility templates are used.
 
 This includes Visual Geometry (decoration, greebling, and similar) — see `15-geometry-layers.md` (GEO-004).
+
+A transparent element does not block sight. It stops an Impact only by its own Resistance, like any other component (`16-damage-system.md`, DMG-008).
 
 ---
 

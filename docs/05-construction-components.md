@@ -163,8 +163,6 @@ Doors are used for:
 - Entering buildings
 - Line of Sight
 
-Opening or closing a door costs **1 Action Point** (see `02-core-rules.md`, CORE-007).
-
 ---
 
 # CMP-010 — Ramps
@@ -178,8 +176,6 @@ Requirements:
 - Decorative ramps have no effect.
 
 Ramps may serve as vehicle access points.
-
-Lowering or raising a ramp costs **1 Action Point** (see `02-core-rules.md`, CORE-007).
 
 ---
 
@@ -199,7 +195,7 @@ Windows:
 
 Cargo Bays transport Unit Bases.
 
-Capacity is determined entirely by the available internal space.
+Capacity is determined entirely by the available internal space, counted in Unit Bases (`09-transport.md`, TRN-003) and bounded by the compartment's clearance (TRN-019).
 
 Cargo Bays never have an abstract transport value.
 
@@ -228,6 +224,8 @@ Requirements:
 - Must occupy one hand.
 
 A shield provides no bonus beyond being a component in the way — its own Resistance (DMG-003) determines what it takes to get through it.
+
+A shield protects only what it physically stands between: one interposed between the attacker and a component protects it, one facing away blocks nothing. Orientation matters for that reason, not for any separate defensive bonus.
 
 ---
 
