@@ -28,7 +28,7 @@ A `#` heading or a `---` horizontal rule inside a fence is real markdown that mu
 
 ### Scope and coverage
 
-Nine ruleset documents and `TODO.md`, no spec delta: **twenty-seven edits and twenty-one non-edit tasks** (0.1, 16.1 – 16.11, 17.4 – 17.7 and 18.8 – 18.12). Sections 1–16 are the change as proposed — seventeen edits, listed below. **Section 17 adds three repairs from the audit of the applied text**, and **section 18 the seven from the review of pull request #104**, which brings in `docs/06-deployment.md` and `docs/08-vehicles.md`. Both later sections carry anchors that are post-change text where an earlier section touched the same line; each says so.
+Nine ruleset documents, `TODO.md` and one `system/` document, no spec delta: **twenty-eight edits and twenty-four non-edit tasks** (0.1, 16.1 – 16.11, 17.4 – 17.7, 18.8 – 18.12 and 19.2 – 19.4). Sections 1–16 are the change as proposed — seventeen edits, listed below. **Section 17 adds three repairs from the audit of the applied text**, **section 18 the seven from the review of pull request #104**, which brings in `docs/06-deployment.md` and `docs/08-vehicles.md`, and **section 19 the one edit outside the ruleset**, which has its own note on why it is here. Sections 17 and 18 carry anchors that are post-change text where an earlier section touched the same line; each says so.
 
 | `proposal.md` item | Task | Path |
 |---|---|---|
@@ -50,7 +50,7 @@ Nine ruleset documents and `TODO.md`, no spec delta: **twenty-seven edits and tw
 | `TODO.md` — the `DMG-008` quote | 15.1 | `TODO.md` |
 | `TODO.md` — the *Energy shields* entry | 15.2 | `TODO.md` |
 
-**Untouched, deliberately:** `SCS-002`, `SCS-006`, `SCS-013`, `SCS-016` and `SCS-017`, and the `# Purpose`, `# Design Philosophy`, `# Construction Principles` and `# Summary` sections of `docs/04-construction-standard.md`. **`SCS-010`, `SCS-011`, `SCS-012`, `CMP-009` and `CMP-010` were on this list and are now edited by section 18**, at the request of the review of #104 — the three terrain rules lose their `07-movement.md` sentence (`design.md`, Decision 13) and the two component rules stop restating the `1 AP` cost (`design.md`, Decision 8). `CMP-018`, which the same review calls overlong, stays out. `WPN-009`, which keeps the mounting rule `SCS-015` restated (`design.md`, Decision 4). `system/proposal-review.md`, which cites `SCS-003` and is repaired on its own branch — nothing checks `system/` against `docs/`, so that repair is not part of applying this change (`design.md`, Decision 11). Every archived change under `openspec/changes/archive/`. `openspec/specs/` — this change ships no delta (`design.md`, Decision 9). `CHANGELOG.md` and every `**Version:**` header.
+**Untouched, deliberately:** `SCS-002`, `SCS-006`, `SCS-013`, `SCS-016` and `SCS-017`, and the `# Purpose`, `# Design Philosophy`, `# Construction Principles` and `# Summary` sections of `docs/04-construction-standard.md`. **`SCS-010`, `SCS-011`, `SCS-012`, `CMP-009` and `CMP-010` were on this list and are now edited by section 18**, at the request of the review of #104 — the three terrain rules lose their `07-movement.md` sentence (`design.md`, Decision 13) and the two component rules stop restating the `1 AP` cost (`design.md`, Decision 8). `CMP-018`, which the same review calls overlong, stays out. `WPN-009`, which keeps the mounting rule `SCS-015` restated (`design.md`, Decision 4). Every archived change under `openspec/changes/archive/`. `openspec/specs/` — this change ships no delta (`design.md`, Decision 9). `CHANGELOG.md` and every `**Version:**` header.
 
 ---
 
@@ -759,3 +759,35 @@ If a Unit Base fits inside the vehicle, a minifigure may be transported in it (`
 - [x] 18.11 `grep -n "^# SCS-" docs/04-construction-standard.md` still lists exactly the same eleven headings as task 16.2. No rule was removed or renumbered by this section.
 
 - [x] 18.12 `python3 scripts/preflight.py` passes, all 12 checks.
+
+---
+
+## 19. `system/proposal-review.md` — the last citation of a retired rule
+
+This is the one edit outside `docs/`, `TODO.md` and this change directory, and it is deliberate. `system/repository-strategy.md` (Branch Naming) describes a `<change-name>` branch as carrying `docs/*.md` plus its own change, so this needs saying rather than assuming: **no gate refuses it.** `Branch name follows the convention` only requires that a branch touching `docs/` is named for its single change; `Docs require OpenSpec proposal` only that the proposal exists and is complete; `Docs must not edit CHANGELOG.md directly` and `OpenSpec archive must be separate from apply` are about other paths entirely. The `PreToolUse` hook gates `CHANGELOG.md`, `docs/*.md` and `**Version:**` headers, and `system/` is none of them.
+
+It was recorded Out of Scope while pull request #104 was being written, on the reasoning that nothing checks `system/` against `docs/`. That is still true, and it is the argument for fixing it here rather than later: a stale citation nothing checks is one nobody will notice, and the pull request that retires the rule is the last moment the connection is obvious.
+
+- [x] 19.1 In `system/proposal-review.md`, under "Do Not Cap What the Model Already Bounds", replace this anchor — three lines inside a fenced block. **The fenced block itself stays; only these three lines are the anchor**, and their leading spaces are part of the text:
+
+```
+Range ≤ 6 × Weapon Length ≤ 6 × Platform Length (WPN-004)
+      ≤ what fits the Deployment Volume (SCS-003, DEP-003)
+      ≤ the battlefield agreed first (FLOW-001, step 2)
+```
+
+with:
+
+```
+Range ≤ 6 × Weapon Length ≤ 6 × Platform Length (WPN-004)
+      ≤ what fits the Deployment Volume (VEH-001, DEP-003)
+      ≤ the battlefield agreed first (FLOW-001, step 2)
+```
+
+  One identifier changes. `SCS-003` was retired by task 2.1, and `WPN-005` — the rule this chain paraphrases — was retargeted to `VEH-001` by task 11.1, which states "No maximum vehicle size exists … the agreed Deployment Volume bounds it again". The first and third lines are landmarks and are unchanged.
+
+- [x] 19.2 `grep -rn "SCS-0" system/ README.md CODE_OF_DESIGN.md CONTRIBUTING.md AGENTS.md TODO.md` returns **nothing**. Task 16.7 expected one hit; this section removes it, and 16.7 is superseded.
+
+- [x] 19.3 `grep -c -F "(VEH-001, DEP-003)" system/proposal-review.md` returns `1`.
+
+- [x] 19.4 `python3 scripts/preflight.py` passes, all 12 checks.

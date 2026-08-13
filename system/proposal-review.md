@@ -179,7 +179,7 @@ every link is read from the model or agreed by the players:
 
 ```
 Range ≤ 6 × Weapon Length ≤ 6 × Platform Length (WPN-004)
-      ≤ what fits the Deployment Volume (SCS-003, DEP-003)
+      ≤ what fits the Deployment Volume (VEH-001, DEP-003)
       ≤ the battlefield agreed first (FLOW-001, step 2)
 ```
 
