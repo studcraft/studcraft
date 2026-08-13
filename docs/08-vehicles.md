@@ -198,7 +198,7 @@ A vehicle cannot combine locomotion systems unless explicitly designed to do so.
 
 Every powered vehicle — wheeled, tracked, walker, or hover (VEH-012) — requires a Pilot to move, a crew member (VEH-015) occupying a visible operating position.
 
-Because the Pilot occupies a Unit Base of its own (`09-transport.md`, TRN-014), a powered vehicle needs room for its Pilot in addition to its machinery. This is why the minimum footprint is two Unit Bases (`02-core-rules.md`, CORE-004; VEH-001) rather than one: at one, the Pilot is the whole vehicle. The floor is not a chosen number — it is whatever this rule and TRN-014 together imply.
+Because the Pilot occupies a Unit Base of its own (`09-transport.md`, TRN-014), a powered vehicle needs room for its Pilot in addition to its machinery. This is why the minimum footprint is two Unit Bases (VEH-001) rather than one: at one, the Pilot is the whole vehicle. The floor is not a chosen number — it is whatever this rule and TRN-014 together imply.
 
 The Pilot resolves Impacts like any other component (`16-damage-system.md`, DMG-005: Operational / Wounded / Dead).
 
@@ -432,7 +432,7 @@ An odd narrowest side gives a whole number of Unit Bases and a half, and the lim
 
 Height is counted once, from the surface the vehicle rests on (VEH-029) to the top of its Gameplay Geometry (VEH-030) — **locomotion included** — and that one figure is checked against both bounds. A walker's legs, a wheel's diameter and a hover assembly are height exactly as a hull is: they are what holds the rest of the model up there, and a base that cannot justify a tall hull cannot justify tall legs either.
 
-A vehicle exceeding either bound is not a legal vehicle. It cannot be deployed until it is rebuilt — lower, or on a wider footprint — or, where the ceiling is what stops it, until the players agree a taller volume. There is no penalty, no marker and no in-game state: this is a construction check made once before the game, exactly like the two-Unit-Base minimum (`02-core-rules.md`, CORE-004; VEH-013). Legality is settled before deployment and never revisited, so a vehicle whose construction is altered in play (VEH-018) is not measured again.
+A vehicle exceeding either bound is not a legal vehicle. It cannot be deployed until it is rebuilt — lower, or on a wider footprint — or, where the ceiling is what stops it, until the players agree a taller volume. There is no penalty, no marker and no in-game state: this is a construction check made once before the game, exactly like the two-Unit-Base minimum (VEH-001; VEH-013). Legality is settled before deployment and never revisited, so a vehicle whose construction is altered in play (VEH-018) is not measured again.
 
 This introduces no height statistic, vehicle class or size category. VEH-001's "No maximum vehicle size exists" stays true as written: a footprint may be any size, and the height allowed grows with it.
 

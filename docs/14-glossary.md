@@ -16,7 +16,7 @@ The universal action economy. See `02-core-rules.md`, CORE-006 and `03-game-flow
 
 Unit Base.
 
-The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 13 plate layers tall. See `02-core-rules.md` (CORE-001) for where that height comes from and the projections a rule reads it through.
+The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 13 plate layers tall. See `02-core-rules.md` (CORE-001).
 
 ---
 
@@ -288,12 +288,6 @@ The share of a Unit Base one cargo object occupies: 4 × 3 studs by that object'
 
 ---
 
-## Projection
-
-The reading of the Unit Base volume a rule takes: horizontal for distance, deployment floors and footprints; the whole volume for transport capacity and for the Deployment Volume a model must fit inside; vertical for passing an opening. A projection is a measured value and never replaces a physical check. See `02-core-rules.md` (CORE-001).
-
----
-
 ## Maximum Height
 
 The greatest height a vehicle's Gameplay Geometry may reach, counted from the surface it rests on and locomotion included: one Unit Base for every two studs of its narrowest footprint side, and never above the agreed Deployment Volume's ceiling. A construction check made before deployment, never an in-game state. See `08-vehicles.md` (VEH-028).
@@ -314,7 +308,7 @@ The order in which players activate their units through a Turn: every player rol
 
 ## Wounded
 
-The middle Component State: the component still functions, and where the capability it provides is one of the three the ruleset degrades, it functions worse — a Wounded infantry model's movement (`07-movement.md`, MOVE-021), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded, whether that is the weapon or an unarmed attacker (`11-combat.md`, CBT-015). A component that provides none of those — a door, a wheel, a shield — loses nothing by being Wounded. Nothing else about any component changes, and the next successful damaging Impact advances it to Dead. See `16-damage-system.md`, DMG-005.
+The middle Component State: the component still functions, and where the capability it provides is one of the three the ruleset degrades, it functions worse — a Wounded infantry model's movement (`07-movement.md`, MOVE-021), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded, whether that is the weapon or an unarmed attacker (`11-combat.md`, CBT-015). A component that provides none of those — a door, a wheel, a shield — loses nothing by being Wounded. Nothing else about any component changes, and the next successful damaging Impact advances it to Dead. A Wounded infantry model is placed seated, which is how the state is shown on the model. See `16-damage-system.md`, DMG-005.
 
 ---
 

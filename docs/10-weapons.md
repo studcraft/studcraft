@@ -86,7 +86,7 @@ The sum of the Weapon Length of every weapon mounted on a platform may never exc
 Σ(Weapon Length) ≤ Platform Length
 ```
 
-Platform Length is the largest **horizontal** dimension of the Unit Base or vehicle carrying the weapons. A Unit Base is a volume — see `02-core-rules.md` (CORE-001) — and this reads its horizontal projection, so infantry's Platform Length stays 4 studs and the Unit Base's height never enters the calculation.
+Platform Length is the largest **horizontal** dimension of the Unit Base or vehicle carrying the weapons. A Unit Base is a volume — see `02-core-rules.md` (CORE-001) — and this reads only its `4 × 3` stud footprint, so infantry's Platform Length stays 4 studs and the Unit Base's height never enters the calculation.
 
 Examples
 

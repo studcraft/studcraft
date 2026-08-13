@@ -149,6 +149,8 @@ Operational → Wounded → Dead
 
 **Dead** — the component immediately ceases to exist. It is physically removed from the model. No dead component remains on the battlefield. This is the same physical-representation principle as `02-core-rules.md` (CORE-016) — see DMG-006.
 
+An infantry model is placed in the pose of its state: upright while Operational, seated once Wounded. The pose is the marker; no token is used.
+
 ---
 
 # DMG-006 — Universal Destruction

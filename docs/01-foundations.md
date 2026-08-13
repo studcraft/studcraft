@@ -75,7 +75,7 @@ One Unit Base is a volume measuring:
 
 **4 studs wide × 3 studs deep × 13 plate layers tall**
 
-(see `02-core-rules.md`, CORE-001, for the canonical definition, where the height comes from, and which projection each rule reads)
+(see `02-core-rules.md`, CORE-001, for the canonical definition)
 
 Everything in StudCraft is ultimately measured using Unit Bases.
 

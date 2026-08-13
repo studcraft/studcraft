@@ -60,7 +60,7 @@ Current gameplay:
 
 - Required for all powered vehicles.
 - Losing the Pilot disables vehicle movement (`08-vehicles.md`, VEH-013).
-- Because the Pilot occupies a Unit Base, a powered vehicle must be built at least two Unit Bases in footprint (`02-core-rules.md`, CORE-004).
+- Because the Pilot occupies a Unit Base, a powered vehicle must be built at least two Unit Bases in footprint (`08-vehicles.md`, VEH-001).
 
 ---
 
@@ -285,7 +285,7 @@ An access point's opening must physically pass the models that use it. With the 
 
 **Width** is not a judgment call. Every model on the table stands on Unit Bases (`02-core-rules.md`, CORE-001), and a model's 4-stud edge is its front (`02-core-rules.md`, CORE-002) — so the opening must be at least as wide as the front edge of whatever passes through it. Infantry is invariably 1 Unit Base, 4 studs, whatever the minifigure carries and whether it stands or sits (`09-transport.md`, TRN-002). A vehicle W Unit Bases wide needs `W × 4` studs.
 
-**Height** is measured the same way. An opening that passes infantry must be at least as clear as the Unit Base's vertical projection — see `02-core-rules.md`, CORE-001, which dimensions that projection and says where its height comes from. A model taller than one Unit Base is measured by its own height in plate layers.
+**Height** is measured the same way. An opening that passes infantry must be at least 13 plate layers clear — one Unit Base tall (`02-core-rules.md`, CORE-001). A model taller than one Unit Base is measured by its own height in plate layers.
 
 Measure the *clear* opening rather than the nominal frame: an element hanging in the doorway reduces it exactly as much as the frame does — see `15-geometry-layers.md` (GEO-004). Anything protruding beyond the model's own Unit Base is repositioned; the doorway is measured against the Unit Base either way. A hinged 1 × 2 tile covers an opening less than one brick high, which is why it moves and is still not a door.
 
