@@ -117,14 +117,15 @@ Document Boundaries").
 
 # Naming Conventions
 
-Rule identifiers are never renumbered and never reused: `MOV-001`, `WPN-001`,
+Rule identifiers are never renumbered and never reused: `MOVE-001`, `WPN-001`,
 `CBT-001`, `FLOW-001`. Each document owns its own prefix. A removed document's
 number is never reused either.
 
-Delete a rule whose content another document already states, and retire its
-number rather than leaving a stub behind. Keep a stub only where a superseded
-design would otherwise be re-proposed — `MEL-010`, `CBT-011` and `WPN-021`
-(`system/proposal-review.md`).
+A rule may be deleted. Its number is retired, never reissued, and no stub is
+left in its place — the diff records that the rule was there. `MEL-010` is the
+one stub, a number kept because its rule merged into another. Where the rule
+stays and only its design was superseded, the note goes inside that rule:
+`CBT-011` and `WPN-021` (`system/proposal-review.md`).
 
 Image filenames are a separate namespace owned by `assets/IMAGES.md`.
 `scripts/lint_ruleset.py` checks them against that convention and against the

@@ -23,12 +23,14 @@ Two things are reported:
   reused        an ID absent from the base, present now, and whose number is
                 below the highest its document already had. New rules append.
 
-An ID present in the base and absent now is **not** reported. Deleting a rule
-whose content another document already states is an ordinary edit, and the one
-way it can go wrong — stranding a citation aimed at the deleted ID — is caught
-by `scripts/lint_ruleset.py`, which fails on a reference to a rule ID that does
-not exist. What this script adds is the case that one cannot see: a number
-reappearing on a different rule.
+An ID present in the base and absent now is **not** reported. Deleting a rule is
+an ordinary edit. Its one failure mode is a stranded citation, and
+`scripts/lint_ruleset.py` catches that only within `docs/` and
+`assets/IMAGES.md` — it reads nothing else, while `README.md`,
+`CODE_OF_DESIGN.md`, `TODO.md` and `system/` all cite rule IDs too. A proposal
+retiring an ID therefore greps the whole repository for it, which
+`system/proposal-review.md` states as a step. What this script adds is the case
+no grep would think to look for: a number reappearing on a different rule.
 
 Usage:
 
