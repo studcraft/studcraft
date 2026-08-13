@@ -30,9 +30,9 @@ Every functional element should be physically represented.
 
 # SCS-001 — Unit Base (UB)
 
-The fundamental measuring unit of StudCraft is the Unit Base — see `02-core-rules.md` (CORE-001) for its definition, where its height comes from, and which projection each rule reads.
+The fundamental measuring unit of StudCraft is the Unit Base — see `02-core-rules.md` (CORE-001) for its definition.
 
-Its horizontal projection corresponds to the footprint of a LEGO minifigure.
+Its `4 × 3` stud footprint corresponds to the base of a LEGO minifigure.
 
 Every measurement in the game is derived from this unit.
 

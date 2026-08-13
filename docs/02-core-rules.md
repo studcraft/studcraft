@@ -44,21 +44,11 @@ One **Unit Base (UB)** is a volume measuring:
 
 Read horizontally, this is the size of the physical base an infantry model is built on — required by `04-construction-standard.md`, SCS-002. The 4-stud edge is the front (CORE-002).
 
-Height is counted in plate layers because that is the ruleset's vertical unit — a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). Thirteen plate layers is a standing minifigure on the base it is built on (`04-construction-standard.md`, SCS-002): 4 bricks from its feet to the top of its head, and one plate beneath them. **The stud on top of the head is not counted**, because a stud sits inside the piece above it rather than adding to the stack. Height is measured from the underside of that base, which is part of the volume rather than the floor beneath it.
+Height is counted in plate layers, the ruleset's vertical unit: a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). It is measured from the underside of the base a model stands on, which is part of the volume rather than the floor beneath it.
 
-**Projections.** A rule never reads more of the volume than it needs:
+All distances, Deployment Volumes and footprints are expressed using this unit. A footprint written `W × D` UB counts 4-stud widths by 3-stud depths, so a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`.
 
-| Reading | Used by |
-|---|---|
-| Horizontal projection — `4 × 3` studs | Distances, movement, deployment floors, footprints |
-| The volume itself — `4 × 3` studs by 13 plate layers | Transport capacity, interior space, and the Deployment Volume a model must fit inside |
-| Vertical projection — 4 studs by 13 plate layers | Passing through an opening |
-
-The vertical projection is taken across the front, because the 4-stud edge is the front (CORE-002) and it is what enters an opening first.
-
-A projection supplies a measured value and nothing else, and never replaces a physical check — the boundary `15-geometry-layers.md` draws (GEO-003, GEO-004).
-
-All distances, Deployment Volumes and vehicle footprints are expressed using this unit. A footprint written `W × D` UB counts 4-stud widths by 3-stud depths, so a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`.
+Each rule states which dimensions of the Unit Base it reads, and a measured value never replaces a physical check (`15-geometry-layers.md`, GEO-003, GEO-004).
 
 ---
 
@@ -100,11 +90,9 @@ Infantry occupy one Unit Base.
 
 ## CORE-004 — Vehicles
 
-A powered vehicle occupies two or more Unit Bases.
+A vehicle is a powered model, and its footprint is defined by the LEGO model itself.
 
-Two and not one because the Pilot occupies a Unit Base of its own — `08-vehicles.md` (VEH-013) gives the reason in full.
-
-Its footprint is defined by the LEGO model itself.
+How small a vehicle may be built is a vehicle-construction rule — `08-vehicles.md` (VEH-001), with VEH-013 for the reason.
 
 ---
 

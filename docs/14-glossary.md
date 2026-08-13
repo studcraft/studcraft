@@ -16,7 +16,7 @@ The universal action economy. See `02-core-rules.md`, CORE-006 and `03-game-flow
 
 Unit Base.
 
-The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 13 plate layers tall. See `02-core-rules.md` (CORE-001) for where that height comes from and the projections a rule reads it through.
+The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 13 plate layers tall. See `02-core-rules.md` (CORE-001).
 
 ---
 
@@ -285,12 +285,6 @@ The clear height inside a closed compartment, measured in plate layers from the 
 ## Slice
 
 The share of a Unit Base one cargo object occupies: 4 × 3 studs by that object's own height. Slices sharing a Unit Base may total no more than the Unit Base's height, and infantry never occupies a slice — it occupies the whole Unit Base. See `09-transport.md` (TRN-013).
-
----
-
-## Projection
-
-The reading of the Unit Base volume a rule takes: horizontal for distance, deployment floors and footprints; the whole volume for transport capacity and for the Deployment Volume a model must fit inside; vertical for passing an opening. A projection is a measured value and never replaces a physical check. See `02-core-rules.md` (CORE-001) and `15-geometry-layers.md` (GEO-004).
 
 ---
 

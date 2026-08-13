@@ -603,3 +603,215 @@ This does not grant a shot outside a unit's own activation: StudCraft has no rea
 - [x] 14.14 `python3 scripts/preflight.py` — as in 13.18, `Rule IDs are stable` is still expected to FAIL until the prerequisite merges, and every other check must PASS. Record it, tick this box, and carry on.
 
 - [x] 14.15 `git status --short` — now **four** modified files: `docs/02-core-rules.md`, `docs/12-melee.md`, `docs/14-glossary.md` and `docs/16-damage-system.md`, plus the untracked change directory as a single `??` entry.
+
+---
+
+## 15. Review of pull request #103 — CORE-001 and CORE-004 lose the last of what they do not own
+
+Two review comments on #103, both accepted in full. **Every anchor in this section was checked against the files as section 14 left them**, and occurs exactly once.
+
+**Comment 1 — `CORE-001` still explains how systems use the Unit Base.** The projections table names three readings and assigns each to the systems that consume it, which makes `CORE-001` a dependency hub: a reader wanting "what is one Unit Base and how do I measure it" gets a reference manual for every Unit-Base-based mechanic instead. The rule keeps the definition, the orientation, the height datum and the `W × D` conversion. The word *projection* leaves the ruleset entirely, so every rule that used it now states the dimension it actually reads.
+
+**Comment 2 — `CORE-004` still states the two-Unit-Base minimum, which `VEH-001` owns** word for word, with `VEH-013` owning the reason. `CORE-004` keeps the universal classification and points at the vehicle rules for the constraint. **No gameplay value changes: a powered vehicle still needs two Unit Bases.**
+
+Five documents join the change here — `docs/01-foundations.md`, `docs/04-construction-standard.md`, `docs/05-construction-components.md`, `docs/08-vehicles.md` and `docs/10-weapons.md` — bringing it to nine.
+
+**`README.md` and `assets/IMAGES.md` also refer to projections and are deliberately NOT edited here.** Neither is `docs/*.md`, and `system/repository-strategy.md` (Branch Naming) allows a proposal branch `docs/*.md` plus its own change directory only. They follow in a separate change on a kebab-case branch, merged after this one.
+
+Each task below names its own file path, because `scripts/check_task_anchors.py` resolves a target from the nearest preceding path.
+
+- [x] 15.1 In `docs/02-core-rules.md`, `CORE-001`, replace this anchor — everything from the plate-layer paragraph to the end of the rule. The three lines above it — "StudCraft uses a single measuring unit.", the bold dimensions, and the line ending "The 4-stud edge is the front (CORE-002)." — are **not** part of the anchor and are not touched:
+
+```
+Height is counted in plate layers because that is the ruleset's vertical unit — a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). Thirteen plate layers is a standing minifigure on the base it is built on (`04-construction-standard.md`, SCS-002): 4 bricks from its feet to the top of its head, and one plate beneath them. **The stud on top of the head is not counted**, because a stud sits inside the piece above it rather than adding to the stack. Height is measured from the underside of that base, which is part of the volume rather than the floor beneath it.
+
+**Projections.** A rule never reads more of the volume than it needs:
+
+| Reading | Used by |
+|---|---|
+| Horizontal projection — `4 × 3` studs | Distances, movement, deployment floors, footprints |
+| The volume itself — `4 × 3` studs by 13 plate layers | Transport capacity, interior space, and the Deployment Volume a model must fit inside |
+| Vertical projection — 4 studs by 13 plate layers | Passing through an opening |
+
+The vertical projection is taken across the front, because the 4-stud edge is the front (CORE-002) and it is what enters an opening first.
+
+A projection supplies a measured value and nothing else, and never replaces a physical check — the boundary `15-geometry-layers.md` draws (GEO-003, GEO-004).
+
+All distances, Deployment Volumes and vehicle footprints are expressed using this unit. A footprint written `W × D` UB counts 4-stud widths by 3-stud depths, so a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`.
+```
+
+with:
+
+```
+Height is counted in plate layers, the ruleset's vertical unit: a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). It is measured from the underside of the base a model stands on, which is part of the volume rather than the floor beneath it.
+
+All distances, Deployment Volumes and footprints are expressed using this unit. A footprint written `W × D` UB counts 4-stud widths by 3-stud depths, so a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`.
+
+Each rule states which dimensions of the Unit Base it reads, and a measured value never replaces a physical check (`15-geometry-layers.md`, GEO-003, GEO-004).
+```
+
+  **The derivation of thirteen goes with the projections.** It only ever justified the number, and the number is stated outright — a builder measures to 13 plate layers rather than reconstructing it from a minifigure, so the head-stud note has nothing left to disambiguate. The `GEO-003`/`GEO-004` pointer survives in one clause because it is the boundary that stops a measured value being used where the plastic must be checked.
+
+- [x] 15.2 In `docs/02-core-rules.md`, `CORE-004`, replace this anchor — the whole rule body below its heading:
+
+```
+A powered vehicle occupies two or more Unit Bases.
+
+Two and not one because the Pilot occupies a Unit Base of its own — `08-vehicles.md` (VEH-013) gives the reason in full.
+
+Its footprint is defined by the LEGO model itself.
+```
+
+with:
+
+```
+A vehicle is a powered model, and its footprint is defined by the LEGO model itself.
+
+How small a vehicle may be built is a vehicle-construction rule — `08-vehicles.md` (VEH-001), with VEH-013 for the reason.
+```
+
+  `VEH-001` already reads "A powered vehicle occupies two or more Unit Bases (UB)". **The gameplay rule does not change**; it stops being stated twice.
+
+- [x] 15.3 In `docs/05-construction-components.md`, `CMP-002`, replace this anchor — one bullet:
+
+```
+- Because the Pilot occupies a Unit Base, a powered vehicle must be built at least two Unit Bases in footprint (`02-core-rules.md`, CORE-004).
+```
+
+with:
+
+```
+- Because the Pilot occupies a Unit Base, a powered vehicle must be built at least two Unit Bases in footprint (`08-vehicles.md`, VEH-001).
+```
+
+- [x] 15.4 In `docs/05-construction-components.md`, `CMP-018`, replace this anchor — one line:
+
+```
+**Height** is measured the same way. An opening that passes infantry must be at least as clear as the Unit Base's vertical projection — see `02-core-rules.md`, CORE-001, which dimensions that projection and says where its height comes from. A model taller than one Unit Base is measured by its own height in plate layers.
+```
+
+with:
+
+```
+**Height** is measured the same way. An opening that passes infantry must be at least 13 plate layers clear — one Unit Base tall (`02-core-rules.md`, CORE-001). A model taller than one Unit Base is measured by its own height in plate layers.
+```
+
+  `CMP-018` is the rule that consumes the vertical reading, so it now states the dimension instead of naming a projection defined elsewhere.
+
+- [x] 15.5 In `docs/04-construction-standard.md`, `SCS-001`, replace this anchor — two lines:
+
+```
+The fundamental measuring unit of StudCraft is the Unit Base — see `02-core-rules.md` (CORE-001) for its definition, where its height comes from, and which projection each rule reads.
+
+Its horizontal projection corresponds to the footprint of a LEGO minifigure.
+```
+
+with:
+
+```
+The fundamental measuring unit of StudCraft is the Unit Base — see `02-core-rules.md` (CORE-001) for its definition.
+
+Its `4 × 3` stud footprint corresponds to the base of a LEGO minifigure.
+```
+
+- [x] 15.6 In `docs/10-weapons.md`, `WPN-004`, replace this anchor — one line:
+
+```
+Platform Length is the largest **horizontal** dimension of the Unit Base or vehicle carrying the weapons. A Unit Base is a volume — see `02-core-rules.md` (CORE-001) — and this reads its horizontal projection, so infantry's Platform Length stays 4 studs and the Unit Base's height never enters the calculation.
+```
+
+with:
+
+```
+Platform Length is the largest **horizontal** dimension of the Unit Base or vehicle carrying the weapons. A Unit Base is a volume — see `02-core-rules.md` (CORE-001) — and this reads only its `4 × 3` stud footprint, so infantry's Platform Length stays 4 studs and the Unit Base's height never enters the calculation.
+```
+
+- [x] 15.7 In `docs/01-foundations.md`, replace this anchor — one line:
+
+```
+(see `02-core-rules.md`, CORE-001, for the canonical definition, where the height comes from, and which projection each rule reads)
+```
+
+with:
+
+```
+(see `02-core-rules.md`, CORE-001, for the canonical definition)
+```
+
+- [x] 15.8 In `docs/08-vehicles.md`, `VEH-013`, replace this anchor — one line:
+
+```
+Because the Pilot occupies a Unit Base of its own (`09-transport.md`, TRN-014), a powered vehicle needs room for its Pilot in addition to its machinery. This is why the minimum footprint is two Unit Bases (`02-core-rules.md`, CORE-004; VEH-001) rather than one: at one, the Pilot is the whole vehicle. The floor is not a chosen number — it is whatever this rule and TRN-014 together imply.
+```
+
+with:
+
+```
+Because the Pilot occupies a Unit Base of its own (`09-transport.md`, TRN-014), a powered vehicle needs room for its Pilot in addition to its machinery. This is why the minimum footprint is two Unit Bases (VEH-001) rather than one: at one, the Pilot is the whole vehicle. The floor is not a chosen number — it is whatever this rule and TRN-014 together imply.
+```
+
+- [x] 15.9 In `docs/08-vehicles.md`, `VEH-028`, replace this anchor — one line:
+
+```
+A vehicle exceeding either bound is not a legal vehicle. It cannot be deployed until it is rebuilt — lower, or on a wider footprint — or, where the ceiling is what stops it, until the players agree a taller volume. There is no penalty, no marker and no in-game state: this is a construction check made once before the game, exactly like the two-Unit-Base minimum (`02-core-rules.md`, CORE-004; VEH-013).
+```
+
+with:
+
+```
+A vehicle exceeding either bound is not a legal vehicle. It cannot be deployed until it is rebuilt — lower, or on a wider footprint — or, where the ceiling is what stops it, until the players agree a taller volume. There is no penalty, no marker and no in-game state: this is a construction check made once before the game, exactly like the two-Unit-Base minimum (VEH-001; VEH-013).
+```
+
+- [x] 15.10 In `docs/14-glossary.md`, the `## UB` entry, replace this anchor — the whole entry body:
+
+```
+The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 13 plate layers tall. See `02-core-rules.md` (CORE-001) for where that height comes from and the projections a rule reads it through.
+```
+
+with:
+
+```
+The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 13 plate layers tall. See `02-core-rules.md` (CORE-001).
+```
+
+- [x] 15.11 In `docs/14-glossary.md`, **delete the whole `## Projection` entry**. Replace this anchor — the heading, its body, and the `---` below it, through the heading that follows:
+
+```
+## Projection
+
+The reading of the Unit Base volume a rule takes: horizontal for distance, deployment floors and footprints; the whole volume for transport capacity and for the Deployment Volume a model must fit inside; vertical for passing an opening. A projection is a measured value and never replaces a physical check. See `02-core-rules.md` (CORE-001) and `15-geometry-layers.md` (GEO-004).
+
+---
+
+## Maximum Height
+```
+
+with:
+
+```
+## Maximum Height
+```
+
+  `## Maximum Height` is a landmark and stays. The term *projection* is defined nowhere after this change, which is why every rule that used it is edited above to name a dimension instead.
+
+### Verification after section 15
+
+- [x] 15.12 `grep -rn "projection" docs/` — before: hits in `01-foundations.md`, `02-core-rules.md`, `04-construction-standard.md`, `05-construction-components.md`, `10-weapons.md` and `14-glossary.md`. After: **no output at all**. The word leaves the ruleset.
+
+- [x] 15.13 `grep -c -F "occupies two or more Unit Bases" docs/02-core-rules.md` — before: **1**, after: **0**. Task 15.2.
+
+- [x] 15.14 `grep -c -F "occupies two or more Unit Bases" docs/08-vehicles.md` — before: **1**, after: **1**. `VEH-001` is the owner and is not edited — a **0** here means the wrong file was touched.
+
+- [x] 15.15 `grep -rn "CORE-004" docs/` — before: four hits (`CORE-004`'s own heading, `CMP-002`, `VEH-013`, `VEH-028`). After: **one**, the heading in `docs/02-core-rules.md`. The other three are retargeted by tasks 15.3, 15.8 and 15.9.
+
+- [x] 15.16 `grep -c "^## Projection" docs/14-glossary.md` — before: **1**, after: **0**. Task 15.11.
+
+- [x] 15.17 `grep -c -F "13 plate layers clear" docs/05-construction-components.md` — before: **0**, after: **1**. Task 15.4.
+
+- [x] 15.18 `python3 scripts/lint_ruleset.py` — `Checked 15 docs, no structural issues found.` This is what confirms the retargeted citations resolve and that no document lost a required heading.
+
+- [x] 15.19 `python3 scripts/check_task_anchors.py core-states-only-what-it-owns` — must **exit 0**.
+
+- [x] 15.20 `python3 scripts/preflight.py` — as in 13.18 and 14.14, `Rule IDs are stable` is still expected to FAIL until #102 merges, and every other check must PASS. Record it, tick this box, and carry on.
+
+- [ ] 15.21 `git status --short` — now **nine** modified files: `docs/01-foundations.md`, `docs/02-core-rules.md`, `docs/04-construction-standard.md`, `docs/05-construction-components.md`, `docs/08-vehicles.md`, `docs/10-weapons.md`, `docs/12-melee.md`, `docs/14-glossary.md` and `docs/16-damage-system.md`. **`README.md` and `assets/IMAGES.md` must NOT appear** — they are a separate change (see this section's preamble). If either shows as modified, stop and report it.
