@@ -28,6 +28,11 @@ Look for these specifically. They recur.
 
 - **Dangling cross-references** — a doc cites a section name that exists
   nowhere in the change's own artifacts.
+- **A retired rule ID still cited from outside `docs/`** — grep the whole
+  repository before deleting a rule. `scripts/lint_ruleset.py` reads only
+  `docs/` and `assets/IMAGES.md`, and `README.md`, `CODE_OF_DESIGN.md`,
+  `TODO.md` and `system/` all cite rule IDs. Archived changes under
+  `openspec/changes/archive/` are history and are left as they are.
 - **Absolute claims falsified by a later fix** — once you make one exception
   explicit, re-scan for every place the old absolute claim still stands
   unqualified.
