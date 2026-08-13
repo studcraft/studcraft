@@ -144,3 +144,29 @@ The applied text therefore reads "This does not by itself grant a shot outside a
 It is dropped anyway, deliberately. `CODE_OF_DESIGN.md` Principle 9 states it — "Visibility is symmetric: what can see you can target you" — and it is derivable in the ruleset: `CBT-002` routes every attacker's targeting through `CORE-008`'s physical-visibility check, which is symmetric because seeing is. A principle both stated in the principles document and implied by two rules does not need a third statement in the rule a reader reaches first.
 
 **Recorded because it will recur:** a future reader finding `CORE-009` bare may want the clause back. The reason it is not there is this decision, not an oversight.
+
+---
+
+## Decision 12 — the projection vocabulary leaves the ruleset
+
+Review of #103 found `CORE-001` still doing two jobs: defining the Unit Base, and assigning three named readings of it to the systems that consume them. The second makes `CORE-001` a dependency hub — a reader asking "what is one Unit Base and how do I measure it" got a reference manual for every Unit-Base-based mechanic.
+
+Decision 6 kept the projections table on the grounds that four rules cite `CORE-001` for it. That reasoning held only while the vocabulary existed. **The vocabulary goes instead**, and each consuming rule now states the dimension it actually reads: `CMP-018` says 13 plate layers clear, `WPN-004` says the `4 × 3` stud footprint, `SCS-001` says the same. The glossary's *Projection* entry is deleted; the term is defined nowhere afterwards, which is the intended end state rather than an oversight.
+
+**The derivation of thirteen goes with it.** It only ever justified the number, and the number is stated outright — a builder measures to 13 plate layers rather than reconstructing it from a minifigure, so the head-stud note has nothing left to disambiguate. What survives is the plate/brick conversion, the height datum, and the `W × D` reading `VEH-028` cites by name.
+
+**Rejected: keeping the three readings named but dropping the "Used by" column.** That removes the dependency-hub half and keeps a definition, which is one edit instead of eleven. It was refused because it leaves a term defined in CORE purely so other documents can use it — the same shape, smaller.
+
+**Deferred, not skipped:** `README.md` and `assets/IMAGES.md` both describe `CORE-001` in terms of projections, and `assets/IMAGES.md` specifies an image whose first panel *is* the derivation. Neither is `docs/*.md`, and `system/repository-strategy.md` (Branch Naming) allows a proposal branch `docs/*.md` plus its own change directory only — so they cannot ride along, and they follow on a kebab-case branch merged after this one.
+
+---
+
+## Decision 13 — `CORE-004` stops stating the two-Unit-Base minimum
+
+`VEH-001` reads "A powered vehicle occupies two or more Unit Bases (UB)" and `VEH-013` owns the reason. `CORE-004` said the same thing, which is the duplication this change exists to remove — Decision 4 removed the Pilot paragraph from `CORE-004` and left the constraint it explains.
+
+`VEH-001` becomes the sole owner. `CORE-004` keeps the universal classification — a vehicle is a powered model whose footprint is the LEGO model — and points at the vehicle rules for how small one may be.
+
+**The gameplay rule is unchanged.** A powered vehicle still needs two Unit Bases.
+
+Three rules cited `CORE-004` for the minimum and are retargeted in the same pass: `CMP-002`, `VEH-013` and `VEH-028`. Leaving them would aim three citations at a rule that no longer states what they cite it for — the dangling-cross-reference class in `system/proposal-review.md`.

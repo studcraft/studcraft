@@ -14,7 +14,9 @@ The narrow purpose this change enforces:
 
 ## What Changes
 
-Thirteen edits in `docs/02-core-rules.md`, one in `docs/16-damage-system.md`, one in `docs/14-glossary.md` — fifteen, matching `tasks.md`'s coverage table row for row.
+Nine ruleset documents. `tasks.md` carries the edit-by-edit coverage; sections 1–13 are the change as proposed, section 14 the repairs its audit found, and section 15 the two review comments on pull request #103.
+
+Review of #103 widened two of the deletions below. **`CORE-001` loses the projections table as well**, and the word *projection* leaves the ruleset — each consuming rule now names the dimension it reads (`CMP-018`, `SCS-001`, `WPN-004`), and the glossary entry is deleted (`design.md`, Decision 12). **`CORE-004` also stops stating the two-Unit-Base minimum**, which `VEH-001` owns word for word; `CMP-002`, `VEH-013` and `VEH-028` are retargeted to it (`design.md`, Decision 13). No gameplay value changes in either.
 
 Every deletion names the rule that already states the deleted text, with two recorded exceptions: the symmetry clause in `CORE-009`, which `CODE_OF_DESIGN.md` Principle 9 owns rather than any rule (`design.md`, Decision 11), and `CORE-013`'s "no longer blocks Line of Sight", which follows from removal rather than being restated anywhere (`design.md`, Decision 4). The one sentence with no other owner at all — the infantry pose — is moved rather than deleted.
 
