@@ -96,7 +96,7 @@ Decorative elements have none. See `05-construction-components.md`, CMP-001.
 
 The direction a unit is oriented toward.
 
-Determines forward and rear movement, the left and right sides, front and rear firing arcs, and shield direction. See `02-core-rules.md`, CORE-002.
+Determines forward and rear movement, the left and right sides, and front and rear firing arcs. See `02-core-rules.md`, CORE-002. Which way a shield protects is settled by where it physically stands rather than by Facing — see `05-construction-components.md`, CMP-014.
 
 ---
 

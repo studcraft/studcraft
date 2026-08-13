@@ -195,7 +195,7 @@ Windows:
 
 Cargo Bays transport Unit Bases.
 
-Capacity is determined entirely by the available internal space.
+Capacity is determined entirely by the available internal space, counted in Unit Bases (`09-transport.md`, TRN-003) and bounded by the compartment's clearance (TRN-019).
 
 Cargo Bays never have an abstract transport value.
 

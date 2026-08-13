@@ -76,7 +76,6 @@ Facing determines:
 - Right side
 - Front firing arcs
 - Rear firing arcs
-- Shield direction
 
 ---
 

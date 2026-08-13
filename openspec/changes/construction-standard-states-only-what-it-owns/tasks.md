@@ -28,7 +28,7 @@ A `#` heading or a `---` horizontal rule inside a fence is real markdown that mu
 
 ### Scope and coverage
 
-Nine ruleset documents, `TODO.md` and one `system/` document, no spec delta: **twenty-eight edits and twenty-four non-edit tasks** (0.1, 16.1 – 16.11, 17.4 – 17.7, 18.8 – 18.12 and 19.2 – 19.4). Sections 1–16 are the change as proposed — seventeen edits, listed below. **Section 17 adds three repairs from the audit of the applied text**, **section 18 the seven from the review of pull request #104**, which brings in `docs/06-deployment.md` and `docs/08-vehicles.md`, and **section 19 the one edit outside the ruleset**, which has its own note on why it is here. Sections 17 and 18 carry anchors that are post-change text where an earlier section touched the same line; each says so.
+Nine ruleset documents, `TODO.md` and one `system/` document, no spec delta: **thirty-one edits and twenty-nine non-edit tasks** (0.1, 16.1 – 16.11, 17.4 – 17.7, 18.8 – 18.12, 19.2 – 19.4 and 20.4 – 20.8). Sections 1–16 are the change as proposed — seventeen edits, listed below. **Section 17 adds three repairs from the audit of the applied text**, **section 18 the seven from the first review of pull request #104**, which brings in `docs/06-deployment.md` and `docs/08-vehicles.md`, **section 19 the one edit outside the ruleset**, and **section 20 the three from the second review**. Sections 17, 18 and 20 carry anchors that are post-change text where an earlier section touched the same line; each says so.
 
 | `proposal.md` item | Task | Path |
 |---|---|---|
@@ -791,3 +791,72 @@ Range ≤ 6 × Weapon Length ≤ 6 × Platform Length (WPN-004)
 - [x] 19.3 `grep -c -F "(VEH-001, DEP-003)" system/proposal-review.md` returns `1`.
 
 - [x] 19.4 `python3 scripts/preflight.py` passes, all 12 checks.
+
+---
+
+## 20. Second review of pull request #104
+
+The review's other four items were already applied: `VEH-015` and `DEP-005` in section 18, `CMP-009` and `CMP-010` in section 18, `system/proposal-review.md` in section 19. Two things are new.
+
+**`CORE-002` stops claiming Facing determines shield direction.** The review's example is the one this change's own audit produced: a model faces north, its shield is on its left arm, the attacker is west — the shield interposes, and the unit's Facing had nothing to do with it. `CMP-014` owns physical interposition after task 14.1 and 17.1; the bullet is what kept the old ownership alive.
+
+**`CMP-012` gains the pointer the retirement of `SCS-014` left it without.** The review asked for a semantic audit of every rule that inherited a physical-fit concept from the retired rules, and this is its one finding — recorded with the rest of the sweep in `design.md`, Decision 14.
+
+- [x] 20.1 In `docs/02-core-rules.md`, `CORE-002`, replace this anchor — the last three items of the `Facing determines:` list:
+
+```
+- Front firing arcs
+- Rear firing arcs
+- Shield direction
+```
+
+with:
+
+```
+- Front firing arcs
+- Rear firing arcs
+```
+
+  The two firing-arc items are landmarks and stay. **Do not restore shield direction anywhere in `02-core-rules.md`**, and do not put it back into `docs/04-construction-standard.md`. `CMP-014` is the owner.
+
+- [x] 20.2 In `docs/14-glossary.md`, the ***Facing*** entry, replace this anchor:
+
+```
+Determines forward and rear movement, the left and right sides, front and rear firing arcs, and shield direction. See `02-core-rules.md`, CORE-002.
+```
+
+with:
+
+```
+Determines forward and rear movement, the left and right sides, and front and rear firing arcs. See `02-core-rules.md`, CORE-002. Which way a shield protects is settled by where it physically stands rather than by Facing — see `05-construction-components.md`, CMP-014.
+```
+
+  The glossary was the other half of the old ownership: task 13.1 retargeted this entry off the retired `SCS-004`, and it went on listing shield direction as something Facing determines. The added sentence is also the only inbound route to `CMP-014`, which nothing else cites.
+
+- [x] 20.3 In `docs/05-construction-components.md`, `CMP-012`, replace this anchor:
+
+```
+Capacity is determined entirely by the available internal space.
+```
+
+with:
+
+```
+Capacity is determined entirely by the available internal space, counted in Unit Bases (`09-transport.md`, TRN-003) and bounded by the compartment's clearance (TRN-019).
+```
+
+  `CMP-012` stated the capacity rule with no owner named. `SCS-014` used to state it too and was retired by task 6.1, leaving `TRN-003` and `TRN-019` as the owners and `CMP-012` as the one rule inheriting the concept without pointing at them. No capacity value changes.
+
+### Verification
+
+- [x] 20.4 `grep -rn -i "shield direction" docs/` returns **nothing**. Before tasks 20.1 and 20.2 it returned two lines — `docs/02-core-rules.md`'s bullet and the glossary's *Facing* entry — and both are gone: the bullet is deleted, and the glossary now says a shield **protects** by where it stands rather than naming a "shield direction" at all. The phrase leaves the ruleset with the mechanic it named.
+
+  **This task was written wrong and is corrected here.** It first claimed three lines before and one after, and the applier reported both halves as mismatched rather than editing anything to reconcile them — which is the required behaviour and worked. Task 20.5 is what confirms the glossary's replacement sentence landed.
+
+- [x] 20.5 `grep -c -F "CMP-014" docs/14-glossary.md` returns `1`. It returned `0` before task 20.2.
+
+- [x] 20.6 `grep -c -F "TRN-003" docs/05-construction-components.md` returns `1`. It returned `0` before task 20.3.
+
+- [x] 20.7 `python3 scripts/rule.py refs CMP-014 CMP-012 CORE-002` — every citer named must still exist, and `CORE-002` must have lost no citer that relied on the deleted bullet. `CORE-001`, `SCS-002`, `CMP-018`, `MOVE-002` and `VEH-002` cite `CORE-002` for facing itself, not for shields.
+
+- [x] 20.8 `python3 scripts/preflight.py` passes, all 12 checks.

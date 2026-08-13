@@ -129,6 +129,28 @@ That matters beyond the shield rule. `CORE-002`'s `Facing determines:` list ends
 
 The sentence lands in `CMP-014`, next to the interposition it qualifies.
 
+**`CORE-002`'s bullet went too, in section 20.** The second review of #104 asked for it, using the same example: a model faces north, its shield sits on its left arm, the attacker is west, and the shield interposes. Facing did not decide that. `CORE-002` now lists six things Facing determines and no longer claims shield direction is one of them; `CMP-014` is the sole owner, and the glossary's *Facing* entry says so. This closes the loop the previous change left open — it kept the bullet because nothing else stated shield direction, and now something does.
+
 **Rejected: keeping `SCS-022` as a trimmed rule.** What survives is not a construction requirement — it is which component the attacker's Impact meets first, which is geometry, and `CMP-014` already states the geometry half.
 
-**Corrected after the applied text was audited (task 17.1).** The sentence first written into `CMP-014` ended "This is the `Shield direction` that `02-core-rules.md` (CORE-002) determines", which equated two tests that disagree: what a shield physically stands between, and the Facing a unit's base declares. A shield on a minifigure's left arm interposes against a westward attacker while the model faces north. `SCS-022` never claimed otherwise — it said orientation matters "for this reason, not for any separate defensive bonus" — and the corrected sentence says only that. Whether `CORE-002`'s `Shield direction` bullet is right is a `02-core-rules.md` question, recorded Out of Scope.
+**Corrected after the applied text was audited (task 17.1).** The sentence first written into `CMP-014` ended "This is the `Shield direction` that `02-core-rules.md` (CORE-002) determines", which equated two tests that disagree: what a shield physically stands between, and the Facing a unit's base declares. A shield on a minifigure's left arm interposes against a westward attacker while the model faces north. `SCS-022` never claimed otherwise — it said orientation matters "for this reason, not for any separate defensive bonus" — and the corrected sentence says only that. The `CORE-002` bullet that the sentence had deferred to is removed in section 20.
+
+## Decision 14 — the semantic sweep for what the retired rules used to own
+
+The second review of #104 asked the right question about `SCS-005`: not "does anything still cite it" — task 16.3 answers that — but "does any rule still rely on what it meant, without an owner of its own now?" The same question applies to `SCS-014`, whose subject was capacity rather than fit.
+
+Swept `docs/` for the vocabulary both rules used: *physically fits*, *physical fit*, *must fit*, *physically pass*, *does not fit*, *clearance*, *available space*, *available internal space*, *interior volume*, *physical volume*.
+
+Every consumer has an explicit owner:
+
+| What is being asked | Owner | Consumers that cite it |
+|---|---|---|
+| Does a model pass through an opening? | `CMP-018` | `CMP-009`, `CMP-010`, `MOVE-018`, `MOVE-019`, `TRN-007`, `GEO-004`, `VEH-028` |
+| Does a model fit inside a transport? | `TRN-019`, with `TRN-003` for the count | `TRN-001`, `TRN-005`, `TRN-013`, `TRN-020`, `DEP-005`, `VEH-015` |
+| Does a crew member fit? | `VEH-015`, reading `TRN-014` and `TRN-019` | — |
+| Does an army fit the agreed volume? | `DEP-001` | `DEP-005`, `TRN-019`, `VEH-001` |
+| Does a muzzle fit the Weapon Front? | `WPN-019`, `WPN-020` | `WPN-002` |
+
+**One finding: `CMP-012`.** "Capacity is determined entirely by the available internal space" is exactly what the retired `SCS-014` said, and `CMP-012` named no owner for it. Task 20.3 adds the pointer to `TRN-003` and `TRN-019`. **No new rule was created**, which is what the review asked for: the gap was a missing citation, not a missing rule.
+
+The sweep also confirms the narrowing recorded in Decision 3. Nothing in `docs/` asks a general "does it fit" question outside those five cases, which is why retiring the universal statement leaves nothing undecided.
