@@ -185,7 +185,7 @@ Every component follows exactly the same mechanical rules regardless of what it 
 
 A typical minifig (Resistance 3, per DMG-004 Example 1) takes exactly two failed Damage Rolls to go from Operational to Dead — the same as a wheel, a shield, or a cannon built with the same Resistance. Nothing about *what* a component represents changes how it resolves an Impact — only its Resistance does.
 
-Physical/cosmetic representation of a component reaching Dead (how a broken window should look versus a destroyed wheel) is left entirely to the player and the table, per `02-core-rules.md` (CORE-016) and `04-construction-standard.md` (SCS-024) — this document does not prescribe it. Future supplements may add cosmetic guidance for specific constructions without changing any mechanic defined here.
+Physical/cosmetic representation of a component reaching Dead (how a broken window should look versus a destroyed wheel) is left entirely to the player and the table, per `02-core-rules.md` (CORE-016) — this document does not prescribe it. Future supplements may add cosmetic guidance for specific constructions without changing any mechanic defined here.
 
 ---
 

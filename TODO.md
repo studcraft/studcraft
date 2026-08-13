@@ -119,20 +119,6 @@ What would have to be decided: whether such a limit should be a scenario-specifi
 
 What would have to be decided: how each of these weapon types generates Impacts within the existing muzzle/Impact Strength system (`10-weapons.md`), since none of them currently has construction rules of its own.
 
-### Energy shields as a transparent-material example
-
-`SCS-023` (`docs/04-construction-standard.md`) lists, among examples of transparent LEGO elements:
-
-> Examples:
->
-> Glass
->
-> Energy shields (future)
->
-> Cockpit canopies
-
-What would have to be decided: what construction and gameplay rules, if any, would distinguish an "energy shield" from ordinary transparent armour once such a component exists.
-
 ---
 
 ## Combat
@@ -179,6 +165,6 @@ What would have to be decided: whether a removed (Dead) component can ever be re
 
 `DMG-008` (`docs/16-damage-system.md`):
 
-> Physical/cosmetic representation of a component reaching Dead (how a broken window should look versus a destroyed wheel) is left entirely to the player and the table, per `02-core-rules.md` (CORE-016) and `04-construction-standard.md` (SCS-024) — this document does not prescribe it. Future supplements may add cosmetic guidance for specific constructions without changing any mechanic defined here.
+> Physical/cosmetic representation of a component reaching Dead (how a broken window should look versus a destroyed wheel) is left entirely to the player and the table, per `02-core-rules.md` (CORE-016) — this document does not prescribe it. Future supplements may add cosmetic guidance for specific constructions without changing any mechanic defined here.
 
 What would have to be decided: whether specific, non-binding cosmetic suggestions (e.g. how to represent a destroyed window versus a destroyed wheel) would be useful enough to document, given that DMG-008 is explicit that no mechanic would change either way.

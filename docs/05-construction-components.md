@@ -229,6 +229,8 @@ Requirements:
 
 A shield provides no bonus beyond being a component in the way — its own Resistance (DMG-003) determines what it takes to get through it.
 
+A shield protects only what it physically stands between: one interposed between the attacker and a component protects it, one facing away blocks nothing. Orientation matters for that reason, not for any separate defensive bonus.
+
 ---
 
 # CMP-015 — Accessories
