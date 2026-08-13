@@ -153,7 +153,7 @@ Reserved for rule-ID stability. Vehicle component targeting is fully defined by 
 
 # MEL-011 — Physical Representation
 
-Combat results should be represented on the LEGO model whenever possible, per the universal physical-representation principle (`02-core-rules.md`, CORE-016; `16-damage-system.md`, DMG-006).
+Combat results should be represented on the LEGO model whenever possible, per the universal physical-representation principle (`02-core-rules.md`, CORE-016; `16-damage-system.md`, DMG-005, DMG-006).
 
 Examples:
 

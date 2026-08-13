@@ -44,11 +44,7 @@ One **Unit Base (UB)** is a volume measuring:
 
 Read horizontally, this is the size of the physical base an infantry model is built on — required by `04-construction-standard.md`, SCS-002. The 4-stud edge is the front (CORE-002).
 
-Height is counted in plate layers because that is the ruleset's vertical unit — a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). Thirteen plate layers is therefore 4 bricks and a plate. Height is measured from the underside of the base an infantry model stands on: that base is part of the volume, not the floor beneath it.
-
-The height is read from the model rather than chosen. Infantry occupies exactly one Unit Base whether standing or seated (`09-transport.md`, TRN-002), so a Unit Base must contain a standing minifigure on the base it is built on (`04-construction-standard.md`, SCS-002): 4 bricks from its feet to the top of its head, and one plate beneath them. Thirteen plate layers is that model, base included, and a Unit Base is the minimum operational space an object needs (`09-transport.md`, TRN-001), so it takes that and no more. **The stud on top of the minifigure's head is not counted here.** The counts in the paragraph above are stacking heights: a stud sits inside the piece above it rather than adding to the stack, and this measurement is taken the same way. Nor do headgear, weapons or equipment change the figure — infantry occupies exactly one Unit Base whatever it carries (`09-transport.md`, TRN-002).
-
-**What must fit is the Unit Base.** Wherever a rule asks whether something physically fits — a passenger, a crew member, cargo, a model passing an opening — the volume that must fit is the Unit Base: one for a minifigure, its own volume in Unit Bases for a vehicle (`04-construction-standard.md`, SCS-005). Never the loose model. A minifigure that would slip into a smaller gap than its Unit Base does not fit there.
+Height is counted in plate layers because that is the ruleset's vertical unit — a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). Thirteen plate layers is a standing minifigure on the base it is built on (`04-construction-standard.md`, SCS-002): 4 bricks from its feet to the top of its head, and one plate beneath them. **The stud on top of the head is not counted**, because a stud sits inside the piece above it rather than adding to the stack. Height is measured from the underside of that base, which is part of the volume rather than the floor beneath it.
 
 **Projections.** A rule never reads more of the volume than it needs:
 
@@ -60,11 +56,9 @@ The height is read from the model rather than chosen. Infantry occupies exactly 
 
 The vertical projection is taken across the front, because the 4-stud edge is the front (CORE-002) and it is what enters an opening first.
 
-A projection supplies a measured value and nothing else — the boundary `15-geometry-layers.md` draws (GEO-003).
+A projection supplies a measured value and nothing else, and never replaces a physical check — the boundary `15-geometry-layers.md` draws (GEO-003, GEO-004).
 
-It never replaces a physical check. Line of Sight (CORE-008) and Cover (CORE-010) are resolved against the plastic actually on the table, never against a Unit Base's silhouette (`15-geometry-layers.md`, GEO-004).
-
-All distances, Deployment Volumes and vehicle footprints are expressed using this unit. When a footprint is written as `W × D` UB (e.g. "Jeep: 2 × 3 UB"), the first number is a count of 4-stud widths and the second a count of 3-stud depths — a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`. A footprint is a horizontal reading, and says nothing about how tall a model actually is — though for a vehicle it does bound how tall the model may be (`08-vehicles.md`, VEH-028).
+All distances, Deployment Volumes and vehicle footprints are expressed using this unit. A footprint written `W × D` UB counts 4-stud widths by 3-stud depths, so a `2 × 3 UB` footprint measures `8 × 9` studs, not `6 × 12`.
 
 ---
 
@@ -108,11 +102,9 @@ Infantry occupy one Unit Base.
 
 A powered vehicle occupies two or more Unit Bases.
 
-One of those is taken by its Pilot, who occupies a Unit Base like any other crew member (`09-transport.md`, TRN-014) and is required for the vehicle to move at all (`08-vehicles.md`, VEH-013). A single-Unit-Base vehicle would be entirely filled by its own driver, with no vehicle left around them.
+Two and not one because the Pilot occupies a Unit Base of its own — `08-vehicles.md` (VEH-013) gives the reason in full.
 
 Its footprint is defined by the LEGO model itself.
-
-Vehicle movement and transport capacity are described in the Vehicle Rules.
 
 ---
 
@@ -146,7 +138,7 @@ Examples include:
 
 Every unit receives exactly **3 Action Points** per activation, regardless of its type or construction. No unit gains additional AP through its profile.
 
-**No Action Point cost scales with size.** Not with the size of the unit paying it — its footprint, its height, or the Unit Bases it occupies: an infantry model and a motorcycle pay the same to embark (`09-transport.md`, TRN-005). Not with the size of an interactive element it operates (CORE-007): a hatch and a cargo ramp cost the same to open. The allotment above is fixed, so a price that grew with the model would put a large enough model beyond acting at all — forbidden by arithmetic rather than by a rule, which is not how this ruleset forbids anything. A measurement may still decide **which** rule applies: an obstacle of 3 plate layers is crossed freely and one of 4 is climbed (`07-movement.md`, MOVE-009, MOVE-010). And where more than one Action Point is spent, the reason is stated in the rule that spends it and is never size — `11-combat.md`, CBT-001 charges per weapon system attacking, `08-vehicles.md`, VEH-008 per 90° turn, and MOVE-010 charges the climb itself: the second Action Point buys crossing the obstacle, not the obstacle's height.
+**No Action Point cost scales with size** — not with the size of the unit paying it, and not with the size of an interactive element it operates (CORE-007). An action's cost is set by the rule that governs that action, and where more than one Action Point is spent that rule states why; the reason is never size. A measurement may still decide **which** rule applies: an obstacle of 3 plate layers is crossed freely and one of 4 is climbed (`07-movement.md`, MOVE-009, MOVE-010).
 
 ---
 
@@ -155,20 +147,6 @@ Every unit receives exactly **3 Action Points** per activation, regardless of it
 ## CORE-007 — Physical Interaction
 
 Any LEGO element that can physically move may become interactive.
-
-Examples:
-
-- Doors
-
-- Gates
-
-- Drawbridges
-
-- Ramps
-
-- Hatches
-
-- Elevators
 
 Opening or closing an interactive element costs:
 
@@ -198,7 +176,7 @@ Fundamental combat rule:
 
 > If you can see it, you can shoot it.
 
-This is symmetric: if it can see you, you can be its target during its own activation (`03-game-flow.md`, FLOW-002). It does not grant a shot outside of a unit's own activation — StudCraft has no reaction fire (`11-combat.md`, CBT-014 lists it as a possible future extension, not a current rule).
+This does not grant a shot outside a unit's own activation: StudCraft has no reaction fire, which `11-combat.md` (CBT-014) lists as a possible future extension rather than a current rule.
 
 ---
 
@@ -212,36 +190,6 @@ A partially visible component has no separate cover level; it is simply visible 
 
 ---
 
-# Infantry States
-
-Infantry uses the universal Component State machine (`16-damage-system.md`, DMG-005) exactly like any other component — CORE-011/012/013 describe the infantry-specific physical representation of each state, and what Wounded costs an infantry model, not a separate state system.
-
-## CORE-011 — Operational
-
-The minifigure stands upright.
-
-The unit functions normally.
-
----
-
-## CORE-012 — Wounded
-
-The minifigure is placed in a seated position, representing an injured soldier.
-
-The seated position is the game marker. No additional token is required.
-
-A Wounded minifigure changes in exactly two ways. Its movement is reduced — `07-movement.md` (MOVE-021) states by how much. And it punches worse: an unarmed attack is the one attack whose weapon system is the minifigure itself (`12-melee.md`, MEL-008), so there its own Component State is read (`11-combat.md`, CBT-015). Nothing else changes. It rotates and falls exactly as if Operational, a climb still costs the additional Action Point MOVE-010 charges on top of a move that is now shorter, and the weapons it carries are components in their own right, degraded only when they are themselves Wounded (`11-combat.md`, CBT-015). The seated pose is the marker for all of it — a seated model moves less, punches worse, and dies to the next successful Impact (`16-damage-system.md`, DMG-005), the same as any other component.
-
----
-
-## CORE-013 — Dead
-
-The minifigure is physically removed from the battlefield — the same removal every component undergoes on reaching Dead (`16-damage-system.md`, DMG-006). No casualty marker is used; removal is the marker.
-
-Dead units no longer participate in the game and no longer block movement, Line of Sight, or provide Cover.
-
----
-
 # Equipment
 
 ## CORE-014 — Visible Equipment
@@ -250,44 +198,13 @@ Equipment must be physically represented.
 
 A unit cannot use equipment that is not present on the model.
 
-Examples:
-
-Weapons
-
-Shields
-
-Backpacks
-
-Tools
-
-Medical packs
-
-Special devices
-
 ---
 
 ## CORE-015 — Hands
 
 A minifigure may only use equipment it can physically carry.
 
-As a general guideline:
-
-One hand carries one one-handed item.
-
-Examples:
-
-- Pistol
-- Sword
-- Knife
-- Shield
-
-Two-handed equipment occupies both hands.
-
-Examples:
-
-- Rifle
-- Heavy Machine Gun
-- Rocket Launcher
+As a general guideline, one hand carries one one-handed item — a shield among them — and two-handed equipment occupies both hands. `10-weapons.md` (WPN-010) states which weapons are which.
 
 The physical model determines what the unit carries.
 
@@ -299,45 +216,22 @@ The physical model determines what the unit carries.
 
 Whenever possible, changes in game state should be represented by modifying the model itself.
 
-Examples:
-
-A wounded soldier sits.
-
-A dead soldier is removed.
-
-A destroyed weapon is removed.
-
-A broken window loses its transparent brick.
-
-An opened door is physically opened.
-
 StudCraft always prefers physical representation over markers.
 
 ---
 
 # Universal Rule
 
-Whenever a conflict exists between:
-
-- written rules
-- physical construction
-
-the following priority applies:
+When rules from different levels conflict, the higher level takes precedence:
 
 1. Foundations
 2. Core Rules
 3. Construction Standards
 4. Scenario Rules
 
----
+The order ranks these four levels only. A system document — Movement, Vehicles, Damage and the rest — is not a level in it; it states the rules for its own subject.
 
-# Design Notes
-
-These rules intentionally avoid introducing statistics.
-
-The goal of StudCraft is for players to understand the battlefield simply by observing the LEGO models.
-
-The physical model is always the primary source of truth.
+The physical model is the source of every physical fact these rules read; this order settles which rule reads it and what it means.
 
 ---
 
