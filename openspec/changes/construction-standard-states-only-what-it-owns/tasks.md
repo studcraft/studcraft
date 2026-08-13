@@ -28,7 +28,7 @@ A `#` heading or a `---` horizontal rule inside a fence is real markdown that mu
 
 ### Scope and coverage
 
-Seven ruleset documents and `TODO.md`, no spec delta: **twenty edits and sixteen non-edit tasks** (0.1, 16.1 – 16.11 and 17.4 – 17.7). Sections 1–16 are the change as proposed — seventeen edits, listed below. **Section 17 adds three repairs from the audit of the applied text**, and its anchors are post-change text; it has its own note.
+Nine ruleset documents and `TODO.md`, no spec delta: **twenty-seven edits and twenty-one non-edit tasks** (0.1, 16.1 – 16.11, 17.4 – 17.7 and 18.8 – 18.12). Sections 1–16 are the change as proposed — seventeen edits, listed below. **Section 17 adds three repairs from the audit of the applied text**, and **section 18 the seven from the review of pull request #104**, which brings in `docs/06-deployment.md` and `docs/08-vehicles.md`. Both later sections carry anchors that are post-change text where an earlier section touched the same line; each says so.
 
 | `proposal.md` item | Task | Path |
 |---|---|---|
@@ -50,7 +50,7 @@ Seven ruleset documents and `TODO.md`, no spec delta: **twenty edits and sixteen
 | `TODO.md` — the `DMG-008` quote | 15.1 | `TODO.md` |
 | `TODO.md` — the *Energy shields* entry | 15.2 | `TODO.md` |
 
-**Untouched, deliberately:** `SCS-002`, `SCS-006`, `SCS-010`, `SCS-011`, `SCS-012`, `SCS-013`, `SCS-016` and `SCS-017`, and the `# Purpose`, `# Design Philosophy`, `# Construction Principles` and `# Summary` sections of `docs/04-construction-standard.md`. `CMP-009` and `CMP-010`, which restate the `1 AP` cost this change removes from `SCS-007` and `SCS-008` — recorded in `proposal.md` (Out of Scope), not an oversight (`design.md`, Decision 8). `WPN-009`, which keeps the mounting rule `SCS-015` restated (`design.md`, Decision 4). `system/proposal-review.md`, which cites `SCS-003` and is repaired on its own branch — nothing checks `system/` against `docs/`, so that repair is not part of applying this change (`design.md`, Decision 11). Every archived change under `openspec/changes/archive/`. `openspec/specs/` — this change ships no delta (`design.md`, Decision 9). `CHANGELOG.md` and every `**Version:**` header.
+**Untouched, deliberately:** `SCS-002`, `SCS-006`, `SCS-013`, `SCS-016` and `SCS-017`, and the `# Purpose`, `# Design Philosophy`, `# Construction Principles` and `# Summary` sections of `docs/04-construction-standard.md`. **`SCS-010`, `SCS-011`, `SCS-012`, `CMP-009` and `CMP-010` were on this list and are now edited by section 18**, at the request of the review of #104 — the three terrain rules lose their `07-movement.md` sentence (`design.md`, Decision 13) and the two component rules stop restating the `1 AP` cost (`design.md`, Decision 8). `CMP-018`, which the same review calls overlong, stays out. `WPN-009`, which keeps the mounting rule `SCS-015` restated (`design.md`, Decision 4). `system/proposal-review.md`, which cites `SCS-003` and is repaired on its own branch — nothing checks `system/` against `docs/`, so that repair is not part of applying this change (`design.md`, Decision 11). Every archived change under `openspec/changes/archive/`. `openspec/specs/` — this change ships no delta (`design.md`, Decision 9). `CHANGELOG.md` and every `**Version:**` header.
 
 ---
 
@@ -629,3 +629,133 @@ What must fit inside a vehicle is the Unit Base itself — see `02-core-rules.md
 - [x] 17.6 `grep -c -F "see \`02-core-rules.md\` (CORE-001) for its dimensions" docs/09-transport.md` returns `1`.
 
 - [x] 17.7 `python3 scripts/preflight.py` passes again, all 12 checks.
+
+---
+
+## 18. Review of pull request #104
+
+Seven edits from the maintainer's review. Two of them close items this change had recorded as Out of Scope, at the reviewer's explicit request; `proposal.md` no longer lists them there. **Anchors here are post-change text where section 17 touched the file, and pre-change text everywhere else.** Two new documents join the change: `docs/06-deployment.md` and `docs/08-vehicles.md`.
+
+### `docs/04-construction-standard.md` — the terrain rules lose their delegation sentence
+
+Each of `SCS-010`, `SCS-011` and `SCS-012` ends by naming the document that owns its gameplay consequence. The reviewer's point: the rule states a construction requirement, `07-movement.md` owns what that construction does, and saying so inside the rule explains an ownership the rule already demonstrates. **Add no replacement sentence.**
+
+- [x] 18.1 In `docs/04-construction-standard.md`, `SCS-010`, replace this anchor:
+
+```
+Walls must be physically built from LEGO elements.
+
+How walls affect movement during a game is defined in `07-movement.md`.
+```
+
+with:
+
+```
+Walls must be physically built from LEGO elements.
+```
+
+- [x] 18.2 In `docs/04-construction-standard.md`, `SCS-011`, replace this anchor:
+
+```
+Slopes must be physically built from LEGO slope elements.
+
+How slopes affect movement during a game is defined in `07-movement.md`.
+```
+
+with:
+
+```
+Slopes must be physically built from LEGO slope elements.
+```
+
+- [x] 18.3 In `docs/04-construction-standard.md`, `SCS-012`, replace this anchor:
+
+```
+Stairs must be physically built from LEGO plates or bricks.
+
+How stairs affect movement during a game is defined in `07-movement.md`.
+```
+
+with:
+
+```
+Stairs must be physically built from LEGO plates or bricks.
+```
+
+  Each rule keeps its single sentence and its `---`. `VEH-027` cites `SCS-011` and `SCS-008` for their physical requirements, not for the deleted sentences, so nothing dangles.
+
+### `docs/05-construction-components.md` — `CMP-009` and `CMP-010` stop restating the cost
+
+`CORE-007` owns the generic interaction cost. `MOVE-018` and `MOVE-019` point at it without repeating the number; these two repeat it. The physical requirement stays in both rules — only the restated value goes.
+
+- [x] 18.4 In `docs/05-construction-components.md`, `CMP-009`, replace this anchor. The bullet at the top is a landmark and is **not** an edit:
+
+```
+- Line of Sight
+
+Opening or closing a door costs **1 Action Point** (see `02-core-rules.md`, CORE-007).
+```
+
+with:
+
+```
+- Line of Sight
+```
+
+- [x] 18.5 In `docs/05-construction-components.md`, `CMP-010`, replace this anchor. The first line is a landmark and is **not** an edit:
+
+```
+Ramps may serve as vehicle access points.
+
+Lowering or raising a ramp costs **1 Action Point** (see `02-core-rules.md`, CORE-007).
+```
+
+with:
+
+```
+Ramps may serve as vehicle access points.
+```
+
+  No gameplay value changes: the cost is still `1 Action Point`, stated once, by `CORE-007`. Both rules keep "Must physically open and close" / "Must physically move".
+
+### The stale `CORE-001` citations
+
+`CORE-001` defines the Unit Base and no longer states anything about what must fit; `TRN-019` owns that. Both rules below cite `CORE-001` for the fit claim. **Do not restore any text to `CORE-001`** — the consumer citation moves.
+
+- [x] 18.6 In `docs/08-vehicles.md`, `VEH-015`, replace this anchor:
+
+```
+Crew must physically fit inside the vehicle. A crew member occupies a Unit Base like any other passenger (`09-transport.md`, TRN-014), so what must fit is that Unit Base (`02-core-rules.md`, CORE-001).
+```
+
+with:
+
+```
+Crew must physically fit inside the vehicle. A crew member occupies a Unit Base like any other passenger (`09-transport.md`, TRN-014), so what must fit is that Unit Base (`09-transport.md`, TRN-019).
+```
+
+- [x] 18.7 In `docs/06-deployment.md`, `DEP-005`, replace this anchor:
+
+```
+If a Unit Base fits inside the vehicle, a minifigure may be transported in it (`02-core-rules.md`, CORE-001; `09-transport.md`, TRN-019).
+```
+
+with:
+
+```
+If a Unit Base fits inside the vehicle, a minifigure may be transported in it (`09-transport.md`, TRN-019).
+```
+
+  `DEP-005` already cited `TRN-019` alongside `CORE-001`; only the stale half goes.
+
+### Verification
+
+- [x] 18.8 `grep -c "07-movement.md" docs/04-construction-standard.md` returns `0`. It returned `3` before tasks 18.1 – 18.3.
+
+- [x] 18.9 `grep -c "1 Action Point" docs/05-construction-components.md` returns `0`. It returned `2` before tasks 18.4 and 18.5.
+
+- [x] 18.10 `grep -n "CORE-001" docs/06-deployment.md docs/08-vehicles.md` — no line claims `CORE-001` states what must fit. `VEH-001`, `VEH-021`, `VEH-028` and `DEP-001` cite it for the Unit Base as a measure, which is what it defines; those are untouched.
+
+- [x] 18.11 `grep -n "^# SCS-" docs/04-construction-standard.md` still lists exactly the same eleven headings as task 16.2. No rule was removed or renumbered by this section.
+
+- [x] 18.12 `python3 scripts/preflight.py` passes, all 12 checks.

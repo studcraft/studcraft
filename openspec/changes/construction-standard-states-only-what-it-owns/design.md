@@ -85,7 +85,17 @@ The Damage System explicitly declines to own it, so the source brief's assignmen
 
 `CORE-007` owns the cost. Four rules restate it. `SCS-006` already delegates correctly ("What operating one costs is defined in `02-core-rules.md`, CORE-007"), so `SCS-007` and `SCS-008` restating a number two rules down is the defect this change is scoped to.
 
-`CMP-009` and `CMP-010` have the same defect and are left standing. **This is deliberate, not an oversight:** correcting them widens the change into a document whose own scope has not been reviewed, and a reviewer reading `05-construction-components.md` for that reason will find more than two lines. It is recorded in `proposal.md` (Out of Scope) so the next reader inherits the finding rather than rediscovering it.
+`CMP-009` and `CMP-010` had the same defect and were left standing, recorded in `proposal.md` (Out of Scope) so the next reader would inherit the finding rather than rediscover it.
+
+**The review of #104 asked for them, and they are now in — tasks 18.4 and 18.5.** The reviewer's reasoning is the one this decision deferred to a later change: `CORE-007` owns the generic interaction cost, and a component rule establishes that the component physically exists and can operate. `MOVE-018` and `MOVE-019` were already the model — they name the cost's owner without repeating its value. Nothing else in `05-construction-components.md` is touched; `CMP-018`, which the same review calls out as overlong, stays Out of Scope.
+
+## Decision 13 — `SCS-010`, `SCS-011` and `SCS-012` lose their delegation sentence
+
+Each ended by naming `07-movement.md` as the owner of its gameplay consequence. The review of #104 asked for all three to go, and the reasoning holds: `SCS-010` says walls must be physically built, and that is the whole rule. A reader does not learn where the movement rule lives from a sentence saying it is elsewhere — they learn it from `07-movement.md`, which states it.
+
+This is not the same as the pointers this change **kept**. `SCS-002` cites `CORE-001` because it uses the Unit Base to state its own requirement; `SCS-006` cites `CORE-007` because "what operating one costs" is a question the rule raises and does not answer. `SCS-010`'s deleted sentence raised no question — it disclaimed one.
+
+**Nothing replaces the deleted lines.** `VEH-027` cites `SCS-011` and `SCS-008` for their physical requirements, which survive untouched.
 
 ## Decision 9 — no spec delta
 

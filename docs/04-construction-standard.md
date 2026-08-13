@@ -78,23 +78,17 @@ Transparent LEGO elements represent windows.
 
 Walls must be physically built from LEGO elements.
 
-How walls affect movement during a game is defined in `07-movement.md`.
-
 ---
 
 # SCS-011 — Slopes
 
 Slopes must be physically built from LEGO slope elements.
 
-How slopes affect movement during a game is defined in `07-movement.md`.
-
 ---
 
 # SCS-012 — Stairs
 
 Stairs must be physically built from LEGO plates or bricks.
-
-How stairs affect movement during a game is defined in `07-movement.md`.
 
 ---
 

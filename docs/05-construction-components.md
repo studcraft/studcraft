@@ -163,8 +163,6 @@ Doors are used for:
 - Entering buildings
 - Line of Sight
 
-Opening or closing a door costs **1 Action Point** (see `02-core-rules.md`, CORE-007).
-
 ---
 
 # CMP-010 — Ramps
@@ -178,8 +176,6 @@ Requirements:
 - Decorative ramps have no effect.
 
 Ramps may serve as vehicle access points.
-
-Lowering or raising a ramp costs **1 Action Point** (see `02-core-rules.md`, CORE-007).
 
 ---
 
