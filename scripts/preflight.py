@@ -20,7 +20,7 @@ What it runs:
   1. scripts/lint_ruleset.py          (Docs ruleset linter)
   2. scripts/check_delta_coverage.py  (OpenSpec change is coherent, part 2)
   3. scripts/check_task_anchors.py    (no CI gate — a proposal defect, caught here)
-  4. scripts/check_id_stability.py    (no CI gate — IDs are permanent across revisions)
+  4. scripts/check_id_stability.py    (no CI gate — IDs are never renumbered or reused)
   5. scripts/check_todo_quotes.py     (no CI gate — TODO.md must not misquote docs/)
   6. openspec validate                (OpenSpec change is coherent, part 1)
   7. pytest                           (Tests — skipped when pytest is absent)
