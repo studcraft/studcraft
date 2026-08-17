@@ -120,6 +120,12 @@ That single sentence also closes the consequence Decision 5 accepted and underst
 
 The debt is `SCS-012`'s, not this change's. What makes it this change's business is that this is the pass that rewrote the sentence, and it had already widened the list once — plates to plates or bricks — which `system/proposal-review.md` names as the moment to consolidate rather than carry forward.
 
+**The functional test needed a bound, and finding it was the point of stating the change out loud.** "A stepped surface a model can climb" moves the question from which piece to how tall a step, and no rule quantified that: the old wording was silent about step height too, but it was objective about the material, so the silence cost nothing. Once the criterion is geometry, the geometry has to be measurable or the rule is an adjudication — the same defect this series retired `CMP-017` and `04`'s `Visible` condition for.
+
+`MOVE-009` already owns the answer: a unit crosses an obstacle of up to three plate layers freely. So `MOVE-013` reads "no single step is taller than an obstacle a unit crosses freely (MOVE-009)" and **writes no number** — Principle 7, and the same discipline that keeps `CMP-018` citing `CORE-001` instead of repeating `4 × 3`.
+
+One consequence is worth stating because it looks like a gap and is not: a flight with steps of four to six plate layers stops being a staircase, and a unit meets it as a series of ordinary obstacles — climbable one step at a time at the additional Action Point `MOVE-010` charges, impassable above six. A path you walk up at no cost and a wall you climb at a cost stay different things, which is what `MOVE-012` and `MOVE-013` are for.
+
 **One is a signpost the move made necessary.** `VEH-027` now sends a vehicle reader into `MOVE-012`, whose second paragraph is infantry-scoped in substance. `VEH-021` carries an explicit guard against exactly that trap; `MOVE-012` gains one.
 
 **One is a word.** `GEO-002` opens its list of Visual Geometry examples with "Slopes", while `MOVE-012` now makes slope elements constitutive of a terrain feature that grants access. The bullet becomes "Decorative slope elements".

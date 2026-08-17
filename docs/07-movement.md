@@ -189,11 +189,13 @@ A slope is built from LEGO slope elements, and is a valid climbing surface.
 
 Units may move normally over connected slopes, at no additional Action Point cost — a slope is ordinary terrain, not an obstacle to climb. Distance travelled up a slope counts against the normal movement limit (MOVE-004).
 
+That paragraph is the infantry rule. A vehicle reads this rule for what a slope is built from and nothing else; whether it can ascend one is its own question (`08-vehicles.md`, VEH-027).
+
 ---
 
 # MOVE-013 — Stairs
 
-Stepped surfaces a model can climb are valid movement paths, whatever they are built from.
+Stepped surfaces are valid movement paths, whatever they are built from, as long as no single step is taller than an obstacle a unit crosses freely (MOVE-009).
 
 Units may climb them normally, at no additional Action Point cost, and the distance climbed counts against the normal movement limit (MOVE-004) — the same as slopes (MOVE-012).
 

@@ -28,9 +28,9 @@ A `#` heading, a `---` rule, a `> ` blockquote or a numbered list inside a fence
 
 ### Scope and coverage
 
-Four ruleset documents edited and one deleted; `README.md`, `CONTRIBUTING.md`, `TODO.md`, `assets/IMAGES.md` and two `system/` documents. **Twenty-four edits and eighteen non-edit tasks** (0.1, 12.1 – 12.7, 13.8 – 13.15 and 13.17 – 13.18).
+Four ruleset documents edited and one deleted; `README.md`, `CONTRIBUTING.md`, `TODO.md`, `assets/IMAGES.md` and two `system/` documents. **Twenty-six edits and twenty-five non-edit tasks** (0.1, 12.1 – 12.7, 13.8 – 13.15, 13.17 – 13.18, 13c.2 – 13c.4 and 13d.2 – 13d.5).
 
-Sections 1–12 are the change as proposed — sixteen edits, mapped below. **Section 13 adds seven repairs from the `ruleset-auditor` pass**, which could not run before the pull request was opened and ran against the pushed branch; it brings in `docs/15-geometry-layers.md`. **Section 13b adds one more**, found by reading the applied rule rather than by any check: task 13.6 left a plural pronoun without an antecedent. Anchors in both are post-change text, and where one supersedes an earlier task's reasoning the earlier task says so.
+Sections 1–12 are the change as proposed — sixteen edits, mapped below. **Section 13 adds seven repairs from the `ruleset-auditor` pass**, which could not run before the pull request was opened and ran against the pushed branch; it brings in `docs/15-geometry-layers.md`. **Section 13b adds one more**, found by reading the applied rule rather than by any check: task 13.6 left a plural pronoun without an antecedent. **Section 13c bounds the step that 13.6's functional test permits**, at the maintainer's decision, by citing `MOVE-009` rather than writing a number. **Section 13d adds the vehicle guard the audit asked for and section 13 never wrote** — a finding lost between reading the audit and drafting the tasks, and asserted as done in a commit message before it existed. Anchors in all four are post-change text, and where one supersedes an earlier task's reasoning the earlier task says so.
 
 **One spec delta ships with this change**, at `specs/unit-base/spec.md` in this directory: task 1.1 moves a requirement into `CORE-001`, which is the tracked `unit-base` capability's rule, so the requirement is added to that capability rather than left to fall out at the Archive cut (`design.md`, Decision 7). **The applier does not write it** — it is already in the change directory, and `scripts/check_delta_coverage.py` reads it on every `preflight` run.
 
@@ -596,3 +596,71 @@ Stepped surfaces a model can climb are valid movement paths, whatever they are b
 - [x] 13.17 `grep -c -F "Stepped surfaces a model can climb are valid movement paths" docs/07-movement.md` returns `1`, and `grep -c -F "A stepped surface a model can climb" docs/07-movement.md` returns `0`. **Task 13.11 is superseded by this pair** — it expected the singular form.
 
 - [x] 13.18 `python3 scripts/preflight.py` passes, all 12 checks.
+
+---
+
+## 13c. `MOVE-013` bounds the step it now permits
+
+Task 13.6 traded a material list for a functional test — "a stepped surface a model can climb" — and left "can climb" doing work no rule quantifies. Nothing states how tall a single step may be, so two players can disagree about a staircase with two-brick steps. The old wording had the same silence, but it was objective about the material and the silence cost less; once the criterion is the geometry, the geometry has to be measurable.
+
+The bound is not a new number. `MOVE-009` already says a unit crosses an obstacle of up to three plate layers freely, so a step no taller than that is one the model itself answers for. **Do not write the number** — cite the rule that owns it.
+
+- [x] 13c.1 In `docs/07-movement.md`, `MOVE-013`, replace this anchor — the line task 13.16 wrote:
+
+```
+Stepped surfaces a model can climb are valid movement paths, whatever they are built from.
+```
+
+with:
+
+```
+Stepped surfaces are valid movement paths, whatever they are built from, as long as no single step is taller than an obstacle a unit crosses freely (MOVE-009).
+```
+
+  "a model can climb" goes with it: the step bound is what made that phrase true, so stating the bound and the judgement together would say it twice. The paragraph below is untouched, and "them" still has a plural antecedent.
+
+  One consequence, and it is coherent rather than a gap: a flight with steps of four to six plate layers is no longer a staircase, and a unit meets it as a series of ordinary obstacles — climbable at the additional Action Point `MOVE-010` charges, one step at a time, or impassable above six. A path you walk up at no cost and a wall you climb at a cost stay different things.
+
+### Verification
+
+- [x] 13c.2 `grep -c -F "no single step is taller than an obstacle a unit crosses freely" docs/07-movement.md` returns `1`, and `grep -c -F "a model can climb" docs/07-movement.md` returns `0`.
+
+- [x] 13c.3 `grep -c -F "3 plate layers" docs/07-movement.md` returns `4`, **unchanged by this task**. That is the count before it: `MOVE-009`'s own limit and its plate-to-brick conversion, and `MOVE-016`'s two falling figures. A `5` means the number was restated inside `MOVE-013` instead of cited from `MOVE-009`; stop and report it.
+
+- [x] 13c.4 `python3 scripts/lint_ruleset.py` passes, and `python3 scripts/preflight.py` passes all 12 checks.
+
+---
+
+## 13d. The vehicle guard the audit asked for, which section 13 never wrote
+
+The `ruleset-auditor` pass found that `VEH-027` now sends a vehicle reader into `MOVE-012`, whose second paragraph is infantry-scoped in substance — no additional Action Point cost, distance counting against `MOVE-004`'s infantry limit — while saying "Units". `VEH-021` carries an explicit guard against exactly that trap: "Do not use MOVE-011's access-point list here: it is the infantry rule and includes stairs, which are never a legal vehicle ascent." `system/proposal-review.md` names this defect class by example, and the example it names is this pair of rules.
+
+**Section 13 was written to include that guard and does not contain it.** The finding was dropped between reading the audit and writing the tasks, and the loss was invisible: no verification named it, and it was then asserted as done in commit `d0c43e9`'s message and in the pull-request comment. Neither can be rewritten — `system/repository-strategy.md` forbids rewriting history and force-pushing — so this section makes the claim true and says why it is arriving late.
+
+`07-movement.md` does carry a `# Vehicle Movement` section, sixty lines below `MOVE-012`, ending "Vehicles and infantry differ most at stairs: infantry climb them (MOVE-013), vehicles never do (VEH-027)." That is not the guard: a reader arriving at `MOVE-012` from `VEH-027`'s citation never reaches it.
+
+- [x] 13d.1 In `docs/07-movement.md`, `MOVE-012`, replace this anchor — the rule's second paragraph:
+
+```
+Units may move normally over connected slopes, at no additional Action Point cost — a slope is ordinary terrain, not an obstacle to climb. Distance travelled up a slope counts against the normal movement limit (MOVE-004).
+```
+
+with:
+
+```
+Units may move normally over connected slopes, at no additional Action Point cost — a slope is ordinary terrain, not an obstacle to climb. Distance travelled up a slope counts against the normal movement limit (MOVE-004).
+
+That paragraph is the infantry rule. A vehicle reads this rule for what a slope is built from and nothing else; whether it can ascend one is its own question (`08-vehicles.md`, VEH-027).
+```
+
+  An addition, and the anchor stays in the file exactly as it is — the new paragraph goes below it. The rule's first line, which task 4.1 wrote, is untouched.
+
+### Verification
+
+- [x] 13d.2 `grep -c -F "That paragraph is the infantry rule" docs/07-movement.md` returns `1`. It returned `0` before this task.
+
+- [x] 13d.3 `grep -c -F "VEH-027" docs/07-movement.md` returns `3`. It returned `2` — the `# Vehicle Movement` section's two mentions, both of which stay.
+
+- [x] 13d.4 `python3 scripts/lint_ruleset.py` passes. The added citation is in the comma form, so this is what confirms `VEH-027` resolves in `08-vehicles.md`.
+
+- [x] 13d.5 `python3 scripts/preflight.py` passes, all 12 checks.
