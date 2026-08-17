@@ -15,7 +15,8 @@ been, and they drifted.
 1. Design the change: `proposal.md`, `design.md`, `tasks.md`.
 2. **Raise `proposal-auditor`.** Fix what it reports before applying.
 3. **Raise `proposal-applier`.** Give it the absolute working directory and the
-   branch.
+   branch. It runs `scripts/apply_tasks.py` for the anchor pairs and does by
+   hand only what the script leaves.
 4. **Raise `ruleset-auditor` on the applied text.**
 5. **Read the result yourself.** That step never belongs to an agent.
 6. **Then `git-operator`** issues the commands, handed the paths, the branch
@@ -24,6 +25,27 @@ been, and they drifted.
 Across every delegated change so far, **every defect found afterwards was in
 the proposal, not in the execution.** That is the whole argument for the split:
 judgement goes into writing and auditing, transcription goes to the applier.
+
+## Transcription is a script now
+
+`scripts/apply_tasks.py` applies every anchor-and-replacement pair a `tasks.md`
+states, in file order, and refuses the whole run if any anchor does not match
+exactly once. It follows from the same finding: **execution was never the risky
+half**, and a task carrying its replacement text verbatim is a patch, not a
+piece of prose to be understood.
+
+This does not shorten the chain. The applier still reads what `--check` reports,
+still applies what the script declines to touch — a file created or deleted, a
+task with no fenced pair — still runs the verifications, and still reports what
+it had to interpret. It is now supervising a mechanical step rather than
+performing one, which is what leaves both auditors and the reviewer in place.
+
+The script writes files, and a script reached through `Bash` is not seen by the
+`PreToolUse` hook that refuses a bad edit. So it refuses for itself: `main` and
+`develop`, a branch not named for a change that edits `docs/*.md`,
+`openspec/specs/`, `CHANGELOG.md`, any `**Version:**` header, and any path
+outside the repository. Those are the same rules `preflight.py` mirrors, in a
+third place, because the write reaches the disk by a third route.
 
 Neither auditor has `Edit` or `Write`, by construction, so neither can repair
 what it is measuring. Keep it that way.
@@ -44,7 +66,12 @@ applying a task requires composing prose, the task is underspecified.
 Replacement text goes in a **triple-backtick fence**. State in the preamble
 that the fence is not part of the text, and that a `#` heading or `|` table
 inside it is real markdown. `scripts/check_task_anchors.py` rejects the old
-blockquote form and any mix of the two.
+blockquote form, any mix of the two, and a task that announces an anchor and
+carries no fenced pair.
+
+**The fence is what makes the task machine-applicable**, so this stopped being
+a matter of taste: `scripts/apply_tasks.py` reads exactly this shape, and a task
+written any other way is one somebody has to type in by hand.
 
 ## Define the vocabulary the tasks use
 
@@ -78,14 +105,17 @@ Point", a `grep "^> "` expecting zero hits in documents that all end with an
 epigraph, and a count of "the four files" in a directory of five.
 
 `python3 scripts/verify_tasks.py <change-name>` runs each command and prints
-what the task expected beside what the command printed. It judges neither. It
-runs read-only commands only — a `tasks.md` is a file anyone can open a PR
-against.
+what the task expected beside what the command printed. It does not judge
+whether they agree; it does fail on a command that could not run at all, which
+is the case above. It runs read-only commands only — a `tasks.md` is a file
+anyone can open a PR against.
 
 ## Provide a coverage table
 
 Map every item in `proposal.md` to the task that addresses it, and recompute
-totals mechanically. Counts stated in prose go stale.
+totals mechanically. Counts stated in prose go stale, and so do rows:
+`check_task_anchors.py` fails a row naming a task the file does not contain,
+which is what a renumbering leaves behind.
 
 ---
 

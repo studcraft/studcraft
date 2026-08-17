@@ -96,6 +96,43 @@ class TestRepositoryScriptsThatWrite:
         refused("python3 scripts/not_a_real_script.py")
 
 
+class TestACommandThatCannotRunIsAFailure:
+    """Exit 1 is an answer — `grep -c` prints 0 and exits 1, and a task may
+    expect exactly that. Exit 2 is the command itself failing."""
+
+    @staticmethod
+    def change(tmp_path, monkeypatch, codes: dict[str, int]):
+        directory = tmp_path / "a-change"
+        directory.mkdir()
+        (directory / "tasks.md").write_text(
+            "".join(
+                f"- [x] {number} Run `{command}` — expect **0**.\n"
+                for number, command in enumerate_commands(codes)
+            )
+        )
+        monkeypatch.setattr(verify_tasks, "CHANGES_DIR", tmp_path)
+        monkeypatch.setattr(
+            verify_tasks, "run", lambda command: (f"(exit {codes[command]})", codes[command])
+        )
+
+    def test_an_exit_of_two_fails_the_run(self, tmp_path, monkeypatch, capsys):
+        self.change(tmp_path, monkeypatch, {"grep -c x docs/": 2})
+        assert verify_tasks.verify("a-change") == 1
+        assert "cannot run" in capsys.readouterr().out
+
+    def test_an_exit_of_one_does_not(self, tmp_path, monkeypatch):
+        self.change(tmp_path, monkeypatch, {"grep -c x docs/a.md": 1})
+        assert verify_tasks.verify("a-change") == 0
+
+    def test_a_command_not_on_path_fails_the_run(self, tmp_path, monkeypatch):
+        self.change(tmp_path, monkeypatch, {"openspec validate a-change": 127})
+        assert verify_tasks.verify("a-change") == 1
+
+
+def enumerate_commands(codes: dict[str, int]):
+    return [(f"1.{index}", command) for index, command in enumerate(codes, start=1)]
+
+
 class TestTaskParsing:
     def test_a_command_and_its_expectation_are_read_off_one_line(self):
         tasks = '- [x] 2.1 Run `grep -c "x" docs/07-movement.md` — before: **2**, after: **0**.\n'
