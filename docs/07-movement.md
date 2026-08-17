@@ -193,7 +193,7 @@ Units may move normally over connected slopes, at no additional Action Point cos
 
 # MOVE-013 — Stairs
 
-Stairs built from plates or bricks are valid movement paths.
+Stepped surfaces a model can climb are valid movement paths, whatever they are built from.
 
 Units may climb them normally, at no additional Action Point cost, and the distance climbed counts against the normal movement limit (MOVE-004) — the same as slopes (MOVE-012).
 
@@ -203,7 +203,7 @@ Units may climb them normally, at no additional Action Point cost, and the dista
 
 If no slope, stair or ramp exists, the wall cannot be climbed. These are the three legal access points listed in MOVE-011, and no other construction grants access.
 
-Physical construction determines accessibility.
+Any stable LEGO surface may support a unit, and physical construction determines accessibility.
 
 ---
 

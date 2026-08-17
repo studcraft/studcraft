@@ -101,6 +101,33 @@ Rejected: no delta plus a sentence in `proposal.md` saying no requirement stops 
 
 ---
 
+## Decision 8 — What the audit of the applied text changed
+
+Seven edits, in `tasks.md` section 13. The `ruleset-auditor` pass could not run before the pull request was opened — the session hit its limit — and ran afterwards, against the pushed branch. It found nothing wrong with any moved requirement and six things wrong with the prose around them, which is the pattern every audit in this series has produced.
+
+**Two were claims this proposal made and could not support.**
+
+- **`SCS-013`'s permissive half was stated nowhere.** Decision 4 above said `MOVE-014` and `MOVE-015` covered both halves of the platform rule. `MOVE-014` covers accessibility; `MOVE-015` says where a *falling* unit lands, which is a different claim. So "any stable LEGO surface may support a unit" lands in `MOVE-014` after all — a move, not a retirement, and the retirement bullet in `proposal.md` is corrected.
+- **`CORE-005`'s range was wrong twice.** It ran to `MOVE-015`, which sits under a `# Falling` heading and splits the falling pair by excluding `MOVE-016`; and nothing in the range said anything about a platform until the fix above. Narrowed to `MOVE-014`, with `TODO.md`'s quote following it.
+
+**One was a duplication I introduced and had been warned about.** `CORE-001`'s absorbed sentence ended "— the plate this rule counts in the Unit Base's height", which is what the next paragraph already says. Task 1.1's own note named that paragraph. Deleted, in the rule and in the spec delta.
+
+**One reverses Decision 5 in part.** That decision declined to touch the Universal Rule, on the ground that its third level names a class of rule rather than the deleted file. The name does — but the deleted file's `# Purpose` was the only text in the ruleset that said which rules were in the class, and `CORE`'s next sentence excludes system documents by name. So the level was left enforcing a category nothing defined, with `FLOW-013` still requiring scenarios not to contradict it. The level now states its membership by test: **any rule stating how a legal model or piece of terrain must be built, wherever it is written.**
+
+That single sentence also closes the consequence Decision 5 accepted and understated. It said nothing turns on the slope and stair requirements dropping out of level 3; `VEH-027` does, since it derives "the angle does not matter and is never measured" from `MOVE-012`. Membership by test means those requirements never left the level, so nothing turns on it after all.
+
+**One is a rules change, taken at the maintainer's decision rather than as a repair.** `MOVE-013` required stairs "built from plates or bricks", and `MOVE-014` closes the access list with "no other construction grants access" — so a staircase built from LEGO's own stair or wedge elements was not a legal way up a wall, while a plate-built one was. The rule read a part label where the model shows the answer, against Principle 1 and Principle 13. It now states the functional test: a stepped surface a model can climb, whatever it is built from.
+
+The debt is `SCS-012`'s, not this change's. What makes it this change's business is that this is the pass that rewrote the sentence, and it had already widened the list once — plates to plates or bricks — which `system/proposal-review.md` names as the moment to consolidate rather than carry forward.
+
+**One is a signpost the move made necessary.** `VEH-027` now sends a vehicle reader into `MOVE-012`, whose second paragraph is infantry-scoped in substance. `VEH-021` carries an explicit guard against exactly that trap; `MOVE-012` gains one.
+
+**One is a word.** `GEO-002` opens its list of Visual Geometry examples with "Slopes", while `MOVE-012` now makes slope elements constitutive of a terrain feature that grants access. The bullet becomes "Decorative slope elements".
+
+Left as an observation, recorded rather than acted on: **`MOVE-002` is now a pure pointer** — the base to `CORE-001`, the front edge to `CORE-002`, and a third sentence restating `MOVE-001`. Decision 1's test would delete it. It stays because a movement reader arriving at `# MOVE-002 — Infantry Base` should find the base, and because retiring a rule ID is its own change with its own audit.
+
+---
+
 ## What was checked and found clean
 
 - All five `SCS` IDs through `scripts/rule.py refs` and a repository-wide grep. Three are cited by nothing; `SCS-002`'s two citers and `SCS-011`'s one are retargeted here.

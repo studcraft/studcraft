@@ -1,7 +1,7 @@
 ## MODIFIED Requirements
 
 ### Requirement: Unit Base Measurement
-The Unit Base (UB) SHALL be StudCraft's universal measurement, equal to a volume measuring 4 studs wide, 3 studs deep and 13 plate layers tall. Thirteen plate layers SHALL equal exactly 4 standard bricks and one plate, and the height SHALL be measured from the underside of the base an infantry model stands on, which is part of the volume rather than the floor beneath it. That base SHALL be one physical base measuring 4 × 3 studs and one plate thick — the Unit Base read horizontally, and the plate counted in its height. Every distance, Deployment Volume, and vehicle or infantry footprint SHALL be expressed using this unit. Wherever a rule asks whether something physically fits, the volume that must fit SHALL be the Unit Base — one for a minifigure, its own volume in Unit Bases for a vehicle — and never the loose model.
+The Unit Base (UB) SHALL be StudCraft's universal measurement, equal to a volume measuring 4 studs wide, 3 studs deep and 13 plate layers tall. Thirteen plate layers SHALL equal exactly 4 standard bricks and one plate, and the height SHALL be measured from the underside of the base an infantry model stands on, which is part of the volume rather than the floor beneath it. That base SHALL be one physical base measuring 4 × 3 studs and one plate thick — the Unit Base read horizontally. Every distance, Deployment Volume, and vehicle or infantry footprint SHALL be expressed using this unit. Wherever a rule asks whether something physically fits, the volume that must fit SHALL be the Unit Base — one for a minifigure, its own volume in Unit Bases for a vehicle — and never the loose model.
 
 #### Scenario: Unit Base dimensions
 - **WHEN** a Unit Base is measured

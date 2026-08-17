@@ -42,7 +42,7 @@ One **Unit Base (UB)** is a volume measuring:
 
 **4 studs wide × 3 studs deep × 13 plate layers tall**
 
-Read horizontally, this is the physical base every infantry model must be built on: one base, 4 × 3 studs, one plate thick — the plate this rule counts in the Unit Base's height. The 4-stud edge is the front (CORE-002).
+Read horizontally, this is the physical base every infantry model must be built on: one base, 4 × 3 studs, one plate thick. The 4-stud edge is the front (CORE-002).
 
 Height is counted in plate layers, the ruleset's vertical unit: a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). It is measured from the underside of the base a model stands on, which is part of the volume rather than the floor beneath it.
 
@@ -101,7 +101,7 @@ How small a vehicle may be built is a vehicle-construction rule — `08-vehicles
 
 Buildings, fortifications and scenery are permanent battlefield elements.
 
-A structure's doors, windows and other functional parts follow `05-construction-components.md`, like any other model's; its walls, slopes, stairs and platforms are terrain, and how a unit crosses or stands on them is `07-movement.md` (MOVE-009 through MOVE-015). Structure-specific damage (collapse, breaching walls) and Deployment Volume occupation for scenario-placed structures are not yet defined — a structure's individual components (doors, windows, walls) already resolve Impacts through the standard Component Damage System (`16-damage-system.md`) like any other component; only structure-wide consequences (e.g. a building collapsing) remain future work.
+A structure's doors, windows and other functional parts follow `05-construction-components.md`, like any other model's; its walls, slopes, stairs and platforms are terrain, and how a unit crosses or stands on them is `07-movement.md` (MOVE-009 through MOVE-014). Structure-specific damage (collapse, breaching walls) and Deployment Volume occupation for scenario-placed structures are not yet defined — a structure's individual components (doors, windows, walls) already resolve Impacts through the standard Component Damage System (`16-damage-system.md`) like any other component; only structure-wide consequences (e.g. a building collapsing) remain future work.
 
 ---
 
@@ -219,6 +219,8 @@ When rules from different levels conflict, the higher level takes precedence:
 2. Core Rules
 3. Construction Standards
 4. Scenario Rules
+
+Level 3 is a class of rule rather than a set of documents: a Construction Standard is any rule stating how a legal model or piece of terrain must be built, wherever it is written. `05-construction-components.md` and `10-weapons.md` hold most of them, and so does a construction requirement inside another document — what a slope is built from, `07-movement.md`, MOVE-012.
 
 The order ranks these four levels only. A system document — Movement, Vehicles, Damage and the rest — is not a level in it; it states the rules for its own subject.
 
