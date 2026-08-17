@@ -226,7 +226,7 @@ A firing port passes a line of sight, not a model, so the access-opening require
 
 # TRN-012 — Transparent Elements
 
-Transparent LEGO elements represent windows or viewports (`04-construction-standard.md`, SCS-009).
+Transparent LEGO elements represent windows or viewports (`05-construction-components.md`, CMP-022).
 
 Passengers and attackers may interact through them if line of sight exists (`02-core-rules.md`, CORE-008).
 

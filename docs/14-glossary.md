@@ -88,7 +88,7 @@ Passengers cannot be targeted directly; they are internal components the hull pr
 
 A LEGO element that has gameplay effects.
 
-Decorative elements have none. See `05-construction-components.md`, CMP-001.
+Decorative elements have none unless another rule gives them one. See `05-construction-components.md`, CMP-001.
 
 ---
 
@@ -126,7 +126,7 @@ A full round in which every unit on the battlefield is activated once. See `03-g
 
 ## Weapon Body
 
-The functional physical structure of a weapon — barrel, mechanism and support — excluding mounting hardware and decoration. Defines Weapon Length (measured along the firing axis) and Weapon Width. See `04-construction-standard.md`, SCS-017 and `10-weapons.md`, WPN-003, WPN-018.
+The functional physical structure of a weapon — barrel, mechanism and support — excluding mounting hardware and decoration. Defines Weapon Length (measured along the firing axis) and Weapon Width. See `10-weapons.md`, WPN-001, WPN-003, WPN-018.
 
 ---
 
@@ -296,7 +296,7 @@ The greatest height a vehicle's Gameplay Geometry may reach, counted from the su
 
 ## Interactive Element
 
-Any LEGO element that can physically move and be operated during play — a door, hatch, ramp, drawbridge, elevator or gate. It must physically exist on the model rather than be declared, and operating one costs 1 Action Point unless a rule says otherwise. See `02-core-rules.md`, CORE-007 and `04-construction-standard.md`, SCS-006.
+Any LEGO element that can physically move and be operated during play — a door, hatch, ramp, drawbridge, elevator or gate. It must physically exist on the model rather than be declared, and operating one costs 1 Action Point unless a rule says otherwise. See `02-core-rules.md`, CORE-007 and `05-construction-components.md`, CMP-019.
 
 ---
 
