@@ -21,12 +21,27 @@ the text it named is gone. So zero is reported, with which of the two it is
 left to the reader — the one thing the script cannot know is whether the change
 has been applied yet.
 
-Also checked: a `tasks.md` that *instructs* anyone to edit `CHANGELOG.md` or a
-`**Version:**` header. Both belong to the Release cut alone, both turn the pull
-request red, and both are the proposal's defect rather than the applier's — see
+Three more defect classes are checked here because a script can settle them,
+and every minute an auditor spends re-deriving what a script already proved is
+a minute it did not spend on whether the change is *right*:
+
+**A task that announces an anchor and carries no fenced pair.** It described an
+edit instead of stating it, and the applier would have to compose the
+replacement.
+
+**A coverage-table row naming a task that does not exist.** Tasks get
+renumbered and the table does not follow.
+
+**A task that *instructs* anyone to edit `CHANGELOG.md` or a `**Version:**`
+header.** Both belong to the Release cut alone, both turn the pull request red,
+and both are the proposal's defect rather than the applier's — see
 `system/documentation-standards.md` (Versioning). Only task lines and headings
 count as instructions; a `tasks.md` that lists `CHANGELOG.md` under "untouched,
 deliberately" is doing exactly the right thing and must not be flagged for it.
+
+The format itself is parsed by `scripts/tasks_format.py`, shared with
+`scripts/apply_tasks.py` so that the checker and the applier cannot disagree
+about which fenced block is an anchor.
 """
 
 from __future__ import annotations
@@ -38,25 +53,31 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from repo import CHANGES_DIR, REPO_ROOT, unarchived_changes  # noqa: E402
+from tasks_format import (  # noqa: E402
+    FENCE_RE,
+    HEADING_RE,
+    TASK_LINE_RE,
+    TASK_NUMBER_RE,
+    blocks,
+    edits,
+    target_for,
+    task_is_done,
+)
 
-FENCE_RE = re.compile(r"^```")
-TASK_LINE_RE = re.compile(r"^\s*- \[[ xX]\]")
-TASK_DONE_RE = re.compile(r"^\s*- \[[xX]\]")
-HEADING_RE = re.compile(r"^#{1,4} ")
-# Any path a task can name, not only one under docs/. It was `docs/` only, and a
-# task targeting `.claude/agents/ruleset-auditor.md` then resolved to whichever
-# docs/ file a previous section happened to name — which reports a missing anchor
-# at best and silently checks the wrong file at worst. A change is allowed to
-# touch more than the ruleset, so the checker has to be.
-#
-# **At least one `/` is required.** A first attempt without that matched the bare
-# `design.md`, `proposal.md` and `tasks.md` that every change mentions in its own
-# prose, resolved them against the repository root where no such files exist, and
-# turned nine harmless sentences into errors. A directory component is what
-# separates "the file this task edits" from "a document this task talks about".
-TARGET_PATH_RE = re.compile(r"`((?:[\w.-]+/)+[\w.-]+\.(?:md|py|json|ya?ml))`")
 CHANGELOG_RE = re.compile(r"\bCHANGELOG\.md\b")
 VERSION_RE = re.compile(r"\*\*Version:\*\*")
+
+# A coverage-table row, and the cells inside it that are nothing but task
+# numbers: "1.1", "18.4, 18.5", "20.2, 20.3".
+TABLE_ROW_RE = re.compile(r"^\|(.+)\|\s*$")
+TASK_CELL_RE = re.compile(r"^\d+[a-z]*\.\d+(\s*[,–—-]\s*\d+[a-z]*\.\d+)*$")
+TASK_REF_RE = re.compile(r"\d+[a-z]*\.\d+")
+
+# How every edit task in this repository announces itself: "replace this
+# anchor", "replace this block", "replace the paragraph added by task 1.1 —
+# this anchor". A task matching this and carrying no fenced pair has described
+# an edit instead of stating it.
+REPLACE_ANNOUNCE_RE = re.compile(r"replace .{0,60}?this (anchor|block)", re.IGNORECASE)
 
 
 class Finding:
@@ -64,76 +85,6 @@ class Finding:
         self.severity = severity
         self.where = where
         self.message = message
-
-
-def blocks(lines: list[str]) -> list[tuple[int, str, str]]:
-    """Every fenced block, as (line number, lead-in text, body).
-
-    The lead-in is the nearest preceding non-empty line, which is what says
-    whether the block is an anchor or the text replacing it: this repository
-    writes "Replace this anchor ...:" then the anchor, then "with:" then the
-    replacement.
-    """
-    found: list[tuple[int, str, str]] = []
-    index = 0
-
-    while index < len(lines):
-        if not FENCE_RE.match(lines[index]):
-            index += 1
-            continue
-
-        start = index
-        index += 1
-        body: list[str] = []
-        while index < len(lines) and not FENCE_RE.match(lines[index]):
-            body.append(lines[index])
-            index += 1
-        index += 1
-
-        lead = ""
-        for back in range(start - 1, -1, -1):
-            if lines[back].strip():
-                lead = lines[back].strip()
-                break
-
-        found.append((start + 1, lead, "\n".join(body)))
-
-    return found
-
-
-def task_is_done(lines: list[str], upto: int) -> bool:
-    """Whether the task owning the block above line `upto` is already ticked.
-
-    This is what separates the two readings of a zero-match anchor. A ticked
-    task has been applied, so its anchor is *supposed* to be gone and saying so
-    is noise — on a fully applied change it is thirty-five lines of noise, which
-    is how a real finding gets missed. An unticked task's missing anchor is the
-    finding this script exists for.
-    """
-    for back in range(upto - 1, -1, -1):
-        if TASK_LINE_RE.match(lines[back]):
-            return bool(TASK_DONE_RE.match(lines[back]))
-    return False
-
-
-def target_for(lines: list[str], upto: int) -> str | None:
-    """Which file the anchor above line `upto` belongs to.
-
-    Taken from the nearest preceding line that names one — a section heading
-    ("## 2. `docs/09-transport.md` — ...") or the task line itself. A block whose
-    target is a spec delta, or a task that never says which file it edits, names
-    no path and is reported as unresolved rather than guessed at.
-
-    The path may be anywhere in the repository. Restricting it to `docs/` meant a
-    task naming `.claude/agents/ruleset-auditor.md` fell through to whichever
-    ruleset document a previous section had named, and was then checked against
-    the wrong file.
-    """
-    for back in range(upto - 1, -1, -1):
-        match = TARGET_PATH_RE.search(lines[back])
-        if match and (HEADING_RE.match(lines[back]) or TASK_LINE_RE.match(lines[back])):
-            return match.group(1)
-    return None
 
 
 def check_anchors(change: str, tasks: Path) -> list[Finding]:
@@ -261,6 +212,88 @@ def check_replacement_format(change: str, tasks: Path) -> list[Finding]:
     return findings
 
 
+def check_edit_tasks_carry_a_block(change: str, tasks: Path) -> list[Finding]:
+    """A task that says it replaces an anchor must carry both fenced blocks.
+
+    `system/delegating-to-agents.md` puts "give the replacement text verbatim"
+    first, and `.claude/agents/proposal-auditor.md` asks the auditor to judge it
+    by reading. The half that needs no reading is this one: a task announcing an
+    anchor, with no anchor-and-`with:` pair under it, has described an edit
+    instead of stating it. The applier then has to compose the replacement,
+    which is the one thing it must never do.
+
+    Only the announced form is checked. A task that says "Run `grep …`" or
+    "verify" carries no block by design, and a task mentioning
+    `check_task_anchors.py` is talking about the checker rather than announcing
+    an edit.
+    """
+    text = tasks.read_text()
+    lines = text.splitlines()
+    findings: list[Finding] = []
+
+    carried = {edit.task for edit in edits(lines, tasks.parent) if edit.task}
+
+    for number, line in enumerate(lines, start=1):
+        match = TASK_NUMBER_RE.match(line)
+        if not match or not REPLACE_ANNOUNCE_RE.search(line):
+            continue
+        if match.group(4) in carried:
+            continue
+        findings.append(Finding(
+            "error", f"{change}/tasks.md:{number}",
+            f"task {match.group(4)} announces an anchor but carries no fenced "
+            f"anchor-and-`with:` pair. The applier would have to compose the "
+            f"replacement — state it verbatim instead.",
+        ))
+
+    return findings
+
+
+def check_coverage_table(change: str, tasks: Path) -> list[Finding]:
+    """Every task a coverage table names must exist.
+
+    A coverage table maps each item in `proposal.md` to the task that carries
+    it, and `system/delegating-to-agents.md` warns that counts stated in prose
+    go stale. So does a row: tasks get renumbered, sections get inserted, and
+    the table keeps pointing at a number nobody wrote. Whether the mapping is
+    *right* still needs a reader; whether it points at something that exists
+    does not.
+
+    Only cells that are nothing but task numbers are read. A cell of prose that
+    happens to contain "2.1" is not a reference, and treating it as one would
+    turn a sentence about a measurement into an error.
+    """
+    lines = tasks.read_text().splitlines()
+    findings: list[Finding] = []
+
+    existing = {
+        match.group(4)
+        for match in (TASK_NUMBER_RE.match(line) for line in lines)
+        if match
+    }
+    if not existing:
+        return findings
+
+    for number, line in enumerate(lines, start=1):
+        row = TABLE_ROW_RE.match(line)
+        if not row:
+            continue
+        for cell in row.group(1).split("|"):
+            cleaned = cell.replace("`", "").strip()
+            if not TASK_CELL_RE.match(cleaned):
+                continue
+            missing = [ref for ref in TASK_REF_RE.findall(cleaned) if ref not in existing]
+            if missing:
+                findings.append(Finding(
+                    "error", f"{change}/tasks.md:{number}",
+                    f"a coverage-table row names task(s) {', '.join(missing)}, which "
+                    f"this file does not contain. Either the task was renumbered and "
+                    f"the table did not follow, or the item has no task at all.",
+                ))
+
+    return findings
+
+
 def check_version_instructions(change: str, tasks: Path) -> list[Finding]:
     findings: list[Finding] = []
 
@@ -306,6 +339,8 @@ def main(argv: list[str]) -> int:
         checked += 1
         findings += check_anchors(change, tasks)
         findings += check_replacement_format(change, tasks)
+        findings += check_edit_tasks_carry_a_block(change, tasks)
+        findings += check_coverage_table(change, tasks)
         findings += check_version_instructions(change, tasks)
 
     errors = [f for f in findings if f.severity == "error"]
@@ -317,12 +352,13 @@ def main(argv: list[str]) -> int:
         print(f"  {finding.severity}: {finding.where}: {finding.message}")
 
     if errors:
-        print(f"\n{len(errors)} anchor/version issue(s) across {checked} change(s).")
+        print(f"\n{len(errors)} proposal defect(s) across {checked} change(s).")
         return 1
 
     print(
-        f"\nChecked {checked} change(s). No anchor matches more than once, and no task "
-        f"instructs a CHANGELOG.md or **Version:** edit."
+        f"\nChecked {checked} change(s). No anchor matches more than once, every task "
+        f"announcing an anchor carries one, every coverage-table row names a task that "
+        f"exists, and no task instructs a CHANGELOG.md or **Version:** edit."
     )
     return 0
 

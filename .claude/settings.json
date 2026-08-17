@@ -8,6 +8,7 @@
       "Bash(python3 scripts/build_index.py)",
       "Bash(python3 scripts/rule.py *)",
       "Bash(python3 scripts/check_task_anchors.py*)",
+      "Bash(python3 scripts/apply_tasks.py --check *)",
       "Bash(python3 scripts/check_id_stability.py*)",
       "Bash(python3 scripts/verify_tasks.py*)",
       "Bash(python3 scripts/open_pr.py *)",

@@ -18,11 +18,14 @@ You are reading the proposal cold, and that is the point: **every defect found a
 ```bash
 python3 scripts/preflight.py
 python3 scripts/verify_tasks.py <change-name>
+python3 scripts/apply_tasks.py --check <change-name>
 ```
 
-`preflight.py` runs every mechanical check this repository owns. **Treat its output as given and do not re-derive it** — in particular anchor uniqueness, a `tasks.md` instructing anyone to edit `CHANGELOG.md` or a `**Version:**` header, and cross-document citation existence in both citation forms.
+`preflight.py` runs every mechanical check this repository owns. **Treat its output as given and do not re-derive it** — in particular anchor uniqueness, every task announcing an anchor carrying its fenced pair, every coverage-table row naming a task that exists, a `tasks.md` instructing anyone to edit `CHANGELOG.md` or a `**Version:**` header, and cross-document citation existence in both citation forms.
 
-`verify_tasks.py` prints, side by side, what each task said to expect and what its command actually printed. It does not judge them. That is yours.
+`verify_tasks.py` prints, side by side, what each task said to expect and what its command actually printed. It judges only whether each command *ran* — it exits non-zero on one that could not. Whether an expectation holds is yours.
+
+`apply_tasks.py --check` writes nothing and resolves every anchor pair against the files in order, which is the closest thing to applying the change without applying it. Its `BLOCKED` lines are defects you would otherwise have found by reading, and its `skip` lines are the places it declined to decide.
 
 Then read `system/proposal-review.md`. It is the catalogue of defects this repository has shipped and caught, and it holds the reporting format and the out-of-scope list you work to. **Those defect classes are your priority list.**
 
@@ -30,15 +33,15 @@ Then read `system/proposal-review.md`. It is the catalogue of defects this repos
 
 ### 1. The verification commands were run, not guessed
 
-`verify_tasks.py` has just printed what each returns *now*. Compare it with what the task claims. Check the command is the command intended, too: a verification that cannot run is worse than none, because it looks like coverage. One shipped as `grep -c "..." docs/` with no `-r`, which exits 2 on a directory.
+`verify_tasks.py` has just printed what each returns *now*. Compare it with what the task claims. The commands that cannot run at all are already flagged for you; what is left is the command that runs and measures the wrong thing — a `grep -c "1 Action Point"` against a rule reading "1 **additional** Action Point".
 
 ### 2. Replacement text is given verbatim, not described
 
-If a task requires the applier to compose prose, it is underspecified. Every value is **stated, never derived** — a change that rescales numbers puts each before/after value in a table.
+The script settles the crude half: a task announcing an anchor and carrying no fenced pair is already an error. Yours is the task that *has* a block and still leaves work — a replacement holding "as agreed above", a value the applier would have to derive. Every value is **stated, never derived**; a change that rescales numbers puts each before/after value in a table.
 
 ### 3. The coverage table maps every item in `proposal.md` to a task
 
-And its totals are right. Counts stated in prose go stale as soon as anything is added.
+That its rows name tasks that exist is checked. That they name the *right* ones, that every item in `proposal.md` has a row at all, and that the totals in the prose are right, is not — counts stated in prose go stale as soon as anything is added.
 
 ### 4. What must not change is named
 

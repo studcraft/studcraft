@@ -43,6 +43,14 @@ A local hook and a CI gate are not alternatives. The gate is authoritative and
 runs for everyone; the hook only moves the same refusal earlier, before a push.
 When you change one, check whether the other now disagrees with it.
 
+**A `PreToolUse` hook sees `Write` and `Edit`, not a script writing through
+`Bash`.** `scripts/apply_tasks.py` is the one script that edits `docs/` on
+purpose, so it restates for itself what `guard_repo_edits.py` would have
+refused: `main` and `develop`, a branch not named for a change that edits
+`docs/*.md`, `openspec/specs/`, `CHANGELOG.md`, a `**Version:**` header, and any
+path outside the repository. A new script that writes repository files inherits
+that obligation — the hook will not cover it.
+
 `scripts/preflight.py` is the same bargain in script form: it mirrors four of
 the workflows plus both checker scripts so a push is not the first thing to
 report a red gate. **Editing a workflow means checking the mirror against it.**

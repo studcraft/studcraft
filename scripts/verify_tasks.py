@@ -14,6 +14,11 @@ half applies depends on whether the change has been applied yet — something th
 file cannot tell you. Judging it is the reader's job, and this is the tool that
 puts both halves on the same screen.
 
+**One judgement is made here**, because it needs no reading: whether the command
+ran at all. A verification that cannot run is worse than none, because it looks
+like coverage — and one shipped as `grep -c "..." docs/` with no `-r`, which
+exits 2 on a directory. Any command exiting 2 or above fails this script.
+
 **Only read-only commands are executed.** A `tasks.md` is a text file that
 anyone can open a pull request against, and running arbitrary commands out of
 one because it is "the repository's own file" is how a checked-in file becomes
@@ -48,6 +53,15 @@ CODE_RE = re.compile(r"`([^`]+)`")
 # the right operands (`sort -o`, `uniq in out`), and with no pipe to feed them —
 # a pipe is refused below — neither has a use in a verification line anyway.
 ALLOWED = {"grep", "wc", "ls", "head", "tail", "cat", "diff"}
+
+# The exit code from which a command is treated as unable to run rather than as
+# having answered. **1 is an answer**: `grep -c` exits 1 when the count is zero,
+# `diff` exits 1 when the files differ, and a checker script exits 1 when it
+# fails — all of them things a task may legitimately expect. 2 and above is the
+# command itself failing, which is the defect class this catches: one shipped as
+# `grep -c "..." docs/` with no `-r`, which exits 2 on a directory and had been
+# read as a passing check for as long as it existed.
+BROKEN_FROM = 2
 
 # Verbs that read, unless carrying the flag that makes them run another program.
 # `find -exec` and `rg --pre` are full command execution, out of a file anyone
@@ -164,21 +178,30 @@ def tasks_with_commands(text: str) -> list[tuple[str, bool, str, str]]:
     return found
 
 
-def run(command: str) -> str:
+def run(command: str) -> tuple[str, int]:
+    """What the command printed, and its exit code.
+
+    The code is here for one narrow judgement — whether the command *ran* —
+    which is not the same as whether its expectation held. See `BROKEN_FROM`.
+    """
     try:
         proc = subprocess.run(
             shlex.split(command), cwd=REPO_ROOT, capture_output=True, text=True, timeout=120
         )
     except FileNotFoundError:
-        return "(command not found on PATH)"
+        return "(command not found on PATH)", 127
     except subprocess.TimeoutExpired:
-        return "(timed out after 120s)"
+        return "(timed out after 120s)", 124
 
     output = (proc.stdout + proc.stderr).strip()
     lines = output.splitlines()
     if len(lines) > 12:
         lines = lines[:12] + [f"... {len(output.splitlines()) - 12} more line(s)"]
-    return "\n".join(lines) + f"\n(exit {proc.returncode})" if lines else f"(no output, exit {proc.returncode})"
+    text = (
+        "\n".join(lines) + f"\n(exit {proc.returncode})" if lines
+        else f"(no output, exit {proc.returncode})"
+    )
+    return text, proc.returncode
 
 
 def verify(change: str) -> int:
@@ -194,6 +217,7 @@ def verify(change: str) -> int:
 
     print(f"\n=== {change} — {len(entries)} verification command(s) ===")
     skipped = 0
+    broken: list[str] = []
 
     for number, ticked, command, expectation in entries:
         mark = "x" if ticked else " "
@@ -207,12 +231,31 @@ def verify(change: str) -> int:
             print(f"      NOT RUN: {why}")
             continue
 
-        for line in run(command).splitlines():
+        output, code = run(command)
+        for line in output.splitlines():
             print(f"      {line}")
+        if code >= BROKEN_FROM:
+            broken.append(f"{number}: exit {code} — $ {command}")
+            print(f"      BROKEN: this command cannot run, so it verifies nothing.")
 
     if skipped:
         print(f"\n{skipped} command(s) were not run — see NOT RUN above.")
-    print("\nNothing here is a pass or a fail. Compare what each task says with what it printed.")
+
+    print(
+        "\nWhether an expectation held is not decided here. Compare what each task says "
+        "with what it printed."
+    )
+
+    if broken:
+        print(f"\n{len(broken)} command(s) could not run:")
+        for line in broken:
+            print(f"  {line}")
+        print(
+            "A verification that cannot run is worse than none, because it looks like "
+            "coverage. Fix the command in tasks.md — never the document it points at."
+        )
+        return 1
+
     return 0
 
 
