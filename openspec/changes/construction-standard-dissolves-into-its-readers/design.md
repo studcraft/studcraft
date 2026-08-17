@@ -134,6 +134,24 @@ Left as an observation, recorded rather than acted on: **`MOVE-002` is now a pur
 
 ---
 
+## Decision 9 — The third level is deleted, not defined
+
+Decision 5 kept the Universal Rule's "Construction Standards" level, on the ground that it names a class of rule rather than the deleted file. Decision 8 found that ground insufficient — the deleted file's `# Purpose` was the only text saying which rules were in the class — and added a paragraph defining membership by test.
+
+**That was the wrong repair, and it was wrong in a way this repository has a name for.** It explained a category instead of removing one. Worse, its own wording said "any *rule* stating how a legal model must be built", which made `CORE-001` both level 2 and level 3, since `CORE-001` now states the infantry base.
+
+So the level goes.
+
+**A precedence order can only rank what a reader can point at.** Foundations is `01-foundations.md`. Core Rules is `02-core-rules.md`. Scenario Rules is the scenario, which `FLOW-013` defines. Construction standards, after this change, are sentences inside `05-construction-components.md`, `10-weapons.md`, `CORE-001`, `MOVE-012` and `MOVE-013` — and `CORE`'s next sentence already says a system document is not a level. The level was unlocatable by construction, and no paragraph fixes that.
+
+**Nothing decidable is lost.** `FLOW-013` lists what a scenario may restrict, and every example it gives is a system-document rule: `WPN-014`, `VEH-006`, `CBT-007`, `MOVE-004`. The ruleset already accepts a scenario adjusting a system rule, so a construction requirement sitting in that same position is what was happening in practice. What a scenario still may not contradict is Foundations and Core Rules — where the Unit Base and physical representation live, including the infantry base after Decision 2.
+
+Rejected: keeping the level and sharpening the paragraph to say "requirement" rather than "rule". It fixes the `CORE-001` contradiction and leaves a precedence level whose membership a reader must derive from a definition in a fourth place. Shorter is the goal, and a deletion is a valid edit on its own.
+
+Rejected: deleting the whole Universal Rule. Foundations over Core Rules over Scenario Rules is a real ordering between three things that can each be pointed at, and `FLOW-013` depends on it.
+
+---
+
 ## What was checked and found clean
 
 - All five `SCS` IDs through `scripts/rule.py refs` and a repository-wide grep. Three are cited by nothing; `SCS-002`'s two citers and `SCS-011`'s one are retargeted here.

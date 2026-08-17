@@ -217,12 +217,9 @@ When rules from different levels conflict, the higher level takes precedence:
 
 1. Foundations
 2. Core Rules
-3. Construction Standards
-4. Scenario Rules
+3. Scenario Rules
 
-Level 3 is a class of rule rather than a set of documents: a Construction Standard is any rule stating how a legal model or piece of terrain must be built, wherever it is written. `05-construction-components.md` and `10-weapons.md` hold most of them, and so does a construction requirement inside another document — what a slope is built from, `07-movement.md`, MOVE-012.
-
-The order ranks these four levels only. A system document — Movement, Vehicles, Damage and the rest — is not a level in it; it states the rules for its own subject.
+The order ranks these three levels only. A system document — Movement, Vehicles, Damage and the rest — is not a level in it; it states the rules for its own subject.
 
 The physical model is the source of every physical fact these rules read; this order settles which rule reads it and what it means.
 

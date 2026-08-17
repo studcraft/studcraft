@@ -28,9 +28,9 @@ A `#` heading, a `---` rule, a `> ` blockquote or a numbered list inside a fence
 
 ### Scope and coverage
 
-Four ruleset documents edited and one deleted; `README.md`, `CONTRIBUTING.md`, `TODO.md`, `assets/IMAGES.md` and two `system/` documents. **Twenty-six edits and twenty-five non-edit tasks** (0.1, 12.1 – 12.7, 13.8 – 13.15, 13.17 – 13.18, 13c.2 – 13c.4 and 13d.2 – 13d.5).
+Five ruleset documents edited and one deleted; `README.md`, `CONTRIBUTING.md`, `TODO.md`, `assets/IMAGES.md` and two `system/` documents. **Twenty-eight edits and twenty-nine non-edit tasks** (0.1, 12.1 – 12.7, 13.8 – 13.15, 13.17 – 13.18, 13c.2 – 13c.4, 13d.2 – 13d.5 and 13e.3 – 13e.6).
 
-Sections 1–12 are the change as proposed — sixteen edits, mapped below. **Section 13 adds seven repairs from the `ruleset-auditor` pass**, which could not run before the pull request was opened and ran against the pushed branch; it brings in `docs/15-geometry-layers.md`. **Section 13b adds one more**, found by reading the applied rule rather than by any check: task 13.6 left a plural pronoun without an antecedent. **Section 13c bounds the step that 13.6's functional test permits**, at the maintainer's decision, by citing `MOVE-009` rather than writing a number. **Section 13d adds the vehicle guard the audit asked for and section 13 never wrote** — a finding lost between reading the audit and drafting the tasks, and asserted as done in a commit message before it existed. Anchors in all four are post-change text, and where one supersedes an earlier task's reasoning the earlier task says so.
+Sections 1–12 are the change as proposed — sixteen edits, mapped below. **Section 13 adds seven repairs from the `ruleset-auditor` pass**, which could not run before the pull request was opened and ran against the pushed branch; it brings in `docs/15-geometry-layers.md`. **Section 13b adds one more**, found by reading the applied rule rather than by any check: task 13.6 left a plural pronoun without an antecedent. **Section 13c bounds the step that 13.6's functional test permits**, at the maintainer's decision, by citing `MOVE-009` rather than writing a number. **Section 13d adds the vehicle guard the audit asked for and section 13 never wrote** — a finding lost between reading the audit and drafting the tasks, and asserted as done in a commit message before it existed. **Section 13e deletes the Universal Rule's third level and the paragraph 13.5 wrote to define it**, at the maintainer's decision: the right answer to a category nothing can locate is to remove it, not to explain it. Anchors in all five are post-change text, and where one supersedes an earlier task's reasoning the earlier task says so.
 
 **One spec delta ships with this change**, at `specs/unit-base/spec.md` in this directory: task 1.1 moves a requirement into `CORE-001`, which is the tracked `unit-base` capability's rule, so the requirement is added to that capability rather than left to fall out at the Archive cut (`design.md`, Decision 7). **The applier does not write it** — it is already in the change directory, and `scripts/check_delta_coverage.py` reads it on every `preflight` run.
 
@@ -51,7 +51,7 @@ Sections 1–12 are the change as proposed — sixteen edits, mapped below. **Se
 | The untracked-document example | 11.1 | `system/proposal-review.md` |
 | The `docs/` gap note | 11.2 | `system/documentation-standards.md` |
 
-**Untouched, deliberately:** `03-game-flow.md`'s paraphrase of the Universal Rule, and `CONTRIBUTING.md`'s `## Construction Standards` contribution heading — each names a class of rule rather than the deleted file (`design.md`, Decision 5). **The Universal Rule's third level was on this list and is now edited by task 13.5**: the level named a category whose only definition was in the deleted document, which the audit of the applied text caught (`design.md`, Decision 8). `docs/05-construction-components.md`, which needs no boundary clause once there is no second construction document (`design.md`, Decision 1). `docs/14-glossary.md`, which cites no `SCS` ID. `docs/10-weapons.md`, whose `WPN-017` names the "StudCraft Weapon Construction Standard" as a phrase. `openspec/specs/`. `CHANGELOG.md` and every `**Version:**` header. Every change directory under `openspec/changes/`.
+**Untouched, deliberately:** `CONTRIBUTING.md`'s `## Construction Standards` contribution heading, which names a kind of contribution rather than a document or a precedence level. **The Universal Rule's third level and `03-game-flow.md`'s paraphrase of it were both on this list, and both are now edited — the level is deleted by task 13e.1 and the paraphrase follows in 13e.2.** `design.md` Decision 5 kept them on the ground that the level names a class of rule; the audit showed the class had no definition outside the deleted document, task 13.5 tried to supply one, and Decision 9 removed the level instead (`design.md`, Decisions 8 and 9). `docs/05-construction-components.md`, which needs no boundary clause once there is no second construction document (`design.md`, Decision 1). `docs/14-glossary.md`, which cites no `SCS` ID. `docs/10-weapons.md`, whose `WPN-017` names the "StudCraft Weapon Construction Standard" as a phrase. `openspec/specs/`. `CHANGELOG.md` and every `**Version:**` header. Every change directory under `openspec/changes/`.
 
 ---
 
@@ -664,3 +664,62 @@ That paragraph is the infantry rule. A vehicle reads this rule for what a slope 
 - [x] 13d.4 `python3 scripts/lint_ruleset.py` passes. The added citation is in the comma form, so this is what confirms `VEH-027` resolves in `08-vehicles.md`.
 
 - [x] 13d.5 `python3 scripts/preflight.py` passes, all 12 checks.
+
+---
+
+## 13e. The Universal Rule loses its third level
+
+Task 13.5 added a paragraph defining what "Construction Standards" means as a precedence level, because the deleted document's `# Purpose` had been the only text that said so. **That was the wrong repair: it explained a category instead of removing one.**
+
+The category cannot be located any more, and a precedence order can only rank things a reader can point at. Foundations is `01-foundations.md`. Core Rules is `02-core-rules.md`. Scenario Rules is the scenario (`FLOW-013`). Construction standards, after this change, are sentences in four different documents — `05-construction-components.md`, `10-weapons.md`, `CORE-001`, `MOVE-012` and `MOVE-013` — and `CORE`'s own next sentence says a system document is not a level. Worse, task 13.5's wording made `CORE-001` both level 2 and level 3, since it states a construction requirement inside the Core Rules.
+
+**Nothing decidable is lost by deleting it.** `FLOW-013` already lists what a scenario may restrict, and every example is a system-document rule: `WPN-014`, `VEH-006`, `CBT-007`, `MOVE-004`. The ruleset already accepts a scenario adjusting a system rule, so construction requirements sitting in the same position is what it was doing anyway. What a scenario still may not contradict is Foundations and Core Rules — which is where the Unit Base (`CORE-001`) and physical representation (`CORE-016`) live.
+
+- [x] 13e.1 In `docs/02-core-rules.md`, the `# Universal Rule` section, replace this anchor — the numbered list, the paragraph task 13.5 added, and the first sentence below it:
+
+```
+1. Foundations
+2. Core Rules
+3. Construction Standards
+4. Scenario Rules
+
+Level 3 is a class of rule rather than a set of documents: a Construction Standard is any rule stating how a legal model or piece of terrain must be built, wherever it is written. `05-construction-components.md` and `10-weapons.md` hold most of them, and so does a construction requirement inside another document — what a slope is built from, `07-movement.md`, MOVE-012.
+
+The order ranks these four levels only.
+```
+
+with:
+
+```
+1. Foundations
+2. Core Rules
+3. Scenario Rules
+
+The order ranks these three levels only.
+```
+
+  **The numbered list is real markdown and Scenario Rules becomes 3.** The rest of that paragraph — "A system document … is not a level in it; it states the rules for its own subject." — is untouched and now needs no exception, because no level names a class of rule.
+
+- [x] 13e.2 In `docs/03-game-flow.md`, `FLOW-013`, replace this anchor:
+
+```
+Scenario rules sit fourth in the rule priority order (`02-core-rules.md`, Universal Rule): they may restrict or extend the ruleset for one game, and never contradict Foundations, Core Rules or Construction Standards.
+```
+
+with:
+
+```
+Scenario rules sit third in the rule priority order (`02-core-rules.md`, Universal Rule): they may restrict or extend the ruleset for one game, and never contradict Foundations or Core Rules.
+```
+
+  The position and the list both follow task 13e.1. **Task 13e.1 must be applied with this one** — a scenario "sitting fourth" in a three-level order is the dangling reference this pair exists to prevent.
+
+### Verification
+
+- [x] 13e.3 `grep -rn -i "construction standard" docs/` returns **exactly one line**: `docs/10-weapons.md:297`, `WPN-017`'s "StudCraft Weapon Construction Standard" — a phrase, not a document. Before this task it returned four: that one, `03-game-flow.md`'s paraphrase, and the two lines task 13.5 left in `02-core-rules.md`. **A surviving line in `02-core-rules.md` or `03-game-flow.md` means one half of the pair did not land.**
+
+- [x] 13e.4 `grep -c -F "The order ranks these three levels only" docs/02-core-rules.md` returns `1`, and `grep -c -F "sit third in the rule priority order" docs/03-game-flow.md` returns `1`.
+
+- [x] 13e.5 `grep -c -F "Level 3 is a class of rule" docs/02-core-rules.md` returns `0` — task 13.5's paragraph is gone.
+
+- [x] 13e.6 `python3 scripts/preflight.py` passes, all 12 checks.
