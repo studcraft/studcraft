@@ -133,7 +133,18 @@ def main(argv: list[str]) -> int:
         stop(f"{branch} is protected — no document change may be committed to it directly.")
 
     for path in args.paths:
-        if (REPO_ROOT / path).exists():
+        full = REPO_ROOT / path
+        if full.is_dir():
+            status = run("git", "status", "--porcelain", "--", path).stdout
+            changed = sorted(line[3:] for line in status.splitlines() if line.strip())
+            listing = "\n".join(f"  {p}" for p in changed) if changed else "  (no changes inside it)"
+            stop(
+                f"{path} is a directory. This takes files, one --path each, so that "
+                "what is committed is decided before the run rather than by "
+                "whatever the directory happens to hold. Pass these instead:\n"
+                + listing
+            )
+        if full.exists():
             continue
         in_head = run("git", "cat-file", "-e", f"HEAD:{path}", check=False)
         if in_head.returncode != 0:

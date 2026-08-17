@@ -121,6 +121,25 @@ class TestItStopsInsteadOfImprovising:
         assert result.returncode == 1
         assert "neither on disk nor in HEAD" in result.stderr
 
+    def test_it_refuses_a_directory_path(self, work_repo, tmp_path):
+        (work_repo / "docs" / "08-vehicles.md").write_text("# VEH-001\n\nSecond.\n")
+
+        result = open_pr(work_repo, *default_args(tmp_path, "docs"))
+
+        assert result.returncode == 1
+        assert "docs is a directory" in result.stderr
+        assert "docs/08-vehicles.md" in result.stderr
+
+    def test_a_directory_refusal_leaves_the_index_as_it_was_found(self, work_repo, tmp_path):
+        (work_repo / "docs" / "08-vehicles.md").write_text("# VEH-001\n\nSecond.\n")
+        before_head = run_git(work_repo, "rev-parse", "HEAD")
+        before_staged = run_git(work_repo, "diff", "--cached", "--name-only")
+
+        open_pr(work_repo, *default_args(tmp_path, "docs"))
+
+        assert run_git(work_repo, "rev-parse", "HEAD") == before_head
+        assert run_git(work_repo, "diff", "--cached", "--name-only") == before_staged
+
     def test_it_refuses_when_the_named_paths_hold_no_change(self, work_repo, tmp_path):
         result = open_pr(work_repo, *default_args(tmp_path, "docs/08-vehicles.md"))
 
