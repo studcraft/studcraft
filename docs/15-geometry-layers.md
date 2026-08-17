@@ -61,7 +61,7 @@ Visual Geometry contains every decorative element that does not modify Gameplay 
 
 Examples include:
 
-- Slopes
+- Decorative slope elements
 - Pipes
 - Technic details
 - Decorative armour

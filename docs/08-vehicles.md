@@ -391,7 +391,7 @@ A vehicle at the bottom of a drop may be a trap. Infantry inside it disembark no
 
 A vehicle crosses any rise no greater than its Terrain Threshold (VEH-021) by driving over it, whatever it is built from.
 
-To reach a height **greater** than its Terrain Threshold, a vehicle needs a slope or a ramp that physically covers the entire rise, resting on both the lower and the upper surface. The angle does not matter and is never measured: LEGO slope elements (`04-construction-standard.md`, SCS-011) and a lowered ramp (`05-construction-components.md`, CMP-021) bound it by their own construction.
+To reach a height **greater** than its Terrain Threshold, a vehicle needs a slope or a ramp that physically covers the entire rise, resting on both the lower and the upper surface. The angle does not matter and is never measured: LEGO slope elements (`07-movement.md`, MOVE-012) and a lowered ramp (`05-construction-components.md`, CMP-021) bound it by their own construction.
 
 If no slope or ramp covers the full rise, the height is impassable to that vehicle. It must go around.
 

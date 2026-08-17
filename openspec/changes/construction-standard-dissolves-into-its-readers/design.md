@@ -1,0 +1,162 @@
+# Design — The Construction Standard dissolves into its readers
+
+## Context
+
+#103 cut `02-core-rules.md` to what no other document states, #104 did the same to `04-construction-standard.md`, and #108 did it to `05-construction-components.md` and then moved six rules to match a boundary the maintainer set. Each pass left the Construction Standard smaller: twenty-four rules, then eleven, then five.
+
+This change asks the question the third pass raised and did not answer. #108's `design.md` (Decision 13) rejected merging the two construction documents, and it rejected it on one cost that is real and one that is not:
+
+- **Real:** `README.md`'s reading order is positional, so removing an entry renumbers the entries after it. Task 8.3 does exactly that, to ten of them. It is prose, not an identifier, and no document is renumbered.
+- **Not real:** "every remaining `SCS` rule needs a new ID". None does. #108's own last section proved it, when `WPN-001` absorbed `SCS-016` and `SCS-017` into its existing bullets rather than becoming `WPN-022` — a construction requirement absorbed into the rule that reads it needs no number.
+
+#108 also licensed this change explicitly: "If the criterion turns out not to hold, merging stays available." The criterion held for components, and the audit of that change then found the boundary sentence itself wrong twice in one line — false for vehicles, ambiguous for structures. A boundary that took three attempts to state is one worth not having.
+
+---
+
+## Decision 1 — Delete the document rather than shrink it again
+
+The test is `system/documentation-standards.md`'s, applied to a file instead of a rule: **only content with no other home survives, and a file whose every line has a destination is deleted rather than kept for its organisational role.**
+
+Three of the five rules restate "only physical LEGO affects gameplay" for one noun — a wall, a stair, a platform. Two carry content: the infantry base, and a slope being built from slope elements. Both have an obvious reader.
+
+There is a second argument, and it is the stronger one. #108 had to write a boundary sentence into this document's `# Purpose` because two construction documents with no line between them had produced `SCS-007`/`CMP-009`, `SCS-008`/`CMP-010` and `SCS-009`/`CMP-011` — the same rule written twice, three times over. A boundary is a maintenance obligation: it has to be stated, kept true, and applied by every future contributor. **Deleting one side removes the obligation instead of documenting it.** That is Principle 11 applied to the repository rather than to the game.
+
+Rejected: retiring `SCS-010`, `SCS-012` and `SCS-013` and keeping a two-rule document. It preserves the boundary, the `# Purpose` sentence, the reading-order entry and the file, in exchange for keeping two rules away from the rules that read them.
+
+---
+
+## Decision 2 — `SCS-002` is absorbed by `CORE-001`, not moved to Components
+
+Under #108's boundary an infantry base is part of a model, which points at `05-construction-components.md`. It goes to `CORE-001` instead, for a reason that outranks the boundary: **`CORE-001` and `SCS-002` are a circular pair.**
+
+- `CORE-001`: "Read horizontally, this is the size of the physical base an infantry model is built on — **required by `SCS-002`**."
+- `SCS-002`: "one physical base measuring 4 × 3 studs — **one Unit Base read horizontally (`CORE-001`)** — and one plate thick, which is the plate `CORE-001` counts in the Unit Base's height."
+
+Each defers to the other for the same fact. Moving the rule to a third document as `CMP-023` would keep the loop and lengthen it. Absorbing it into `CORE-001` closes it: the Unit Base read horizontally **is** the base every infantry model is built on, stated once, by the rule that defines the unit.
+
+This does not reopen #103. That change cut `CORE` to what no other document states, and after this one no other document states the base.
+
+Rejected: `CMP-023` in `05-construction-components.md` — circularity survives, and a base is the measuring unit made physical rather than a component providing a capability. Rejected: leaving `SCS-002` in place as a one-rule document, which is the "organisational role" Decision 1 rules out.
+
+Rejected: `CORE-003` ("Infantry are represented by LEGO minifigures. Infantry occupy one Unit Base."), which is the rule about infantry and reads more naturally as the home of "every infantry model must be built on…". It loses to `CORE-001` on the circularity argument — `CORE-003` is not one of the two rules deferring to each other — and because the base's dimensions are the Unit Base's horizontal reading, so stating them anywhere but `CORE-001` splits one fact across two rules. The cost is real and worth recording: `CORE-001` now carries a measurement definition *and* a construction obligation.
+
+---
+
+## Decision 3 — The two terrain rules land in `07-movement.md`, inside their readers
+
+`MOVE-012` and `MOVE-013` are the rules that read a slope and a stair, and both already describe what they are made of — `MOVE-013` says "Plate-built stairs" in its first sentence. So the requirements land inside those two sentences rather than as new `MOVE` rules:
+
+- `MOVE-012`: "Slopes are valid climbing surfaces." → "A slope is built from LEGO slope elements, and is a valid climbing surface."
+- `MOVE-013`: "Plate-built stairs are valid movement paths." → "Stairs built from plates or bricks are valid movement paths."
+
+`SCS-011`'s content is load-bearing and worth naming: a flight of stacked plates is not a slope, which is what lets `MOVE-012` treat a slope as ordinary terrain and `VEH-027` accept it as a vehicle ascent while forbidding stairs. Without it, "slope" is a shape a player asserts.
+
+Rejected: two new `MOVE` rules. Each would state one clause the neighbouring rule already half-states, which is the pattern #108 spent five sections removing.
+
+Rejected: `15-geometry-layers.md`, which owns what counts as measurable, not what terrain is built from.
+
+---
+
+## Decision 4 — `SCS-010` and `SCS-013` are retired, not relocated
+
+`SCS-010` is `02-core-rules.md`'s *The Battlefield* section — "Only physical LEGO elements may affect gameplay" — narrowed to walls. `MOVE-009` – `MOVE-014` read a wall's height and never ask what it is made of, so no reader is missing anything.
+
+`SCS-013` is two halves, both stated: `MOVE-014` closes with "Physical construction determines accessibility", and `MOVE-015` places a falling unit "at the first surface that physically supports it". Its permissive half — any stable surface may support a unit — grants what the plastic already grants; `VEH-030` already assumes it when it counts a model carried on a vehicle's roof.
+
+Rejected: folding either into `MOVE-014` "for completeness". A sentence added to make a deletion feel smaller is the copy this series removes.
+
+---
+
+## Decision 5 — The Universal Rule's "Construction Standards" level stays
+
+`02-core-rules.md` ranks Foundations, Core Rules, Construction Standards, Scenario Rules, and `03-game-flow.md` paraphrases it. Deleting a document called the Construction Standard leaves a level with a familiar name and no file behind it.
+
+It stays, because the level never named the file. `CORE`'s own note says "The order ranks these four levels only. A system document — Movement, Vehicles, Damage and the rest — is not a level in it." Construction standards are what `05-construction-components.md` and `10-weapons.md` state, before and after this change; the level says such rules outrank a scenario and yield to Core Rules, which is still true.
+
+Rejected: renaming the level to "Construction rules". It edits a precedence rule in two documents to remove a verbal echo, and a precedence rule is the last thing to touch for cosmetics. Recorded here so the question is not re-proposed as an oversight.
+
+**One consequence is real and is accepted rather than denied.** Two requirements change level. The slope and stair construction requirements land in `07-movement.md`, and `CORE-001`'s own note says a system document "is not a level in it" — so those two now rank as Movement rules rather than as Construction Standards, and `FLOW-013`'s "never contradict Foundations, Core Rules or Construction Standards" no longer reaches them. The infantry base moves the other way, up into Core Rules. Nothing in the ruleset turns on either move: no scenario rule anywhere overrides a construction requirement, and the level ordering has never been invoked to resolve a conflict. Naming it is cheaper than pretending the level list is untouched.
+
+---
+
+## Decision 6 — The document number is retired, not reused
+
+`system/documentation-standards.md` (Naming Conventions): "A removed document's number is never reused either." `13-materials.md` is the precedent and `README.md` documents it. So `docs/` will have gaps at `04` and `13`, `README.md`'s note covers both, and no document is renumbered.
+
+The Rulebook reading order is different: its numbers are positions in a list, not document numbers, so removing the fifth entry renumbers the entries after it. That is `README.md` prose and not an identifier.
+
+---
+
+## Decision 7 — `unit-base` gets a delta, because a requirement enters a tracked capability
+
+`CORE-001` is the rule of the tracked `unit-base` capability. Its spec **presupposes** the infantry base without defining it: one requirement measures the Unit Base's height "from the underside of the base an infantry model stands on", and one scenario reads "WHEN an infantry model is placed on its standard base". Neither says what that base is.
+
+Task 1.1 puts the definition there. So a requirement crosses from an untracked document into a tracked capability's rule, and the test this repository applies is whether a capability's requirements change — not whether a spec happens to name the document being deleted. Without a delta, the Archive cut would write back a `unit-base` spec that still only presupposes the base, and the requirement would exist in `docs/` and nowhere in `openspec/specs/`.
+
+The delta is `MODIFIED` on **Requirement: Unit Base Measurement**, adding one sentence to the requirement and one scenario (*The standard base is the horizontal reading*). Every existing scenario is carried through unchanged, which is what `scripts/check_delta_coverage.py` checks.
+
+This is the one place this change differs from its three predecessors, all of which shipped no delta. They were moving rules between untracked documents; this one moves a requirement into a tracked one.
+
+Rejected: no delta plus a sentence in `proposal.md` saying no requirement stops being true. It is true and it is not the point — nothing stops being true, and something starts being true that the spec would never learn.
+
+---
+
+## Decision 8 — What the audit of the applied text changed
+
+Seven edits, in `tasks.md` section 13. The `ruleset-auditor` pass could not run before the pull request was opened — the session hit its limit — and ran afterwards, against the pushed branch. It found nothing wrong with any moved requirement and six things wrong with the prose around them, which is the pattern every audit in this series has produced.
+
+**Two were claims this proposal made and could not support.**
+
+- **`SCS-013`'s permissive half was stated nowhere.** Decision 4 above said `MOVE-014` and `MOVE-015` covered both halves of the platform rule. `MOVE-014` covers accessibility; `MOVE-015` says where a *falling* unit lands, which is a different claim. So "any stable LEGO surface may support a unit" lands in `MOVE-014` after all — a move, not a retirement, and the retirement bullet in `proposal.md` is corrected.
+- **`CORE-005`'s range was wrong twice.** It ran to `MOVE-015`, which sits under a `# Falling` heading and splits the falling pair by excluding `MOVE-016`; and nothing in the range said anything about a platform until the fix above. Narrowed to `MOVE-014`, with `TODO.md`'s quote following it.
+
+**One was a duplication I introduced and had been warned about.** `CORE-001`'s absorbed sentence ended "— the plate this rule counts in the Unit Base's height", which is what the next paragraph already says. Task 1.1's own note named that paragraph. Deleted, in the rule and in the spec delta.
+
+**One reverses Decision 5 in part.** That decision declined to touch the Universal Rule, on the ground that its third level names a class of rule rather than the deleted file. The name does — but the deleted file's `# Purpose` was the only text in the ruleset that said which rules were in the class, and `CORE`'s next sentence excludes system documents by name. So the level was left enforcing a category nothing defined, with `FLOW-013` still requiring scenarios not to contradict it. The level now states its membership by test: **any rule stating how a legal model or piece of terrain must be built, wherever it is written.**
+
+That single sentence also closes the consequence Decision 5 accepted and understated. It said nothing turns on the slope and stair requirements dropping out of level 3; `VEH-027` does, since it derives "the angle does not matter and is never measured" from `MOVE-012`. Membership by test means those requirements never left the level, so nothing turns on it after all.
+
+**One is a rules change, taken at the maintainer's decision rather than as a repair.** `MOVE-013` required stairs "built from plates or bricks", and `MOVE-014` closes the access list with "no other construction grants access" — so a staircase built from LEGO's own stair or wedge elements was not a legal way up a wall, while a plate-built one was. The rule read a part label where the model shows the answer, against Principle 1 and Principle 13. It now states the functional test: a stepped surface a model can climb, whatever it is built from.
+
+The debt is `SCS-012`'s, not this change's. What makes it this change's business is that this is the pass that rewrote the sentence, and it had already widened the list once — plates to plates or bricks — which `system/proposal-review.md` names as the moment to consolidate rather than carry forward.
+
+**The functional test needed a bound, and finding it was the point of stating the change out loud.** "A stepped surface a model can climb" moves the question from which piece to how tall a step, and no rule quantified that: the old wording was silent about step height too, but it was objective about the material, so the silence cost nothing. Once the criterion is geometry, the geometry has to be measurable or the rule is an adjudication — the same defect this series retired `CMP-017` and `04`'s `Visible` condition for.
+
+`MOVE-009` already owns the answer: a unit crosses an obstacle of up to three plate layers freely. So `MOVE-013` reads "no single step is taller than an obstacle a unit crosses freely (MOVE-009)" and **writes no number** — Principle 7, and the same discipline that keeps `CMP-018` citing `CORE-001` instead of repeating `4 × 3`.
+
+One consequence is worth stating because it looks like a gap and is not: a flight with steps of four to six plate layers stops being a staircase, and a unit meets it as a series of ordinary obstacles — climbable one step at a time at the additional Action Point `MOVE-010` charges, impassable above six. A path you walk up at no cost and a wall you climb at a cost stay different things, which is what `MOVE-012` and `MOVE-013` are for.
+
+**One is a signpost the move made necessary.** `VEH-027` now sends a vehicle reader into `MOVE-012`, whose second paragraph is infantry-scoped in substance. `VEH-021` carries an explicit guard against exactly that trap; `MOVE-012` gains one.
+
+**One is a word.** `GEO-002` opens its list of Visual Geometry examples with "Slopes", while `MOVE-012` now makes slope elements constitutive of a terrain feature that grants access. The bullet becomes "Decorative slope elements".
+
+Left as an observation, recorded rather than acted on: **`MOVE-002` is now a pure pointer** — the base to `CORE-001`, the front edge to `CORE-002`, and a third sentence restating `MOVE-001`. Decision 1's test would delete it. It stays because a movement reader arriving at `# MOVE-002 — Infantry Base` should find the base, and because retiring a rule ID is its own change with its own audit.
+
+---
+
+## Decision 9 — The third level is deleted, not defined
+
+Decision 5 kept the Universal Rule's "Construction Standards" level, on the ground that it names a class of rule rather than the deleted file. Decision 8 found that ground insufficient — the deleted file's `# Purpose` was the only text saying which rules were in the class — and added a paragraph defining membership by test.
+
+**That was the wrong repair, and it was wrong in a way this repository has a name for.** It explained a category instead of removing one. Worse, its own wording said "any *rule* stating how a legal model must be built", which made `CORE-001` both level 2 and level 3, since `CORE-001` now states the infantry base.
+
+So the level goes.
+
+**A precedence order can only rank what a reader can point at.** Foundations is `01-foundations.md`. Core Rules is `02-core-rules.md`. Scenario Rules is the scenario, which `FLOW-013` defines. Construction standards, after this change, are sentences inside `05-construction-components.md`, `10-weapons.md`, `CORE-001`, `MOVE-012` and `MOVE-013` — and `CORE`'s next sentence already says a system document is not a level. The level was unlocatable by construction, and no paragraph fixes that.
+
+**Nothing decidable is lost.** `FLOW-013` lists what a scenario may restrict, and every example it gives is a system-document rule: `WPN-014`, `VEH-006`, `CBT-007`, `MOVE-004`. The ruleset already accepts a scenario adjusting a system rule, so a construction requirement sitting in that same position is what was happening in practice. What a scenario still may not contradict is Foundations and Core Rules — where the Unit Base and physical representation live, including the infantry base after Decision 2.
+
+Rejected: keeping the level and sharpening the paragraph to say "requirement" rather than "rule". It fixes the `CORE-001` contradiction and leaves a precedence level whose membership a reader must derive from a definition in a fourth place. Shorter is the goal, and a deletion is a valid edit on its own.
+
+Rejected: deleting the whole Universal Rule. Foundations over Core Rules over Scenario Rules is a real ordering between three things that can each be pointed at, and `FLOW-013` depends on it.
+
+---
+
+## What was checked and found clean
+
+- All five `SCS` IDs through `scripts/rule.py refs` and a repository-wide grep. Three are cited by nothing; `SCS-002`'s two citers and `SCS-011`'s one are retargeted here.
+- Every reference to the document by name, in `docs/`, `README.md`, `CONTRIBUTING.md`, `TODO.md`, `assets/IMAGES.md` and `system/proposal-review.md`. `scripts/` has none — #108 removed the last one from a comment in `scripts/lint_ruleset.py`.
+- `docs/14-glossary.md`, which cites no `SCS` ID and names no removed document: #108's tasks 19.5 and 20.4 retargeted its last two entries to `CMP-019` and `WPN-001`.
+- `TODO.md`, which quotes `CORE-005` verbatim and is compared character for character by `scripts/check_todo_quotes.py`. The quote is edited with the rule, in the same task set.
+- `openspec/specs/` — no `SCS` ID, no mention of the document, no delta needed (`system/proposal-review.md`, "Delta vs. Direct Edit").
+- The four surviving uses of the phrase "Construction Standard" after deletion, each of which is a level name, a paraphrase of one, a weapon-standard phrase, or a contribution category — none a pointer at a file.

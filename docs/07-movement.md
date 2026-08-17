@@ -46,7 +46,7 @@ Diagonal movement is never allowed.
 
 # MOVE-002 — Infantry Base
 
-Every infantry model is built on the base required by `04-construction-standard.md`, SCS-002.
+Every infantry model is built on the base required by `02-core-rules.md` (CORE-001).
 
 Which edge of that base is its front is settled by the universal Facing rule (`02-core-rules.md`, CORE-002).
 
@@ -176,7 +176,7 @@ A legal access point is required.
 Examples:
 
 - Slopes
-- Plate stairs
+- Stairs
 - Ramps
 
 Without one of these, the obstacle is impassable.
@@ -185,15 +185,17 @@ Without one of these, the obstacle is impassable.
 
 # MOVE-012 — Slopes
 
-Slopes are valid climbing surfaces.
+A slope is built from LEGO slope elements, and is a valid climbing surface.
 
 Units may move normally over connected slopes, at no additional Action Point cost — a slope is ordinary terrain, not an obstacle to climb. Distance travelled up a slope counts against the normal movement limit (MOVE-004).
+
+That paragraph is the infantry rule. A vehicle reads this rule for what a slope is built from and nothing else; whether it can ascend one is its own question (`08-vehicles.md`, VEH-027).
 
 ---
 
 # MOVE-013 — Stairs
 
-Plate-built stairs are valid movement paths.
+Stepped surfaces are valid movement paths, whatever they are built from, as long as no single step is taller than an obstacle a unit crosses freely (MOVE-009).
 
 Units may climb them normally, at no additional Action Point cost, and the distance climbed counts against the normal movement limit (MOVE-004) — the same as slopes (MOVE-012).
 
@@ -203,7 +205,7 @@ Units may climb them normally, at no additional Action Point cost, and the dista
 
 If no slope, stair or ramp exists, the wall cannot be climbed. These are the three legal access points listed in MOVE-011, and no other construction grants access.
 
-Physical construction determines accessibility.
+Any stable LEGO surface may support a unit, and physical construction determines accessibility.
 
 ---
 

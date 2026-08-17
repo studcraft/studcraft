@@ -69,7 +69,6 @@ These principles are fully described in:
     ├── 01-foundations.md
     ├── 02-core-rules.md
     ├── 03-game-flow.md
-    ├── 04-construction-standard.md
     ├── 05-construction-components.md
     ├── 06-deployment.md
     ├── 07-movement.md
@@ -83,7 +82,7 @@ These principles are fully described in:
     └── 16-damage-system.md
 ```
 
-`13-*.md` is a deliberate gap, not a missing file — `docs/13-materials.md` was removed (its content folded into `16-damage-system.md`), and per this repo's rule-ID-stability convention, document numbers are not reused or renumbered after removal.
+`04-*.md` and `13-*.md` are deliberate gaps, not missing files — `docs/04-construction-standard.md` was removed (its five rules folded into `02-core-rules.md` and `07-movement.md`) and `docs/13-materials.md` before it (its content folded into `16-damage-system.md`), and per this repo's rule-ID-stability convention, document numbers are not reused or renumbered after removal.
 
 ---
 
@@ -104,8 +103,7 @@ These documents explain the game's philosophy and core systems, including how to
 
 ## Part II — Construction
 
-5. `04-construction-standard.md`
-6. `05-construction-components.md`
+5. `05-construction-components.md`
 
 Learn how legal models are built.
 
@@ -113,10 +111,10 @@ Learn how legal models are built.
 
 ## Part III — Deployment & Movement
 
-7. `06-deployment.md`
-8. `07-movement.md`
-9. `08-vehicles.md`
-10. `09-transport.md`
+6. `06-deployment.md`
+7. `07-movement.md`
+8. `08-vehicles.md`
+9. `09-transport.md`
 
 Learn how armies are deployed and how units move across the battlefield.
 
@@ -124,10 +122,10 @@ Learn how armies are deployed and how units move across the battlefield.
 
 ## Part IV — Combat
 
-11. `10-weapons.md`
-12. `11-combat.md`
-13. `12-melee.md`
-14. `16-damage-system.md`
+10. `10-weapons.md`
+11. `11-combat.md`
+12. `12-melee.md`
+13. `16-damage-system.md`
 
 Learn how attacks are generated and resolved, and how components take and resist damage.
 
@@ -135,7 +133,7 @@ Learn how attacks are generated and resolved, and how components take and resist
 
 ## Reference
 
-15. `14-glossary.md`
+14. `14-glossary.md`
 
 Quick lookup for core terms.
 
