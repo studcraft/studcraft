@@ -6,7 +6,7 @@
 
 # Purpose
 
-The StudCraft Construction Standard (SCS) defines the building conventions used throughout the game.
+The StudCraft Construction Standard (SCS) defines how the battlefield is built, and the infantry base every minifigure stands on (SCS-002). A structure is both battlefield and model at once, and `02-core-rules.md` (CORE-005) splits it: its walls, slopes, stairs and platforms are built here, its doors, windows and other functional parts are components (`05-construction-components.md`). How a weapon is built is `10-weapons.md`.
 
 These standards ensure that player-built models remain readable, balanced and compatible.
 
@@ -24,8 +24,6 @@ Players are free to build any model they wish provided it follows these standard
 
 Construction choices directly affect gameplay.
 
-Every functional element should be physically represented.
-
 ---
 
 # SCS-002 — Infantry Base
@@ -33,44 +31,6 @@ Every functional element should be physically represented.
 Every infantry model must be built on one physical base measuring 4 × 3 studs — one Unit Base read horizontally (`02-core-rules.md`, CORE-001) — and one plate thick, which is the plate `CORE-001` counts in the Unit Base's height.
 
 Which edge of that base is its front is settled by the universal Facing rule (`02-core-rules.md`, CORE-002).
-
----
-
-# SCS-006 — Interactive Elements
-
-Interactive elements must physically exist. What operating one costs is defined in `02-core-rules.md`, CORE-007.
-
-Examples:
-
-- Doors
-- Hatches
-- Ramps
-- Drawbridges
-- Elevators
-- Gates
-
-Decoration alone has no gameplay effect.
-
----
-
-# SCS-007 — Doors
-
-Functional doors:
-
-- must open physically
-- may close physically
-
----
-
-# SCS-008 — Ramps
-
-A ramp must physically rotate or lower.
-
----
-
-# SCS-009 — Windows
-
-Transparent LEGO elements represent windows.
 
 ---
 
@@ -100,59 +60,11 @@ The platform must physically support the model.
 
 ---
 
-# SCS-016 — Functional Weapons
-
-Every weapon must include at least one visible functional muzzle.
-
-Valid muzzle pieces are defined in `10-weapons.md` (WPN-002).
-
----
-
-# SCS-017 — Weapon Body
-
-Every muzzle must connect to a weapon body.
-
-The body represents:
-
-- barrel
-- mechanism
-- support
-
-Decoration does not count.
-
----
-
-# Construction Principles
-
-Every functional game element should satisfy three conditions.
-
-## Visible
-
-Players can immediately identify it.
-
----
-
-## Physical
-
-It exists on the LEGO model.
-
----
-
-## Interactive
-
-It affects gameplay.
-
----
-
 # Summary
 
-StudCraft models are not miniatures.
+Terrain is built, not declared: a wall, a slope, a stair or a platform affects play because the plastic is there.
 
-They are game systems built from LEGO.
-
-Construction defines gameplay.
-
-Gameplay rewards good construction.
+Every infantry model stands on the same base, which is where every measurement starts.
 
 The battlefield itself communicates the game state.
 

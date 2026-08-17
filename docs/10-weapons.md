@@ -39,11 +39,11 @@ A weapon is any LEGO construction capable of making an attack.
 
 Every ranged weapon must include:
 
-- A weapon body.
-- At least one functional muzzle.
+- A weapon body — the structure carrying the muzzle or striking end: barrel, mechanism, support. Decoration does not count.
+- At least one visible functional muzzle (WPN-002).
 - A physical mounting point.
 
-Melee weapons replace the functional muzzle with a functional striking end, as defined in `12-melee.md` (MEL-013).
+Melee weapons replace the functional muzzle with a functional striking end, visible in the same way, as defined in `12-melee.md` (MEL-013).
 
 Weapons that do not satisfy these conditions are decorative.
 

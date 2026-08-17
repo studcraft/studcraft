@@ -196,7 +196,7 @@ A vehicle cannot combine locomotion systems unless explicitly designed to do so.
 
 # VEH-013 — Pilot
 
-Every powered vehicle — wheeled, tracked, walker, or hover (VEH-012) — requires a Pilot to move, a crew member (VEH-015) occupying a visible operating position.
+Every powered vehicle — wheeled, tracked, walker, or hover (VEH-012) — requires a Pilot to move, a crew member (VEH-015) occupying a visible operating position. The Pilot is a minifigure physically placed in that position; a decorative empty seat is not a Pilot.
 
 Because the Pilot occupies a Unit Base of its own (`09-transport.md`, TRN-014), a powered vehicle needs room for its Pilot in addition to its machinery. This is why the minimum footprint is two Unit Bases (VEH-001) rather than one: at one, the Pilot is the whole vehicle. The floor is not a chosen number — it is whatever this rule and TRN-014 together imply.
 
@@ -391,7 +391,7 @@ A vehicle at the bottom of a drop may be a trap. Infantry inside it disembark no
 
 A vehicle crosses any rise no greater than its Terrain Threshold (VEH-021) by driving over it, whatever it is built from.
 
-To reach a height **greater** than its Terrain Threshold, a vehicle needs a slope or a ramp that physically covers the entire rise, resting on both the lower and the upper surface. The angle does not matter and is never measured: LEGO slope elements (`04-construction-standard.md`, SCS-011) and a lowered ramp (SCS-008) bound it by their own construction.
+To reach a height **greater** than its Terrain Threshold, a vehicle needs a slope or a ramp that physically covers the entire rise, resting on both the lower and the upper surface. The angle does not matter and is never measured: LEGO slope elements (`04-construction-standard.md`, SCS-011) and a lowered ramp (`05-construction-components.md`, CMP-021) bound it by their own construction.
 
 If no slope or ramp covers the full rise, the height is impassable to that vehicle. It must go around.
 

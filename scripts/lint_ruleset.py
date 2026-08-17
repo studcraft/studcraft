@@ -262,8 +262,8 @@ def main() -> int:
                 continue
             # The parenthesised form leaves up to 80 characters between the
             # filename and the ID, which is what lets "see `10-weapons.md`
-            # (WPN-002)" and the continuation form "(`04-construction-standard.md`,
-            # SCS-011) and a lowered ramp (SCS-008)" both match. That window also
+            # (WPN-002)" and a continuation form, where a second bare ID follows
+            # the cited one after a few words of prose, both match. That window also
             # lets the pattern reach past one citation and pick up a bare
             # same-document ID that was never a reference into the cited file.
             # The prefix settles it: each document owns its own namespace
