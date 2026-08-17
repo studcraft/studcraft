@@ -143,9 +143,9 @@ The remaining fenced blocks stay as they are. Formulas are equations and an imag
 
 ## Total and rejected candidates
 
-**23 images** specified, across 8 of the 15 ruleset documents (`02-core-rules.md`, `05-construction-components.md`, `07-movement.md`, `08-vehicles.md`, `09-transport.md`, `10-weapons.md`, `15-geometry-layers.md`, `16-damage-system.md`).
+**23 images** specified, across 8 of the 14 ruleset documents (`02-core-rules.md`, `05-construction-components.md`, `07-movement.md`, `08-vehicles.md`, `09-transport.md`, `10-weapons.md`, `15-geometry-layers.md`, `16-damage-system.md`).
 
-The remaining 7 documents (`01-foundations.md`, `03-game-flow.md`, `04-construction-standard.md`, `06-deployment.md`, `11-combat.md`, `12-melee.md`, `14-glossary.md`) need no images of their own: they either restate rules already illustrated above, or are procedural/definitional throughout.
+The remaining 6 documents (`01-foundations.md`, `03-game-flow.md`, `06-deployment.md`, `11-combat.md`, `12-melee.md`, `14-glossary.md`) need no images of their own: they either restate rules already illustrated above, or are procedural/definitional throughout.
 
 Rules considered and rejected, with reasons:
 

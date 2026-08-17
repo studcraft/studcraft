@@ -192,7 +192,7 @@ computes an alarming figure finds the answer where they already are.
 
 A `MODIFIED` or `REMOVED` delta can only target a capability that already
 exists under `openspec/specs/`. Several ruleset documents (`11-combat.md`,
-`04-construction-standard.md`, ...) predate the OpenSpec workflow and were
+`03-game-flow.md`, ...) predate the OpenSpec workflow and were
 never formalised, so there is nothing to delta against.
 
 - **Do not invent a delta against a capability that does not exist.**

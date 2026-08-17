@@ -172,8 +172,6 @@ docs/
 
 03-game-flow.md
 
-04-construction-standard.md
-
 05-construction-components.md
 
 06-deployment.md

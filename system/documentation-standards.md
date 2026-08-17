@@ -71,9 +71,9 @@ it. Three mechanisms do, and they are not interchangeable:
 | `.claude/` | `settings.json` (hooks, permissions), `agents/`, `rules/`, `hooks/` |
 | `assets/` | `IMAGES.md` owns the example-image spec; `images/` holds the files |
 
-`ls` is the authority on contents. The `13-*.md` gap in `docs/` is deliberate:
-`13-materials.md` was removed and its number retained, per Naming Conventions
-below.
+`ls` is the authority on contents. The `04-*.md` and `13-*.md` gaps in `docs/`
+are deliberate: `04-construction-standard.md` and `13-materials.md` were
+removed and their numbers retained, per Naming Conventions below.
 
 ---
 
