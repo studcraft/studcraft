@@ -101,6 +101,8 @@ How small a vehicle may be built is a vehicle-construction rule — `08-vehicles
 
 Buildings, fortifications and scenery are permanent battlefield elements.
 
+A structure a player brings as part of their army is controlled by that player, like any other model; a structure placed by the scenario has no controlling player (`11-combat.md`, CBT-008).
+
 A structure's doors, windows and other functional parts follow `05-construction-components.md`, like any other model's; its walls, slopes, stairs and platforms are terrain, and how a unit crosses or stands on them is `07-movement.md` (MOVE-009 through MOVE-014). Structure-specific damage (collapse, breaching walls) and Deployment Volume occupation for scenario-placed structures are not yet defined — a structure's individual components (doors, windows, walls) already resolve Impacts through the standard Component Damage System (`16-damage-system.md`) like any other component; only structure-wide consequences (e.g. a building collapsing) remain future work.
 
 ---

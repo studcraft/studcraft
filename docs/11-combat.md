@@ -40,7 +40,7 @@ Every attack follows the same procedure, and costs **1 Action Point** per weapon
 4. Verify Weapon Range.
 5. Roll Attack Dice.
 6. Count successful Impacts.
-7. Defender resolves Impacts.
+7. Resolve Impacts.
 8. Update the LEGO model.
 
 For melee attacks, steps 3–4 (Line of Sight, Weapon Range) are replaced by a single Physical Contact check (`12-melee.md` MEL-001, MEL-014); every other step applies identically.
@@ -118,6 +118,8 @@ When a weapon system's dice are split across multiple targets, all targets are d
 # CBT-008 — Defender Resolution
 
 After counting successful Impacts, responsibility passes to the Component Damage System (`16-damage-system.md`), which determines how each Impact affects the targeted component (see the Combat Flow diagram below for the full step sequence).
+
+When a targeted component has no controlling player — for example, a component of a structure placed by a scenario (`02-core-rules.md`, CORE-005) — the attacking player resolves it through the Component Damage System, including the Damage Roll (`16-damage-system.md`, DMG-015), and physically applies the resulting damage.
 
 ---
 

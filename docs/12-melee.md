@@ -14,7 +14,7 @@ Weapons do not inflict damage.
 
 Weapons generate Impacts.
 
-The defender resolves those Impacts using the Component Damage System (`16-damage-system.md`).
+The target resolves those Impacts using the Component Damage System (`16-damage-system.md`).
 
 ---
 

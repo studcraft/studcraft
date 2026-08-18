@@ -272,7 +272,7 @@ If `Strength ≥ Resistance`: the impact is capable of damaging the component. C
 
 # DMG-015 — Damage Roll
 
-The defender rolls one D6 for that impact. A result of 4, 5, or 6 succeeds: nothing happens, the component remains unchanged. A result of 1, 2, or 3 fails: the component advances exactly one state (`Operational → Wounded` or `Wounded → Dead`).
+The defender — or the attacker, where `11-combat.md` (CBT-008) directs — rolls one D6 for that impact. A result of 4, 5, or 6 succeeds: nothing happens, the component remains unchanged. A result of 1, 2, or 3 fails: the component advances exactly one state (`Operational → Wounded` or `Wounded → Dead`).
 
 This die does not represent armour — the Geometry Check already proved the impact could cause damage. It represents the uncertainty of combat: a fortunate deflection, an imperfect impact, a glancing hit, mechanical failure, luck.
 

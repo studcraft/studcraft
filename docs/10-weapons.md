@@ -253,7 +253,7 @@ A weapon's Line of Fire follows the universal Line of Sight rule (`11-combat.md`
 
 # WPN-013 — Attack Procedure
 
-Resolving a ranged attack follows the universal Attack Sequence defined in `11-combat.md` (CBT-001): declare weapon, declare target, verify Line of Sight, verify Range, roll Attack Dice, count Impacts, defender resolves Impacts, update the model.
+Resolving a ranged attack follows the universal Attack Sequence defined in `11-combat.md` (CBT-001): declare weapon, declare target, verify Line of Sight, verify Range, roll Attack Dice, count Impacts, resolve Impacts, update the model.
 
 ---
 
