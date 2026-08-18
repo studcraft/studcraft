@@ -89,6 +89,59 @@ def test_every_version_header_is_rewritten(released_repo):
     assert "**Version:** 0.5.0" in (released_repo / "docs" / "08-vehicles.md").read_text()
 
 
+class TestADocumentAddedBetweenCuts:
+    """The cut is the only thing allowed to write a **Version:** header, so it is
+    the only thing that can give one to a document created since the last cut.
+    Before this, `DOC_VERSION_RE.subn` found nothing and the file was skipped —
+    and the ruleset linter, which requires the header, failed forever.
+    """
+
+    NEW = """# 17-infantry.md
+
+# INF-001 — Infantry Unit
+
+An infantry model is a minifigure.
+
+---
+
+> **Every Brick Matters.**
+"""
+
+    def add(self, repo: Path) -> Path:
+        doc = repo / "docs" / "17-infantry.md"
+        doc.write_text(self.NEW)
+        commit_all(repo, "docs(infantry): add the infantry document")
+        return doc
+
+    def test_the_cut_supplies_the_header(self, released_repo):
+        doc = self.add(released_repo)
+        cut(released_repo)
+        assert "**Version:** 0.5.0" in doc.read_text()
+
+    def test_exactly_one_line_is_added(self, released_repo):
+        doc = self.add(released_repo)
+        cut(released_repo)
+
+        after = doc.read_text().splitlines()
+        assert len(after) == len(self.NEW.splitlines()) + 1
+        assert after[1] == "**Version:** 0.5.0"
+
+    def test_the_title_still_comes_first(self, released_repo):
+        doc = self.add(released_repo)
+        cut(released_repo)
+        assert doc.read_text().splitlines()[0] == "# 17-infantry.md"
+
+    def test_a_document_defining_no_rules_is_left_alone(self, released_repo):
+        glossary = "# 14-glossary.md\n\n## UB\n\nA volume.\n\n> **Every Brick Matters.**\n"
+        doc = released_repo / "docs" / "14-glossary.md"
+        doc.write_text(glossary)
+        commit_all(released_repo, "docs(glossary): add an entry")
+
+        cut(released_repo)
+
+        assert doc.read_text() == glossary
+
+
 def test_a_fresh_unreleased_section_is_opened_above_the_entry(released_repo):
     cut(released_repo)
 

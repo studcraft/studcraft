@@ -66,6 +66,51 @@ class TestTheDocumentSkeleton:
         assert structure_errors("08-vehicles.md", COMPLETE + "\n\n\n") == []
 
 
+class TestTheVersionHeader:
+    """Requiring the header of every rule-bearing document made a new ruleset
+    document impossible to add: only the Release cut may write that line, and the
+    cut did not insert one that was absent. VERSION_DEBT is the narrow exemption,
+    and what matters about it is that it clears itself.
+    """
+
+    HEADERLESS = COMPLETE.replace("**Version:** 0.4.0\n\n", "")
+
+    def versions(self, name: str, text: str, has_rules: bool = True) -> list[str]:
+        ids = {name: {"VEH-001"} if has_rules else set()}
+        return lint_ruleset.check_versions({name: text}, ids)
+
+    def test_a_rule_bearing_document_needs_one(self):
+        errors = self.versions("08-vehicles.md", self.HEADERLESS)
+        assert any("missing or malformed" in error for error in errors)
+
+    def test_a_document_defining_no_rules_does_not(self):
+        assert self.versions("14-glossary.md", self.HEADERLESS, has_rules=False) == []
+
+    def test_a_document_awaiting_its_first_cut_is_exempt(self, monkeypatch):
+        monkeypatch.setattr(lint_ruleset, "VERSION_DEBT", frozenset({"17-infantry.md"}))
+        assert self.versions("17-infantry.md", self.HEADERLESS) == []
+
+    def test_the_exemption_clears_itself_once_the_cut_supplies_one(self, monkeypatch):
+        monkeypatch.setattr(lint_ruleset, "VERSION_DEBT", frozenset({"17-infantry.md"}))
+        errors = self.versions("17-infantry.md", COMPLETE)
+        assert any("VERSION_DEBT" in error for error in errors)
+
+    def test_headers_that_disagree_are_reported(self):
+        errors = lint_ruleset.check_versions(
+            {"08-vehicles.md": COMPLETE, "09-transport.md": COMPLETE.replace("0.4.0", "0.5.0")},
+            {"08-vehicles.md": {"VEH-001"}, "09-transport.md": {"TRN-001"}},
+        )
+        assert any("disagree" in error for error in errors)
+
+    def test_an_exempt_document_does_not_drag_the_others_out_of_agreement(self, monkeypatch):
+        monkeypatch.setattr(lint_ruleset, "VERSION_DEBT", frozenset({"17-infantry.md"}))
+        errors = lint_ruleset.check_versions(
+            {"08-vehicles.md": COMPLETE, "17-infantry.md": self.HEADERLESS},
+            {"08-vehicles.md": {"VEH-001"}, "17-infantry.md": {"INF-001"}},
+        )
+        assert errors == []
+
+
 class TestRuleIds:
     def test_ids_are_read_with_their_numbers(self):
         text = "# VEH-001 — One\n\n# VEH-002 — Two\n"
