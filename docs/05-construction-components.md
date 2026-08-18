@@ -94,7 +94,7 @@ An access opening, with the component in its open position, must physically pass
 
 Measure the *clear* opening rather than the nominal frame: an element hanging in the doorway reduces it exactly as much as the frame does — see `15-geometry-layers.md` (GEO-004).
 
-The check is made against the opening, not against the approach. Whether a model can reach the opening is the terrain's question — `07-movement.md` (MOVE-011) for infantry, `08-vehicles.md` (VEH-021) for vehicles — and what must pass through the opening is this rule's.
+The check is made against the opening, not against the approach. Whether a model can reach the opening is the terrain's question — `17-infantry.md` (INF-008) for infantry, `08-vehicles.md` (VEH-021) for vehicles — and what must pass through the opening is this rule's.
 
 A component may therefore be an access point for one model and decorative for another — a hatch that passes a minifigure but not a motorcycle. The plastic has not changed; the question has.
 

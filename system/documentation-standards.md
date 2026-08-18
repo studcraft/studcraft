@@ -104,6 +104,8 @@ Adding a numbered `docs/NN-name.md` touches more than the file. Each of these
 has been missed at least once:
 
 - The document itself, with a stable rule-ID prefix and the required skeleton.
+- **No `**Version:**` header** — write none, and change nothing to allow that.
+  The Release cut inserts it, and it is the only code permitted to.
 - `README.md` — structure list, Rulebook reading order (its numbers are
   positions, so inserting renumbers everything after), Current Status.
 - `docs/14-glossary.md` — the new terms a reader cannot infer.

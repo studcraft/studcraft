@@ -87,6 +87,8 @@ Infantry are represented by LEGO minifigures.
 
 Infantry occupy one Unit Base.
 
+What an infantry model can do is an infantry rule — `17-infantry.md`.
+
 ---
 
 ## CORE-004 — Vehicles
@@ -101,7 +103,7 @@ How small a vehicle may be built is a vehicle-construction rule — `08-vehicles
 
 Buildings, fortifications and scenery are permanent battlefield elements.
 
-A structure's doors, windows and other functional parts follow `05-construction-components.md`, like any other model's; its walls, slopes, stairs and platforms are terrain, and how a unit crosses or stands on them is `07-movement.md` (MOVE-009 through MOVE-014). Structure-specific damage (collapse, breaching walls) and Deployment Volume occupation for scenario-placed structures are not yet defined — a structure's individual components (doors, windows, walls) already resolve Impacts through the standard Component Damage System (`16-damage-system.md`) like any other component; only structure-wide consequences (e.g. a building collapsing) remain future work.
+A structure's doors, windows and other functional parts follow `05-construction-components.md`, like any other model's; its walls, slopes, stairs and platforms are terrain — `07-movement.md` (MOVE-012 through MOVE-014) states what those constructions are — and how a unit crosses or stands on them is its own domain's rule: `17-infantry.md` (INF-006 through INF-010) for infantry, `08-vehicles.md` (VEH-021 through VEH-024, VEH-027) for vehicles. Structure-specific damage (collapse, breaching walls) and Deployment Volume occupation for scenario-placed structures are not yet defined — a structure's individual components (doors, windows, walls) already resolve Impacts through the standard Component Damage System (`16-damage-system.md`) like any other component; only structure-wide consequences (e.g. a building collapsing) remain future work.
 
 ---
 
@@ -127,7 +129,7 @@ Examples include:
 
 Every unit receives exactly **3 Action Points** per activation, regardless of its type or construction. No unit gains additional AP through its profile.
 
-**No Action Point cost scales with size** — not with the size of the unit paying it, and not with the size of an interactive element it operates (CORE-007). An action's cost is set by the rule that governs that action, and where more than one Action Point is spent that rule states why; the reason is never size. A measurement may still decide **which** rule applies: an obstacle of 3 plate layers is crossed freely and one of 4 is climbed (`07-movement.md`, MOVE-009, MOVE-010).
+**No Action Point cost scales with size** — not with the size of the unit paying it, and not with the size of an interactive element it operates (CORE-007). An action's cost is set by the rule that governs that action, and where more than one Action Point is spent that rule states why; the reason is never size. A measurement may still decide **which** rule applies, and which measurement is read is the unit's own domain's rule — an obstacle's height for infantry (`17-infantry.md`, INF-006 through INF-008), a Terrain Threshold for a vehicle (`08-vehicles.md`, VEH-021).
 
 ---
 

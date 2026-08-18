@@ -33,6 +33,10 @@ import sys
 from datetime import date
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from repo import RULE_HEADER_RE  # noqa: E402
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CHANGELOG = REPO_ROOT / "CHANGELOG.md"
 DOCS_DIR = REPO_ROOT / "docs"
@@ -186,6 +190,22 @@ def main() -> None:
         updated, count = DOC_VERSION_RE.subn(rf"\g<1>{next_version}\3", doc_text)
         if count:
             doc.write_text(updated)
+            continue
+
+        # A document added between two cuts has no header to rewrite, and nothing
+        # else may write one — the PreToolUse hook and scripts/apply_tasks.py both
+        # refuse it, and scripts/lint_ruleset.py requires it. This is the only
+        # place that closes that loop, so the cut supplies the line rather than
+        # skipping the file.
+        #
+        # Exactly one line is inserted, directly below the title. The release
+        # branch's exemption in `Docs require OpenSpec proposal` is constrained by
+        # content: every added or removed line in the docs/*.md diff that is not
+        # the header itself fails the check, and a blank line is one of them.
+        lines = doc_text.splitlines(keepends=True)
+        if lines and RULE_HEADER_RE.search(doc_text):
+            lines.insert(1, f"**Version:** {next_version}\n")
+            doc.write_text("".join(lines))
 
     print(next_version)
 

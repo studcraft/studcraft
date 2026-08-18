@@ -66,6 +66,35 @@ class TestTheDocumentSkeleton:
         assert structure_errors("08-vehicles.md", COMPLETE + "\n\n\n") == []
 
 
+class TestTheVersionHeader:
+    """Requiring a header of every rule-bearing document made a new ruleset
+    document impossible to add: only the Release cut may write that line, and a
+    document created between two cuts cannot have one. The check that survives is
+    the one that catches a repository being wrong rather than being new.
+    """
+
+    HEADERLESS = COMPLETE.replace("**Version:** 0.4.0\n\n", "")
+
+    def test_a_document_without_one_is_not_an_error(self):
+        assert lint_ruleset.check_versions({"17-infantry.md": self.HEADERLESS}) == []
+
+    def test_headers_that_disagree_are_reported(self):
+        errors = lint_ruleset.check_versions(
+            {"08-vehicles.md": COMPLETE, "09-transport.md": COMPLETE.replace("0.4.0", "0.5.0")}
+        )
+        assert any("disagree" in error for error in errors)
+
+    def test_headers_that_agree_are_not(self):
+        assert lint_ruleset.check_versions(
+            {"08-vehicles.md": COMPLETE, "09-transport.md": COMPLETE}
+        ) == []
+
+    def test_a_document_without_one_does_not_count_as_disagreement(self):
+        assert lint_ruleset.check_versions(
+            {"08-vehicles.md": COMPLETE, "17-infantry.md": self.HEADERLESS}
+        ) == []
+
+
 class TestRuleIds:
     def test_ids_are_read_with_their_numbers(self):
         text = "# VEH-001 — One\n\n# VEH-002 — Two\n"

@@ -15,8 +15,10 @@ Checks things a human reviewer shouldn't have to catch by hand:
   "`09-transport.md`, TRN-001), ... its own Unit Base (DEP-004)" in
   06-deployment.md is a reference to DEP-004 and not a broken one into
   09-transport.md.
-- `**Version:**` headers that are missing, malformed, or disagree with
-  each other (all docs/*.md are expected to share one project version).
+- `**Version:**` headers that disagree with each other (all docs/*.md
+  are expected to share one project version). A missing one is not an
+  error: only the Release cut may write that line, and it inserts one
+  wherever it finds none.
 - The document skeleton required by system/documentation-standards.md:
   Purpose, Design Philosophy and Summary sections, and a closing motto.
 - The image filenames in assets/IMAGES.md: that each follows the naming
@@ -63,6 +65,7 @@ REQUIRED_SECTIONS = ("Purpose", "Design Philosophy", "Summary")
 # the exemption is that it is a closed list: a *new* document cannot join it
 # without someone editing this line.
 SECTION_DEBT = {"02-core-rules.md": ("Design Philosophy", "Summary")}
+
 
 # assets/IMAGES.md groups its entries under one "## docs/<file>.md" heading per
 # document, each holding a single table whose first two columns are the rule and
@@ -217,13 +220,43 @@ def check_structure(
     return errors
 
 
+def check_versions(texts: dict[str, str]) -> list[str]:
+    """The version headers that exist agree with each other.
+
+    A missing header is **not** an error, and requiring one used to make adding a
+    ruleset document impossible: the PreToolUse hook refuses to write that line
+    outside a release branch, so a document created between two cuts cannot have
+    one. `scripts/release_cut.py` inserts it at the next cut, which is the only
+    code allowed to write it. Nothing else in the repository reads the line, so a
+    document without one costs a reader a version number until then and costs the
+    checks nothing.
+
+    What is worth checking is that the headers do not disagree, because two
+    project versions in one ruleset is a fact about the repository being wrong
+    rather than a fact about it being new.
+    """
+    versions = {
+        name: match.group(1)
+        for name, text in sorted(texts.items())
+        if (match := VERSION_RE.search(text))
+    }
+
+    if len(set(versions.values())) <= 1:
+        return []
+
+    grouped = ", ".join(
+        f"{v}={[n for n, ver in versions.items() if ver == v]}"
+        for v in sorted(set(versions.values()))
+    )
+    return [f"docs/*.md Version headers disagree: {grouped}"]
+
+
 def main() -> int:
     errors: list[str] = []
     docs = sorted(DOCS_DIR.glob("*.md"))
     texts = {doc.name: doc.read_text() for doc in docs}
     ids_by_file: dict[str, set[str]] = {}
     prefixes_by_file: dict[str, set[str]] = {}
-    versions: dict[str, str] = {}
 
     for name, text in texts.items():
         rule_ids = collect_rule_ids(text)
@@ -245,16 +278,7 @@ def main() -> int:
                 )
             last_number[prefix] = number
 
-        version_match = VERSION_RE.search(text)
-        if version_match is None:
-            if rule_ids:
-                errors.append(f"{name}: missing or malformed **Version:** header")
-        else:
-            versions[name] = version_match.group(1)
-
-    if len(set(versions.values())) > 1:
-        grouped = ", ".join(f"{v}={[n for n, ver in versions.items() if ver == v]}" for v in sorted(set(versions.values())))
-        errors.append(f"docs/*.md Version headers disagree: {grouped}")
+    errors.extend(check_versions(texts))
 
     for name, text in texts.items():
         for target_file, rule_id in CROSS_REF_RE.findall(text):

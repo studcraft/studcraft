@@ -79,7 +79,8 @@ These principles are fully described in:
     ├── 12-melee.md
     ├── 14-glossary.md
     ├── 15-geometry-layers.md
-    └── 16-damage-system.md
+    ├── 16-damage-system.md
+    └── 17-infantry.md
 ```
 
 `04-*.md` and `13-*.md` are deliberate gaps, not missing files — `docs/04-construction-standard.md` was removed (its five rules folded into `02-core-rules.md` and `07-movement.md`) and `docs/13-materials.md` before it (its content folded into `16-damage-system.md`), and per this repo's rule-ID-stability convention, document numbers are not reused or renumbered after removal.
@@ -113,19 +114,22 @@ Learn how legal models are built.
 
 6. `06-deployment.md`
 7. `07-movement.md`
-8. `08-vehicles.md`
-9. `09-transport.md`
+8. `17-infantry.md`
+9. `08-vehicles.md`
+10. `09-transport.md`
 
 Learn how armies are deployed and how units move across the battlefield.
+
+`07-movement.md` holds the mechanics every unit shares. Each unit domain states what its own units do with them, so read Infantry and Vehicles beside it rather than after it — the file numbers are creation order, not reading order.
 
 ---
 
 ## Part IV — Combat
 
-10. `10-weapons.md`
-11. `11-combat.md`
-12. `12-melee.md`
-13. `16-damage-system.md`
+11. `10-weapons.md`
+12. `11-combat.md`
+13. `12-melee.md`
+14. `16-damage-system.md`
 
 Learn how attacks are generated and resolved, and how components take and resist damage.
 
@@ -133,7 +137,7 @@ Learn how attacks are generated and resolved, and how components take and resist
 
 ## Reference
 
-14. `14-glossary.md`
+15. `14-glossary.md`
 
 Quick lookup for core terms.
 
@@ -206,6 +210,7 @@ Implemented systems:
 - Construction
 - Deployment
 - Movement
+- Infantry
 - Vehicles
 - Transport
 - Weapons
