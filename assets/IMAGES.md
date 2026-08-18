@@ -89,12 +89,6 @@ The remaining fenced blocks stay as they are. Formulas are equations and an imag
 |---|---|---|---|
 | CMP-018 | `assets/images/cmp-018-clear-opening.png` | A doorway in a vehicle wall, twice. Both times the frame's nominal aperture is dimensioned in studs and plate layers, a hinged element hangs part-way across it, and the measurement that counts is drawn around that element rather than around the frame — labelled as the clear opening. In the first, the Unit Base's vertical projection fits that clear opening; in the second the same frame fails it, with only the hanging element differing between the two. | The frame is what a reader measures and the wrong thing to measure, and no wording of "clear rather than nominal" makes two identical frames visibly different sizes — a drawing of one doorway with two measurements does. It is also the only one of GEO-004's three physical checks that needs an image of its own: Cover is declined separately at CORE-010, and Line of Sight is whatever can physically be seen from where the shooter stands, which no drawing of one build settles. |
 
-## docs/07-movement.md
-
-| Rule | Filename | What it must show | Why text alone is not enough |
-|---|---|---|---|
-| MOVE-003 | `assets/images/move-003-axis-measurement.png` | A Unit Base measured from its leading edge in each direction: the front edge for forward movement (3-stud steps, MOVE-004), the corresponding side edge for lateral movement (4-stud steps, MOVE-005). | Forward movement steps in multiples of the base's 3-stud depth while side movement steps in multiples of its 4-stud width — two different axes of the same base, with two different step sizes. The rule works this out algebraically; a diagram shows it directly. |
-
 ## docs/08-vehicles.md
 
 | Rule | Filename | What it must show | Why text alone is not enough |
@@ -137,26 +131,29 @@ The remaining fenced blocks stay as they are. Formulas are equations and an imag
 | DMG-013 | `assets/images/dmg-013-composite-targeting.png` | A vehicle (e.g. a jeep) with each independent component — chassis, driver, cannon, four wheels — outlined separately as its own targetable component. | Readers coming from other wargames default to treating "the vehicle" as one target. Seeing a single model broken into several independently-resolving components is the fastest way to unlearn that assumption. |
 | DMG-017 | `assets/images/dmg-017-penetration.png` | The worked Heavy Cannon vs. Shield example: an Impact of Strength 6 crossing a Shield of Resistance 3, continuing with Remaining Strength 3 toward a Minifig of Resistance 3 positioned behind it. | Penetration is defined algebraically (`Remaining Strength = Current Strength − Component Resistance`) and depends on components being physically arranged one behind another along the Impact's path — immediate in a side-view diagram, laborious to reconstruct from the formula alone. |
 
+## docs/17-infantry.md
+
+| Rule | Filename | What it must show | Why text alone is not enough |
+|---|---|---|---|
+| INF-002 | `assets/images/inf-002-axis-measurement.png` | A Unit Base measured from the face that leads in each direction: the front face for forward movement (3-stud steps), the corresponding side face for lateral movement (4-stud steps, INF-003). | Forward movement steps in multiples of the base's 3-stud depth while side movement steps in multiples of its 4-stud width — two different axes of the same base, with two different step sizes. The rule works this out algebraically; a diagram shows it directly. |
+| Terrain (INF-006 – INF-008) | `assets/images/17-terrain-thresholds.png` | Three obstacle heights next to real LEGO bricks/plates: up to 3 plate layers (crossed freely), 4-6 (climbable for +1 AP), 7 or more (impassable without a slope, stair or ramp). | The three thresholds are defined purely in "plate layers," a unit few readers convert to bricks at a glance. Seeing the three bands next to actual brick heights removes the conversion step. |
+| INF-011 | `assets/images/inf-011-falling-measurement.png` | A unit falling from a height to "the first surface that physically supports it," with the drop marked in plate layers/bricks, showing the free first brick and one Damage Roll die per complete brick beyond it. | The rule measures the fall to the landing surface, not to table level, and exempts the first brick entirely. Both are easy to apply wrongly on an irregular drop without seeing where the measurement starts and ends. |
+
 ---
 
 ## Total and rejected candidates
 
-**21 images** specified, across 8 of the 14 ruleset documents (`02-core-rules.md`, `05-construction-components.md`, `07-movement.md`, `08-vehicles.md`, `09-transport.md`, `10-weapons.md`, `15-geometry-layers.md`, `16-damage-system.md`).
+**23 images** specified, across 8 of the 15 ruleset documents (`02-core-rules.md`, `05-construction-components.md`, `08-vehicles.md`, `09-transport.md`, `10-weapons.md`, `15-geometry-layers.md`, `16-damage-system.md`, `17-infantry.md`).
 
-The remaining 6 documents (`01-foundations.md`, `03-game-flow.md`, `06-deployment.md`, `11-combat.md`, `12-melee.md`, `14-glossary.md`) need no images of their own: they either restate rules already illustrated above, or are procedural/definitional throughout.
+The remaining 7 documents (`01-foundations.md`, `03-game-flow.md`, `06-deployment.md`, `07-movement.md`, `11-combat.md`, `12-melee.md`, `14-glossary.md`) need no images of their own: they either restate rules already illustrated above, or are procedural/definitional throughout.
 
-### Withdrawn pending a document move
+### Moved when their rules moved
 
-**Two entries were removed from `## docs/07-movement.md` without being rejected.** Both illustrate rules that are about to be retired and reauthored in `docs/17-infantry.md`, and `scripts/lint_ruleset.py` cannot tolerate either intermediate state: it fails on an entry naming a rule its document no longer holds, and equally on a section naming a document that does not exist yet. So the entries leave here first, the ruleset change lands, and they return under the new document.
+`docs/07-movement.md` had three entries and now has none. All three illustrated infantry rules, which is what the move of those rules to `docs/17-infantry.md` established, and all three moved with them: `MOVE-003` became `INF-002`, `Terrain Movement (MOVE-009 – MOVE-011)` became `Terrain (INF-006 – INF-008)`, and `MOVE-016` became `INF-011`.
 
-| Was | Becomes | Filename must become |
-|---|---|---|
-| `Terrain Movement (MOVE-009 – MOVE-011)` | `Terrain (INF-006 – INF-008)` | `assets/images/17-terrain-thresholds.png` |
-| `MOVE-016` | `INF-011` | `assets/images/inf-011-falling-measurement.png` |
+**Each filename changed too, and had to.** `check_image_index` requires a filename to start with the lowercased rule ID where the Rule cell is exactly one ID, and with the document number otherwise, so `move-003-…`, `move-016-…` and `07-…` all fail the moment the entries sit under a document numbered 17. None of the three images had been drawn, so nothing was orphaned.
 
-The renames are not optional. `check_image_index` requires a filename to start with the lowercased rule ID where the Rule cell is exactly one ID, and with the document number otherwise — `move-016-…` and `07-…` fail both tests once the entries sit under `17-infantry.md`.
-
-Neither image had been drawn: `assets/images/` is empty, so nothing is orphaned by the round trip. The "what it must show" and "why text alone is not enough" columns are unchanged by the move and should return as they were, with the rule IDs in them re-aimed.
+`MOVE-003` survives as a rule and keeps its number, but it no longer says which face leads — that is `INF-002`, and the image shows a base measured from its leading face. The entry follows the claim, not the number.
 
 Rules considered and rejected, with reasons:
 
@@ -164,7 +161,7 @@ Rules considered and rejected, with reasons:
 - **MOVE-017 (Collision)** — "Models may not overlap" is a self-evident physical fact from any tabletop photo. Recorded explicitly because a collision diagram is the first thing a reader of `07-movement.md` reaches for; on review it does not meet the bar.
 - **VEH-006 (Reverse Movement)** — Just states the same distance as forward movement applies in reverse; no new geometry to show.
 - **VEH-009, VEH-010, VEH-011 (Track/Walker/Hover pivot)** — All three pivot around the model's centre, which is the intuitive case (a swivel, not a lever). Covered by the contrast panel in the VEH-008 image rather than three near-identical diagrams.
-- **VEH-025 (Stranded), VEH-026 (Vehicle Falling)** — Both are direct consequences of the Terrain Threshold already illustrated (VEH-022 – VEH-024) and of the infantry fall mechanic, whose image is withdrawn below along with the terrain thresholds; no independent geometric fact to add. When those two return, this reason stands again as written.
+- **VEH-025 (Stranded), VEH-026 (Vehicle Falling)** — Both are direct consequences of the Terrain Threshold already illustrated (VEH-022 – VEH-024) and the fall mechanic already illustrated (INF-011); no independent geometric fact to add.
 - **VEH-030 (What Counts Toward Height)** — Two of its three facts are checks read off the model: whether an element can move, and whether it is functional. This list already declines DMG-018 as "a binary construction check made directly on the model" and VEH-013 and CMP-008 as verified by looking at the build. Measuring a movable element in its highest position changes *when* the check is made, not what a reader has to picture, and the Gameplay-versus-Visual contrast the rule's table applies is drawn for GEO-005. The third, that an externally carried model counts, is a counting rule of the kind DEP-006 owns.
 - **VEH-013 (Pilot), CMP-008 (Turrets)** — "A visible minifigure in an operating position" and "a mount that physically rotates" are easily verified by looking at the model; nothing in the text is hard to picture.
 - **WPN-002 (Functional Muzzle), WPN-018 (Weapon Proportion)** — Neither displays a character grid. WPN-002 is a definition, and WPN-018 states a proportion as an inequality with valid/invalid dimension lists that read perfectly well as text. An image would add nothing to either.

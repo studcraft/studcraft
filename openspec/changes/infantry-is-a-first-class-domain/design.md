@@ -12,7 +12,7 @@ Infantry belongs beside Movement and Vehicles, and `08-` would say so. It is not
 
 **Rejected: renumbering to `08-infantry.md`.** Forbidden, and it would move `VEH-`, `TRN-`, `WPN-`, `CBT-` and `MEL-` document numbers for presentation.
 
-**Recorded for the follow-up change:** reading order is `README.md`'s, and `README.md` can list Infantry immediately after Movement whatever the file is numbered. That is where the ordering problem is actually solvable.
+**The ordering problem is solved in `README.md`, not in the filename.** Its Rulebook reading order lists Infantry immediately after Movement and before Vehicles, and says outright that the file numbers are creation order rather than reading order. A reader meets the three in the order that makes sense; only `ls` shows Infantry last.
 
 ## Decision 2 — Retiring ten `MOVE-` IDs, not renaming them
 
@@ -133,7 +133,7 @@ This change also introduces no new capability. Infantry movement is not new beha
 
 So the ruleset cannot gain a new rule-bearing document at all. Nothing on this branch resolves it: writing the header is denied, and `scripts/` is out of a proposal branch's scope.
 
-**The prerequisite `release-cut-owns-new-document-versions` closes it in the two places that can:**
+**This change closes it in the two places that can.** It was drafted as a separate prerequisite and folded in when the delivery was consolidated (Decision 12); the code is the same either way:
 
 - `release_cut.py` inserts the header into a `docs/*.md` that has rule IDs and lacks one, below the document's title, at the version it is already computing for that cut. That is the only code in the repository allowed to write the line. **It must insert exactly one line and change nothing else** — not the blank line that would make the file match its siblings. `.github/workflows/docs-require-proposal.yml` constrains the `release/v*` exemption by content: every added or removed line in the `docs/*.md` diff that is not `^[+-]\*\*Version:\*\*` fails the check, and a bare `+` for a blank line is one of them. Getting this wrong breaks the first release cut after the prerequisite merges, not the prerequisite's own pull request.
 - `lint_ruleset.py` gains a closed list of documents awaiting their first cut, in the shape it already uses for `SECTION_DEBT`, and does not fail those for the missing header. `docs/17-infantry.md` goes on it. **The list is self-clearing: a listed document that already carries a header is an error.** So the cut that supplies the header turns the exemption into a failure, and the entry has to be deleted by the next ordinary change — which is the only kind of branch allowed to edit `scripts/` anyway. Without that inversion the entry outlives its reason, and the one document most likely to lose its header again is the one the linter has stopped watching.
@@ -144,25 +144,21 @@ Both halves are needed. Without the first, the document never gets a header; wit
 
 **Rejected: shipping `docs/17-infantry.md` with no rule IDs** — as prose that `07-movement.md` links to — so the linter does not ask for a header. That is not a ruleset document, and the whole point is that infantry rules should be numbered rules in a document of their own.
 
-## Decision 12 — Four changes, in a fixed order
+## Decision 12 — One change, not four
 
-`system/repository-strategy.md` (Branch Naming) confines a `<change-name>` branch to `docs/*.md` plus that one change. Four files outside that scope are affected, and they cannot all be handled the same way. What separates them is one question: **does it fail a required check?** `scripts/lint_ruleset.py` is the only one of the checkers that runs in a workflow (`.github/workflows/docs-ruleset-linter.yml`), so only what it reads can block the merge.
+`system/repository-strategy.md` (Branch Naming) confines a `<change-name>` branch to `docs/*.md` plus that one change, so this was designed as four pull requests: two prerequisites, the ruleset, and a follow-up. **The maintainer decided it ships as one**, and the split is not worth defending, because of what it was for.
 
-**Blocks the merge, therefore a prerequisite:**
+It was never about scope. It was a workaround for one fact: `scripts/lint_ruleset.py` is the only checker that runs in a workflow, and it fails on every intermediate state this change passes through. A document with no version header. An image entry naming a retired rule. An image entry naming a document that does not exist yet. The four-way split was the sequence that kept each pull request green — at the cost of three merges during which the repository was, in small documented ways, wrong.
 
-- `scripts/release_cut.py` and `scripts/lint_ruleset.py` — Decision 11. The linter fails on `docs/17-infantry.md` having no version header, and nothing on this branch may write one.
-- `assets/IMAGES.md` — the linter's `check_image_index` errors with "`<ID>` does not exist in docs/`<file>`" for any rule named in an entry the document does not contain. **Two table rows** under `## docs/07-movement.md` name three retired IDs, producing three errors: line 97's `Terrain Movement (MOVE-009 – MOVE-011)` and line 98's `MOVE-016`.
+One pull request has no intermediate state, so the workaround has nothing left to work around. Three things got simpler rather than merely fewer:
 
-Neither order is clean for the images: the rows cannot be re-aimed at `INF-` IDs before `docs/17-infantry.md` exists, because the linter fails from the other side — "section names docs/17-infantry.md, which does not exist". So the prerequisite **removes** them, this change lands, and the follow-up **re-adds** them, renamed. The rename is not optional: `check_image_index` requires the filename stem to start with the lowercased rule ID for a single-ID row and with the document number otherwise, so `move-016-falling-measurement.png` must become `inf-011-…` and `07-terrain-thresholds.png` must become `17-…`. `assets/images/` is empty, so no drawn file is orphaned by the round trip.
+- **`assets/IMAGES.md` makes no round trip.** The plan was to delete two entries, land the ruleset, then restore them under the new document with new filenames. They now move once. `MOVE-003`'s entry moves with them, which the split would have left behind: the image shows a base measured from its leading face, and after this change that is `INF-002`'s claim and not `MOVE-003`'s. An entry follows the claim it illustrates, not the number it was filed under.
+- **`TODO.md` is never stale.** Its two quotes were going to be wrong for the length of one merge, with `preflight.py` red and a note in `tasks.md` telling the applier to ignore it. Nobody has to be told to ignore a check now.
+- **`VERSION_DEBT` never names a file that does not exist.** The prerequisite would have listed `17-infantry.md` one merge before the document arrived.
 
-**Blocks nothing, therefore a follow-up:**
+**What the split would still have bought, and what it costs to give up:** one reviewable concern per pull request. This one is large — sixteen paths, a ruleset document, two scripts and their tests. A reviewer cannot check the `scripts/` change without scrolling past two hundred lines of ruleset. That is the real trade, and it is the maintainer's to make.
 
-- `TODO.md` — `scripts/check_todo_quotes.py` runs in `preflight.py` and in no workflow. Two entries go stale here: one quotes `MOVE-004`'s sprint sentence against `docs/07-movement.md`, and one quotes `CORE-005`'s paragraph including its `(MOVE-009 through MOVE-014)` citation, which task 3.1 rewrites.
-- `README.md` — read by nothing mechanical. It cites no `MOVE-` ID; what it needs is the new document in its structure list, its reading order and its Current Status.
-
-`tasks.md` section 9 states both expected failures where the applier will read them, so a red preflight is not mistaken for a defect and the ruleset is not edited to make a check pass.
-
-**Rejected: folding `README.md`, `TODO.md` and `assets/IMAGES.md` into this branch.** The reason is the `system/repository-strategy.md` Branch Naming table, and **that is a convention, not a gate** — `branch-naming.yml` checks only that the branch is kebab-case and names the single change directory it touches, and `guard_repo_edits.py` denies non-`docs/` edits only on `main`, `develop`, `release/*` and `archive/*`. An earlier draft of this decision claimed both would refuse the edit. They would not; the rule is still the rule, and this is the same split `core-states-only-what-it-owns` made for the same reason. **Nothing here is enforced, which is exactly why it is written down.**
+**On the Branch Naming table.** It is a convention, not a gate: `branch-naming.yml` checks only that the branch is kebab-case and names the single change directory it touches, and `guard_repo_edits.py` denies non-`docs/` edits only on `main`, `develop`, `release/*` and `archive/*`. An earlier draft of this decision claimed both would refuse the edit; they would not, and that claim was wrong. The rule is still the rule, and departing from it is a decision recorded here rather than an accident.
 
 ## Decision 13 — Three surviving rules are generalised, not just left alone
 

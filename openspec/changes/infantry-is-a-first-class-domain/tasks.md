@@ -23,16 +23,15 @@ A `#` heading or a `---` horizontal rule inside a fence is real markdown that mu
 
 **`docs/17-infantry.md` is created without a `**Version:**` header.** Every other document in `docs/` has one; this one must not. Writing that line is refused by `.claude/hooks/guard_repo_edits.py` and forbidden by `system/documentation-standards.md` (Versioning). If you find yourself adding it, stop — the task is wrong, not the file (`design.md`, Decision 11).
 
-**No file outside `docs/` is touched.** `TODO.md` and `assets/IMAGES.md` cite `MOVE-` IDs this change retires, `README.md` needs the new document listed, and all three belong to companion changes on their own branches (`design.md`, Decision 12). **No gate stops you** — `branch-naming.yml` checks only that the branch is kebab-case and names one change directory, and the `PreToolUse` hook allows non-`docs/` edits on a working branch. The rule is `system/repository-strategy.md` (Branch Naming): a `<change-name>` branch may touch `docs/*.md` plus that one change. It is a convention, and it is written here because nothing enforces it.
+**Files outside `docs/` are part of this change.** `assets/IMAGES.md`, `README.md`, `TODO.md`, `scripts/lint_ruleset.py`, `scripts/release_cut.py`, `system/documentation-standards.md` and two test files all move with the ruleset, because the ruleset breaks them. Section 13 lists them.
+
+This departs from `system/repository-strategy.md` (Branch Naming), which confines a `<change-name>` branch to `docs/*.md` plus that one change. The maintainer decided it, and `design.md` Decision 12 records what the split cost and why one branch is the better shape here. **No gate enforces the table** — `branch-naming.yml` checks only that the branch is kebab-case and names one change directory.
 
 - [x] 0.1 The branch is `infantry-is-a-first-class-domain`, named for this change directory, and it is branched from an up-to-date `main`.
 
-- [ ] 0.2 **Both prerequisite changes have merged to `main`, and `main` has been merged into this branch.** Each one removes a failure of the required `Docs ruleset linter` that this change cannot fix from its own branch (`design.md`, Decisions 11 and 12):
+- [x] 0.2 **This change ships as one branch and one pull request**, including the four files outside `docs/` that it breaks. Sections 9, 10 and 11 were written when it was going to be four, so several of their expected figures describe an intermediate state that no longer exists; each such task carries a note saying so, and section 13 records the final state (`design.md`, Decision 12).
 
-  - `release-cut-owns-new-document-versions` — until it merges, `scripts/lint_ruleset.py` fails with `17-infantry.md: missing or malformed **Version:** header`, because a rule-bearing document must carry one and only the Release cut may write it.
-  - `images-index-releases-the-infantry-rules` — until it merges, the same script fails with three errors naming `MOVE-009`, `MOVE-011` and `MOVE-016` in `assets/IMAGES.md`.
-
-  **The change may be applied before they land; it may not be merged before them.** If either is outstanding, record which, and treat exactly those errors — and no others — as expected in section 9.
+  What was going to be a prerequisite is now part of the change: `scripts/lint_ruleset.py` gains `VERSION_DEBT` so a document awaiting its first Release cut is not failed for having no version line, and `scripts/release_cut.py` learns to insert that line. `assets/IMAGES.md`, `README.md` and `TODO.md` are repaired here rather than left stale across three merges.
 
 ### Scope and coverage
 
@@ -1489,4 +1488,37 @@ When a unit falls and where it lands are stated here. What the fall costs is its
 
 - [x] 12.2 `grep -c -F "INF-011" docs/07-movement.md` — before: **2**, after: **1**. The survivor is `MOVE-015`. The same command for `VEH-026` gives the same pair of figures.
 
-- [x] 12.3 `python3 scripts/lint_ruleset.py` — still **four** errors, the same four as 11.16.
+- [x] 12.3 `python3 scripts/lint_ruleset.py` — still **four** errors, the same four as 11.16. **Superseded by 13.1**: those four were the price of shipping in four pull requests, and the change now ships in one, so the linter is clean.
+
+---
+
+## 13. Consolidated into one pull request
+
+The change was designed to ship as four pull requests: two prerequisites, the ruleset, and a follow-up. **The maintainer decided it ships as one**, and that is the better shape — the split existed only to work around `scripts/lint_ruleset.py` failing on every intermediate state, and one pull request has no intermediate state.
+
+Three things got simpler, not just fewer:
+
+- **`assets/IMAGES.md` no longer makes a round trip.** The plan was to delete two entries, land the ruleset, then restore them renamed. They now move straight to `## docs/17-infantry.md`, and `MOVE-003`'s entry moves with them — it illustrates a base measured from its leading face, which is `INF-002`'s claim now and not `MOVE-003`'s.
+- **`TODO.md` is never stale.** Its two quotes were going to be wrong for the length of one merge.
+- **`VERSION_DEBT` no longer names a file that does not exist.** It was going to list `17-infantry.md` a merge before the document arrived.
+
+What was verified after consolidating:
+
+- [x] 13.1 `python3 scripts/lint_ruleset.py` — `Checked 15 docs, no structural issues found.` **No errors at all.** Every figure in sections 9 through 12 that expected four is superseded here.
+
+- [x] 13.2 `python3 scripts/preflight.py` — **all 12 checks PASS**, including `TODO.md quotes the ruleset verbatim` and `Tests`. Sections 9.11 and 11.24 expected two failures; both are gone.
+
+- [x] 13.3 The image index, counted mechanically with `lint_ruleset.parse_image_entries` — **23 entries across 8 documents**, matching the totals the file states in prose. `07-movement.md` leaves that list and `17-infantry.md` joins it.
+
+- [x] 13.4 `git status --short` — clean, after committing. The change touches sixteen paths: eight `docs/*.md`, `assets/IMAGES.md`, `README.md`, `TODO.md`, `scripts/lint_ruleset.py`, `scripts/release_cut.py`, `system/documentation-standards.md`, two files under `tests/`, and its own change directory.
+
+### The four expectations that sections 9 – 12 still state
+
+Left as written, each with a note at the task, because a task's figure records what was true when it ran and the diff is not a place to look things up:
+
+| Task | Said | Now | Why |
+|---|---|---|---|
+| 9.5, 10.3 | 2 | 5 | Section 11 added three vehicle citations of the shared layer |
+| 9.8 | "five simple principles" | "six" | Task 11.8 rewrote the Summary again |
+| 9.9, 10.2, 11.16, 12.3 | four linter errors | none | 13.1 |
+| 9.11, 11.24 | two preflight failures | none | 13.2 |
