@@ -86,11 +86,22 @@ class TestArchiveIsSeparateFromApply:
         )
         assert status(result) == preflight.FAIL
 
-    def test_an_archive_branch_with_nothing_to_archive_is_refused(self):
+    def test_an_archive_branch_that_archives_nothing_is_refused(self):
+        result = preflight.check_archive_separate(
+            "archive/batch-2026-08-12-1", ["openspec/changes/still-live/tasks.md"]
+        )
+        assert status(result) == preflight.FAIL
+
+    def test_moving_a_delta_free_change_is_archiving(self):
+        """A change that carried no capability delta writes no spec when it is
+        archived; its directory still moves. Requiring a spec write made such a
+        change impossible to archive alone, and let it through only when a
+        sibling in the same batch happened to carry a delta.
+        """
         result = preflight.check_archive_separate(
             "archive/batch-2026-08-12-1", ["openspec/changes/archive/x/tasks.md"]
         )
-        assert status(result) == preflight.FAIL
+        assert status(result) == preflight.PASS
 
     def test_an_archive_only_branch_passes(self):
         result = preflight.check_archive_separate(

@@ -26,6 +26,7 @@ jobs:
 
           touches_docs=$(echo "$changed" | grep -qE '^docs/.*\.md$' && echo yes || echo no)
           touches_specs=$(echo "$changed" | grep -qE '^openspec/specs/' && echo yes || echo no)
+          touches_archive=$(echo "$changed" | grep -qE '^openspec/changes/archive/' && echo yes || echo no)
 
           if [[ "$branch" == archive/* ]]; then
             # Same reasoning as the release exemption: a branch name must not be
@@ -42,8 +43,15 @@ jobs:
               echo "::error::Archive branch ($branch) changes docs/*.md. Archive PRs must only touch openspec/specs/** and openspec/changes/**, never the ruleset itself. See system/workflow.md (Archiving)."
               exit 1
             fi
-            if [[ "$touches_specs" == "no" ]]; then
-              echo "::error::Archive branch ($branch) doesn't touch openspec/specs/. Nothing to archive here — check the branch name/PR."
+            # Archiving a change moves its directory under openspec/changes/archive/.
+            # It writes openspec/specs/ only when the change carried a delta, and a
+            # delta-free change is legitimate — system/proposal-review.md ("Delta vs.
+            # Direct Edit") says not to invent one against a capability that does not
+            # exist. Requiring a spec write therefore made a delta-free change
+            # impossible to archive on its own, and let it through only when some
+            # unrelated sibling in the same batch happened to carry a delta.
+            if [[ "$touches_specs" == "no" && "$touches_archive" == "no" ]]; then
+              echo "::error::Archive branch ($branch) archives nothing: no openspec/changes/archive/ move and no openspec/specs/ write. Check the branch name/PR."
               exit 1
             fi
             echo "Archive-only PR. OK."

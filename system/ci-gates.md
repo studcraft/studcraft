@@ -159,6 +159,16 @@ ships a `specs/` directory.
 passes on every shape of legitimate work first, including the shapes `system/`
 documents as correct.
 
+**The same delta-free shape broke a second gate.** `OpenSpec archive must be
+separate from apply` required an archive branch to write `openspec/specs/`. A
+change carrying no delta writes none — only its directory moves — so it could
+not be archived at all. It went unnoticed for months because archiving is
+batched: the gate passed whenever *some* sibling in the batch carried a delta,
+and failed the first batch that held one delta-free change alone.
+
+**A gate reading a whole batch is testing the batch, not the item.** Where the
+rule is about each item, write the condition so one item alone satisfies it.
+
 ---
 
 # A Gate That Checks Presence Is Not Checking Substance
