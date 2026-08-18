@@ -64,6 +64,21 @@ REQUIRED_SECTIONS = ("Purpose", "Design Philosophy", "Summary")
 # without someone editing this line.
 SECTION_DEBT = {"02-core-rules.md": ("Design Philosophy", "Summary")}
 
+# A document added between two Release cuts carries no **Version:** header and
+# cannot be given one by hand: only scripts/release_cut.py may write that line.
+# Requiring it of every rule-bearing document therefore made adding a ruleset
+# document impossible. Listing one here suspends the requirement until the next
+# cut, which inserts the line.
+#
+# The list clears itself: a listed document that already carries a header is an
+# error, so the cut that supplies one forces the entry out through an ordinary
+# change. Empty is the normal state.
+#
+# 17-infantry.md is listed before it exists. It arrives on the branch named for
+# the change that adds it, which may touch docs/*.md and its own proposal only —
+# so the exemption has to be here first or that change can never merge.
+VERSION_DEBT = frozenset({"17-infantry.md"})
+
 # assets/IMAGES.md groups its entries under one "## docs/<file>.md" heading per
 # document, each holding a single table whose first two columns are the rule and
 # the image filename. Only tables under such a heading are entries; the file's
@@ -217,13 +232,49 @@ def check_structure(
     return errors
 
 
+def check_versions(
+    texts: dict[str, str], ids_by_file: dict[str, set[str]]
+) -> list[str]:
+    """Every rule-bearing document carries a Release-cut version, and they agree.
+
+    The one exception is a document waiting for its first cut — see VERSION_DEBT
+    for why that exception has to exist and how it removes itself.
+    """
+    errors: list[str] = []
+    versions: dict[str, str] = {}
+
+    for name, text in sorted(texts.items()):
+        match = VERSION_RE.search(text)
+        awaiting_cut = name in VERSION_DEBT
+
+        if match is None:
+            if ids_by_file.get(name) and not awaiting_cut:
+                errors.append(f"{name}: missing or malformed **Version:** header")
+            continue
+
+        if awaiting_cut:
+            errors.append(
+                f"{name}: carries a **Version:** header and is still listed in "
+                f"VERSION_DEBT. The Release cut has supplied it — delete the entry."
+            )
+        versions[name] = match.group(1)
+
+    if len(set(versions.values())) > 1:
+        grouped = ", ".join(
+            f"{v}={[n for n, ver in versions.items() if ver == v]}"
+            for v in sorted(set(versions.values()))
+        )
+        errors.append(f"docs/*.md Version headers disagree: {grouped}")
+
+    return errors
+
+
 def main() -> int:
     errors: list[str] = []
     docs = sorted(DOCS_DIR.glob("*.md"))
     texts = {doc.name: doc.read_text() for doc in docs}
     ids_by_file: dict[str, set[str]] = {}
     prefixes_by_file: dict[str, set[str]] = {}
-    versions: dict[str, str] = {}
 
     for name, text in texts.items():
         rule_ids = collect_rule_ids(text)
@@ -245,16 +296,7 @@ def main() -> int:
                 )
             last_number[prefix] = number
 
-        version_match = VERSION_RE.search(text)
-        if version_match is None:
-            if rule_ids:
-                errors.append(f"{name}: missing or malformed **Version:** header")
-        else:
-            versions[name] = version_match.group(1)
-
-    if len(set(versions.values())) > 1:
-        grouped = ", ".join(f"{v}={[n for n, ver in versions.items() if ver == v]}" for v in sorted(set(versions.values())))
-        errors.append(f"docs/*.md Version headers disagree: {grouped}")
+    errors.extend(check_versions(texts, ids_by_file))
 
     for name, text in texts.items():
         for target_file, rule_id in CROSS_REF_RE.findall(text):
