@@ -31,7 +31,7 @@ This departs from `system/repository-strategy.md` (Branch Naming), which confine
 
 - [x] 0.2 **This change ships as one branch and one pull request**, including the four files outside `docs/` that it breaks. Sections 9, 10 and 11 were written when it was going to be four, so several of their expected figures describe an intermediate state that no longer exists; each such task carries a note saying so, and section 13 records the final state (`design.md`, Decision 12).
 
-  What was going to be a prerequisite is now part of the change: `scripts/lint_ruleset.py` gains `VERSION_DEBT` so a document awaiting its first Release cut is not failed for having no version line, and `scripts/release_cut.py` learns to insert that line. `assets/IMAGES.md`, `README.md` and `TODO.md` are repaired here rather than left stale across three merges.
+  What was going to be a prerequisite is now part of the change: `scripts/lint_ruleset.py` stops requiring a version header a new document cannot have, and `scripts/release_cut.py` learns to insert that line. `assets/IMAGES.md`, `README.md` and `TODO.md` are repaired here rather than left stale across three merges.
 
 ### Scope and coverage
 
@@ -1502,7 +1502,7 @@ Three things got simpler, not just fewer:
 
 - **`assets/IMAGES.md` no longer makes a round trip.** The plan was to delete two entries, land the ruleset, then restore them renamed. They now move straight to `## docs/17-infantry.md`, and `MOVE-003`'s entry moves with them — it illustrates a base measured from its leading face, which is `INF-002`'s claim now and not `MOVE-003`'s.
 - **`TODO.md` is never stale.** Its two quotes were going to be wrong for the length of one merge.
-- **`VERSION_DEBT` no longer names a file that does not exist.** It was going to list `17-infantry.md` a merge before the document arrived.
+- **No exemption list has to name a file that does not exist.** The prerequisite was going to list `17-infantry.md` a merge before the document arrived; the requirement it was exempting has since been removed outright (`design.md`, Decision 11).
 
 What was verified after consolidating:
 

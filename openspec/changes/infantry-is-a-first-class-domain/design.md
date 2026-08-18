@@ -129,26 +129,30 @@ The glossary's *Wounded* entry **is** edited, because it cites `MOVE-021` and th
 
 This change also introduces no new capability. Infantry movement is not new behaviour; it is existing behaviour with an owner.
 
-## Decision 11 — Adding a new ruleset document is currently impossible, and one prerequisite fixes it
+## Decision 11 — Adding a new ruleset document was impossible; the fix is to require less
 
-`docs/17-infantry.md` is created without a version header, and three mechanisms then contradict each other. This is the finding that changed this change's shape, so it is written out in full.
+`docs/17-infantry.md` is created without a version header, and three mechanisms then contradicted each other. This is the finding that changed the change's shape, so it is written out in full.
 
-1. `.claude/hooks/guard_repo_edits.py:154` denies any edit writing that header from a branch that is not `release/v*`. `system/documentation-standards.md` (Versioning) is why: nobody writes it by hand, because several proposal branches are in flight and each would pick a colliding number.
-2. `scripts/release_cut.py:186` rewrites the header where `DOC_VERSION_RE` matches and skips the file where it does not (`if count:`). A document created without one never acquires one.
-3. `scripts/lint_ruleset.py:248` **requires** one on any document that defines rules, and `:255` requires every document's to agree. `docs/17-infantry.md` defines twelve, so the linter reports `missing or malformed` and exits 1 — and it is the `Docs ruleset linter`, the required check.
+1. `.claude/hooks/guard_repo_edits.py:154` denies any edit writing that header from a branch that is not `release/v*`. `system/documentation-standards.md` (Versioning) is why: several proposal branches are in flight and each would pick a colliding number.
+2. `scripts/release_cut.py` rewrote the header where `DOC_VERSION_RE` matched and skipped the file where it did not. A document created without one never acquired one.
+3. `scripts/lint_ruleset.py` **required** one on any document that defines rules, and it is the `Docs ruleset linter`, the required check.
 
-So the ruleset cannot gain a new rule-bearing document at all. Nothing on this branch resolves it: writing the header is denied, and `scripts/` is out of a proposal branch's scope.
+So the ruleset could not gain a new rule-bearing document at all. Both halves are fixed here:
 
-**This change closes it in the two places that can.** It was drafted as a separate prerequisite and folded in when the delivery was consolidated (Decision 12); the code is the same either way:
+- **`release_cut.py` inserts the header** into a rule-bearing document that has none, below the title and as **exactly one line**. Not a style choice: `.github/workflows/docs-require-proposal.yml` constrains the `release/v*` exemption by content — every added or removed line in the `docs/*.md` diff that is not `^[+-]\*\*Version:\*\*` fails the check, and a bare `+` for a blank line is one. Getting this wrong breaks the first release cut after the change, not the change's own pull request.
+- **`lint_ruleset.py` stops requiring the header.** The disagreement check stays.
 
-- `release_cut.py` inserts the header into a `docs/*.md` that has rule IDs and lacks one, below the document's title, at the version it is already computing for that cut. That is the only code in the repository allowed to write the line. **It must insert exactly one line and change nothing else** — not the blank line that would make the file match its siblings. `.github/workflows/docs-require-proposal.yml` constrains the `release/v*` exemption by content: every added or removed line in the `docs/*.md` diff that is not `^[+-]\*\*Version:\*\*` fails the check, and a bare `+` for a blank line is one of them. Getting this wrong breaks the first release cut after the prerequisite merges, not the prerequisite's own pull request.
-- `lint_ruleset.py` gains a closed list of documents awaiting their first cut, in the shape it already uses for `SECTION_DEBT`, and does not fail those for the missing header. `docs/17-infantry.md` goes on it. **The list is self-clearing: a listed document that already carries a header is an error.** So the cut that supplies the header turns the exemption into a failure, and the entry has to be deleted by the next ordinary change — which is the only kind of branch allowed to edit `scripts/` anyway. Without that inversion the entry outlives its reason, and the one document most likely to lose its header again is the one the linter has stopped watching.
+**The first draft kept the requirement and added `VERSION_DEBT`**, a closed list of documents awaiting their first cut, in the shape `SECTION_DEBT` already uses. It was rejected on review, and the reason is worth keeping: an exemption list is a standing obligation. Someone has to add the entry before the document lands and delete it after the next cut, and the deletion is the half that gets forgotten. Making the list self-clearing — a listed document that already carries a header is an error — only converts forgetting into a broken build later.
 
-Both halves are needed. Without the first, the document never gets a header; without the second, this change never merges.
+**Ask instead what the check was protecting.** Nothing in the repository reads a version header: `release_cut.py` writes it, the linter compared them, the hook and two workflows forbid writing it by hand. Nothing computes with it. So a document without one costs a reader a version number until the next cut, and costs the checks nothing — and the cut now supplies it, which makes the situation self-healing rather than merely tolerated.
 
-**Rejected: writing the header anyway, at `0.2.0 Draft` to match its siblings.** The hook refuses it, `scripts/apply_tasks.py` refuses it a second time, and the workflow forbids it. Three independent refusals is the repository saying this is not the route.
+What is worth checking survives untouched: **two different project versions across `docs/*.md`** is the repository being wrong. A missing header is the repository being new.
 
-**Rejected: shipping `docs/17-infantry.md` with no rule IDs** — as prose that `07-movement.md` links to — so the linter does not ask for a header. That is not a ruleset document, and the whole point is that infantry rules should be numbered rules in a document of their own.
+**Rejected: deriving the exemption from git** — asking whether the file existed at the latest `v*` tag, the way `scripts/check_id_stability.py` compares against a base revision. It is the most precise answer and it does not work where it has to: `.github/workflows/docs-ruleset-linter.yml` uses `actions/checkout@v4` at its default depth, with no history and no tags, so the linter would have to fail open in CI — which is the case it exists to cover.
+
+**Rejected: writing the header by hand at `0.2.0 Draft` to match its siblings.** The hook refuses it, `scripts/apply_tasks.py` refuses it a second time, and the workflow forbids it. Three independent refusals is the repository saying this is not the route.
+
+**Rejected: shipping `docs/17-infantry.md` with no rule IDs**, as prose the ruleset links to, so the linter never asks. That is not a ruleset document, and the point is that infantry rules should be numbered rules in a document of their own.
 
 ## Decision 12 — One change, not four
 

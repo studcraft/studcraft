@@ -61,7 +61,7 @@ A new `docs/17-infantry.md`, and seven existing documents.
 
 `system/repository-strategy.md` (Branch Naming) would put these on separate branches. They are here instead, in one pull request, at the maintainer's decision — `design.md`, Decision 12 records what that buys and what it costs.
 
-- **`scripts/lint_ruleset.py`** — gains `VERSION_DEBT`, the closed-list shape it already uses for `SECTION_DEBT`, so a rule-bearing document waiting for its first Release cut is not failed for having no version line. The list clears itself: a listed document that already carries a header is an error, so the cut that supplies one forces the entry out.
+- **`scripts/lint_ruleset.py`** — stops requiring a version header. A document created between two Release cuts cannot have one, nothing in the repository reads the line, and the cut supplies it. What survives is the check that catches two project versions in one ruleset, which is the repository being wrong rather than being new.
 - **`scripts/release_cut.py`** — inserts that line into a rule-bearing document that has none, below the title and as **exactly one line**. Not a style choice: `Docs require OpenSpec proposal` constrains the release-branch exemption by content and fails any added line in the `docs/*.md` diff that is not the header itself, which a blank line would be.
 - **`tests/test_lint_ruleset.py`, `tests/test_release_cut_e2e.py`** — eleven tests over both, including the one that pins the single-line insertion and the one that proves the exemption clears itself.
 - **`system/documentation-standards.md`** — three lines in "Adding a New Ruleset Document", because the next person to add one hits this and should not have to rediscover it.
