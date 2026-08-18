@@ -121,6 +121,8 @@ The glossary's *Wounded* entry **is** edited, because it cites `MOVE-021` and th
 
 `tasks.md` carries each as verbatim replacement text, so no value is retyped from this table.
 
+**One value was later added to the ruleset by this change and is not in the table above**, because it is a decision rather than a transposition: what a staircase with a 4-to-6-plate step costs infantry. Decision 16.
+
 ## Decision 10 — No `openspec/specs/` delta
 
 `system/proposal-review.md` ("Delta vs. Direct Edit"): a `MODIFIED` delta can only target a capability that already exists. No capability under `openspec/specs/` describes which document states a movement rule, and no requirement or scenario stops being true — a Wounded infantry model still moves two steps, an obstacle of 4 plate layers still costs the extra Action Point, and a fall of one brick still rolls nothing.
@@ -205,3 +207,21 @@ The scanner does not stop at the end of a citation. `VEH-007` as this change fir
 **The rule to follow: on a line carrying two citations, the parenthesised one goes first.** Then the only `(ID)` sits immediately after the document that owns it, and the comma-form citation has nothing after it to swallow. Section 10 of `tasks.md` applies that to `VEH-007` by splitting the sentence in two.
 
 **Not proposed: widening or anchoring the regex.** It would be a `scripts/` change on another branch, the eighty-character window is what lets the common `` `08-vehicles.md`, see (VEH-013) `` shape resolve at all, and one ordering convention costs nothing. What this change owes is the note, which is here.
+
+## Decision 16 — A stair's step is an obstacle, and there is no stair mechanic
+
+**This is the one decision in the change that alters play.** Everything else moves text. It was made by the maintainer on review of pull request #112, after the extraction surfaced a contradiction the split had inherited rather than caused.
+
+`INF-009` said a stepped surface carries infantry only where no step is taller than one infantry crosses freely — 3 plate layers (`INF-006`). `INF-007` says an obstacle of 4 to 6 plate layers is climbed for 1 additional Action Point. A staircase with 5-plate steps was therefore either no path at all or a series of climbable obstacles, and nothing chose. `MOVE-013` and `MOVE-010` had the same contradiction in the same words; putting the two rules four apart in one short document is what made it visible.
+
+**The resolution: a step is an obstacle, read exactly like any other.** 3 plate layers or fewer crossed freely, 4 to 6 for 1 additional Action Point, 7 or more not climbable at all — the same three bands `INF-006`, `INF-007` and `INF-008` already state, applied per step.
+
+What that buys is the removal of a mechanic rather than the addition of one. There is no stair rule now, because there never needed to be: the obstacle bands answer the question at any height, and `INF-009`'s special clause was an exception carrying a contradiction. `CODE_OF_DESIGN.md` Principle 11 — the simpler of two solutions — and Principle 12, since the same physical fact is now read the same way wherever it appears.
+
+**What changes in play, precisely:** a staircase with a step of 4 to 6 plate layers was impassable and now costs 1 additional Action Point. A step of 7 or more still stops the climb. Ordinary stairs, built from steps of a plate or two, cost nothing exactly as before — the common case is untouched, and the case that moves is the one no rule had decided.
+
+**The asymmetry with `VEH-027` is deliberate and now stated in `INF-009`.** A vehicle reads a staircase as one obstacle of its total rise, never as a series of small ones; infantry reads it step by step. Two documents giving different answers about the same plastic looks like a defect until the reason is written down, so it is: infantry takes the steps and a vehicle cannot.
+
+**Rejected: leaving it open and shipping the contradiction.** Section 11 of `tasks.md` did exactly that, on the grounds that closing it decides a rule and this change transposes. That was the right default and the wrong outcome — the change put the two rules in one document, where a reader meets both within fifty lines, and shipping a document whose own rules disagree is worse than deciding.
+
+**Rejected: a per-staircase total rise for infantry, matching `VEH-027`.** It would need a rule of its own, would make a tall staircase impassable to infantry that can plainly walk up it, and would answer a question the obstacle bands already answer.

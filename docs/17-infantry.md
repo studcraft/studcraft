@@ -145,9 +145,13 @@ Without one of these, the obstacle is impassable.
 
 # INF-009 — Slopes and Stairs
 
-Infantry may move normally over connected slopes and up stepped surfaces (`07-movement.md`, MOVE-012, MOVE-013), at no additional Action Point cost — they are ordinary terrain, not obstacles to climb. Distance travelled up either counts against the normal movement limit (INF-002).
+Infantry may move normally over connected slopes (`07-movement.md`, MOVE-012) at no additional Action Point cost: a slope is ordinary terrain, not an obstacle to climb.
 
-A stepped surface carries infantry only where no single step is taller than an obstacle infantry crosses freely (INF-006).
+A stepped surface (`07-movement.md`, MOVE-013) is climbed one step at a time, and each step is an obstacle read exactly like any other — 3 plate layers or fewer crossed freely (INF-006), 4 to 6 for 1 additional Action Point (INF-007), 7 or more not climbable at all (INF-008), which stops the climb at that step. Stairs built from steps of a plate or two therefore cost nothing.
+
+Distance travelled up either counts against the normal movement limit (INF-002).
+
+A vehicle reads the same staircase as one obstacle of its total rise rather than a series of small ones (`08-vehicles.md`, VEH-027): infantry takes the steps and a vehicle cannot.
 
 ---
 
@@ -217,7 +221,7 @@ Infantry in StudCraft follows seven simple principles:
 2. Forward and backward movement is up to 12 studs, in multiples of 3.
 3. Side movement is up to 12 studs, in multiples of 4.
 4. Each movement action costs 1 Action Point, and so does a rotation.
-5. Obstacles up to 3 plate layers are crossed freely, 4 to 6 cost 1 additional Action Point, and 7 or more need a slope, a stair or a ramp.
+5. Obstacles up to 3 plate layers are crossed freely, 4 to 6 cost 1 additional Action Point, and 7 or more need a slope, a stair or a ramp — and a stair's own steps are obstacles read the same way.
 6. A fall rolls one D6 per complete brick beyond the first, each die a Damage Roll.
 7. A Wounded model moves at most two steps in any direction — 6 studs forward or backward, 8 sideways.
 

@@ -1422,11 +1422,13 @@ An infantry movement increment: one Unit Base depth (3 studs) moving forward or 
 
   The entry goes last, which is where this glossary appends. *Step* carries three senses within fifty lines of `17-infantry.md`, and the load-bearing one is stated only inside `INF-012` while the Summary uses it at a distance. `Terrain Threshold`, the vehicle-side counterpart, has had an entry all along.
 
-### Not repaired, deliberately
+### Not repaired here — closed later by section 15
 
 **A stepped surface whose steps are 4 to 6 plate layers tall is undecided.** `INF-009` says a stepped surface carries infantry only where no step is taller than one infantry crosses freely — 3 plate layers (`INF-006`) — and `INF-007` says an obstacle of 4 to 6 plate layers may be climbed for 1 additional Action Point. A staircase with 5-plate steps is therefore either not a movement path at all or a series of climbable obstacles, and no rule chooses. The vehicle side does choose, in `VEH-027`: "a staircase is one obstacle, not a series of small ones."
 
-The ambiguity predates this change — `MOVE-013` and `MOVE-010` had it in the same words — and settling it decides how a unit moves, which is a rule change and not a transposition. **It is the one finding this change leaves open, and it is recorded here rather than fixed so the next reader does not have to rediscover it.**
+The ambiguity predates this change — `MOVE-013` and `MOVE-010` had it in the same words — and settling it decides how a unit moves, which is a rule change and not a transposition.
+
+**The maintainer settled it on review of pull request #112: a step is an obstacle, read like any other.** Section 15 applies it. This note stays as written because it is the reasoning that reached the maintainer, and a decision reads better beside the question than in place of it.
 
 ### Verification after section 11
 
@@ -1560,3 +1562,67 @@ An infantry model is a minifigure occupying one Unit Base (`02-core-rules.md`, C
 - [x] 14.3 `python3 scripts/lint_ruleset.py` — `Checked 15 docs, no structural issues found.` The comma-form citation must still resolve; a new error means it does not.
 
 - [x] 14.4 `python3 scripts/preflight.py` — all 12 checks PASS, unchanged from 13.2.
+
+---
+
+## 15. Review of pull request #112 — the stair ambiguity is closed
+
+**This section changes a rule.** Everything before it transposes; this decides something the ruleset left undecided, at the maintainer's instruction. `proposal.md` and `design.md` are corrected in the same commit so that neither goes on claiming the change alters no gameplay.
+
+Section 11 recorded the gap and declined to close it: `INF-009` said a stepped surface carries infantry only where no step is taller than one infantry crosses freely — 3 plate layers (`INF-006`) — while `INF-007` says an obstacle of 4 to 6 plate layers is climbed for 1 additional Action Point. A staircase with 5-plate steps was therefore either no path at all or a series of climbable obstacles, and no rule chose.
+
+**The decision: a step is an obstacle, read exactly like any other.** There is no stair rule, because there was never a stair mechanic — `INF-006`, `INF-007` and `INF-008` already answer the question for any height, and applying them per step is simpler than the exception `INF-009` carried. `CODE_OF_DESIGN.md` Principle 11 and Principle 12.
+
+**What actually changes in play:** a staircase with a step of 4 to 6 plate layers was impassable and now costs 1 additional Action Point. A step of 7 or more still stops the climb. Ordinary stairs, built from steps of a plate or two, cost nothing exactly as before — the common case is untouched, and the case that changes is the one no rule decided.
+
+The asymmetry with `VEH-027` is deliberate and now said out loud: a vehicle reads a staircase as one obstacle of its total rise, infantry reads it step by step. That is not two answers to one question — it is the difference between taking the steps and not being able to.
+
+**Both anchors were checked against the applied file**, and each occurs exactly once.
+
+- [x] 15.1 In `docs/17-infantry.md`, `INF-009`, replace this anchor — the whole rule body. The heading is **not** part of the anchor:
+
+```
+Infantry may move normally over connected slopes and up stepped surfaces (`07-movement.md`, MOVE-012, MOVE-013), at no additional Action Point cost — they are ordinary terrain, not obstacles to climb. Distance travelled up either counts against the normal movement limit (INF-002).
+
+A stepped surface carries infantry only where no single step is taller than an obstacle infantry crosses freely (INF-006).
+```
+
+with:
+
+```
+Infantry may move normally over connected slopes (`07-movement.md`, MOVE-012) at no additional Action Point cost: a slope is ordinary terrain, not an obstacle to climb.
+
+A stepped surface (`07-movement.md`, MOVE-013) is climbed one step at a time, and each step is an obstacle read exactly like any other — 3 plate layers or fewer crossed freely (INF-006), 4 to 6 for 1 additional Action Point (INF-007), 7 or more not climbable at all (INF-008), which stops the climb at that step. Stairs built from steps of a plate or two therefore cost nothing.
+
+Distance travelled up either counts against the normal movement limit (INF-002).
+
+A vehicle reads the same staircase as one obstacle of its total rise rather than a series of small ones (`08-vehicles.md`, VEH-027): infantry takes the steps and a vehicle cannot.
+```
+
+  The rule keeps its name and its number. What it loses is the clause that made a stepped surface a special case, and with it the contradiction against `INF-007`.
+
+- [x] 15.2 In `docs/17-infantry.md`, the `# Summary` section, replace this anchor — the fifth item:
+
+```
+5. Obstacles up to 3 plate layers are crossed freely, 4 to 6 cost 1 additional Action Point, and 7 or more need a slope, a stair or a ramp.
+```
+
+with:
+
+```
+5. Obstacles up to 3 plate layers are crossed freely, 4 to 6 cost 1 additional Action Point, and 7 or more need a slope, a stair or a ramp — and a stair's own steps are obstacles read the same way.
+```
+
+  `system/proposal-review.md` ("The Summary Is Part of the Rule"). The count is unchanged: still seven principles, still seven items.
+
+### Verification after section 15
+
+- [x] 15.3 `grep -c -F "carries infantry only where no single step" docs/17-infantry.md` — before: **1**, after: **0**. Task 15.1.
+
+- [x] 15.4 `grep -c -F "each step is an obstacle read exactly like any other" docs/17-infantry.md` — before: **0**, after: **1**. Task 15.1.
+
+- [x] 15.5 `grep -c "^[0-9]\. " docs/17-infantry.md` — **7**, before and after. The Summary still lists seven items, and 15.2 rewrites one rather than adding one.
+
+- [x] 15.6 `python3 scripts/lint_ruleset.py` — `Checked 15 docs, no structural issues found.` Task 15.1 adds a citation of `VEH-027`, which must resolve.
+
+- [x] 15.7 `python3 scripts/preflight.py` — all 12 checks PASS.

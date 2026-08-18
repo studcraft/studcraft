@@ -40,7 +40,9 @@ A new `docs/17-infantry.md`, and seven existing documents.
 
 ## What Does Not Change
 
-- **No gameplay value.** 12 studs forward in 3s, 12 sideways in 4s, 12 backward in 3s, 1 AP a move, 1 AP a rotation, the 3 / 4–6 / 7+ plate-layer bands, +1 AP to climb, one free brick of falling and one D6 per brick beyond it, two steps for a Wounded model. Every number is transposed character for character. `design.md`, Decision 9 tabulates them.
+- **No gameplay value, with one decision recorded separately.** 12 studs forward in 3s, 12 sideways in 4s, 12 backward in 3s, 1 AP a move, 1 AP a rotation, the 3 / 4–6 / 7+ plate-layer bands, +1 AP to climb, one free brick of falling and one D6 per brick beyond it, two steps for a Wounded model. Every number is transposed character for character; `design.md`, Decision 9 tabulates them.
+
+  **The exception is stairs**, and it is a rule decision rather than a transposition: `INF-009` used to make a stepped surface impassable if any step exceeded 3 plate layers, which contradicted `INF-007`'s 1 additional Action Point for an obstacle of 4 to 6. A step is now an obstacle read like any other. A staircase with a 4-to-6-plate step was impassable and now costs 1 AP; ordinary stairs, built from steps of a plate or two, still cost nothing. Review of pull request #112 closed it — `tasks.md`, section 15, and `design.md`, Decision 16.
 - **Vehicle movement stays in `08-vehicles.md`.** `VEH-004` through `VEH-012`, `VEH-021` through `VEH-028` are the vehicle implementation and are already where they belong. Nothing moves out of that document.
 - **Transport rules stay in `09-transport.md`.** `TRN-002` states how much room an infantry model takes in a transport. That is Transport defining its own relationship, not an infantry rule filed wrongly (`design.md`, Decision 7).
 - **No rule ID is renumbered or reused.** Ten numbers are retired; `MOVE-012`, `MOVE-013` and `MOVE-014` keep theirs while losing text; `MOVE-003` is not renumbered into the `MOVE-002` gap.
