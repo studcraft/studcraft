@@ -149,6 +149,8 @@ Infantry may move normally over connected slopes (`07-movement.md`, MOVE-012) at
 
 A stepped surface (`07-movement.md`, MOVE-013) is climbed one step at a time, and each step is an obstacle read exactly like any other — 3 plate layers or fewer crossed freely (INF-006), 4 to 6 for 1 additional Action Point (INF-007), 7 or more not climbable at all (INF-008), which stops the climb at that step. Stairs built from steps of a plate or two therefore cost nothing.
 
+**Each such step is charged.** A move crossing two steps of 4 to 6 plate layers spends the movement action's Action Point and 2 more, because it climbed two obstacles and not one — INF-007's "2 AP in total" counts one climb, which is the ordinary case rather than the only one. A staircase steep enough to charge for twice is one a unit may not finish in a single activation, which the 3 Action Points of `02-core-rules.md` (CORE-006) bound on their own.
+
 Distance travelled up either counts against the normal movement limit (INF-002).
 
 A vehicle reads the same staircase as one obstacle of its total rise rather than a series of small ones (`08-vehicles.md`, VEH-027): infantry takes the steps and a vehicle cannot.

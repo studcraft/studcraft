@@ -49,7 +49,7 @@ Four surviving rules cited a rule that is about to retire. Each is re-aimed to n
 
 A generic rule naming both implementations is a signpost between siblings, not a dependency on one. A generic rule naming only infantry is the defect.
 
-**Rejected: leaving Movement with no forward pointers at all.** `07-movement.md` currently ends its `# Vehicle Movement` section with "Vehicles and infantry differ most at stairs: infantry climb them (`MOVE-013`), vehicles never do (`VEH-027`)". That sentence earns its place — it is the single most-confused point in the two documents — and the change keeps it, aimed at `INF-009`.
+**Rejected: leaving Movement with no forward pointers at all.** The stairs contrast — infantry climb them, vehicles never do — is the single most-confused point between the two documents and had to survive somewhere. It ended up in `MOVE-013` itself, which is where a reader of the stairs rule meets it. `07-movement.md`'s `# Vehicle Movement` section, renamed `# Unit Movement` and then deleted outright, carried it for two intermediate states and was itself the defect: an index of another document's rule IDs (`tasks.md`, task 11.7).
 
 ## Decision 5 — Falling stays two rules, not one shared rule
 
@@ -71,7 +71,9 @@ The only common part is the last row, and `16-damage-system.md` already owns it 
 
 The cost is already stated in the sentence. `CORE-006` already states the governing principle — "An action's cost is set by the rule that governs that action" — so a vehicle turn costing 1 AP needs no corroboration from an infantry rule. What the parenthetical bought was reassurance that the two costs agree, which is a fact about the ruleset rather than a rule.
 
-`VEH-007` gets the same treatment for the same reason: "StudCraft does not use diagonal movement" is `MOVE-007`, stated universally. `VEH-007` keeps its own sentence — vehicles combine forward movement with turns, where infantry combines forward with lateral — and points at `MOVE-007` for the ban itself. `MOVE-001`'s trailing "Diagonal movement is never allowed" is the third statement of the same ban in the same document and is dropped.
+`VEH-007` gets the same treatment for the same reason: "StudCraft does not use diagonal movement" is `MOVE-007`, stated universally. `VEH-007` keeps its own sentence — vehicles combine forward movement with turns — and points at `MOVE-007` for the ban itself. `MOVE-001`'s trailing "Diagonal movement is never allowed" is the third statement of the same ban in the same document and is dropped, and `VEH-005`'s is the fourth.
+
+**An intermediate draft had `VEH-007` add "where infantry combines forward with lateral movement".** That clause went the same way, one review later (`tasks.md`, task 11.6): `MOVE-007` already draws the contrast, drew it more accurately — it says infantry combines forward **or backward** with sideways, where `VEH-007` said only forward — and two statements of one derivation had disagreed inside a single change before either shipped.
 
 ## Decision 7 — What mentions infantry is not thereby an infantry rule
 
@@ -94,11 +96,13 @@ Nothing moves out of `09-transport.md`, `16-damage-system.md`, `11-combat.md` or
 
 What `CORE-003` lacked is the pointer `CORE-004` already has at `08-vehicles.md`; task 3.3 adds it, so the rule that names infantry names the infantry document.
 
-## Decision 8 — No glossary entry is added
+## Decision 8 — One glossary entry, added on review rather than up front
 
-`system/documentation-standards.md` ("Adding a New Ruleset Document") asks for "the new terms a reader cannot infer". `docs/17-infantry.md` introduces none: *infantry*, *step*, *obstacle* and *access point* all already appear in `07-movement.md` today and none of them is in `docs/14-glossary.md` now.
+`system/documentation-standards.md` ("Adding a New Ruleset Document") asks for "the new terms a reader cannot infer". The first draft concluded that `docs/17-infantry.md` introduces none — *infantry*, *step*, *obstacle* and *access point* all appeared in `07-movement.md` already, and none was in the glossary.
 
-The glossary's *Wounded* entry **is** edited, because it cites `MOVE-021` and that ID retires. That is a re-aim, not a new entry.
+**That was right about the words and wrong about one of them.** The audit of the applied text found *step* carrying three senses within fifty lines of the new document: a Unit Base increment (`INF-012`), a stair tread (`INF-009`), and a Component State advancing one step (`DMG-005`). The collision was inherited, but extraction is what put all three in front of one reader — and the load-bearing sense is stated only inside `INF-012` while the Summary uses it at a distance. `Terrain Threshold`, its counterpart on the vehicle side, has had an entry all along. `## Step` was added by `tasks.md`, task 11.15.
+
+The glossary's *Wounded* entry is also edited, because it cites `MOVE-021` and that ID retires. That one is a re-aim, not a new entry.
 
 ## Decision 9 — Every number is transposed, not restated
 
@@ -125,7 +129,9 @@ The glossary's *Wounded* entry **is** edited, because it cites `MOVE-021` and th
 
 ## Decision 10 — No `openspec/specs/` delta
 
-`system/proposal-review.md` ("Delta vs. Direct Edit"): a `MODIFIED` delta can only target a capability that already exists. No capability under `openspec/specs/` describes which document states a movement rule, and no requirement or scenario stops being true — a Wounded infantry model still moves two steps, an obstacle of 4 plate layers still costs the extra Action Point, and a fall of one brick still rolls nothing.
+`system/proposal-review.md` ("Delta vs. Direct Edit"): a `MODIFIED` delta can only target a capability that already exists. No capability under `openspec/specs/` describes which document states a movement rule, and nothing under it describes stairs at all — the three capabilities in play are `unit-base`, `action-economy` and `component-damage`, and every requirement and scenario in them survives untouched: a Wounded infantry model still moves two steps, an obstacle of 4 plate layers still costs the extra Action Point, and a fall of one brick still rolls nothing.
+
+**One behaviour does change**, and it is deliberately not covered by that list: Decision 16 makes a staircase with a 4-to-6-plate step cost 1 additional Action Point per such step where it used to be impassable. No spec requirement stated the old answer, because no rule did — that is what made it an ambiguity rather than a rule. **So the delta-free decision stands on "no capability describes this", not on "no behaviour changed".**
 
 This change also introduces no new capability. Infantry movement is not new behaviour; it is existing behaviour with an owner.
 

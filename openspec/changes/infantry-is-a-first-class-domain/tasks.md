@@ -1626,3 +1626,59 @@ with:
 - [x] 15.6 `python3 scripts/lint_ruleset.py` — `Checked 15 docs, no structural issues found.` Task 15.1 adds a citation of `VEH-027`, which must resolve.
 
 - [x] 15.7 `python3 scripts/preflight.py` — all 12 checks PASS.
+
+---
+
+## 16. Design re-review of pull request #112 — two ruleset edits
+
+Two of the three required items touch `docs/`; the third is prose in this change's own artifacts and carries no task.
+
+**`CORE-006` illustrates a universal principle with an infantry-only example.** It closes: "A measurement may still decide **which** rule applies: an obstacle of 3 plate layers is crossed freely and one of 4 is climbed (`17-infantry.md`, INF-006, INF-007)." Those bands are infantry's. A vehicle reads its own Terrain Threshold (`VEH-021` – `VEH-024`) and never the 3/4 split. It is the same defect this change fixed in `CORE-005`, left standing one rule below it.
+
+**Decision 16 left the multi-step case undecided.** `INF-007` charges 1 additional Action Point and says "a move over such an obstacle costs 2 AP in total" — written when one obstacle was the only case. `INF-009` now says every step is an obstacle. A staircase with three 5-plate steps in one move therefore has no stated cost. **The resolution is per step**, because that is what "each step is an obstacle read exactly like any other" already means; charging once would make the rule say each step is an obstacle and then treat several as one.
+
+**No band, threshold or value is invented by either edit.**
+
+**Both anchors were checked against the applied files**, and each occurs exactly once.
+
+- [x] 16.1 In `docs/02-core-rules.md`, `CORE-006`, replace this anchor — the closing sentence of the rule's last paragraph:
+
+```
+A measurement may still decide **which** rule applies: an obstacle of 3 plate layers is crossed freely and one of 4 is climbed (`17-infantry.md`, INF-006, INF-007).
+```
+
+with:
+
+```
+A measurement may still decide **which** rule applies, and which measurement is read is the unit's own domain's rule — an obstacle's height for infantry (`17-infantry.md`, INF-006 through INF-008), a Terrain Threshold for a vehicle (`08-vehicles.md`, VEH-021).
+```
+
+  The concrete 3-and-4 example goes. It was true only of infantry, and `CORE-006` is the universal action-economy rule. What the sentence still says is the thing that is universal: a measurement selects the rule, and it never sets the price.
+
+- [x] 16.2 In `docs/17-infantry.md`, `INF-009`, replace this anchor — the rule's second paragraph:
+
+```
+A stepped surface (`07-movement.md`, MOVE-013) is climbed one step at a time, and each step is an obstacle read exactly like any other — 3 plate layers or fewer crossed freely (INF-006), 4 to 6 for 1 additional Action Point (INF-007), 7 or more not climbable at all (INF-008), which stops the climb at that step. Stairs built from steps of a plate or two therefore cost nothing.
+```
+
+with:
+
+```
+A stepped surface (`07-movement.md`, MOVE-013) is climbed one step at a time, and each step is an obstacle read exactly like any other — 3 plate layers or fewer crossed freely (INF-006), 4 to 6 for 1 additional Action Point (INF-007), 7 or more not climbable at all (INF-008), which stops the climb at that step. Stairs built from steps of a plate or two therefore cost nothing.
+
+**Each such step is charged.** A move crossing two steps of 4 to 6 plate layers spends the movement action's Action Point and 2 more, because it climbed two obstacles and not one — INF-007's "2 AP in total" counts one climb, which is the ordinary case rather than the only one. A staircase steep enough to charge for twice is one a unit may not finish in a single activation, which the 3 Action Points of `02-core-rules.md` (CORE-006) bound on their own.
+```
+
+  The first paragraph is a landmark and does not change. What is added is the answer to a question `INF-007` never had to face while one obstacle per move was the only shape available.
+
+### Verification after section 16
+
+- [x] 16.3 `grep -c -F "is crossed freely and one of 4 is climbed" docs/02-core-rules.md` — before: **1**, after: **0**. Task 16.1.
+
+- [x] 16.4 `grep -c -F "Each such step is charged" docs/17-infantry.md` — before: **0**, after: **1**. Task 16.2.
+
+- [x] 16.5 `grep -rn -F "INF-006, INF-007" docs/` — before: one hit, in `docs/02-core-rules.md`. After: **no output at all**. The range `INF-006 through INF-008` replaces it, and no other rule cited that pair.
+
+- [x] 16.6 `python3 scripts/lint_ruleset.py` — `Checked 15 docs, no structural issues found.` Task 16.1 adds a citation of `VEH-021` from `02-core-rules.md`, which must resolve.
+
+- [x] 16.7 `python3 scripts/preflight.py` — all 12 checks PASS.

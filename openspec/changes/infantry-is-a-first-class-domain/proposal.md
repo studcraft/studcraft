@@ -77,6 +77,6 @@ Adding a new ruleset document turned out to be impossible before this change, an
 - **The `VEH-001` / `VEH-013` cross-reference loop**, and the split of `VEH-013`'s Pilot rules between Vehicles, Transport and Damage. Both are real and both are Vehicle cleanups, not infantry ones.
 - **`TRN-002` possibly duplicating `CORE-003`.** A Transport cleanup.
 - **A shared fall-damage rule owned by Movement or Damage.** The two falls are not the same mechanic — infantry's first brick is free and a vehicle's free height is its own Terrain Threshold — and only the dice procedure is common, which `DMG-015` already owns and both already cite (`design.md`, Decision 5).
-- **Renumbering the ruleset so Infantry sits beside Vehicles.** Document numbers are never renumbered after removal, and `04-` and `13-` are retired gaps. Reading order is `README.md`'s job and belongs to the follow-up change.
+- **Renumbering the ruleset so Infantry sits beside Vehicles.** Document numbers are never renumbered after removal, and `04-` and `13-` are retired gaps. Reading order is `README.md`'s job, and `README.md` ships in this pull request with Infantry between Movement and Vehicles.
 - **A glossary entry for *Infantry*.** The document introduces no term a reader cannot infer (`design.md`, Decision 8).
 - **Folding `INF-010` into `INF-008`.** The two overlap, inherited from `MOVE-011` and `MOVE-014`, and the "Examples:" heading over what the next rule calls a closed set of three is worth settling. Not here: this change transposes and does not redesign (`design.md`, Decision 14).
