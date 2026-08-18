@@ -88,7 +88,11 @@ The test applied to every candidate: **who owns the relationship?**
 
 Nothing moves out of `09-transport.md`, `16-damage-system.md`, `11-combat.md` or `05-construction-components.md`. Three of them have one citation re-aimed and nothing else.
 
-**`CORE-003` keeps infantry identity and gains a signpost.** It states that infantry are minifigures occupying one Unit Base, which is universal and belongs where the other unit types are classified. `INF-001` cites it rather than restating it — a change arguing for one owner per domain does not get to create a second owner for the thing it is about. What `CORE-003` lacked is the pointer `CORE-004` already has at `08-vehicles.md`; task 3.3 adds it, so the rule that names infantry names the infantry document.
+**`CORE-003` keeps infantry identity and gains a signpost.** It states that infantry are minifigures occupying one Unit Base, which is universal and belongs where the other unit types are classified. `INF-001` opens with that one sentence and cites `CORE-003` inside it.
+
+**An earlier draft tried to have it both ways** — it stated the fact and then added "and this document does not restate it", which is a promise about the document contradicted by the words in front of it, and the same species as the three disclaimers `proposal.md` indicts in its opening argument. Review of pull request #112 caught it (`tasks.md`, section 14). One sentence with its citation attached is not a second owner: a document called Infantry that never says what an infantry model is does not stand alone, and the alternative was a rule whose entire body was a forwarding address.
+
+What `CORE-003` lacked is the pointer `CORE-004` already has at `08-vehicles.md`; task 3.3 adds it, so the rule that names infantry names the infantry document.
 
 ## Decision 8 — No glossary entry is added
 

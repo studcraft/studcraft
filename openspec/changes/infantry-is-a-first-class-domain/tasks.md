@@ -1522,3 +1522,41 @@ Left as written, each with a note at the task, because a task's figure records w
 | 9.8 | "five simple principles" | "six" | Task 11.8 rewrote the Summary again |
 | 9.9, 10.2, 11.16, 12.3 | four linter errors | none | 13.1 |
 | 9.11, 11.24 | two preflight failures | none | 13.2 |
+
+---
+
+## 14. Review of pull request #112 — `INF-001` explains itself instead of stating a rule
+
+One review comment, accepted in full.
+
+`INF-001` opened: *"An infantry model is a minifigure occupying one Unit Base — `02-core-rules.md` (CORE-003) is the rule, and this document does not restate it."*
+
+**The second clause is commentary about the document, not a rule.** `system/documentation-standards.md` ("How a Rule Is Written") asks for one imperative sentence with its reason in one clause at most, and no narration. A reader who wants to know what an infantry model is gets told where the answer lives and then told that this document is not the place — after the sentence has already said it.
+
+It is also the exact defect `proposal.md` indicts three times in its opening argument: `MOVE-012`'s *"That paragraph is the infantry rule"*, `MOVE-016`'s *"This rule covers infantry only"*, and the `# Infantry Damage Effects` heading that existed to fence off rules that did not belong. A document apologising for its own shape. This change removed all three and then wrote a fourth into the new document, while repairing something else.
+
+The fix is to state the fact and cite the owner, which is what every other rule here does.
+
+**The anchor below was checked against the applied file**, and occurs exactly once.
+
+- [x] 14.1 In `docs/17-infantry.md`, `INF-001`, replace this anchor — the rule's first line:
+
+```
+An infantry model is a minifigure occupying one Unit Base — `02-core-rules.md` (CORE-003) is the rule, and this document does not restate it.
+```
+
+with:
+
+```
+An infantry model is a minifigure occupying one Unit Base (`02-core-rules.md`, CORE-003).
+```
+
+  The citation moves to the comma form so the sentence ends on the reference rather than on a clause about itself. `CORE-003` remains the owner: it is what `DEP-001`, `DEP-004` and `TRN-002` cite, and this rule is one of its readers.
+
+### Verification after section 14
+
+- [x] 14.2 `grep -c -F "does not restate it" docs/17-infantry.md` — before: **1**, after: **0**.
+
+- [x] 14.3 `python3 scripts/lint_ruleset.py` — `Checked 15 docs, no structural issues found.` The comma-form citation must still resolve; a new error means it does not.
+
+- [x] 14.4 `python3 scripts/preflight.py` — all 12 checks PASS, unchanged from 13.2.

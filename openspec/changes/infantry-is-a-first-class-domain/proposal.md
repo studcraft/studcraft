@@ -47,7 +47,7 @@ A new `docs/17-infantry.md`, and seven existing documents.
 - **`docs/04-*.md` and `docs/13-*.md` stay empty.** Both numbers are retired (`README.md`; `system/documentation-standards.md`, Repository Structure). The new document is `17-`, the next unused number, because a retired number is never reissued (`design.md`, Decision 1).
 - **`openspec/specs/`.** No capability delta. No requirement changes behaviour; what changes is which document states it (`design.md`, Decision 10).
 - **`CHANGELOG.md` and every version header.** Release-cut-only. `docs/17-infantry.md` is created **without** one — writing that line by hand is refused by the `PreToolUse` hook and by the workflow, and the first prerequisite is what makes a header-less new document legal until the next cut supplies it (`design.md`, Decision 11).
-- **`CORE-003`.** Infantry identity — a minifigure occupying one Unit Base — stays in `docs/02-core-rules.md`. `INF-001` cites it and states only the base, the facing and what the orientation decides. A change arguing for one owner per domain does not get to create a second owner for the thing it is about.
+- **`CORE-003`.** Infantry identity — a minifigure occupying one Unit Base — stays in `docs/02-core-rules.md`, where the other unit types are classified. `INF-001` states it in one sentence and cites `CORE-003` in the same breath, which is a reader's convenience and not a second owner: a document called Infantry that never says what an infantry model is does not stand alone, and one sentence carrying its own citation cannot drift far from the rule it names.
 
 ## Checked elsewhere
 

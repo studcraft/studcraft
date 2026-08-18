@@ -20,7 +20,7 @@ Infantry has no statistics. What a model can do follows from the base it stands 
 
 # INF-001 — Infantry Unit
 
-An infantry model is a minifigure occupying one Unit Base — `02-core-rules.md` (CORE-003) is the rule, and this document does not restate it.
+An infantry model is a minifigure occupying one Unit Base (`02-core-rules.md`, CORE-003).
 
 Every infantry model is built on the base required by `02-core-rules.md` (CORE-001). Which edge of that base is its front is settled by the universal Facing rule (`02-core-rules.md`, CORE-002).
 
