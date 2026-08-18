@@ -274,6 +274,7 @@ def check_archive_separate(branch: str, changed: list[str]) -> Result:
     name = "OpenSpec archive must be separate from apply"
 
     specs = [p for p in changed if p.startswith("openspec/specs/")]
+    archived = [p for p in changed if p.startswith("openspec/changes/archive/")]
 
     if branch.startswith("archive/"):
         outside = [p for p in changed if not p.startswith("openspec/")]
@@ -287,9 +288,16 @@ def check_archive_separate(branch: str, changed: list[str]) -> Result:
                 "Archive branch changes docs/*.md. An archive PR touches "
                 "openspec/specs/** and openspec/changes/** only."
             ])
-        if not specs:
+        # Archiving moves a change under openspec/changes/archive/. It writes
+        # openspec/specs/ only when the change carried a delta, and a delta-free
+        # change is legitimate — system/proposal-review.md ("Delta vs. Direct
+        # Edit"). Requiring a spec write made such a change impossible to archive
+        # alone, and let it through only when a sibling in the same batch carried
+        # a delta.
+        if not specs and not archived:
             return Result(name, FAIL, [
-                "Archive branch does not touch openspec/specs/. Nothing to archive here."
+                "Archive branch archives nothing: no openspec/changes/archive/ "
+                "move and no openspec/specs/ write."
             ])
         return Result(name, PASS, ["Archive-only branch."])
 
