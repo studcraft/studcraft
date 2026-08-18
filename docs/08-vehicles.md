@@ -54,7 +54,7 @@ No maximum vehicle size exists. The footprint does bound how high the vehicle ma
 
 # VEH-002 — Vehicle Facing
 
-Every vehicle must have an obvious front — the universal Facing rule (`02-core-rules.md`, CORE-002) applies to vehicles exactly like any other unit.
+Every vehicle must have an obvious front — the universal Facing rule (`02-core-rules.md`, CORE-002) applies to vehicles exactly like any other unit, and movement is performed relative to it (`07-movement.md`, MOVE-001).
 
 Facing additionally determines turning behavior, covered by the locomotion-specific rules (VEH-008 through VEH-011).
 
@@ -78,7 +78,7 @@ A vehicle moves:
 
 Costing **1 Action Point** (`02-core-rules.md`, CORE-006), the same as any other Move action.
 
-Measure from the vehicle's front, along its facing.
+Measure from the vehicle's front, along its facing — including in reverse (VEH-006), where the front is still the point measured from even though it is not the leading face. This is the general measurement rule (`07-movement.md`, MOVE-003) read against a vehicle.
 
 Every vehicle therefore covers three of its own lengths per action, whatever its size. A small vehicle is not slow — it is small. Because the multiplier is a whole number, every resulting distance is a whole number of studs; there is no half stud to measure.
 
@@ -108,8 +108,6 @@ Vehicles normally move forward.
 
 Movement follows the vehicle's current facing.
 
-Diagonal movement does not exist.
-
 ---
 
 # VEH-006 — Reverse Movement
@@ -124,7 +122,7 @@ Reverse movement uses the same movement distance unless restricted by future sce
 
 # VEH-007 — No Diagonal Movement
 
-StudCraft does not use diagonal movement.
+Neither vehicles nor infantry move diagonally — `07-movement.md` (MOVE-007) states the ban for every unit.
 
 Vehicles combine forward movement with turns.
 
@@ -134,7 +132,7 @@ Vehicles combine forward movement with turns.
 
 Vehicles using wheels represent conventional steering systems.
 
-Wheel vehicles may perform, each costing **1 Action Point** (matching MOVE-008's infantry rotation cost):
+Wheel vehicles may perform, each costing **1 Action Point**:
 
 - 90° Left Turn
 - 90° Right Turn
@@ -306,7 +304,7 @@ Every vehicle has a single **Terrain Threshold**, read from its locomotion syste
 
 The threshold governs three things:
 
-- An obstacle **taller** than the threshold blocks movement. The vehicle cannot cross it and must go around, or ascend by a slope or ramp (VEH-027). Do not use MOVE-011's access-point list here: it is the infantry rule and includes stairs, which are never a legal vehicle ascent.
+- An obstacle **taller** than the threshold blocks movement. The vehicle cannot cross it and must go around, or ascend by a slope or ramp (VEH-027). Do not use the infantry access-point list (`17-infantry.md`, INF-008): it includes stairs, which are never a legal vehicle ascent.
 - A drop **deeper** than the threshold strands the vehicle (VEH-025).
 
 - A rise **greater** than the threshold requires a slope or ramp to ascend (VEH-027).
@@ -371,11 +369,11 @@ Hover vehicles cannot be stranded (VEH-024).
 
 # VEH-026 — Vehicle Falling
 
-A vehicle that leaves a height and comes down under gravity — rather than descending a slope or ramp (VEH-027) — falls. Measure the fall in plate layers, from the surface it left to the surface it lands on.
+A vehicle that leaves a height and comes down under gravity — rather than descending a slope or ramp (VEH-027) — falls. When a fall happens and where the vehicle is placed is the general rule (`07-movement.md`, MOVE-015); this rule states what it costs. Measure the fall in plate layers, from the surface it left to the surface it lands on.
 
 A fall no deeper than the vehicle's Terrain Threshold (VEH-021) causes no damage. The vehicle has dropped a kerb, not fallen.
 
-Beyond that, roll one D6 for every complete brick (3 plate layers) fallen **past the threshold**. Each die is an independent Damage Roll (`16-damage-system.md`, DMG-015), resolved exactly as infantry falling is (`07-movement.md`, MOVE-016): a result of 4, 5 or 6 means nothing happens, and a result of 1, 2 or 3 advances one component by one state.
+Beyond that, roll one D6 for every complete brick (3 plate layers) fallen **past the threshold**. Each die is an independent Damage Roll (`16-damage-system.md`, DMG-015): a result of 4, 5 or 6 means nothing happens, and a result of 1, 2 or 3 advances one component by one state.
 
 Every failed die is applied to a component that physically touches the ground when the vehicle lands — a wheel, a track, or a foot. The controlling player chooses which. Failures beyond the number of such components are lost: a vehicle whose locomotion is already destroyed is Immobilized (VEH-019) and cannot be immobilized twice.
 
@@ -383,7 +381,7 @@ Every failed die is applied to a component that physically touches the ground wh
 
 Hover vehicles take no falling damage. They descend under power rather than falling, consistent with their immunity to being stranded (VEH-024).
 
-A vehicle at the bottom of a drop may be a trap. Infantry inside it disembark normally (`09-transport.md`, TRN-006), but then face the drop's walls as ordinary terrain: 7 or more plate layers requires a slope, stair or ramp (`07-movement.md`, MOVE-011, MOVE-014). Driving into a ravine can strand a squad as effectively as it strands the vehicle.
+A vehicle at the bottom of a drop may be a trap. Infantry inside it disembark normally (`09-transport.md`, TRN-006), but then face the drop's walls as ordinary terrain: 7 or more plate layers requires a slope, stair or ramp (`17-infantry.md`, INF-008, INF-010). Driving into a ravine can strand a squad as effectively as it strands the vehicle.
 
 ---
 
@@ -395,7 +393,7 @@ To reach a height **greater** than its Terrain Threshold, a vehicle needs a slop
 
 If no slope or ramp covers the full rise, the height is impassable to that vehicle. It must go around.
 
-**Stairs are never a legal ascent for a vehicle**, however shallow each step is. Infantry climb stairs (`07-movement.md`, MOVE-013); vehicles do not. What matters is the total rise, not the individual steps — a staircase is one obstacle, not a series of small ones.
+**Stairs are never a legal ascent for a vehicle**, however shallow each step is. Infantry climb stairs (`17-infantry.md`, INF-009); vehicles do not. What matters is the total rise, not the individual steps — a staircase is one obstacle, not a series of small ones.
 
 A vehicle that descends a slope or ramp covering the full drop is driving, not falling, and takes no falling damage (VEH-026). A vehicle that leaves a height by any other route is falling.
 

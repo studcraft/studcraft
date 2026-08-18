@@ -262,7 +262,7 @@ A scenario **may** also state:
 - The battlefield size (FLOW-001) and the Deployment Volume (`06-deployment.md`, DEP-001).
 - Where terrain and structures are placed (`02-core-rules.md`, CORE-005).
 - Restrictions on otherwise-legal actions, such as limiting the weapons a unit may fire in one activation (`10-weapons.md`, WPN-014), restricting reverse movement (`08-vehicles.md`, VEH-006), or restricting how a weapon system's Attack Dice may be split (`11-combat.md`, CBT-007).
-- Additional movement options such as sprinting (`07-movement.md`, MOVE-004).
+- Additional movement options such as sprinting (`17-infantry.md`, INF-002).
 
 Scenario rules sit third in the rule priority order (`02-core-rules.md`, Universal Rule): they may restrict or extend the ruleset for one game, and never contradict Foundations or Core Rules.
 
