@@ -22,9 +22,11 @@ Infantry has no statistics. What a model can do follows from the base it stands 
 
 An infantry model is a minifigure occupying one Unit Base (`02-core-rules.md`, CORE-003).
 
-Every infantry model is built on the base required by `02-core-rules.md` (CORE-001). Which edge of that base is its front is settled by the universal Facing rule (`02-core-rules.md`, CORE-002).
+Every infantry model is built on one base of `4 × 3` studs, one plate thick — the horizontal reading of the Unit Base (`02-core-rules.md`, CORE-001). Its 4-stud edge is the front, which is the facing every unit has (`02-core-rules.md`, CORE-002).
 
 That orientation is what every direction below is measured relative to — the general rule is `07-movement.md` (MOVE-001).
+
+A minifigure has two hands, and may only use equipment it can physically carry in them. Which equipment needs one hand and which needs two is stated where that equipment is defined — weapons by `10-weapons.md` (WPN-010), shields by `05-construction-components.md` (CMP-014).
 
 ---
 
@@ -219,7 +221,7 @@ The limit is counted in steps rather than taken as half the normal distance beca
 
 Infantry in StudCraft follows seven simple principles:
 
-1. An infantry model is a minifigure on the base `02-core-rules.md` defines.
+1. An infantry model is a minifigure with two hands, on a base of `4 × 3` studs, one plate thick, whose 4-stud edge is its front.
 2. Forward and backward movement is up to 12 studs, in multiples of 3.
 3. Side movement is up to 12 studs, in multiples of 4.
 4. Each movement action costs 1 Action Point, and so does a rotation.

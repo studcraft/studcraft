@@ -42,7 +42,7 @@ One **Unit Base (UB)** is a volume measuring:
 
 **4 studs wide × 3 studs deep × 13 plate layers tall**
 
-Read horizontally, this is the physical base every infantry model must be built on: one base, 4 × 3 studs, one plate thick. The 4-stud edge is the front (CORE-002).
+Read horizontally it is `4 × 3` studs.
 
 Height is counted in plate layers, the ruleset's vertical unit: a plate counts as 1 and a standard brick as 3 (`16-damage-system.md`, DMG-003; `08-vehicles.md`, VEH-021). It is measured from the underside of the base a model stands on, which is part of the volume rather than the floor beneath it.
 
@@ -56,26 +56,9 @@ Each rule states which dimensions of the Unit Base it reads, and a measured valu
 
 ## CORE-002 — Facing
 
-Every unit has a facing.
+Every unit has a facing, and every model must have an obvious front.
 
-Every model must have an obvious front.
-
-For infantry:
-
-The 4-stud side of the base is the front.
-
-For vehicles:
-
-The front is determined by the vehicle construction.
-
-Facing determines:
-
-- Forward movement
-- Rear movement
-- Left side
-- Right side
-- Front firing arcs
-- Rear firing arcs
+Which part of a model is its front is its own domain's rule — infantry (`17-infantry.md`, INF-001), vehicles (`08-vehicles.md`, VEH-002).
 
 ---
 
@@ -87,7 +70,7 @@ Infantry are represented by LEGO minifigures.
 
 Infantry occupy one Unit Base.
 
-What an infantry model can do is an infantry rule — `17-infantry.md`.
+What an infantry model can do, and how it must be built, is an infantry rule — `17-infantry.md`.
 
 ---
 
@@ -95,7 +78,7 @@ What an infantry model can do is an infantry rule — `17-infantry.md`.
 
 A vehicle is a powered model, and its footprint is defined by the LEGO model itself.
 
-How small a vehicle may be built is a vehicle-construction rule — `08-vehicles.md` (VEH-001), with VEH-013 for the reason.
+What a vehicle can do, and how it must be built, is a vehicle rule — `08-vehicles.md`.
 
 ---
 
@@ -169,8 +152,6 @@ Fundamental combat rule:
 
 > If you can see it, you can shoot it.
 
-This does not grant a shot outside a unit's own activation: StudCraft has no reaction fire, which `11-combat.md` (CBT-014) lists as a possible future extension rather than a current rule.
-
 ---
 
 # Cover
@@ -190,16 +171,6 @@ A partially visible component has no separate cover level; it is simply visible 
 Equipment must be physically represented.
 
 A unit cannot use equipment that is not present on the model.
-
----
-
-## CORE-015 — Hands
-
-A minifigure may only use equipment it can physically carry.
-
-As a general guideline, one hand carries one one-handed item — a shield among them — and two-handed equipment occupies both hands. `10-weapons.md` (WPN-010) states which weapons are which.
-
-The physical model determines what the unit carries.
 
 ---
 

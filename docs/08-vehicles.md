@@ -54,7 +54,7 @@ No maximum vehicle size exists. The footprint does bound how high the vehicle ma
 
 # VEH-002 — Vehicle Facing
 
-Every vehicle must have an obvious front — the universal Facing rule (`02-core-rules.md`, CORE-002) applies to vehicles exactly like any other unit, and movement is performed relative to it (`07-movement.md`, MOVE-001).
+Every vehicle must have an obvious front, and its construction is what makes it obvious: the end the model is built to lead with. The universal Facing rule (`02-core-rules.md`, CORE-002) applies to vehicles exactly like any other unit, and movement is performed relative to it (`07-movement.md`, MOVE-001).
 
 Facing additionally determines turning behavior, covered by the locomotion-specific rules (VEH-008 through VEH-011).
 

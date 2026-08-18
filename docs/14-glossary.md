@@ -94,9 +94,7 @@ Decorative elements have none unless another rule gives them one. See `05-constr
 
 ## Facing
 
-The direction a unit is oriented toward.
-
-Determines forward and rear movement, the left and right sides, and front and rear firing arcs. See `02-core-rules.md`, CORE-002. Which way a shield protects is settled by where it physically stands rather than by Facing — see `05-construction-components.md`, CMP-014.
+The direction a unit is oriented toward, and what movement is performed relative to — see `07-movement.md`, MOVE-001. Which part of a model is its front is its own domain's rule — see `02-core-rules.md`, CORE-002. Which way a shield protects is settled by where it physically stands rather than by Facing — see `05-construction-components.md`, CMP-014.
 
 ---
 
