@@ -36,11 +36,13 @@ review the diff by hand for that). It only catches mechanical breakage.
 
 import re
 import sys
+from collections.abc import Iterator
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from repo import DOCS_DIR, REPO_ROOT, RULE_HEADER_RE, RULE_ID_RE  # noqa: E402
+from repo import DOCS_DIR, REPO_ROOT, RULE_ID_RE  # noqa: E402
+from ruleset_ast import Section, parse_text  # noqa: E402
 
 IMAGES_INDEX = REPO_ROOT / "assets" / "IMAGES.md"
 
@@ -179,7 +181,35 @@ def check_image_index(ids_by_file: dict[str, set[str]]) -> list[str]:
 
 
 def collect_rule_ids(text: str) -> list[tuple[str, int]]:
-    return [(prefix, int(number)) for prefix, number in RULE_HEADER_RE.findall(text)]
+    """Every rule heading's (prefix, number), in document order.
+
+    Walks `ruleset_ast.parse_text(...).root.rules()` rather than matching
+    `repo.RULE_HEADER_RE` against the raw text — the AST is the one place
+    "is this heading a rule" is decided, per `ruleset_ast.RULE_HEADING_RE`.
+
+    **This is wider than the pattern it replaced, deliberately.**
+    `repo.RULE_HEADER_RE` is anchored `^#{1,2} `, so a rule written at `###`
+    was invisible to it. `ruleset_ast.RULE_HEADING_RE` carries no such bound —
+    a `###` rule heading is still a rule heading — so this function now sees
+    what the regex could not. That is inert today: no `###` rule exists in
+    docs/, and `check_chapter_depth` below reports the first one anyone
+    writes, so the linter goes red rather than landing it silently.
+
+    It is not yet inert everywhere. **`scripts/check_id_stability.py` still
+    reads `repo.RULE_HEADER_RE` directly** and has not been moved onto this
+    module — migrating it is its own pull request, one script at a time, each
+    checked against the real docs/ before it lands. Until then, a `###` rule
+    is a rule this function counts and that script does not.
+    """
+    rules: list[tuple[str, int]] = []
+    for section in parse_text("", text).root.rules():
+        # `Section.rules()` is filtered on `is_rule`, so `rule_prefix` and
+        # `rule_number` are never `None` here — but the dataclass fields are
+        # typed `str | None` / `int | None` for every section, so narrow them
+        # explicitly rather than leaving the return type lying about it.
+        assert section.rule_prefix is not None and section.rule_number is not None
+        rules.append((section.rule_prefix, section.rule_number))
+    return rules
 
 
 def check_structure(
@@ -200,12 +230,22 @@ def check_structure(
 
     for name, text in sorted(texts.items()):
         if ids_by_file.get(name):
+            # Levels 1 and 2 only — the old `^#{1,2} {section}\s*$` never
+            # matched a `###` heading, and that bound is deliberate here too:
+            # a document that wrote "Purpose" three levels deep used to fail
+            # this check, and section.title alone (unlike the regex) can't
+            # tell a `###` apart from a `#` without this filter.
+            titles = {
+                section.title
+                for section in parse_text(name, text).root.walk()
+                if section.level in (1, 2)
+            }
             exempt = SECTION_DEBT.get(name, ())
-            for section in REQUIRED_SECTIONS:
-                if section in exempt:
+            for required in REQUIRED_SECTIONS:
+                if required in exempt:
                     continue
-                if not re.search(rf"^#{{1,2}} {re.escape(section)}\s*$", text, re.MULTILINE):
-                    errors.append(f"{name}: missing required '# {section}' section")
+                if required not in titles:
+                    errors.append(f"{name}: missing required '# {required}' section")
 
         lines = [line for line in text.splitlines() if line.strip()]
         if not lines:
@@ -224,18 +264,17 @@ def check_structure(
     return errors
 
 
-# A heading at `#`, `##` or `###`, split into its hashes and its title. A rule
-# heading is one whose title starts with a rule ID; any other `#` heading is
-# either a chapter over rules or a section of prose, and only the number of
-# rules under it tells those two apart. `###` is matched so that a rule written
-# there can be reported: repo.RULE_HEADER_RE stops at two, which is exactly what
-# makes a three-deep rule vanish instead of fail.
-HEADING_DEPTH_RE = re.compile(r"^(#{1,3}) (\S.*?)\s*$")
+def _walk_with_parent(section: Section) -> Iterator[tuple[Section, Section]]:
+    """`Section.walk()`, paired with each section's immediate parent.
 
-# A fenced block holds text about markdown, not markdown. This document set is
-# the one most likely to contain a worked example of a heading, so a check that
-# read one as real would fail a valid document on a required status check.
-CODE_FENCE_RE = re.compile(r"^\s*```")
+    `ruleset_ast.Section` carries no parent pointer — a section's own tree is
+    enough to build the document, and the only consumer that needs to walk
+    back up is this one check. Recursing with the parent threaded through is
+    cheaper than adding a field to every section just for this.
+    """
+    for child in section.children:
+        yield child, section
+        yield from _walk_with_parent(child)
 
 
 def check_chapter_depth(texts: dict[str, str]) -> list[str]:
@@ -265,52 +304,40 @@ def check_chapter_depth(texts: dict[str, str]) -> list[str]:
     errors: list[str] = []
 
     for name, text in sorted(texts.items()):
-        # (line number, title, rules counted, whether the heading is itself a
-        # rule). A rule at `#` closes the chapter above it exactly as a new
-        # chapter heading does, so it is recorded here too and counts nothing.
-        headings: list[list] = []
-        in_fence = False
+        document = parse_text(name, text)
 
-        for lineno, line in enumerate(text.splitlines(), start=1):
-            if CODE_FENCE_RE.match(line):
-                in_fence = not in_fence
-                continue
-            if in_fence:
+        # Three-deep and nested-under-a-rule are both defects of one section
+        # relative to its parent, so both are found in a single pass over the
+        # tree, in document order — the same order the old line-by-line scan
+        # reported them in.
+        for section, parent in _walk_with_parent(document.root):
+            if not section.is_rule:
                 continue
 
-            heading = HEADING_DEPTH_RE.match(line)
-            if not heading:
-                continue
-            hashes, title = heading.groups()
-            is_rule = RULE_ID_RE.match(title) is not None
-
-            if hashes == "###":
-                if is_rule:
-                    errors.append(
-                        f"{name}:{lineno}: '### {title}' is a rule written three "
-                        f"levels deep. repo.RULE_HEADER_RE matches one '#' or two, "
-                        f"so no script in scripts/ can see it — write it at '#' or "
-                        f"'##', per system/documentation-standards.md"
-                    )
-                continue
-
-            if hashes == "#":
-                headings.append([lineno, title, 0, is_rule])
-            elif is_rule:
-                if headings and headings[-1][3]:
-                    errors.append(
-                        f"{name}:{lineno}: '## {title}' is a rule nested under "
-                        f"'# {headings[-1][1]}', which is itself a rule. A rule is "
-                        f"written at '##' only inside a chapter, per "
-                        f"system/documentation-standards.md"
-                    )
-                elif headings:
-                    headings[-1][2] += 1
-
-        for lineno, title, rules, is_rule in headings:
-            if not is_rule and rules == 1:
+            if section.level == 3:
                 errors.append(
-                    f"{name}:{lineno}: '# {title}' groups one rule. A chapter "
+                    f"{name}:{section.line}: '### {section.title}' is a rule written three "
+                    f"levels deep. repo.RULE_HEADER_RE matches one '#' or two, "
+                    f"so no script in scripts/ can see it — write it at '#' or "
+                    f"'##', per system/documentation-standards.md"
+                )
+            elif parent.is_rule:
+                errors.append(
+                    f"{name}:{section.line}: '## {section.title}' is a rule nested under "
+                    f"'# {parent.title}', which is itself a rule. A rule is "
+                    f"written at '##' only inside a chapter, per "
+                    f"system/documentation-standards.md"
+                )
+
+        # A chapter groups its own direct rule children — a rule at `###` was
+        # already reported above and never counts toward any chapter's total.
+        for chapter in document.root.children:
+            if chapter.is_rule:
+                continue
+            rule_children = [child for child in chapter.children if child.is_rule]
+            if len(rule_children) == 1:
+                errors.append(
+                    f"{name}:{chapter.line}: '# {chapter.title}' groups one rule. A chapter "
                     f"groups two or more — delete it and write the rule at '#', "
                     f"per system/documentation-standards.md"
                 )
@@ -351,6 +378,12 @@ def check_versions(texts: dict[str, str]) -> list[str]:
 
 
 def main() -> int:
+    # check_versions, the CROSS_REF_RE / COMMA_REF_RE citation scan below, and
+    # check_image_index still read raw text rather than the AST. They work, and
+    # moving the citation scan onto Section.prose_lines() is a behaviour change
+    # — it would stop matching inside fenced blocks — that deserves its own
+    # pull request with its own before/after evidence, not a silent side effect
+    # of this one. Not forgotten; deliberately deferred.
     errors: list[str] = []
     docs = sorted(DOCS_DIR.glob("*.md"))
     texts = {doc.name: doc.read_text() for doc in docs}
