@@ -31,11 +31,13 @@ Five documents. **One rule is retired; nothing is renumbered.**
 ## What Does Not Change
 
 - **No gameplay value.** The Unit Base is still `4 × 3 × 13`. An infantry base is still `4 × 3` studs and one plate. The 4-stud edge is still the front. A shield still occupies one hand, a rifle still occupies two. Nothing about facing, visibility or cover resolves differently.
-- **`CORE-006`.** The size principle stays, wording untouched, and so does the dual-domain measurement clause. Both were reviewed and both are correct.
+- **`CORE-006`'s allotment.** Three Action Points per activation, the action list, and that no unit gains AP through its profile. Eight rules cite `CORE-006` for those and none is affected.
+
+  **Its size paragraph does not stay**, though an earlier draft of this proposal said it would. The maintainer decided it goes: a prohibition on pricing by size guards against something no rule does, and an exception cannot be made to a scheme that is never established. `TRN-005` and `TRN-006` keep their flat cost and stop sourcing it from CORE. This is the change's only capability delta — `design.md`, Decision 8.
 - **`CORE-014`.** It is the equipment anchor: equipment must be physically represented, and a unit cannot use what is not on the model. That is universal and stays.
 - **`CORE-005`, `CORE-007`, `CORE-008`, `CORE-010`, `CORE-016`** and the `Universal Rule` section.
 - **No rule ID is renumbered or reused.** `CORE-015` is retired and `CORE-016` is not moved into the gap.
-- **`openspec/specs/`.** No capability delta (`design.md`, Decision 6).
+- **`openspec/specs/`** — one `REMOVED` delta against `action-economy`, and only that. The scope cleanup that is the rest of this change owes none: it moves sentences between documents and no requirement or scenario stops being true (`design.md`, Decisions 6 and 8).
 - **`CHANGELOG.md` and every version header.** Release-cut-only.
 
 ## Checked elsewhere

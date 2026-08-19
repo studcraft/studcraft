@@ -83,3 +83,23 @@ The rule is one blockquote and one sentence. The sentence disclaims reaction fir
 **The consequence is that `CBT-014` ends up cited by nothing**, and that is the right shape. It is Combat's list of what Combat has not built. A reader asking "is there reaction fire?" is asking a combat question, and `11-combat.md` answers it. Nothing needs to point at a list of absences from another document.
 
 **Rejected: keeping the `CBT-014` citation alone**, as a bare "see also". It would keep a sentence in CORE whose only purpose is to stop `CBT-014` looking uncited, which is optimising for a script's shortlist rather than for a reader.
+
+## Decision 8 — `CORE-006` stops banning a pricing scheme no rule uses
+
+**Decided by the maintainer, against the recommendation this document first recorded.** The evidence for keeping the paragraph was put twice and did not persuade; what follows is the reasoning that won and what it costs, so that neither is rediscovered from scratch.
+
+**The argument for removal:** a prohibition needs something to prohibit. Every action in the ruleset carries a flat cost written into the rule that charges it — 1 Action Point to move, to rotate, to attack per weapon system, to open any interactive element, to repair, to embark, to disembark. Nowhere is a cost multiplied by a footprint, a height or a Unit Base count. Stating that costs do not scale with size is an exception to a scheme the ruleset never establishes, and `system/documentation-standards.md` asks a rule to state what is, not what is not.
+
+**The argument that lost, recorded because it is not weak.** The requirement was added by `2026-08-10-no-action-point-cost-scales-with-size`, and not prophylactically: `TRN-005` and `TRN-006` did price by Unit Base, and against a fixed 3 Action Point budget a four-Unit-Base unit could never embark and, once inside, never leave. That change rewrote both rules flat and added the principle. So the ruleset reads clean today **because** of the paragraph, and the case for keeping it is that the failure it prevents is a silent one — a model priced out rather than forbidden, discovered at the table.
+
+**What decided it:** the two rules that once violated the principle now state their flat cost themselves. `TRN-005` says "an infantry model of one Unit Base and a motorcycle of two pay the same" in its own words; `TRN-006` says the cost is the same whatever the unit occupies. The correction survives in the rules that were corrected. What `CORE-006` added on top was a general ban and two citations pointing at it — and a general ban is exactly the shape that reads as an exception to something.
+
+**What it costs, stated rather than minimised:**
+
+- **A capability delta.** `openspec/specs/action-economy` carries `Requirement: Action Cost Does Not Scale With Size` with four scenarios. This change ships a `REMOVED` block for it, and it is the only part of the change that touches a capability at all.
+- **The four scenarios still describe what happens.** An infantry model and a four-Unit-Base unit both spend 1 Action Point to embark — because `TRN-005` says 1 Action Point and says nothing about Unit Bases. The delta removes a requirement, not a behaviour.
+- **What guards it now:** `CORE-006` fixes the allotment at 3 with no way to earn more, and every rule that charges writes its own price. A cost that grew with the model would have to be written into one of those rules, where it sits against the fixed budget in plain sight. That is a weaker guarantee than a stated ban, and it is the trade being made.
+
+**The third sentence goes with the first two.** "A measurement may still decide **which** rule applies…" — added a day earlier, and correct — exists only to stop the ban being read too widely. With no ban, it qualifies nothing.
+
+**Rejected: shortening the paragraph to one line** rather than deleting it. It was offered and declined. It would have kept the requirement, avoided the delta and removed the two worked examples that made the paragraph heavy — but it keeps the shape the objection is about, which is CORE stating a prohibition instead of the charging rules stating their prices.

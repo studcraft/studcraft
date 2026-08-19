@@ -113,7 +113,7 @@ These elements occupy space and influence transport capacity.
 
 # TRN-005 — Embarking
 
-Embarking costs **1 Action Point**, whatever the unit occupies (`02-core-rules.md`, CORE-006) — an infantry model of one Unit Base and a motorcycle of two pay the same, matching Disembarking (TRN-006).
+Embarking costs **1 Action Point** — an infantry model of one Unit Base and a motorcycle of two pay the same, matching Disembarking (TRN-006).
 
 The AP is spent from the embarking unit's own pool, during its own activation (`03-game-flow.md`, FLOW-004) — the same 3 AP it can also spend moving, attacking, or otherwise acting that same activation (`FLOW-007`). It does not receive a separate activation later just because it ended up inside a transport.
 
@@ -133,7 +133,7 @@ Disembarking costs:
 
 **1 Action Point**
 
-The cost is the same whatever the unit occupies (`02-core-rules.md`, CORE-006), matching Embarking (TRN-005).
+The cost is the same whatever the unit occupies, matching Embarking (TRN-005).
 
 The AP is spent from the disembarking unit's own pool, during its own activation — a unit that begins its activation already embarked spends AP to disembark, then may spend any AP remaining from the same 3 AP allotment to move, attack, or otherwise act.
 

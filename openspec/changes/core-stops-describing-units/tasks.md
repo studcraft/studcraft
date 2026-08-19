@@ -22,7 +22,7 @@ A `#` heading or a `---` horizontal rule inside a fence is real markdown that mu
 
 ### Scope and coverage
 
-Five ruleset documents, no spec delta: **ten anchor pairs and ten verification tasks** (6.1 – 6.10).
+Five ruleset documents, no spec delta: **ten anchor pairs and ten verification tasks** (6.1 – 6.10). **Sections 7 and 8 change both figures** — 7 adds two documents and eight pairs from the audit of the applied text, 8 adds one more document, three pairs and the change's only capability delta. Twenty-one pairs across eight documents in total; each section carries its own coverage note.
 
 | `proposal.md` item | Task | Path |
 |---|---|---|
@@ -37,7 +37,9 @@ Five ruleset documents, no spec delta: **ten anchor pairs and ten verification t
 | `WPN-010` — owns weapon handedness | 5.3 | `docs/10-weapons.md` |
 | Glossary ***Facing*** entry | 2.2 | `docs/14-glossary.md` |
 
-**Untouched, deliberately:** `CORE-003`, which already defers to `17-infantry.md` and gained that pointer in the change before this one. `CORE-005`, `CORE-007`, `CORE-008`, `CORE-010`, `CORE-014`, `CORE-016` and the `Universal Rule` section. **`CORE-006` in full** — the size principle and the dual-domain measurement clause were both reviewed and both stay, wording included. `VEH-002`, which already states how a vehicle's front is decided and needs nothing. Every other `docs/*.md`. `openspec/specs/` — no delta (`design.md`, Decision 6). `CHANGELOG.md` and every version header.
+**Untouched, deliberately:** `CORE-003`, which already defers to `17-infantry.md` and gained that pointer in the change before this one. `CORE-005`, `CORE-007`, `CORE-008`, `CORE-010`, `CORE-014`, `CORE-016` and the `Universal Rule` section. `CORE-006`'s allotment, action list and "no unit gains additional AP through its profile". Every other `docs/*.md`. `CHANGELOG.md` and every version header.
+
+**Two entries on this list stopped being true, and are corrected here rather than quietly rewritten.** `CORE-006` was listed as untouched "in full"; section 8 removes its size paragraph at the maintainer's decision. `openspec/specs/` was listed as taking no delta; section 8 ships a `REMOVED` one against `action-economy`. `VEH-002` was listed as needing nothing, on a premise the audit found false — section 7.1 is the repair.
 
 ---
 
@@ -421,3 +423,71 @@ Future versions may include:
 **`CODE_OF_DESIGN.md`, Principle 9** is re-aimed from `CORE-009` to `11-combat.md` (CBT-014) in this same commit. It is not a `docs/*.md` file, so `system/repository-strategy.md` (Branch Naming) would put it on its own branch; shipping a pointer this change knowingly breaks is worse, and the maintainer folded the same class of file into one pull request last time. It is called out here and in `proposal.md` so the choice is visible rather than silent.
 
 **Not repaired: "firing arc" is a term no rule defines.** `WPN-011` and `TRN-011` each derive an arc from a physical thing — where a weapon is mounted, where an opening is — and neither depended on `CORE-002`'s bullets, so no outcome changes. The audit confirms the reading `design.md` Decision 4 states: nothing was lost, because nothing was ever defined. Giving the term an owner is Combat's change to make.
+
+---
+
+## 8. `CORE-006` stops banning a pricing scheme no rule uses
+
+**This section ships a capability delta, and it is the only part of this change that does.** Everything before it moves sentences between documents; this removes a requirement from `openspec/specs/action-economy` (`design.md`, Decision 8).
+
+The maintainer's call, made against the recommendation recorded in Decision 8 and after the evidence for keeping it was put twice: **the paragraph goes.** The reasoning is that a prohibition on something the ruleset never does is not a rule, and an exception cannot be made to a scheme that is never established.
+
+What that costs, stated plainly so the reviewer sees it: `TRN-005` and `TRN-006` cite `CORE-006` for "whatever the unit occupies", and after this they state their own flat cost without deferring. The third sentence of the paragraph — the one naming an obstacle's height for infantry and a Terrain Threshold for a vehicle — goes with the first two, because it exists only to qualify the ban and qualifies nothing once the ban is gone.
+
+- [x] 8.1 In `docs/02-core-rules.md`, `CORE-006`, replace this anchor — the rule's last paragraph, together with the blank line and the `---` below it. The `**3 Action Points**` paragraph above is **not** part of the anchor:
+
+```
+**No Action Point cost scales with size** — not with the size of the unit paying it, and not with the size of an interactive element it operates (CORE-007). An action's cost is set by the rule that governs that action, and where more than one Action Point is spent that rule states why; the reason is never size. A measurement may still decide **which** rule applies, and which measurement is read is the unit's own domain's rule — an obstacle's height for infantry (`17-infantry.md`, INF-006 through INF-008), a Terrain Threshold for a vehicle (`08-vehicles.md`, VEH-021).
+
+---
+```
+
+with:
+
+```
+---
+```
+
+  The `---` is a landmark. `CORE-006` keeps the allotment, the action list and the statement that no unit gains AP through its profile — which is the part `FLOW-004`, `FLOW-005`, `FLOW-012`, `VEH-004`, `CBT-001`, `DMG-019`, `INF-002` and `INF-009` all cite it for.
+
+- [x] 8.2 In `docs/09-transport.md`, `TRN-005`, replace this anchor — the rule's first line:
+
+```
+Embarking costs **1 Action Point**, whatever the unit occupies (`02-core-rules.md`, CORE-006) — an infantry model of one Unit Base and a motorcycle of two pay the same, matching Disembarking (TRN-006).
+```
+
+with:
+
+```
+Embarking costs **1 Action Point** — an infantry model of one Unit Base and a motorcycle of two pay the same, matching Disembarking (TRN-006).
+```
+
+  The flat cost stays and is stated here, with its own worked contrast. What goes is the deferral: `CORE-006` no longer says anything about what a unit occupies, so citing it for that would point at a rule that has stopped answering.
+
+- [x] 8.3 In `docs/09-transport.md`, `TRN-006`, replace this anchor — one line:
+
+```
+The cost is the same whatever the unit occupies (`02-core-rules.md`, CORE-006), matching Embarking (TRN-005).
+```
+
+with:
+
+```
+The cost is the same whatever the unit occupies, matching Embarking (TRN-005).
+```
+
+  Same edit from the other side. `TRN-006` keeps the claim and stops sourcing it from CORE.
+
+### Verification after section 8
+
+- [x] 8.4 `grep -rn "scales with size" docs/` — before: one hit in `docs/02-core-rules.md`. After: **no output at all**.
+
+- [x] 8.5 `grep -c -F "CORE-006" docs/09-transport.md` — before: **2**, after: **0**. Tasks 8.2 and 8.3.
+
+- [x] 8.6 `grep -c "^## CORE-006" docs/02-core-rules.md` — **1**, before and after. The rule keeps its number and its other three paragraphs; only the last one goes. A **0** means the whole rule was deleted — stop and report it.
+
+- [x] 8.7 `python3 scripts/check_delta_coverage.py` — must **exit 0**. It audits `## MODIFIED Requirements` blocks only, and this delta is `## REMOVED`, so it has nothing to check here; running it is what confirms that.
+
+- [x] 8.8 `python3 scripts/lint_ruleset.py` — `Checked 15 docs, no structural issues found.`
+
+- [x] 8.9 `python3 scripts/preflight.py` — all 12 checks PASS. **`openspec validate` now has a delta to read**, where before this section the change carried none; a failure there is about the delta's shape, not about `docs/`.
