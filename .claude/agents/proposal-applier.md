@@ -62,7 +62,9 @@ Do not paraphrase, improve, shorten or expand the given text. If a task asks you
 
 **"The body of a rule"** is everything between the rule's `#` or `##` heading line and the `---` that ends it.
 
-**Never change, remove or renumber an existing heading.** Rule IDs are permanently stable — a superseded rule keeps its number with a note. If a task appears to ask for a renumbering, stop and report it.
+**Never change or renumber a rule's ID or its title.** Rule IDs are permanently stable — a superseded rule keeps its number with a note. If a task appears to ask for a renumbering, stop and report it.
+
+**A heading's `#` level is a different matter, and a task may legitimately change it.** `system/documentation-standards.md` fixes which level a rule is written at, so moving a rule between `#` and `##`, or deleting a chapter heading that groups only one rule, is an ordinary edit. The ID and the title still do not change.
 
 ## Git constraints — these are hard
 

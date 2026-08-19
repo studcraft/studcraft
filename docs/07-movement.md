@@ -63,9 +63,7 @@ This maintains compatibility with the LEGO grid, and means a unit with 3 AP can 
 
 Terrain physically affects movement.
 
----
-
-# MOVE-012 — Slopes
+## MOVE-012 — Slopes
 
 A slope is built from LEGO slope elements, and is a valid climbing surface.
 
@@ -73,7 +71,7 @@ Whether a given unit may ascend one is its own domain's question — infantry (`
 
 ---
 
-# MOVE-013 — Stairs
+## MOVE-013 — Stairs
 
 A stepped surface is terrain built from discrete steps, whatever the steps are built from, and each step has a measurable height.
 
@@ -81,17 +79,11 @@ Whether a given unit may climb one is its own domain's question — infantry (`1
 
 ---
 
-# MOVE-014 — Vertical Access
+## MOVE-014 — Vertical Access
 
 Any stable LEGO surface may support a unit, and physical construction determines accessibility.
 
 Which constructions grant a given unit access is its own domain's question — infantry (`17-infantry.md`, INF-008, INF-010), vehicles (`08-vehicles.md`, VEH-021, VEH-027).
-
----
-
-# Falling
-
-When a unit falls and where it lands are stated here. What the fall costs is its own domain's rule.
 
 ---
 

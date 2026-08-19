@@ -90,6 +90,22 @@ Definitions" is not one. `01-foundations.md` and `14-glossary.md` define no
 rules; `02-core-rules.md` predates the standard and is a recorded exemption in
 the linter, not a precedent.
 
+A `#` chapter heading exists only to group two or more rules, and the rules
+inside one are written at `##`; a rule belonging to no chapter is written at
+`#`, because a chapter over one rule says nothing that rule's own heading does
+not. A `#` section holding no rules is prose, not a chapter, and this does not
+reach it.
+
+A rule's own sub-headings — worked examples, tables of cases — sit one level
+below the rule wherever the rule sits: `##` under a standalone rule, `###`
+under one inside a chapter. **No rule is itself written at `###`.**
+`repo.RULE_HEADER_RE` matches one `#` or two, so a rule three levels deep is
+invisible to every script that reads the ruleset, and invisible silently. The
+two sub-heading levels are not equivalent to the tooling either:
+`repo.HEADING_RE` ends a rule's body at the next `#` or `##`, so a standalone
+rule's `##` sub-headings fall outside the body `scripts/rule.py` and the index
+print, while a chaptered rule's `###` ones do not.
+
 Every document closes with a motto: `> **Every Brick Matters.**` for
 construction and gameplay documents, `> **The Model Is The Rules.**` for the
 two about the model-defines-values mechanism (`15-geometry-layers.md`,

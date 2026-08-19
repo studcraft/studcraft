@@ -181,10 +181,6 @@ These additions must preserve the Impact-based combat system.
 
 ---
 
-# Damaged Weapons
-
-What a weapon's own damage does to the attack it makes.
-
 # CBT-015 — Attacking While Wounded
 
 A Wounded weapon (`16-damage-system.md`, DMG-005) still fires, less reliably.
