@@ -32,9 +32,7 @@ Only physical LEGO elements may affect gameplay.
 
 ---
 
-# Unit Base
-
-## CORE-001 — Unit Base (UB)
+# CORE-001 — Unit Base (UB)
 
 StudCraft uses a single measuring unit.
 
@@ -52,9 +50,7 @@ Each rule states which dimensions of the Unit Base it reads, and a measured valu
 
 ---
 
-# Unit Orientation
-
-## CORE-002 — Facing
+# CORE-002 — Facing
 
 Every unit has a facing, and every model must have an obvious front.
 
@@ -90,9 +86,7 @@ A structure's doors, windows and other functional parts follow `05-construction-
 
 ---
 
-# Activation
-
-## CORE-006 — Action Points
+# CORE-006 — Action Points
 
 Every unit activates using Action Points (AP).
 
@@ -114,9 +108,7 @@ Every unit receives exactly **3 Action Points** per activation, regardless of it
 
 ---
 
-# Interactive Elements
-
-## CORE-007 — Physical Interaction
+# CORE-007 — Physical Interaction
 
 Any LEGO element that can physically move may become interactive.
 
@@ -152,9 +144,7 @@ Fundamental combat rule:
 
 ---
 
-# Cover
-
-## CORE-010 — Physical Cover
+# CORE-010 — Physical Cover
 
 Cover is physical, not templated: a component that is completely hidden — by terrain, another model, or Visual Geometry (`15-geometry-layers.md`, GEO-004) — cannot be selected as a target (`16-damage-system.md`, DMG-012).
 
@@ -162,9 +152,7 @@ A partially visible component has no separate cover level; it is simply visible 
 
 ---
 
-# Equipment
-
-## CORE-014 — Visible Equipment
+# CORE-014 — Visible Equipment
 
 Equipment must be physically represented.
 
@@ -172,9 +160,7 @@ A unit cannot use equipment that is not present on the model.
 
 ---
 
-# Physical State
-
-## CORE-016 — Battlefield Representation
+# CORE-016 — Battlefield Representation
 
 Whenever possible, changes in game state should be represented by modifying the model itself.
 

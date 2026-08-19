@@ -139,3 +139,103 @@ class TestTheImageIndex:
         text = "## docs/10-weapons.md\n\n| Rule | File |\n|---|---|\n| WPN-020 | to be drawn |\n"
         (entry,) = lint_ruleset.parse_image_entries(text)
         assert entry[3] == ""
+
+
+CHAPTERED = """# 16-damage-system.md
+
+# Purpose
+
+Why this document exists.
+
+# Design Philosophy
+
+What it is built on.
+
+# Component Damage
+
+The structural model.
+
+## DMG-001 — Component Targeting
+
+Every impact is assigned to one component.
+
+---
+
+## DMG-002 — Components Have No Hit Points
+
+A component has a state, not a total.
+
+# DMG-003 — Geometry Defines Resistance
+
+Resistance is read from the model.
+
+# Summary
+
+What the rules above say.
+
+> **Every Brick Matters.**
+"""
+
+ONE_RULE_CHAPTER = CHAPTERED.replace(
+    "---\n\n## DMG-002 — Components Have No Hit Points\n\n"
+    "A component has a state, not a total.\n\n",
+    "",
+)
+
+
+class TestChapterDepth:
+    def test_a_chapter_of_two_and_a_rule_of_its_own_report_nothing(self):
+        assert lint_ruleset.check_chapter_depth({"16-damage-system.md": CHAPTERED}) == []
+
+    def test_a_chapter_holding_one_rule_is_reported(self):
+        (error,) = lint_ruleset.check_chapter_depth({"16-damage-system.md": ONE_RULE_CHAPTER})
+        assert "Component Damage" in error
+
+    def test_a_section_holding_no_rules_is_prose_and_not_a_chapter(self):
+        text = CHAPTERED.replace("# Summary", "# Combat Flow\n\nA diagram.\n\n# Summary")
+        assert lint_ruleset.check_chapter_depth({"16-damage-system.md": text}) == []
+
+    def test_a_rule_at_the_top_level_closes_the_chapter_above_it(self):
+        # DMG-003 sits at `#`, so the `##` rule below it counts toward nothing.
+        # If a `#` rule did not close a chapter, `# Component Damage` would look
+        # like a chapter of two and its one-rule defect would go unreported.
+        #
+        # That arrangement is *also* the nested-rule defect — a `##` rule under
+        # a `#` rule — so two errors are correct here, and the two assertions
+        # below are what keep this test about the first of them.
+        text = ONE_RULE_CHAPTER.replace(
+            "# Summary", "## DMG-004 — Reading Resistance\n\nHow.\n\n# Summary"
+        )
+        errors = lint_ruleset.check_chapter_depth({"16-damage-system.md": text})
+        assert len(errors) == 2
+        assert any("Component Damage" in error for error in errors)
+        assert any("nested under" in error for error in errors)
+
+    def test_a_rule_written_three_levels_deep_is_reported(self):
+        text = CHAPTERED.replace(
+            "# Summary", "### DMG-004 — Three Deep\n\nHow.\n\n# Summary"
+        )
+        (error,) = lint_ruleset.check_chapter_depth({"16-damage-system.md": text})
+        assert "three" in error
+        # The point of the check: repo.RULE_HEADER_RE cannot see this heading,
+        # so nothing else in scripts/ would have reported it.
+        from repo import RULE_HEADER_RE
+
+        assert "DMG-004" not in {f"{p}-{n}" for p, n in RULE_HEADER_RE.findall(text)}
+
+    def test_a_rule_nested_under_another_rule_is_reported(self):
+        text = CHAPTERED.replace(
+            "# Summary", "## DMG-004 — Nested\n\nHow.\n\n# Summary"
+        )
+        (error,) = lint_ruleset.check_chapter_depth({"16-damage-system.md": text})
+        assert "nested under" in error
+
+    def test_a_heading_inside_a_fenced_block_is_not_a_heading(self):
+        # A document about document structure is the one most likely to show a
+        # worked example of a heading. Read as real, the fenced `# Fake Chapter`
+        # would close `# Component Damage` after one rule and fail a valid file.
+        text = CHAPTERED.replace(
+            "---\n\n## DMG-002",
+            "```\n# Fake Chapter\n\n## DMG-999 — Fake\n```\n\n---\n\n## DMG-002",
+        )
+        assert lint_ruleset.check_chapter_depth({"16-damage-system.md": text}) == []

@@ -46,9 +46,7 @@ Everything required to resolve combat must already exist in the physical model.
 
 This section defines the structural model: components, geometry-derived Resistance, and the universal state machine every component uses.
 
----
-
-# DMG-001 — Component Targeting
+## DMG-001 — Component Targeting
 
 Combat never targets an entire unit. Instead, every impact is assigned to one visible component.
 
@@ -69,7 +67,7 @@ A vehicle is not a single object. It is a collection of independent components.
 
 ---
 
-# DMG-002 — Components Have No Hit Points
+## DMG-002 — Components Have No Hit Points
 
 Components only possess structural integrity, represented through a universal state machine (full definition in DMG-005):
 
@@ -81,7 +79,7 @@ Every component in the game follows exactly the same three states. There are no 
 
 ---
 
-# DMG-003 — Geometry Defines Resistance
+## DMG-003 — Geometry Defines Resistance
 
 Resistance is never assigned as a statistic. It is read directly from the model.
 
@@ -97,37 +95,37 @@ The important concept is not the external volume. It is the amount of structure 
 
 ---
 
-# DMG-004 — Reading Component Resistance
+## DMG-004 — Reading Component Resistance
 
 Resistance belongs to the construction itself. Changing the way a component is built naturally changes its resistance.
 
-## Example 1 — Minifig
+### Example 1 — Minifig
 
 A minifig torso, measured like any other component: roughly one brick of material in the direction of travel. Therefore `Resistance = 3`.
 
-## Example 2 — Mounted Cannon
+### Example 2 — Mounted Cannon
 
 A cannon housing built with a 2-plate-thick front wall. The projectile enters through the front. The smallest structural section crossed is `2 plate layers`. Therefore `Resistance = 2`.
 
-## Example 3 — Shield built with Bricks
+### Example 3 — Shield built with Bricks
 
 A shield built from standard bricks (1 brick = 3 plates tall). The projectile crosses `3 plate layers`. Therefore `Resistance = 3`.
 
-## Example 4 — Shield built with Plates
+### Example 4 — Shield built with Plates
 
 A shield constructed from four stacked plates. Viewed from the front, the projectile must cross `4 plate layers`. Therefore `Resistance = 4`.
 
 A brick-built shield (Resistance 3) and a four-plate shield (Resistance 4) can occupy similar external bulk, yet resolve to different resistance values because the count of physical layers — not the external silhouette — is what matters. StudCraft rewards engineering, not appearance.
 
-## Example 5 — Bunker
+### Example 5 — Bunker
 
 A bunker wall built two bricks thick. The projectile crosses `6 plate layers` (2 bricks × 3 plates). Therefore `Resistance = 6`.
 
-## Example 6 — Moulded Windscreen
+### Example 6 — Moulded Windscreen
 
 A windscreen — a single moulded LEGO element, not a built assembly — measured the same way as any other component: `1 plate` thick in the direction of travel. Therefore `Resistance = 1`. No component type is exempt from this measurement — a thin moulded piece resolves low (this example), a thick one resolves high (Example 1, the minifig), by the same conversion.
 
-## Example 7 — Vehicle Hull
+### Example 7 — Vehicle Hull
 
 A vehicle hull with 1-brick front armour, an empty interior, and 1-brick rear armour. An Impact striking the front crosses `3 plate layers` of structure. Therefore `Resistance = 3`.
 
@@ -135,7 +133,7 @@ The empty interior contributes nothing, and the rear wall is a separate componen
 
 ---
 
-# DMG-005 — Component State Progression
+## DMG-005 — Component State Progression
 
 Every component progresses through exactly three states.
 
@@ -153,7 +151,7 @@ An infantry model is placed in the pose of its state: upright while Operational,
 
 ---
 
-# DMG-006 — Universal Destruction
+## DMG-006 — Universal Destruction
 
 Destroyed always means exactly the same thing: the component is removed.
 
@@ -163,7 +161,7 @@ There are no special destruction rules. This is the canonical statement of "pref
 
 ---
 
-# DMG-007 — Internal Components
+## DMG-007 — Internal Components
 
 Components may protect other components.
 
@@ -179,7 +177,7 @@ This naturally creates layered protection without requiring additional rules.
 
 ---
 
-# DMG-008 — No Material-Specific Mechanics
+## DMG-008 — No Material-Specific Mechanics
 
 Every component follows exactly the same mechanical rules regardless of what it represents — glass, metal, wood, infantry, or anything else. Resistance (DMG-003/004), the Geometry Check (DMG-014), the Damage Roll (DMG-015), and the Component State machine (DMG-005) apply identically to every component; where DMG-005's Wounded state costs a component something, the cost is set by the capability that component provides — moving, or attacking — and never by the material it represents. StudCraft does not define material-specific hit thresholds, Resistance modifiers, or damage tables of any kind.
 
@@ -200,9 +198,7 @@ Combat in StudCraft is divided into two independent responsibilities:
 
 The LEGO model defines capability. The dice introduce uncertainty.
 
----
-
-# DMG-009 — Combat Resolution Overview
+## DMG-009 — Combat Resolution Overview
 
 Every combat action follows the same sequence, whether ranged or melee (`12-melee.md`).
 
@@ -217,7 +213,7 @@ Every impact is resolved independently.
 
 ---
 
-# DMG-010 — Generate Impacts
+## DMG-010 — Generate Impacts
 
 Each weapon muzzle generates exactly one impact. The weapon specification already defines (per `10-weapons.md`):
 
@@ -228,7 +224,7 @@ Example — Shotgun (`○ ○`, two muzzles) generates Impact A and Impact B.
 
 ---
 
-# DMG-011 — Attack Roll
+## DMG-011 — Attack Roll
 
 The attacker rolls one die for every generated impact. A result of 4, 5, or 6 succeeds and creates one valid impact (per `11-combat.md` CBT-005's existing threshold). A result of 1, 2, or 3 fails; the impact simply disappears.
 
@@ -238,7 +234,7 @@ Example — two-barrel shotgun: one die succeeds, one fails. Only one impact con
 
 ---
 
-# DMG-012 — Select Target Component
+## DMG-012 — Select Target Component
 
 Every successful impact is assigned to one visible component. Hidden components cannot be selected as a target.
 
@@ -248,7 +244,7 @@ Impacts are never assigned to an entire vehicle — only to components.
 
 ---
 
-# DMG-013 — Composite Vehicle Targeting
+## DMG-013 — Composite Vehicle Targeting
 
 Every component of a composite vehicle behaves independently (per DMG-001). When a single attack generates multiple valid impacts, each impact may be assigned to a different visible component of the same target — impacts are never required to concentrate on one component.
 
@@ -260,7 +256,7 @@ Example — Multiple Impacts, One Target: 6 impacts against the Jeep may be assi
 
 ---
 
-# DMG-014 — Geometry Check
+## DMG-014 — Geometry Check
 
 The impact strength is compared against the resistance of the target component.
 
@@ -270,7 +266,7 @@ If `Strength ≥ Resistance`: the impact is capable of damaging the component. C
 
 ---
 
-# DMG-015 — Damage Roll
+## DMG-015 — Damage Roll
 
 The defender rolls one D6 for that impact. A result of 4, 5, or 6 succeeds: nothing happens, the component remains unchanged. A result of 1, 2, or 3 fails: the component advances exactly one state (`Operational → Wounded` or `Wounded → Dead`).
 
@@ -278,7 +274,7 @@ This die does not represent armour — the Geometry Check already proved the imp
 
 ---
 
-# DMG-016 — Multiple Impacts
+## DMG-016 — Multiple Impacts
 
 Each impact is completely independent. Impacts never combine their strength. Instead, each successful impact creates another opportunity to change the target's state.
 
@@ -286,7 +282,7 @@ Example — a shotgun (`○ ○`) against a minifig at Operational: both attack 
 
 ---
 
-# DMG-017 — Penetration
+## DMG-017 — Penetration
 
 An impact may continue through multiple components. "Successfully affects" here means the impact passed the Geometry Check (`Strength ≥ Resistance`, DMG-014) — penetration is a consequence of geometry, not of the Damage Roll's outcome. Whenever an impact passes the Geometry Check against a component, its remaining strength is calculated:
 
@@ -296,13 +292,13 @@ Remaining Strength = Current Strength − Component Resistance
 
 If remaining strength is greater than zero, the impact continues in the same direction, toward the next component (per DMG-007, Internal Components) — regardless of whether the Damage Roll against the current component succeeds or fails.
 
-## Example
+### Example
 
 Heavy Cannon (`Strength 6`) vs. Shield (`Resistance 3`): after affecting the shield, `Remaining Strength = 3`. The impact continues. A minifig behind the shield (`Resistance 3`) is still a valid target — `3 ≥ 3`, the impact is capable of damaging it. The minifig now performs its own Damage Roll. Each component always resolves independently.
 
 ---
 
-# DMG-018 — Weapon Distribution
+## DMG-018 — Weapon Distribution
 
 Each muzzle creates one independent impact.
 
@@ -318,7 +314,7 @@ Weapon articulation is read directly from the LEGO model.
 
 ---
 
-# DMG-019 — Repairs
+## DMG-019 — Repairs
 
 A unit may spend **1 Action Point**, once per activation, to repair its own Wounded component, restoring it to Operational (`Wounded → Operational`) — for infantry, this is the same action `02-core-rules.md` CORE-006 lists as "Stand up."
 

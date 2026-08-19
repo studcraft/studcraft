@@ -21,6 +21,10 @@ Checks things a human reviewer shouldn't have to catch by hand:
   wherever it finds none.
 - The document skeleton required by system/documentation-standards.md:
   Purpose, Design Philosophy and Summary sections, and a closing motto.
+- The heading convention: a `#` chapter that groups exactly one rule, a
+  rule written at `###` where no script can see it, and a `##` rule nested
+  under another rule. A `#` heading with no rules under it is prose, not a
+  chapter, and is not reported.
 - The image filenames in assets/IMAGES.md: that each follows the naming
   convention that file defines, that it names a document which exists,
   and that the rule it illustrates exists in that document.
@@ -220,6 +224,101 @@ def check_structure(
     return errors
 
 
+# A heading at `#`, `##` or `###`, split into its hashes and its title. A rule
+# heading is one whose title starts with a rule ID; any other `#` heading is
+# either a chapter over rules or a section of prose, and only the number of
+# rules under it tells those two apart. `###` is matched so that a rule written
+# there can be reported: repo.RULE_HEADER_RE stops at two, which is exactly what
+# makes a three-deep rule vanish instead of fail.
+HEADING_DEPTH_RE = re.compile(r"^(#{1,3}) (\S.*?)\s*$")
+
+# A fenced block holds text about markdown, not markdown. This document set is
+# the one most likely to contain a worked example of a heading, so a check that
+# read one as real would fail a valid document on a required status check.
+CODE_FENCE_RE = re.compile(r"^\s*```")
+
+
+def check_chapter_depth(texts: dict[str, str]) -> list[str]:
+    """The heading convention from system/documentation-standards.md.
+
+    Three defects, and every one of them is silent otherwise:
+
+    **A `#` chapter holding exactly one rule.** A chapter groups two or more;
+    over one rule it says nothing that rule's own heading does not. Zero is not
+    one — a `#` heading with no rules under it is prose (Purpose, Summary,
+    Combat Flow, Weapon Archetypes) and is not a chapter over rules at all.
+    Checking for *exactly* one is what lets this run over the whole of docs/
+    without carrying a list of exceptions.
+
+    **A rule written at `###`.** repo.RULE_HEADER_RE matches one `#` or two, so
+    a rule three levels deep is read by no script in scripts/. It does not fail,
+    it disappears, which is why it is worth a check rather than a comment.
+
+    **A `##` rule directly under a `#` rule.** A rule is written at `##` only
+    inside a chapter; under another rule it has a parent that cannot hold it.
+
+    **What is not checked, because it cannot be:** a chapter whose rules were
+    left at `#`. Those are indistinguishable from a run of standalone rules —
+    same text, same level — and what separates them is what the author meant.
+    That one needs a reader.
+    """
+    errors: list[str] = []
+
+    for name, text in sorted(texts.items()):
+        # (line number, title, rules counted, whether the heading is itself a
+        # rule). A rule at `#` closes the chapter above it exactly as a new
+        # chapter heading does, so it is recorded here too and counts nothing.
+        headings: list[list] = []
+        in_fence = False
+
+        for lineno, line in enumerate(text.splitlines(), start=1):
+            if CODE_FENCE_RE.match(line):
+                in_fence = not in_fence
+                continue
+            if in_fence:
+                continue
+
+            heading = HEADING_DEPTH_RE.match(line)
+            if not heading:
+                continue
+            hashes, title = heading.groups()
+            is_rule = RULE_ID_RE.match(title) is not None
+
+            if hashes == "###":
+                if is_rule:
+                    errors.append(
+                        f"{name}:{lineno}: '### {title}' is a rule written three "
+                        f"levels deep. repo.RULE_HEADER_RE matches one '#' or two, "
+                        f"so no script in scripts/ can see it — write it at '#' or "
+                        f"'##', per system/documentation-standards.md"
+                    )
+                continue
+
+            if hashes == "#":
+                headings.append([lineno, title, 0, is_rule])
+            elif is_rule:
+                if headings and headings[-1][3]:
+                    errors.append(
+                        f"{name}:{lineno}: '## {title}' is a rule nested under "
+                        f"'# {headings[-1][1]}', which is itself a rule. A rule is "
+                        f"written at '##' only inside a chapter, per "
+                        f"system/documentation-standards.md"
+                    )
+                elif headings:
+                    headings[-1][2] += 1
+
+        for lineno, title, rules, is_rule in headings:
+            if not is_rule and rules == 1:
+                errors.append(
+                    f"{name}:{lineno}: '# {title}' groups one rule. A chapter "
+                    f"groups two or more — delete it and write the rule at '#', "
+                    f"per system/documentation-standards.md"
+                )
+
+    return errors
+
+
+
 def check_versions(texts: dict[str, str]) -> list[str]:
     """The version headers that exist agree with each other.
 
@@ -310,6 +409,7 @@ def main() -> int:
                     errors.append(f"{name}: references {target_file}, {rule_id}, which does not exist")
 
     errors.extend(check_structure(texts, ids_by_file))
+    errors.extend(check_chapter_depth(texts))
     errors.extend(check_image_index(ids_by_file))
 
     if errors:

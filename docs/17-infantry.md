@@ -105,9 +105,7 @@ The new facing becomes immediately active.
 
 Terrain physically affects infantry movement. What a slope and a stepped surface are built from is `07-movement.md` (MOVE-012, MOVE-013), and what physically supports a unit at all is MOVE-014; what infantry can do with them is below.
 
----
-
-# INF-006 — One Brick Obstacles
+## INF-006 — One Brick Obstacles
 
 Height: **up to 3 plate layers** (one brick or less).
 
@@ -117,7 +115,7 @@ Infantry may cross freely. No additional movement cost.
 
 ---
 
-# INF-007 — Two Brick Obstacles
+## INF-007 — Two Brick Obstacles
 
 Height: **4 to 6 plate layers** (more than one brick, up to two).
 
@@ -127,7 +125,7 @@ The climb is part of that movement action and does not increase the distance the
 
 ---
 
-# INF-008 — Three Brick Obstacles
+## INF-008 — Three Brick Obstacles
 
 Height: **7 or more plate layers** (taller than two bricks).
 
@@ -145,7 +143,7 @@ Without one of these, the obstacle is impassable.
 
 ---
 
-# INF-009 — Slopes and Stairs
+## INF-009 — Slopes and Stairs
 
 Infantry may move normally over connected slopes (`07-movement.md`, MOVE-012) at no additional Action Point cost: a slope is ordinary terrain, not an obstacle to climb.
 
@@ -159,21 +157,15 @@ A vehicle reads the same staircase as one obstacle of its total rise rather than
 
 ---
 
-# INF-010 — Vertical Access
+## INF-010 — Vertical Access
 
 A vertical face taller than INF-008's threshold cannot be climbed unless a slope, stair or ramp physically reaches it. Those are the three legal access points INF-008 lists, and no other construction grants access.
 
 ---
 
-# Falling
-
-When a unit falls at all, and where it lands, is `07-movement.md` (MOVE-015). What the fall costs an infantry model is below.
-
----
-
 # INF-011 — Falling Damage
 
-Falling damage depends on the height fallen, measured in plate layers — the same unit obstacles use (INF-006).
+When a fall happens and where the unit is placed is the general rule (`07-movement.md`, MOVE-015); this rule states what it costs an infantry model. Falling damage depends on the height fallen, measured in plate layers — the same unit obstacles use (INF-006).
 
 Roll **one D6 for every complete brick (3 plate layers) fallen beyond the first**. A remainder of one or two plate layers adds no die.
 
@@ -196,12 +188,6 @@ Example:
 - Fall of 3 bricks → Roll 2D6, resolved independently. Two failures kill.
 - Fall of 5 bricks → Roll 4D6, resolved independently.
 - Fall of 10 bricks → Roll 9D6. Survival is very unlikely.
-
----
-
-# Damage Effects
-
-What a damaged infantry model can still do. The Component States themselves are `16-damage-system.md` (DMG-005).
 
 ---
 
