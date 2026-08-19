@@ -45,6 +45,15 @@ class TestTheDocumentSkeleton:
         errors = structure_errors("08-vehicles.md", COMPLETE.replace("# Design Philosophy", "# Notes"))
         assert any("Design Philosophy" in error for error in errors)
 
+    def test_a_section_written_three_levels_deep_is_still_reported_missing(self):
+        # The section this check requires is `^#{1,2} Design Philosophy\s*$`
+        # in spirit — a `###` heading of the same name is not that section,
+        # the same as it was never matched by the regex this check replaced.
+        errors = structure_errors(
+            "08-vehicles.md", COMPLETE.replace("# Design Philosophy", "### Design Philosophy")
+        )
+        assert any("Design Philosophy" in error for error in errors)
+
     def test_a_document_defining_no_rules_needs_no_sections(self):
         text = "# 14-glossary.md\n\n## Unit Base\n\nA volume.\n\n> **Every Brick Matters.**\n"
         assert structure_errors("14-glossary.md", text, has_rules=False) == []
