@@ -46,9 +46,6 @@ RULE_HEADER_RE = re.compile(r"^#{1,2} ([A-Z]{2,6})-(\d{3}) — ", re.MULTILINE)
 # A rule ID wherever it appears — in a citation, a table cell, a glossary entry.
 RULE_ID_RE = re.compile(r"[A-Z]{2,6}-\d{3}")
 
-# Any `#` or `##` heading, which is where a rule's body ends.
-HEADING_RE = re.compile(r"^#{1,2} \S")
-
 
 def unarchived_changes() -> list[str]:
     """Every OpenSpec change directory that has not been archived yet.

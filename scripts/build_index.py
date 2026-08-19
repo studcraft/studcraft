@@ -12,14 +12,19 @@ cache in front of it. `scripts/rule.py` is the query side.
 
 The rule-ID pattern is **imported from `scripts/repo.py`**, not copied. A second
 copy of a convention would drift from the first, and the drift would be silent.
+The document structure itself — where a rule's body starts and ends, sub-headings
+included — is **imported from `scripts/ruleset_ast.py`**, for the same reason:
+a hand-rolled body-end pattern here would be a second, silently disagreeing
+answer to the question `ruleset_ast.py` already answers once.
 
 What each rule entry holds:
 
-  doc, line     where it is, so it can be opened without a search
-  title         the text after the em dash in its header
-  summary       its first sentence, which is the rule in one line
-  cites         every rule ID its body names, minus itself
-  cited_by      the inverse, which is the thing no grep gives you cheaply
+  doc, line, line_end   where it is and how far its body reaches, sub-headings
+                         included, so it can be opened without a search
+  title                  the text after the em dash in its header
+  summary                its first sentence, which is the rule in one line
+  cites                  every rule ID its body names, minus itself
+  cited_by               the inverse, which is the thing no grep gives you cheaply
 
 Run it directly, or let `scripts/preflight.py` run it so the index cannot go
 stale without someone noticing.
@@ -29,22 +34,16 @@ from __future__ import annotations
 
 import json
 import os
-import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from repo import DOCS_DIR, HEADING_RE, REPO_ROOT, RULE_ID_RE  # noqa: E402
+from repo import DOCS_DIR, REPO_ROOT, RULE_ID_RE  # noqa: E402
+from ruleset_ast import parse_text  # noqa: E402
 
 GLOSSARY = "14-glossary.md"
 INDEX_PATH = REPO_ROOT / ".studcraft" / "index.json"
-
-# The same header shape repo.RULE_HEADER_RE matches, kept line-anchored here
-# because this needs the line number and the title text, which that pattern's
-# findall of prefix/number pairs does not return.
-RULE_HEADER_LINE_RE = re.compile(r"^#{1,2} ([A-Z]{2,6})-(\d{3}) — (.+?)\s*$")
-GLOSSARY_TERM_RE = re.compile(r"^## (.+?)\s*$")
 
 
 def first_sentence(body: list[str]) -> str:
@@ -64,35 +63,29 @@ def first_sentence(body: list[str]) -> str:
 
 
 def parse_document(name: str, text: str) -> list[dict]:
-    """Every rule in one document, with its body span resolved."""
-    lines = text.splitlines()
-    headers: list[tuple[int, str, str, str]] = []
+    """Every rule in one document, with its body span resolved by the AST.
 
-    for number, line in enumerate(lines, start=1):
-        match = RULE_HEADER_LINE_RE.match(line)
-        if match:
-            prefix, digits, title = match.groups()
-            headers.append((number, f"{prefix}-{digits}", title, prefix))
+    A rule's body is its section's span in the tree — `line` through
+    `line_end` — which already reaches through the rule's own `##`/`###`
+    sub-headings and stops only at the next sibling. The old pattern-based
+    scan stopped at *any* heading, sub-headings included; that was the bug.
+    """
+    document = parse_text(name, text)
 
     rules: list[dict] = []
-    for index, (line_no, rule_id, title, _prefix) in enumerate(headers):
-        # The body runs to the next rule header, or to the next section heading
-        # if the document moves on to one (a Summary, usually) first.
-        limit = headers[index + 1][0] - 1 if index + 1 < len(headers) else len(lines)
-        body: list[str] = []
-        for raw in lines[line_no:limit]:
-            if HEADING_RE.match(raw):
-                break
-            body.append(raw)
-
-        cited = [rid for rid in dict.fromkeys(RULE_ID_RE.findall("\n".join(body))) if rid != rule_id]
+    for section in document.root.rules():
+        body = section.body_text(document.lines)
+        cited = [
+            rid for rid in dict.fromkeys(RULE_ID_RE.findall(body)) if rid != section.rule_id
+        ]
 
         rules.append({
-            "id": rule_id,
+            "id": section.rule_id,
             "doc": name,
-            "line": line_no,
-            "title": title,
-            "summary": first_sentence(body),
+            "line": section.line,
+            "line_end": section.line_end,
+            "title": section.rule_title,
+            "summary": first_sentence(body.splitlines()),
             "cites": cited,
             "cited_by": [],
         })
@@ -101,21 +94,23 @@ def parse_document(name: str, text: str) -> list[dict]:
 
 
 def parse_glossary(text: str) -> list[dict]:
-    """Every `## Term` entry, with the rule IDs it points at."""
-    lines = text.splitlines()
-    entries: list[dict] = []
-    starts = [
-        (number, match.group(1))
-        for number, line in enumerate(lines, start=1)
-        if (match := GLOSSARY_TERM_RE.match(line))
-    ]
+    """Every `## Term` entry, with the rule IDs it points at.
 
-    for index, (line_no, term) in enumerate(starts):
-        limit = starts[index + 1][0] - 1 if index + 1 < len(starts) else len(lines)
-        body = "\n".join(lines[line_no:limit])
+    `docs/14-glossary.md` is one `#` section with a `##` child per term — a
+    shape the AST already produces, so this walks it for level-2 sections
+    rather than matching a pattern of its own.
+    """
+    document = parse_text(GLOSSARY, text)
+
+    entries: list[dict] = []
+    for section in document.root.walk():
+        if section.level != 2:
+            continue
+        body = section.body_text(document.lines)
         entries.append({
-            "term": term,
-            "line": line_no,
+            "term": section.title,
+            "line": section.line,
+            "line_end": section.line_end,
             "cites": list(dict.fromkeys(RULE_ID_RE.findall(body))),
         })
 
