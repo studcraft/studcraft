@@ -165,6 +165,8 @@ Armour determines how impacts are resolved via the Geometry Check and Damage Rol
 
 # CBT-014 — Future Combat Extensions
 
+None of the following exists in StudCraft today, and no rule grants it.
+
 Future versions may include:
 
 - Suppression

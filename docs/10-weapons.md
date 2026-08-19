@@ -224,7 +224,7 @@ Floating weapons are not permitted.
 
 # WPN-010 — Infantry Weapons
 
-Infantry weapons must be carried by the minifigure, following the universal Hands rule (`02-core-rules.md`, CORE-015): one-handed weapons (knife, sword, pistol) occupy one hand alongside a shield; two-handed weapons (rifle, machine gun, rocket launcher) occupy both.
+Infantry weapons must be carried by the minifigure in the two hands `17-infantry.md` (INF-001) gives it: one-handed weapons (knife, sword, pistol) occupy one of them, two-handed weapons (rifle, machine gun, rocket launcher) occupy both.
 
 The model determines what the unit can use.
 
