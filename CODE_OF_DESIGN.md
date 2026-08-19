@@ -207,7 +207,7 @@ The core rule is simple:
 
 > **If you can see it, you can shoot it.**
 
-Visibility is symmetric: what can see you can target you. Whether that produces a shot outside a unit's own activation is a rule, not a principle — `docs/11-combat.md` (CBT-014) decides it, and today it does not.
+Visibility is symmetric: what can see you can target you. Whether that produces a shot outside a unit's own activation is a rule, not a principle — `docs/11-combat.md` (CBT-014) decides it.
 
 Construction determines cover, exposure and firing opportunities.
 
