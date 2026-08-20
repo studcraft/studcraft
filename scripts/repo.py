@@ -6,12 +6,15 @@ thing `scripts/build_index.py` already refused to do with the citation patterns:
 *"A second copy of that would drift from the first, and the drift would be
 silent."* The argument does not stop at that one import.
 
-  - **The rule-header and rule-ID patterns.** `lint_ruleset.py` and
-    `check_id_stability.py` held identical copies of the header pattern;
-    `lint_ruleset.py` and `rule.py` held identical copies of the ID pattern.
-    They encode a convention (`system/documentation-standards.md`, Naming
-    Conventions) that can change, and a copy that misses the change reports
-    nothing rather than reporting a failure.
+  - **The rule-ID pattern.** `lint_ruleset.py` and `rule.py` held identical
+    copies of it. It encodes a convention (`system/documentation-standards.md`,
+    Naming Conventions) that can change, and a copy that misses the change
+    reports nothing rather than reporting a failure. The rule-header pattern
+    made the same argument once; it has since moved to
+    `scripts/ruleset_ast.py`, which is where "is this heading a rule" now has
+    its single answer. The ID pattern stays here because it answers a
+    different question — is a rule ID present anywhere in prose — that no AST
+    replaces.
   - **Which directories under `openspec/changes/` are changes.** Four scripts
     each spelled out that `archive` is not one. A fifth that forgot would
     quietly audit archived work.
@@ -39,9 +42,6 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = REPO_ROOT / "docs"
 CHANGES_DIR = REPO_ROOT / "openspec" / "changes"
 SPECS_DIR = REPO_ROOT / "openspec" / "specs"
-
-# A rule header: `# WPN-020 — Muzzle Placement`, one or two hashes, em dash.
-RULE_HEADER_RE = re.compile(r"^#{1,2} ([A-Z]{2,6})-(\d{3}) — ", re.MULTILINE)
 
 # A rule ID wherever it appears — in a citation, a table cell, a glossary entry.
 RULE_ID_RE = re.compile(r"[A-Z]{2,6}-\d{3}")

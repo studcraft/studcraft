@@ -135,7 +135,7 @@ class TestFences:
 class TestLineEndCoversDescendants:
     """The regression test for the bug that motivated this module:
     `scripts/rule.py show DEP-009` printed without its four scenario
-    sub-sections because the old `HEADING_RE` ended a rule's body at *any*
+    sub-sections because the old pattern ended a rule's body at *any*
     heading, including its own.
     """
 

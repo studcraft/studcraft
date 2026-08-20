@@ -226,11 +226,6 @@ class TestChapterDepth:
         )
         (error,) = lint_ruleset.check_chapter_depth({"16-damage-system.md": text})
         assert "three" in error
-        # The point of the check: repo.RULE_HEADER_RE cannot see this heading,
-        # so nothing else in scripts/ would have reported it.
-        from repo import RULE_HEADER_RE
-
-        assert "DMG-004" not in {f"{p}-{n}" for p, n in RULE_HEADER_RE.findall(text)}
 
     def test_a_rule_nested_under_another_rule_is_reported(self):
         text = CHAPTERED.replace(

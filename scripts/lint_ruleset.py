@@ -183,23 +183,10 @@ def check_image_index(ids_by_file: dict[str, set[str]]) -> list[str]:
 def collect_rule_ids(text: str) -> list[tuple[str, int]]:
     """Every rule heading's (prefix, number), in document order.
 
-    Walks `ruleset_ast.parse_text(...).root.rules()` rather than matching
-    `repo.RULE_HEADER_RE` against the raw text — the AST is the one place
-    "is this heading a rule" is decided, per `ruleset_ast.RULE_HEADING_RE`.
-
-    **This is wider than the pattern it replaced, deliberately.**
-    `repo.RULE_HEADER_RE` is anchored `^#{1,2} `, so a rule written at `###`
-    was invisible to it. `ruleset_ast.RULE_HEADING_RE` carries no such bound —
-    a `###` rule heading is still a rule heading — so this function now sees
-    what the regex could not. That is inert today: no `###` rule exists in
-    docs/, and `check_chapter_depth` below reports the first one anyone
-    writes, so the linter goes red rather than landing it silently.
-
-    It is not yet inert everywhere. **`scripts/check_id_stability.py` still
-    reads `repo.RULE_HEADER_RE` directly** and has not been moved onto this
-    module — migrating it is its own pull request, one script at a time, each
-    checked against the real docs/ before it lands. Until then, a `###` rule
-    is a rule this function counts and that script does not.
+    Walks `ruleset_ast.parse_text(...).root.rules()` — the AST is the one
+    place "is this heading a rule" is decided, per
+    `ruleset_ast.RULE_HEADING_RE`. A rule written at `###` is seen here, and
+    `check_chapter_depth` below is what reports it.
     """
     rules: list[tuple[str, int]] = []
     for section in parse_text("", text).root.rules():
@@ -289,9 +276,8 @@ def check_chapter_depth(texts: dict[str, str]) -> list[str]:
     Checking for *exactly* one is what lets this run over the whole of docs/
     without carrying a list of exceptions.
 
-    **A rule written at `###`.** repo.RULE_HEADER_RE matches one `#` or two, so
-    a rule three levels deep is read by no script in scripts/. It does not fail,
-    it disappears, which is why it is worth a check rather than a comment.
+    **A rule written at `###`.** A chapter groups rules and never another
+    chapter, so a rule has two levels open to it and no third.
 
     **A `##` rule directly under a `#` rule.** A rule is written at `##` only
     inside a chapter; under another rule it has a parent that cannot hold it.
@@ -317,9 +303,10 @@ def check_chapter_depth(texts: dict[str, str]) -> list[str]:
             if section.level == 3:
                 errors.append(
                     f"{name}:{section.line}: '### {section.title}' is a rule written three "
-                    f"levels deep. repo.RULE_HEADER_RE matches one '#' or two, "
-                    f"so no script in scripts/ can see it — write it at '#' or "
-                    f"'##', per system/documentation-standards.md"
+                    f"levels deep. A chapter groups rules and never another "
+                    f"chapter, so a rule has two levels open to it and no "
+                    f"third — write it at '#' or '##', per "
+                    f"system/documentation-standards.md"
                 )
             elif parent.is_rule:
                 errors.append(

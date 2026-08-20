@@ -9,7 +9,10 @@ rule — the `13-*.md` gap in `docs/` is the same thing at document scale.
 That invariant is enforced by nobody. `scripts/lint_ruleset.py` checks IDs
 within a single revision — duplicates, and ordering inside a document — which
 cannot see a rule that quietly changed number or moved to another document
-between two revisions. Only a comparison against the base can.
+between two revisions. Only a comparison against the base can. A rule heading
+written inside a fenced block is not a rule, and both checks below rely on
+`scripts/ruleset_ast.py` to leave it uncounted — a phantom ID is exactly the
+sort of thing that would otherwise be reported as reused.
 
 An ID is cited from other documents, from `docs/14-glossary.md` and from
 `assets/IMAGES.md`, so a silent renumber breaks references in places nothing
@@ -45,7 +48,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from repo import DOCS_DIR, RULE_HEADER_RE, git  # noqa: E402
+from repo import DOCS_DIR, git  # noqa: E402
+from ruleset_ast import parse_text  # noqa: E402
 
 DEFAULT_BASE = "origin/main"
 
@@ -63,8 +67,9 @@ def ids_at_revision(revision: str) -> dict[str, str] | None:
         code, text = git("show", f"{revision}:{path}")
         if code != 0:
             continue
-        for prefix, number in RULE_HEADER_RE.findall(text):
-            found[f"{prefix}-{number}"] = path[len("docs/"):]
+        name = path[len("docs/"):]
+        for section in parse_text(name, text).root.rules():
+            found[section.rule_id] = name
     return found
 
 
@@ -72,8 +77,8 @@ def ids_in_worktree() -> dict[str, str]:
     """The same, from the files on disk — so uncommitted work is checked too."""
     found: dict[str, str] = {}
     for path in sorted(DOCS_DIR.glob("*.md")):
-        for prefix, number in RULE_HEADER_RE.findall(path.read_text()):
-            found[f"{prefix}-{number}"] = path.name
+        for section in parse_text(path.name, path.read_text()).root.rules():
+            found[section.rule_id] = path.name
     return found
 
 
