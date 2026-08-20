@@ -8,7 +8,7 @@
 
 Action Points.
 
-The universal action economy. See `02-core-rules.md`, CORE-006 and `03-game-flow.md`, FLOW-011.
+The resource every unit spends during its activation. See `02-core-rules.md`, CORE-006.
 
 ---
 
@@ -66,7 +66,7 @@ The right, held by the player in first place when the Activation Order is determ
 
 ## Activation
 
-The period during which one unit receives 3 AP and performs actions. See `03-game-flow.md`, FLOW-004 and `02-core-rules.md`, CORE-006.
+The period during which one unit receives its Action Points (`02-core-rules.md`, CORE-006) and performs actions. The procedure is `03-game-flow.md`, FLOW-004.
 
 ---
 

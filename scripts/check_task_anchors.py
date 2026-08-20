@@ -182,9 +182,23 @@ def check_replacement_format(change: str, tasks: Path) -> list[Finding]:
 
     # A run of quoted lines long enough to be a replacement body, rather than a
     # single quoted motto such as "> **Every Brick Matters.**" being discussed.
+    #
+    # Fenced content is skipped, and that is not a loophole: the convention this
+    # catches wrote its replacements as a bare `> ` blockquote with *no* fence,
+    # so a run inside one was never the thing being looked for. What lives
+    # inside a fence is an anchor or a replacement quoted verbatim, and a change
+    # editing a file that itself contains blockquotes — TODO.md is built out of
+    # them — would otherwise be reported for quoting its own target correctly.
     runs: list[int] = []
     run_start = None
+    in_fence = False
     for number, line in enumerate(lines, start=1):
+        if FENCE_RE.match(line):
+            in_fence = not in_fence
+            run_start = None
+            continue
+        if in_fence:
+            continue
         if line.startswith(">"):
             run_start = run_start if run_start is not None else number
         elif run_start is not None:

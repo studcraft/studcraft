@@ -18,8 +18,8 @@ This is the deterministic half of that problem, and only that half:
     no judgement, no false positives.
   - It does **not** answer "is TODO.md complete?". Sweeping `docs/` for
     `future` / `not yet defined` finds passages that declare no gap at all
-    (`FLOW-005`'s "Future unit types" promises AP coverage; `WPN-016`'s
-    "allowing future expansion" is a closing remark). Telling those apart means
+    (`WPN-016`'s "allowing future expansion" is a closing remark that
+    declares nothing). Telling those apart means
     reading the sentence, which belongs to `ruleset-auditor`, not to a regex.
 
 How an entry is matched to its source: the last `docs/*.md` path named on a

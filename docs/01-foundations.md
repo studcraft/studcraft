@@ -101,16 +101,6 @@ Each activated unit receives:
 
 (see `02-core-rules.md`, CORE-006, for the canonical definition)
 
-Action Points are spent to perform actions such as:
-
-- Move
-- Rotate
-- Attack
-- Open doors
-- Close doors
-- Embark
-- Disembark
-
 The same resource is shared across every unit type.
 
 ---

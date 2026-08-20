@@ -189,7 +189,7 @@ Every unit receives:
 
 **3 Action Points (AP)**
 
-— defined by `docs/02-core-rules.md` (CORE-006), which is the authority on the amount and on what may be spent.
+— defined by `docs/02-core-rules.md` (CORE-006), which is the authority on the amount. What any one action costs is stated by the rule that governs that action.
 
 Construction determines what a unit *can* do.
 

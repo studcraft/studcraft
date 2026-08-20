@@ -90,19 +90,7 @@ A structure's doors, windows and other functional parts follow `05-construction-
 
 Every unit activates using Action Points (AP).
 
-Action Points represent everything a unit can do during its activation.
-
-Examples include:
-
-- Move
-- Fire
-- Open a door
-- Close a door
-- Embark
-- Disembark
-- Stand up (see `16-damage-system.md`, DMG-019, Repairs)
-- Reload (future rule)
-- Operate mechanisms
+Action Points represent everything a unit can do during its activation, and what any one action costs is stated by the rule that governs that action.
 
 Every unit receives exactly **3 Action Points** per activation, regardless of its type or construction. No unit gains additional AP through its profile.
 

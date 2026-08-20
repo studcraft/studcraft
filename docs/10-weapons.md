@@ -296,6 +296,8 @@ Future supplements may introduce:
 
 These must continue to follow the StudCraft Weapon Construction Standard.
 
+Reloading is future work of its own: no weapon in the current construction rules runs out of ammunition, so nothing reloads today.
+
 ---
 
 # WPN-018 — Weapon Proportion
