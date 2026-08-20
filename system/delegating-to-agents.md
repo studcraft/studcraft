@@ -158,6 +158,18 @@ allowlisted, whatever is added to `.claude/settings.json`.
 - **No backticks inside a `grep` pattern.** A backtick is command substitution,
   so an otherwise read-only `grep` stops being auto-allowed.
 
+## Ask the index before opening the document
+
+Every script here answers in tens or hundreds of tokens; a ruleset document
+costs thousands. `scripts/rule.py doc <file>` returns a document's chapters and
+rules with each rule's first sentence — enough to choose what to open.
+`scripts/rule.py show <ID>` returns one rule. Reading `08-vehicles.md` in full
+costs about six times its outline and about twenty-five times a single rule.
+
+That is a reason to reach for the index first, not a reason to avoid reading.
+An audit of what the ruleset *means* reads the documents; a question about
+where something is should not cost a file.
+
 ---
 
 # Scope Agents Explicitly
@@ -167,6 +179,20 @@ working directory as an absolute path, the branch and that it must not be left,
 the change name, and anything specific the agent could not infer. Ask for a
 short report — what was applied, what verification failed and how, what was
 ambiguous.
+
+**Do not widen what the agent definition already narrowed.** The files in
+`.claude/agents/` state how much of `docs/` each agent reads, and a
+per-invocation prompt that says "go document by document, every heading" throws
+that away. One such sentence took a `ruleset-auditor` pass from the scoped read
+its definition describes to all fifteen documents. State the change and the
+question; leave the reading strategy where it is already written down.
+
+**The report is the only thing that crosses back.** Whatever an agent prints
+while working stays in its own context — the caller receives the final report
+and nothing else. So a report is findings, not a log: the figures that did not
+match, what was ambiguous, what was decided and why. A run where every command
+returned what it should needs one line saying so, not a transcript of the
+commands that said it.
 
 ## The commit message
 

@@ -40,7 +40,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from repo import DOCS_DIR, REPO_ROOT, RULE_ID_RE  # noqa: E402
-from ruleset_ast import parse_text  # noqa: E402
+from ruleset_ast import Document, parse_text  # noqa: E402
 
 GLOSSARY = "14-glossary.md"
 INDEX_PATH = REPO_ROOT / ".studcraft" / "index.json"
@@ -62,16 +62,15 @@ def first_sentence(body: list[str]) -> str:
     return ""
 
 
-def parse_document(name: str, text: str) -> list[dict]:
-    """Every rule in one document, with its body span resolved by the AST.
+def _rules_in(document: Document) -> list[dict]:
+    """Every rule in an already-parsed document, with its body span resolved
+    by the AST.
 
     A rule's body is its section's span in the tree — `line` through
     `line_end` — which already reaches through the rule's own `##`/`###`
     sub-headings and stops only at the next sibling. The old pattern-based
     scan stopped at *any* heading, sub-headings included; that was the bug.
     """
-    document = parse_text(name, text)
-
     rules: list[dict] = []
     for section in document.root.rules():
         body = section.body_text(document.lines)
@@ -91,7 +90,7 @@ def parse_document(name: str, text: str) -> list[dict]:
 
         rules.append({
             "id": section.rule_id,
-            "doc": name,
+            "doc": document.name,
             "line": section.line,
             "line_end": section.line_end,
             "title": section.rule_title,
@@ -101,6 +100,52 @@ def parse_document(name: str, text: str) -> list[dict]:
         })
 
     return rules
+
+
+def parse_document(name: str, text: str) -> list[dict]:
+    """Every rule in one document, parsed fresh from `text`.
+
+    A thin wrapper over `_rules_in` for callers — tests, mainly — that hold
+    text rather than an already-parsed `Document`. `build()` parses each
+    document once and calls `_rules_in` and `build_outline` on that same
+    `Document`, so the text is never parsed twice.
+    """
+    return _rules_in(parse_text(name, text))
+
+
+def build_outline(document: Document) -> list[dict]:
+    """A document's chapters and rules, `#`/`##` only, in document order.
+
+    Walks two levels: `document.root`'s own children (the file's level-1
+    sections) and, for any that is not itself a rule, that section's level-2
+    children. A level-1 section that *is* a rule is not recursed into — its
+    own `##`/`###` sub-headings are its body, not further outline entries.
+    `06-deployment.md`'s DEP-009 is exactly that case: four `##` scenarios
+    that must not appear as chapters or as rules.
+
+    The document's own title is skipped by position, not by pattern: every
+    docs/*.md opens with its own `# Name` line before `# Purpose`, so
+    `document.root.children[0]` is always the title, never a rule or chapter.
+    """
+    outline: list[dict] = []
+    for section in document.root.children[1:]:
+        outline.append({
+            "level": section.level,
+            "title": section.rule_title if section.is_rule else section.title,
+            "line": section.line,
+            "rule_id": section.rule_id,
+        })
+        if section.is_rule:
+            continue
+        for child in section.children:
+            outline.append({
+                "level": child.level,
+                "title": child.rule_title if child.is_rule else child.title,
+                "line": child.line,
+                "rule_id": child.rule_id,
+            })
+
+    return outline
 
 
 def parse_glossary(text: str) -> list[dict]:
@@ -133,11 +178,12 @@ def build() -> dict:
     order: list[str] = []
 
     for path in sorted(DOCS_DIR.glob("*.md")):
-        text = path.read_text()
-        parsed = parse_document(path.name, text)
+        document = parse_text(path.name, path.read_text())
+        parsed = _rules_in(document)
         documents[path.name] = {
             "rules": [rule["id"] for rule in parsed],
             "prefixes": sorted({rule["id"].split("-")[0] for rule in parsed}),
+            "outline": build_outline(document),
         }
         for rule in parsed:
             rules[rule["id"]] = rule

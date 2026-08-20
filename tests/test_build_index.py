@@ -13,6 +13,7 @@ import re
 
 import build_index
 import pytest
+import ruleset_ast
 from repo import DOCS_DIR, RULE_ID_RE
 
 DOCUMENT = """# 08-vehicles.md
@@ -36,6 +37,41 @@ A vehicle faces the long axis of its footprint.
 # Summary
 
 Not a rule, and the body of VEH-002 stops here.
+"""
+
+DOCUMENT_WITH_A_CHAPTER = """# 08-vehicles.md
+
+**Version:** 0.4.0
+
+# Purpose
+
+Why this document exists.
+
+# VEH-001 — Vehicle Footprint
+
+A vehicle occupies whole studs.
+
+## Scenario One
+
+A worked example, not a rule — VEH-001's own sub-heading.
+
+---
+
+# A Chapter
+
+## VEH-002 — Vehicle Facing
+
+A vehicle faces the long axis of its footprint.
+
+## VEH-003 — Vehicle Length
+
+How a vehicle's length is measured.
+
+---
+
+# Summary
+
+Not a rule.
 """
 
 GLOSSARY = """# 14-glossary.md
@@ -115,6 +151,54 @@ class TestParsingADocument:
         entries = build_index.parse_glossary(GLOSSARY)
         assert [entry["term"] for entry in entries] == ["Unit Base", "Impact Strength"]
         assert entries[0]["cites"] == ["SCS-001"]
+
+
+class TestOutline:
+    """`outline` is `#`/`##` sections only, in document order — the title and
+    a rule's own sub-headings excluded. `DOCUMENT_WITH_A_CHAPTER` carries one
+    of each: a title, a prose section (`Purpose`), a standalone rule with its
+    own `##` sub-heading (`VEH-001`, `Scenario One`), a chapter holding two
+    `##` rules (`A Chapter`, `VEH-002`, `VEH-003`), and a closing prose
+    section (`Summary`).
+    """
+
+    def _outline(self) -> list[dict]:
+        document = ruleset_ast.parse_text("08-vehicles.md", DOCUMENT_WITH_A_CHAPTER)
+        return build_index.build_outline(document)
+
+    def test_the_documents_own_title_is_not_in_the_outline(self):
+        titles = [entry["title"] for entry in self._outline()]
+        assert "08-vehicles.md" not in titles
+
+    def test_a_rules_own_sub_heading_is_not_a_further_outline_entry(self):
+        titles = [entry["title"] for entry in self._outline()]
+        assert "Scenario One" not in titles
+
+    def test_the_outline_is_in_document_order(self):
+        lines = [entry["line"] for entry in self._outline()]
+        assert lines == sorted(lines)
+
+    def test_rule_sections_carry_their_id_and_others_carry_none(self):
+        by_title = {entry["title"]: entry["rule_id"] for entry in self._outline()}
+        assert by_title == {
+            "Purpose": None,
+            "Vehicle Footprint": "VEH-001",
+            "A Chapter": None,
+            "Vehicle Facing": "VEH-002",
+            "Vehicle Length": "VEH-003",
+            "Summary": None,
+        }
+
+    def test_a_rule_inside_a_chapter_is_level_two_and_the_chapter_is_level_one(self):
+        by_title = {entry["title"]: entry["level"] for entry in self._outline()}
+        assert by_title["A Chapter"] == 1
+        assert by_title["Vehicle Facing"] == 2
+        assert by_title["Vehicle Length"] == 2
+
+    def test_every_built_document_carries_an_outline(self):
+        index = build_index.build()
+        for name, document in index["documents"].items():
+            assert "outline" in document, name
 
 
 class TestABodyDoesNotStopAtItsOwnSubHeading:
