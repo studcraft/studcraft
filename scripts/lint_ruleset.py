@@ -364,13 +364,81 @@ def check_versions(texts: dict[str, str]) -> list[str]:
     return [f"docs/*.md Version headers disagree: {grouped}"]
 
 
+def check_citations(
+    texts: dict[str, str],
+    ids_by_file: dict[str, set[str]],
+    prefixes_by_file: dict[str, set[str]],
+) -> list[str]:
+    """Cross-document rule citations, checked against the documents they cite.
+
+    Reads each document's prose — `Section.prose_lines()`, not the raw file —
+    so a citation-shaped line inside a fenced block (a worked example of how
+    to cite a rule, say) is never read as a real citation. Each document is
+    parsed once here and the resulting tree is reused for both citation
+    forms below, rather than parsing the same text twice.
+
+    `COMMA_REF_RE`'s `\\s+` between the filename and the ID run matches a
+    newline, so a filename ending one line and an ID run opening the next,
+    with a fenced block between them in the raw file, become adjacent once
+    the fence is dropped — a pair that could not match before now can.
+    Measured against docs/ at 7b3d874: 300 citations matched over raw text,
+    300 matched over prose, zero difference. No fenced block in docs/ today
+    sits between a citation's filename and its ID, so the hazard is real but
+    currently unrealised — noted here so the next reader knows it was
+    considered, not missed.
+    """
+    errors: list[str] = []
+
+    for name, text in texts.items():
+        document = parse_text(name, text)
+        prose = "\n".join(document.root.prose_lines(document.lines))
+
+        for target_file, rule_id in CROSS_REF_RE.findall(prose):
+            if target_file not in ids_by_file:
+                continue
+            # The parenthesised form leaves up to 80 characters between the
+            # filename and the ID, which is what lets "see `10-weapons.md`
+            # (WPN-002)" and a continuation form, where a second bare ID follows
+            # the cited one after a few words of prose, both match. That window also
+            # lets the pattern reach past one citation and pick up a bare
+            # same-document ID that was never a reference into the cited file.
+            # The prefix settles it: each document owns its own namespace
+            # (system/documentation-standards.md, Naming Conventions), so an ID
+            # carrying this document's own prefix belongs to this document
+            # whatever filename precedes it, and it is checked against this
+            # document rather than dropped. That only reaches a same-document ID
+            # close enough to a filename citation to be caught by this pattern at
+            # all; a bare "(VEH-099)" standing on its own is still unchecked, the
+            # same as before.
+            owner = name if rule_id.split("-")[0] in prefixes_by_file[name] else target_file
+            if rule_id not in ids_by_file[owner]:
+                errors.append(f"{name}: references {owner} ({rule_id}), which does not exist")
+
+        for target_file, id_run in COMMA_REF_RE.findall(prose):
+            if target_file not in ids_by_file:
+                continue
+            for rule_id in RULE_ID_RE.findall(id_run):
+                if rule_id not in ids_by_file[target_file]:
+                    errors.append(f"{name}: references {target_file}, {rule_id}, which does not exist")
+
+    return errors
+
+
 def main() -> int:
-    # check_versions, the CROSS_REF_RE / COMMA_REF_RE citation scan below, and
-    # check_image_index still read raw text rather than the AST. They work, and
-    # moving the citation scan onto Section.prose_lines() is a behaviour change
-    # — it would stop matching inside fenced blocks — that deserves its own
-    # pull request with its own before/after evidence, not a silent side effect
-    # of this one. Not forgotten; deliberately deferred.
+    # The citation scan (check_citations) reads prose, not raw text, and over
+    # docs/ as it stands that changed nothing: 300 citations matched before,
+    # 300 after — a bare rule ID in a fenced diagram was never citation-shaped
+    # to begin with. What it buys is that a citation-shaped example inside a
+    # fence can no longer be read as a real one.
+    #
+    # check_versions stays on raw text: no `**Version:**` line appears inside
+    # a fence in any document, and the header it looks for is one line the
+    # Release cut writes at a fixed position — there is nothing for a fence
+    # to hide.
+    #
+    # check_image_index stays on raw text and always will: it reads
+    # assets/IMAGES.md, which is not a ruleset document and has no AST to
+    # read.
     errors: list[str] = []
     docs = sorted(DOCS_DIR.glob("*.md"))
     texts = {doc.name: doc.read_text() for doc in docs}
@@ -398,36 +466,7 @@ def main() -> int:
             last_number[prefix] = number
 
     errors.extend(check_versions(texts))
-
-    for name, text in texts.items():
-        for target_file, rule_id in CROSS_REF_RE.findall(text):
-            if target_file not in ids_by_file:
-                continue
-            # The parenthesised form leaves up to 80 characters between the
-            # filename and the ID, which is what lets "see `10-weapons.md`
-            # (WPN-002)" and a continuation form, where a second bare ID follows
-            # the cited one after a few words of prose, both match. That window also
-            # lets the pattern reach past one citation and pick up a bare
-            # same-document ID that was never a reference into the cited file.
-            # The prefix settles it: each document owns its own namespace
-            # (system/documentation-standards.md, Naming Conventions), so an ID
-            # carrying this document's own prefix belongs to this document
-            # whatever filename precedes it, and it is checked against this
-            # document rather than dropped. That only reaches a same-document ID
-            # close enough to a filename citation to be caught by this pattern at
-            # all; a bare "(VEH-099)" standing on its own is still unchecked, the
-            # same as before.
-            owner = name if rule_id.split("-")[0] in prefixes_by_file[name] else target_file
-            if rule_id not in ids_by_file[owner]:
-                errors.append(f"{name}: references {owner} ({rule_id}), which does not exist")
-
-        for target_file, id_run in COMMA_REF_RE.findall(text):
-            if target_file not in ids_by_file:
-                continue
-            for rule_id in RULE_ID_RE.findall(id_run):
-                if rule_id not in ids_by_file[target_file]:
-                    errors.append(f"{name}: references {target_file}, {rule_id}, which does not exist")
-
+    errors.extend(check_citations(texts, ids_by_file, prefixes_by_file))
     errors.extend(check_structure(texts, ids_by_file))
     errors.extend(check_chapter_depth(texts))
     errors.extend(check_image_index(ids_by_file))

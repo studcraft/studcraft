@@ -75,6 +75,16 @@ def parse_document(name: str, text: str) -> list[dict]:
     rules: list[dict] = []
     for section in document.root.rules():
         body = section.body_text(document.lines)
+        # `body` includes fenced content, deliberately: a rule named inside a
+        # fenced diagram *is* referenced by that document — 11-combat.md's
+        # Combat Flow names DMG-012 through DMG-017 in a fence, and that is
+        # the map of the procedure, not an example of syntax. This is now
+        # different from scripts/lint_ruleset.py's citation scan, which reads
+        # prose only. The two answer different questions: this index asks
+        # what a rule is connected to, the linter asks whether a written
+        # citation resolves. Moving this onto prose would drop legitimate
+        # edges from cited_by and grow orphans with rules that are genuinely
+        # connected — the divergence is deliberate, not a thing to "fix".
         cited = [
             rid for rid in dict.fromkeys(RULE_ID_RE.findall(body)) if rid != section.rule_id
         ]

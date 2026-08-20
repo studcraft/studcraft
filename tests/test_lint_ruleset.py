@@ -150,6 +150,61 @@ class TestTheImageIndex:
         assert entry[3] == ""
 
 
+class TestCitations:
+    """The citation scan reads prose (Section.prose_lines()), not the raw
+    file, so a citation-shaped line inside a fenced block is never read as a
+    real citation. This is the change the whole file exists for.
+    """
+
+    def _errors(self, texts: dict[str, str], ids_by_file: dict[str, set[str]]) -> list[str]:
+        prefixes_by_file = {
+            name: {rid.split("-")[0] for rid in ids} for name, ids in ids_by_file.items()
+        }
+        return lint_ruleset.check_citations(texts, ids_by_file, prefixes_by_file)
+
+    def test_a_citation_shaped_line_inside_a_fence_is_not_read_as_a_citation(self):
+        # `08-vehicles.md` (VEH-999) names an ID that does not exist. Before
+        # this change, reading raw text, that would be reported as a broken
+        # reference. Inside a fence it is a worked example, not a citation.
+        text = (
+            "# 08-vehicles.md\n\n"
+            "# VEH-001 — Vehicle Footprint\n\n"
+            "A vehicle occupies whole studs.\n\n"
+            "```\n"
+            "`08-vehicles.md` (VEH-999)\n"
+            "```\n\n"
+            "> **Every Brick Matters.**\n"
+        )
+        errors = self._errors({"08-vehicles.md": text}, {"08-vehicles.md": {"VEH-001"}})
+        assert errors == []
+
+    def test_a_real_citation_outside_a_fence_still_resolves(self):
+        text = (
+            "# 08-vehicles.md\n\n"
+            "# VEH-001 — Vehicle Footprint\n\n"
+            "A vehicle occupies whole studs. See `10-weapons.md` (WPN-001) for mounts.\n\n"
+            "> **Every Brick Matters.**\n"
+        )
+        errors = self._errors(
+            {"08-vehicles.md": text},
+            {"08-vehicles.md": {"VEH-001"}, "10-weapons.md": {"WPN-001"}},
+        )
+        assert errors == []
+
+    def test_a_real_citation_naming_an_id_that_does_not_exist_is_still_reported(self):
+        text = (
+            "# 08-vehicles.md\n\n"
+            "# VEH-001 — Vehicle Footprint\n\n"
+            "A vehicle occupies whole studs. See `10-weapons.md` (WPN-999) for mounts.\n\n"
+            "> **Every Brick Matters.**\n"
+        )
+        errors = self._errors(
+            {"08-vehicles.md": text},
+            {"08-vehicles.md": {"VEH-001"}, "10-weapons.md": {"WPN-001"}},
+        )
+        assert any("WPN-999" in error for error in errors)
+
+
 CHAPTERED = """# 16-damage-system.md
 
 # Purpose
