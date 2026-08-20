@@ -24,11 +24,6 @@ class TestRulePatterns:
         text = "See `08-vehicles.md`, VEH-013 and WPN-021 for the chain."
         assert repo.RULE_ID_RE.findall(text) == ["VEH-013", "WPN-021"]
 
-    def test_a_body_ends_at_the_next_heading(self):
-        assert repo.HEADING_RE.match("## Summary")
-        assert not repo.HEADING_RE.match("### Scenario: something")
-        assert not repo.HEADING_RE.match("Ordinary prose.")
-
 
 class TestUnarchivedChanges:
     def test_the_archive_is_not_a_change(self, tmp_path, monkeypatch):

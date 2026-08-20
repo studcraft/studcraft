@@ -22,10 +22,12 @@ shell expansion cannot be matched by any permission rule — it interrupts to as
 every time, however the allowlist is written. One command with seven arguments
 never asks.
 
-`show` prints from `docs/` rather than from the index: the index holds a
-summary, and a summary is a thing to decide with, never a thing to audit
-against. Everything else reads the index, which is rebuilt automatically
-whenever a file in `docs/` is newer than it.
+`show` prints from `docs/` rather than from the index: the index tells it
+where a rule's body starts and ends, but the text printed is read fresh from
+the file every time, never from a stored copy. The index holds a summary, and
+a summary is a thing to decide with, never a thing to audit against.
+Everything else reads the index, which is rebuilt automatically whenever a
+file in `docs/` is newer than it.
 
 `orphans` is a prompt, not a verdict. A rule nothing cites may be a genuinely
 standalone rule; it may equally be a rule the ruleset forgot to connect. The
@@ -41,7 +43,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from repo import CHANGES_DIR, DOCS_DIR, HEADING_RE, REPO_ROOT, RULE_ID_RE  # noqa: E402
+from repo import CHANGES_DIR, DOCS_DIR, REPO_ROOT, RULE_ID_RE  # noqa: E402
 
 INDEX_PATH = REPO_ROOT / ".studcraft" / "index.json"
 
@@ -78,11 +80,10 @@ def cmd_show(index: dict, rule_id: str) -> int:
     lines = (DOCS_DIR / rule["doc"]).read_text().splitlines()
 
     print(f"{rule['doc']}:{rule['line']}")
-    body: list[str] = []
-    for raw in lines[rule["line"] - 1:]:
-        if body and HEADING_RE.match(raw):
-            break
-        body.append(raw)
+    # `line_end` already reaches through the rule's own sub-headings — it is
+    # computed once, in scripts/build_index.py, from the same AST section
+    # this print would otherwise have to re-walk with a pattern of its own.
+    body = lines[rule["line"] - 1:rule["line_end"]]
 
     while body and not body[-1].strip():
         body.pop()
