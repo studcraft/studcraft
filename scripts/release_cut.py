@@ -35,7 +35,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from repo import RULE_HEADER_RE  # noqa: E402
+from ruleset_ast import parse_text  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CHANGELOG = REPO_ROOT / "CHANGELOG.md"
@@ -203,7 +203,7 @@ def main() -> None:
         # content: every added or removed line in the docs/*.md diff that is not
         # the header itself fails the check, and a blank line is one of them.
         lines = doc_text.splitlines(keepends=True)
-        if lines and RULE_HEADER_RE.search(doc_text):
+        if lines and parse_text(doc.name, doc_text).root.rules():
             lines.insert(1, f"**Version:** {next_version}\n")
             doc.write_text("".join(lines))
 

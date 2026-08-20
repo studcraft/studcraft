@@ -29,6 +29,20 @@ Every unit has a facing.
 Infantry are represented by LEGO minifigures.
 """
 
+# CORE-002 is deliberately absent here — a gap that lets a fenced-in "# CORE-002"
+# land on a number below the document's ceiling (CORE-003), the exact shape of
+# the false positive a fenced rule heading used to cause.
+CORE_WITH_A_GAP = """# StudCraft Core Rules
+
+# CORE-001 — Unit Base (UB)
+
+One Unit Base measures 4 studs wide, 3 studs deep and 13 plate layers tall.
+
+# CORE-003 — Infantry
+
+Infantry are represented by LEGO minifigures.
+"""
+
 VEHICLES = """# StudCraft Vehicle Rules
 
 # VEH-001 — Vehicle Footprint
@@ -137,3 +151,26 @@ class TestWhatStaysForbidden:
 
         assert result.returncode == 1
         assert "CORE-002 is new" in result.stdout
+
+
+class TestFencedHeadingsAreNotRules:
+    def test_a_rule_heading_inside_a_fenced_block_is_not_counted(self, temp_repo):
+        docs = temp_repo / "docs"
+        docs.mkdir()
+        (docs / "02-core-rules.md").write_text(CORE_WITH_A_GAP)
+        commit_all(temp_repo, "The base state, with a gap at CORE-002")
+
+        # Uncommitted: a worked example of a heading, fenced, using the gap's
+        # number. A regex reading straight through the fence would invent
+        # CORE-002 here and flag it as reused, below CORE-003's ceiling for
+        # this document.
+        (docs / "02-core-rules.md").write_text(
+            CORE_WITH_A_GAP
+            + "\n```markdown\n# CORE-002 — Example Heading\n\n"
+            "An example in prose, not a real rule.\n```\n"
+        )
+
+        result = check(temp_repo)
+
+        assert result.returncode == 0, result.stdout
+        assert "none renumbered or reused" in result.stdout

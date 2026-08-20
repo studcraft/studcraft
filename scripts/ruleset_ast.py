@@ -2,13 +2,14 @@
 """One parser for docs/*.md, read by every script that needs its structure.
 
 Before this, "what a rule's body is" had four different answers scattered
-across scripts/repo.py and scripts/lint_ruleset.py: a header pattern that
-required the em dash, an ID pattern that did not, a body-end pattern that
-stopped at *any* heading, and a third, independent copy of the body-end
-pattern inside the linter. They disagreed with each other, silently — a rule
-written at `###` was invisible to one and not another, and a rule's own
-`##`/`###` sub-headings were read as the start of the next rule by every
-consumer of `repo.HEADING_RE`, `scripts/rule.py show DEP-009` included.
+across scripts/repo.py and scripts/lint_ruleset.py — all four retired now,
+this module the last of them: a header pattern that required the em dash, an
+ID pattern that did not, a body-end pattern that stopped at *any* heading,
+and a third, independent copy of the body-end pattern inside the linter. They
+disagreed with each other, silently — a rule written at `###` was invisible
+to one and not another, and a rule's own `##`/`###` sub-headings were read as
+the start of the next rule by every script that bounded a rule's body with a
+heading pattern of its own, `scripts/rule.py show DEP-009` included.
 
 This module fixes that by building one tree per document and letting every
 caller read the same tree. It is not a CommonMark parser and does not try to
@@ -47,9 +48,10 @@ ATX_HEADING_RE = re.compile(r"^(#{1,3}) (\S.*?)\s*$")
 
 # The one definition of a rule heading, matched against a heading's *title*
 # (the text after the hashes and the one space), never against the raw line.
-# The em dash is required — this is repo.RULE_HEADER_RE's stricter reading,
-# not repo.RULE_ID_RE's looser one, so a heading like "## DMG-005 States"
-# (no em dash) is unambiguously not a rule, everywhere this module is used.
+# The em dash is required here: a heading like "## DMG-005 States" (no em
+# dash) is unambiguously not a rule, everywhere this module is used.
+# repo.RULE_ID_RE deliberately does not demand one — it looks for an ID
+# anywhere in prose, not for a heading, so it never has to decide this.
 RULE_HEADING_RE = re.compile(r"^([A-Z]{2,6})-(\d{3}) — (.+)$")
 
 # A list item marker: "- ", "* ", or an ordinal like "1. ". Checked against

@@ -98,13 +98,12 @@ reach it.
 
 A rule's own sub-headings — worked examples, tables of cases — sit one level
 below the rule wherever the rule sits: `##` under a standalone rule, `###`
-under one inside a chapter. **No rule is itself written at `###`.**
-`repo.RULE_HEADER_RE` matches one `#` or two, so a rule three levels deep is
-invisible to every script that reads the ruleset, and invisible silently. The
-two sub-heading levels are not equivalent to the tooling either:
-`repo.HEADING_RE` ends a rule's body at the next `#` or `##`, so a standalone
-rule's `##` sub-headings fall outside the body `scripts/rule.py` and the index
-print, while a chaptered rule's `###` ones do not.
+under one inside a chapter. **No rule is itself written at `###`**: a chapter
+groups rules and never another chapter, so a rule has two levels open to it
+and no third, and `scripts/lint_ruleset.py` reports one written deeper. A
+rule's body runs to the next heading that is not its own descendant, so a
+sub-heading at either level stays inside the rule that owns it — `scripts/rule.py`
+and the ruleset index both read that span from `scripts/ruleset_ast.py`.
 
 Every document closes with a motto: `> **Every Brick Matters.**` for
 construction and gameplay documents, `> **The Model Is The Rules.**` for the
