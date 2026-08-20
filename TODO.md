@@ -86,9 +86,9 @@ What would have to be decided: what a sprint action would cost in AP, how far it
 
 ### Reload
 
-`CORE-006` (`docs/02-core-rules.md`) lists, among the actions Action Points can be spent on:
+`WPN-017` (`docs/10-weapons.md`), after the weapon types future supplements may introduce, declares:
 
-> - Reload (future rule)
+> Reloading is future work of its own: no weapon in the current construction rules runs out of ammunition, so nothing reloads today.
 
 What would have to be decided: whether any weapon in the current construction rules needs reloading at all (none currently runs out of ammunition), and if so, what triggers it and what it costs.
 

@@ -247,7 +247,12 @@ class TestTheMigrationMovesNothingButDEP009:
             for rule in build_index.parse_document(path.name, text):
                 new[rule["id"]] = {"line_end": rule["line_end"], "cites": rule["cites"]}
 
-        assert len(new) == 197
+        # Not a rule count. Retiring an ID is legal — `system/documentation-standards.md`
+        # (Naming Conventions) — and a hardcoded total makes every retirement
+        # break a test about body spans. What this pins is that both readings
+        # see the same rules, which is what makes the cites comparison below
+        # mean anything.
+        assert set(old) == set(new)
 
         old_cites = {rule_id: entry["cites"] for rule_id, entry in old.items()}
         new_cites = {rule_id: entry["cites"] for rule_id, entry in new.items()}

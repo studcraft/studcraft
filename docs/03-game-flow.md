@@ -80,53 +80,11 @@ Priority and the Activation Order are determined again at the beginning of every
 
 # FLOW-004 — Unit Activation
 
-When a unit is activated, it immediately receives:
-
-**3 Action Points (AP)**
-
-(see `02-core-rules.md`, CORE-006, for the canonical definition)
-
-The player may spend these AP in any legal order.
+When a unit is activated it immediately receives its Action Points (`02-core-rules.md`, CORE-006), and the player may spend them in any legal order.
 
 When all AP have been spent, or the player decides to stop, the activation ends.
 
 A unit may only be activated once per Turn.
-
----
-
-# FLOW-005 — Universal Action Points
-
-The 3 AP defined in CORE-006 apply identically to every unit type in StudCraft, with no exceptions:
-
-- Infantry
-- Vehicles
-- Walkers
-- Hovercraft
-- Future unit types
-
-No unit gains additional AP through its profile.
-
-Differences between units emerge from their physical construction, not from hidden statistics.
-
----
-
-# FLOW-006 — Common Actions
-
-Action Points may be spent on actions such as:
-
-- Move
-- Rotate
-- Attack
-- Open a door
-- Close a door
-- Open a ramp
-- Close a ramp
-- Embark
-- Disembark
-- Interact with terrain
-- Operate scenario objectives
-
-Each action's AP cost is defined in its corresponding rule document.
 
 ---
 
@@ -211,40 +169,9 @@ Each of these is an ending condition, not a victory condition. A scenario states
 
 ---
 
-# FLOW-011 — Action Economy
-
-Action Points are the universal resource in StudCraft.
-
-Every meaningful action consumes AP.
-
-Examples include:
-
-- Moving
-- Attacking
-- Opening doors
-- Closing doors
-- Operating ramps
-- Embarking
-- Disembarking
-- Interacting with objectives
-
-Players must decide how to spend their limited AP each activation.
-
----
-
 # FLOW-012 — No Hidden Statistics
 
-StudCraft does not use hidden activation values.
-
-Every unit follows the same activation sequence:
-
-- Gain AP (CORE-006).
-- Spend AP.
-- End activation.
-
-Construction determines what a unit can do.
-
-The activation system remains identical for all units.
+StudCraft does not use hidden activation values: every unit receives the same allotment (`02-core-rules.md`, CORE-006) and follows the same activation sequence (FLOW-004). Construction determines what a unit can do.
 
 ---
 
@@ -293,7 +220,7 @@ One Unit Each, In Activation Order
 
 ↓
 
-Each Activated Unit receives 3 AP
+Each Activated Unit receives 3 AP (CORE-006)
 
 ↓
 
@@ -325,7 +252,7 @@ Every Turn follows the same structure:
 1. Determine Priority — every player rolls 1D6, and the results set the Activation Order.
 2. The Priority player chooses whether to activate first or to cede and take the last place.
 3. Players activate one unit each in that order, skipping any player with nothing left to activate.
-4. Each activated unit receives **3 AP**.
+4. Each activated unit receives its **3 AP** (`02-core-rules.md`, CORE-006).
 5. Spend AP in any legal combination.
 6. Continue until every unit has activated.
 7. Resolve End of Turn effects.

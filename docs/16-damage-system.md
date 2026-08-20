@@ -316,7 +316,7 @@ Weapon articulation is read directly from the LEGO model.
 
 ## DMG-019 — Repairs
 
-A unit may spend **1 Action Point**, once per activation, to repair its own Wounded component, restoring it to Operational (`Wounded → Operational`) — for infantry, this is the same action `02-core-rules.md` CORE-006 lists as "Stand up."
+A unit may spend **1 Action Point**, once per activation, to repair its own Wounded component, restoring it to Operational (`Wounded → Operational`). For an infantry model that repair is standing up — `DMG-005` is where the two poses are defined.
 
 Repairing a *different* unit's Wounded component additionally requires visible repair equipment (`02-core-rules.md`, CORE-014 — a tool, medical pack, or similar) on the repairing unit, and physical adjacency to the target.
 

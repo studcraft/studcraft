@@ -71,6 +71,29 @@ class TestATaskMustCarryTheBlockItAnnounces:
             assert errors(found), f"not recognised as an edit task: {line!r}"
 
 
+class TestReplacementTextMustBeFenced:
+    def test_a_run_of_quoted_lines_inside_a_fence_is_not_a_blockquote_replacement(self, tasks):
+        """`TODO.md` is built out of blockquotes, so an anchor quoting three or
+        more `> ` lines verbatim inside a fence is the anchor doing its job, not
+        the pre-2026-08-10 convention this check exists to catch."""
+        found = check_task_anchors.check_replacement_format(
+            "a-change",
+            tasks(
+                "- [ ] 1.1 In `TODO.md`, replace this anchor:\n\n"
+                "```\n> - Indirect Fire\n> - Smoke Launchers\n> - Reloading\n```\n\n"
+                "with:\n\n```\nnew\n```\n"
+            ),
+        )
+        assert found == []
+
+    def test_the_same_run_unfenced_is_still_a_blockquote_replacement(self, tasks):
+        found = check_task_anchors.check_replacement_format(
+            "a-change",
+            tasks("> - Indirect Fire\n> - Smoke Launchers\n> - Reloading\n\nwith:\n"),
+        )
+        assert "blockquote" in errors(found)[0]
+
+
 class TestACoverageTableMustNameTasksThatExist:
     def test_a_row_naming_a_task_that_does_not_exist_is_an_error(self, tasks):
         found = check_task_anchors.check_coverage_table(
