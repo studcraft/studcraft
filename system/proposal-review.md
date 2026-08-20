@@ -31,8 +31,16 @@ Look for these specifically. They recur.
 - **A retired rule ID still cited from outside `docs/`** — grep the whole
   repository before deleting a rule. `scripts/lint_ruleset.py` reads only
   `docs/` and `assets/IMAGES.md`, and `README.md`, `CODE_OF_DESIGN.md`,
-  `TODO.md` and `system/` all cite rule IDs. Archived changes under
-  `openspec/changes/archive/` are history and are left as they are.
+  `TODO.md`, `scripts/` and `system/` all cite rule IDs. Archived changes
+  under `openspec/changes/archive/` are history and are left as they are.
+- **A changed rule's own ID never grepped, only the ones it retired** — #126
+  emptied `CORE-006` and wrote into `WPN-017`, and `TODO.md` quoted both;
+  `check_todo_quotes.py` is a required check, so the stale quote is a red
+  gate, not a reading defect.
+- **A duplicate in a document that defines no rules** — `01-foundations.md`
+  held a fourth copy of the list #126 was deduplicating and was never
+  opened, because the sweep looked for rules; it and `14-glossary.md` define
+  none and restate plenty.
 - **Absolute claims falsified by a later fix** — once you make one exception
   explicit, re-scan for every place the old absolute claim still stands
   unqualified.
