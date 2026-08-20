@@ -37,8 +37,13 @@ Branch names are an input to CI: three gates read `github.head_ref` and change w
 |---|---|---|
 | `release/v<major>.<minor>.<patch>` | `Release cut` workflow, never by hand | `CHANGELOG.md` and the `**Version:**` header in `docs/*.md` — nothing else |
 | `archive/batch-<date>-<run-id>` | `Archive cut` workflow, never by hand | `openspec/` only |
-| `<change-name>` — the directory under `openspec/changes/`, exactly | you, for a ruleset proposal | `docs/*.md` plus that one change |
+| `<change-name>` — the directory under `openspec/changes/`, exactly | you, for a ruleset proposal | `docs/*.md` plus that one change, plus what its `design.md` names as knowingly broken otherwise |
 | `<what-it-does>` in kebab-case | you, for anything else | anything except `docs/` and `openspec/specs/` |
+
+A ruleset branch may also carry a non-`docs/` file only if its `design.md`
+says which and why — #119, #123 and #126 each did. Shipping a pointer the
+change knows is broken so the file set stays pure is worse, and nobody has
+chosen it.
 
 `release/` and `archive/` are **reserved prefixes**, not descriptive ones — they are how the automation's PRs identify themselves to the gates that would otherwise block them.
 

@@ -56,12 +56,23 @@ HEADING_RE = re.compile(r"^#{1,4} ")
 # at best and silently checks the wrong file at worst. A change is allowed to
 # touch more than the ruleset, so the parser has to be.
 #
-# **At least one `/` is required.** A first attempt without that matched the bare
-# `design.md`, `proposal.md` and `tasks.md` that every change mentions in its own
-# prose, resolved them against the repository root where no such files exist, and
-# turned nine harmless sentences into errors. A directory component is what
-# separates "the file this task edits" from "a document this task talks about".
-TARGET_PATH_RE = re.compile(r"`((?:[\w.-]+/)+[\w.-]+\.(?:md|py|json|ya?ml))`")
+# A repository-root file has no `/` to require: `TODO.md` and `CODE_OF_DESIGN.md`
+# are targets too, and a version that demanded a directory component could not see
+# them (#126 worked around it with `./TODO.md`). This is for a task line, which
+# names an edit target by construction — that is what the line is for.
+TARGET_PATH_RE = re.compile(r"`((?:[\w.-]+/)*[\w.-]+\.(?:md|py|json|ya?ml))`")
+
+# A heading is a section title, not a task, and may name any file it discusses
+# in passing — "### Two `skip` lines from `apply_tasks.py` that are correct"
+# names a script it is *talking about*, not editing. Every heading this
+# repository has used as a real target names a `docs/…` path, so the directory
+# component is still required here; only the task-line pattern above drops it.
+HEADING_TARGET_RE = re.compile(r"`((?:[\w.-]+/)+[\w.-]+\.(?:md|py|json|ya?ml))`")
+
+# What every change calls itself, never what it edits. Excluded by the full
+# matched path, not by basename — `openspec/changes/foo/tasks.md` is a real
+# target and only a bare `tasks.md` is the change talking about itself.
+NOT_A_TARGET = frozenset({"design.md", "proposal.md", "tasks.md"})
 
 
 def blocks(lines: list[str]) -> list[tuple[int, str, str]]:
@@ -139,11 +150,23 @@ def target_for(lines: list[str], upto: int) -> str | None:
     task naming `.claude/agents/ruleset-auditor.md` fell through to whichever
     ruleset document a previous section had named, and was then checked against
     the wrong file.
+
+    A task line and a heading are read with different patterns. A task line
+    names its own edit target, so a bare filename resolves; a heading is a
+    section title free to mention any file in passing, so it still needs a
+    directory component — without that, "### ... from `apply_tasks.py` ..."
+    would resolve as if the heading were editing `apply_tasks.py`.
     """
     for back in range(upto - 1, -1, -1):
-        match = TARGET_PATH_RE.search(lines[back])
-        if match and (HEADING_RE.match(lines[back]) or TASK_LINE_RE.match(lines[back])):
-            return match.group(1)
+        if TASK_LINE_RE.match(lines[back]):
+            pattern = TARGET_PATH_RE
+        elif HEADING_RE.match(lines[back]):
+            pattern = HEADING_TARGET_RE
+        else:
+            continue
+        for match in pattern.finditer(lines[back]):
+            if match.group(1) not in NOT_A_TARGET:
+                return match.group(1)
     return None
 
 
