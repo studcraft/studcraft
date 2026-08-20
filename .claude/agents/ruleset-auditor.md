@@ -36,10 +36,12 @@ Then read `system/proposal-review.md` — the catalogue of defects this reposito
 python3 scripts/rule.py show <ID>        the rule, as it reads in docs/
 python3 scripts/rule.py refs <ID>        every rule that cites it
 python3 scripts/rule.py neighbors <ID>   what sits either side of it
-python3 scripts/rule.py doc <file>       one document's rules, one line each
+python3 scripts/rule.py doc <file>       a document's chapters and rules, each rule's first sentence
 ```
 
 `docs/` is fifteen documents and ~4800 lines. Given a specific change, `python3 scripts/rule.py touched <change-name>` narrows it to the rules that change names plus everything citing them — read *those* in full and index the rest. Given `docs/` at large, read the documents; that is the job.
+
+`rule.py doc` on `08-vehicles.md` costs about a sixth of reading it, and a single `rule.py show` about a twenty-fifth. Reach for the index when the question is *where* something is. **That is not permission to stop reading.** This file already says, above, "Given `docs/` at large, read the documents; that is the job" — this does not soften it. An audit of what the ruleset means reads the ruleset.
 
 ## What to audit
 

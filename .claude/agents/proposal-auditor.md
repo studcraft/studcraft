@@ -59,7 +59,9 @@ Use the index rather than reading `docs/` end to end:
 python3 scripts/rule.py touched <change-name>
 ```
 
-That lists every rule the change names and — under `read also` — every rule that cites it. **The `read also` list is the important half**: a change to a rule five others lean on has five more places to check, and nothing in the change reveals them. Then `rule.py show <ID>` for each, and `neighbors` where wording has to sit next to what surrounds it.
+That lists every rule the change names and — under `read also` — every rule that cites it. **The `read also` list is the important half**: a change to a rule five others lean on has five more places to check, and nothing in the change reveals them. Then `rule.py show <ID>` for each, `neighbors` where wording has to sit next to what surrounds it, and `rule.py doc <file>` for a document's chapters and rules with each rule's first sentence.
+
+`rule.py doc` on `08-vehicles.md` costs about a sixth of reading it, and a single `rule.py show` about a twenty-fifth. Reach for the index when the question is *where* something is. **That is not permission to stop reading**: the proposal itself is always read in full, and so is every rule `touched` names.
 
 ### 7. Version and changelog — the finding runs the other way
 

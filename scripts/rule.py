@@ -10,7 +10,7 @@ questions an audit otherwise answers by opening fifteen documents:
   rule.py touched <change>    every rule an OpenSpec change names
   rule.py orphans             rules nothing cites and no glossary entry defines
   rule.py glossary            glossary entries that point at no rule
-  rule.py doc 08-vehicles.md  one document's rules, one line each
+  rule.py doc 08-vehicles.md  a document's chapters and rules, first sentence too
 
 **Every command except `orphans` and `glossary` takes as many arguments as you
 like**, and runs once per argument:
@@ -204,17 +204,58 @@ def cmd_glossary(index: dict) -> int:
     return 0
 
 
+def _rules_held(outline: list[dict], position: int, level: int) -> int:
+    """How many rules sit under `outline[position]`, a non-rule section at
+    `level`: every following entry at a deeper level, up to the next one at
+    `level` or shallower.
+    """
+    count = 0
+    for entry in outline[position + 1:]:
+        if entry["level"] <= level:
+            break
+        if entry["rule_id"] is not None:
+            count += 1
+    return count
+
+
 def cmd_doc(index: dict, name: str) -> int:
     document = index["documents"].get(name)
     if document is None:
         print(f"No document {name}. Have: {', '.join(sorted(index['documents']))}", file=sys.stderr)
         return 1
 
-    print(f"{name} — {len(document['rules'])} rule(s)\n")
-    for rule_id in document["rules"]:
-        rule = index["rules"][rule_id]
+    outline = document["outline"]
+    # A chapter is a level-1, non-rule section holding at least one rule —
+    # `system/documentation-standards.md`'s definition. A level-1 section
+    # holding none (Purpose, Summary, ...) is prose, not a chapter, and does
+    # not count.
+    chapters = sum(
+        1 for position, entry in enumerate(outline)
+        if entry["level"] == 1 and entry["rule_id"] is None
+        and _rules_held(outline, position, 1)
+    )
+    print(f"{name} — {len(document['rules'])} rule(s), {chapters} chapter(s)\n")
+
+    for position, entry in enumerate(outline):
+        indent = "  " if entry["level"] == 1 else "    "
+        # `#`/`##` states the heading level, exactly as `scripts/parse_ruleset.py`
+        # prints it and as the documents themselves are written — a rule inside a
+        # chapter is `##`, everything else here is `#`. The two tools are meant to
+        # agree on this column; the line/inbound/summary that follow are this
+        # tool's own addition, not a disagreement with it.
+        prefix = "#" * entry["level"]
+
+        if entry["rule_id"] is None:
+            held = _rules_held(outline, position, entry["level"])
+            marker = f"[{held} rules]" if held else "[prose]"
+            print(f"{indent}{prefix} {entry['title']}  {marker}")
+            continue
+
+        rule = index["rules"][entry["rule_id"]]
         inbound = len(rule["cited_by"])
-        print(f"  {rule_id:10s} {rule['line']:<5d} {rule['title']}  ({inbound} inbound)")
+        print(f"{indent}{prefix} {entry['rule_id']:10s} {entry['line']:<5d} {entry['title']}  ({inbound} inbound)")
+        if rule["summary"]:
+            print(f"{indent}  {rule['summary']}")
     return 0
 
 
