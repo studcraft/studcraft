@@ -100,7 +100,7 @@ The direction a unit is oriented toward, and what movement is performed relative
 
 ## Deployment Volume
 
-The battlefield space a player's army must fit inside, agreed before the game and measured in Unit Bases: a floor `W × D` and a ceiling `H`. See `06-deployment.md` (DEP-001).
+The limit on a player's army, agreed before the game and measured in Unit Bases: a floor of `W × D` Unit Bases to spend, and a ceiling `H` every model must stand under. See `06-deployment.md` (DEP-001).
 
 ---
 

@@ -32,7 +32,7 @@ Wider models provide greater capabilities but consume more deployment capacity.
 
 Before the game begins, players agree on a Deployment Volume.
 
-A Deployment Volume is measured in **Unit Bases (UB)** — see `02-core-rules.md` (CORE-001) for the Unit Base definition — and is written `W × D × H`: a floor `W × D`, and the height `H` every model in a player's army must fit under.
+A Deployment Volume is measured in **Unit Bases (UB)** — see `02-core-rules.md` (CORE-001) for the Unit Base definition — and is written `W × D × H`. **The floor is `W × D` Unit Bases, counted**: a `5 × 1` floor and a `1 × 5` floor are the same five, and neither is a shape a model has to fit within. `H` is the height every model in a player's army must fit under.
 
 Where only two numbers are agreed, the ceiling is one Unit Base. That is also the lowest a Deployment Volume can be: infantry occupies exactly one Unit Base (`02-core-rules.md`, CORE-003), so a shorter one admits no army at all.
 
@@ -55,29 +55,20 @@ A low ceiling is a scenario choice rather than an oversight. Tunnels, hangars, c
 
 # DEP-002 — Army Capacity
 
-A player's army may occupy any combination of models that fits inside the agreed Deployment Volume — on its floor and under its ceiling. An infantry model's height is its Unit Base, weapons and equipment included (`02-core-rules.md`, CORE-001; `09-transport.md`, TRN-002). A vehicle's is what `08-vehicles.md`, VEH-028 measures: from the surface it rests on to the top of its Gameplay Geometry.
+Each model spends the Unit Bases of its footprint, and a player's army is any combination whose total does not exceed the agreed floor (DEP-001). Every model must also stand under the ceiling: an infantry model's height is its Unit Base, weapons and equipment included (`02-core-rules.md`, CORE-001; `09-transport.md`, TRN-002), and a vehicle's is what `08-vehicles.md`, VEH-028 measures — from the surface it rests on to the top of its Gameplay Geometry.
 
 No additional points system exists.
 
-Examples:
+Example:
 
-A 5 × 5 × 4 UB Deployment Volume could contain:
+A `5 × 5 × 4 UB` Deployment Volume gives a floor of **25 Unit Bases** and a ceiling of 4. Against that floor:
 
-- 25 infantry.
+- 25 infantry, at one Unit Base each (DEP-004), spend all 25.
+- Two Tanks of `2 × 5 UB` (`08-vehicles.md`, VEH-001) spend 10 each (DEP-003), leaving 5 for infantry.
 
-or
+A smaller game works the same way. A `5 × 1 × 2 UB` volume gives a floor of 5 Unit Bases: a Bike of `1 × 2 UB` (`08-vehicles.md`, VEH-001) spends 2 and leaves 3, and its own maximum height is 2 Unit Bases (`08-vehicles.md`, VEH-028) — exactly the ceiling agreed, so it is legal on both bounds.
 
-- 1 large tank.
-
-or
-
-- 2 medium vehicles.
-
-or
-
-- 1 transport carrying infantry.
-
-Any legal combination is allowed provided it fits, read that way.
+Any combination is legal whose footprints total no more than the floor and whose models all stand under the ceiling.
 
 ---
 
@@ -95,7 +86,7 @@ Deployment cost:
 
 10 Unit Bases.
 
-This area is unavailable for any other model.
+Those Unit Bases are spent, and cannot be spent again.
 
 That same footprint bounds the vehicle's height: one Unit Base for every two studs of its narrowest side (`08-vehicles.md`, VEH-028). Where an outline is not rectangular the height is read from the smallest rectangle of Unit Bases enclosing it, which never changes what is charged here. The agreed ceiling (DEP-001) bounds it a second time, and a vehicle must satisfy both.
 
