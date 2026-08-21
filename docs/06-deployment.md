@@ -30,45 +30,32 @@ Wider models provide greater capabilities but consume more deployment capacity.
 
 # DEP-001 — Deployment Volume
 
-Before the game begins, players agree on a Deployment Volume.
+Before the game begins, players agree on a **Deployment Volume**.
 
-A Deployment Volume is measured in **Unit Bases (UB)** — see `02-core-rules.md` (CORE-001) for the Unit Base definition — and is written `W × D × H`. **The floor is `W × D` Unit Bases, counted**: a `5 × 1` floor and a `1 × 5` floor are the same five, and neither is a shape a model has to fit within. `H` is the height every model in a player's army must fit under.
+A Deployment Volume is measured in **Unit Bases (UB)** (`02-core-rules.md`, CORE-001) and written `W × D × H`.
 
-Where only two numbers are agreed, the ceiling is one Unit Base. That is also the lowest a Deployment Volume can be: infantry occupies exactly one Unit Base (`02-core-rules.md`, CORE-003), so a shorter one admits no army at all.
+* `W × D` is the floor area, counted in Unit Bases.
+* `H` is the maximum height in Unit Bases.
 
-A one-Unit-Base ceiling is an infantry game, and deliberately so. A powered vehicle carries a Pilot occupying a Unit Base of its own (`02-core-rules.md`, CORE-003; `08-vehicles.md`, VEH-013), and that Unit Base rests on a floor which rests on the vehicle's locomotion — all of it height, before any hull exists. A closed cockpit needs the clearance above it as well (`09-transport.md`, TRN-019). Players who want vehicles agree a taller volume.
+If only two dimensions are given, the Deployment Volume is **1 UB high**.
 
-Deployment Volumes may have any dimensions agreed upon by the players, subject only to the one Unit Base of height an army needs to exist in.
+The floor is counted rather than treated as a shape. A `5 × 1` floor and a `1 × 5` floor both contain five Unit Bases.
 
-`H` is agreed in whole Unit Bases. A model's own height is measured as its rule measures it — a vehicle's in plate layers (`08-vehicles.md`, VEH-030) — and compared against the ceiling rather than rounded up to it, so a hull built to whole bricks and a plate or two is legal wherever it measures under.
+Deployment Volumes may have any dimensions agreed upon by the players or defined by the scenario.
 
-Examples:
-
-- 4 × 4 UB — two numbers, so one Unit Base tall: infantry only
-- 5 × 5 × 4 UB
-- 10 × 10 × 6 UB
-- Scenario-defined volumes
-
-A low ceiling is a scenario choice rather than an oversight. Tunnels, hangars, cargo holds and fights inside a hull are agreed here, by choosing a smaller `H`, and need no rule of their own.
+> **If it fits, it deploys.**
 
 ---
 
 # DEP-002 — Army Capacity
 
-Each model spends the Unit Bases of its footprint, and a player's army is any combination whose total does not exceed the agreed floor (DEP-001). Every model must also stand under the ceiling: an infantry model's height is its Unit Base, weapons and equipment included (`02-core-rules.md`, CORE-001; `09-transport.md`, TRN-002), and a vehicle's is what `08-vehicles.md`, VEH-028 measures — from the surface it rests on to the top of its Gameplay Geometry.
+A player's army is any combination of models that can be physically placed within the agreed Deployment Volume (`DEP-001`).
 
-No additional points system exists.
+Every model must fit within the Deployment Volume's floor and beneath its ceiling. Models cannot overlap.
 
-Example:
+The player chooses which models to deploy. No points or other army-capacity system is used.
 
-A `5 × 5 × 4 UB` Deployment Volume gives a floor of **25 Unit Bases** and a ceiling of 4. Against that floor:
-
-- 25 infantry, at one Unit Base each (DEP-004), spend all 25.
-- Two Tanks of `2 × 5 UB` (`08-vehicles.md`, VEH-001) spend 10 each (DEP-003), leaving 5 for infantry.
-
-A smaller game works the same way. A `5 × 1 × 2 UB` volume gives a floor of 5 Unit Bases: a Bike of `1 × 2 UB` (`08-vehicles.md`, VEH-001) spends 2 and leaves 3, and its own maximum height is 2 Unit Bases (`08-vehicles.md`, VEH-028) — exactly the ceiling agreed, so it is legal on both bounds.
-
-Any combination is legal whose footprints total no more than the floor and whose models all stand under the ceiling.
+The physical placement of the models is the final check. A combination is legal if all models can be placed within the Deployment Volume at the same time.
 
 ---
 
@@ -80,7 +67,7 @@ Example:
 
 Vehicle dimensions:
 
-2 × 5 UB
+`2 × 5 UB`
 
 Deployment cost:
 
@@ -108,7 +95,7 @@ If a Unit Base fits inside the vehicle, a minifigure may be transported in it (`
 
 If it does not fit, it cannot.
 
-The LEGO model is the source of truth.
+> **The LEGO model is the source of truth.**
 
 ---
 
@@ -124,7 +111,7 @@ Example:
 
 A transport occupies:
 
-2 × 5 UB
+`2 × 5 UB`
 
 It physically carries:
 
@@ -150,26 +137,15 @@ Deployment only determines how much battlefield space a transport (and its embar
 
 # DEP-008 — Mixed Forces
 
-Players are free to mix infantry, vehicles and transports.
+Players may freely combine infantry, vehicles and transports within their Deployment Volume.
 
-Examples:
+For example, a `5 × 4 × 2 UB` Deployment Volume may contain:
 
-Force A
+* **20 infantry**, filling the floor.
+* **2 tanks and 8 infantry**, if their footprints can be placed within the floor.
+* **1 super-heavy transport carrying 2 walkers and 4 infantry**, provided the transport and its contents satisfy the applicable transport and height requirements.
 
-- 20 infantry.
-
-Force B
-
-- 2 tanks.
-- 8 infantry.
-
-Force C
-
-- 1 super-heavy transport.
-- 2 walkers inside.
-- 4 infantry.
-
-As long as the Deployment Volume is respected, all armies are legal.
+These are examples only. Any combination is legal if the models physically fit within the Deployment Volume.
 
 ---
 
@@ -177,13 +153,13 @@ As long as the Deployment Volume is respected, all armies are legal.
 
 StudCraft naturally supports multiple game sizes.
 
-Suggested examples:
+Examples:
 
 ## Patrol
 
 Deployment Volume:
 
-5 × 1 × 2 UB
+`5 × 1 × 2 UB`
 
 Fast introductory games.
 
@@ -193,7 +169,7 @@ Fast introductory games.
 
 Deployment Volume:
 
-5 × 5 × 4 UB
+`5 × 5 × 4 UB`
 
 Small tactical engagements.
 
@@ -203,7 +179,7 @@ Small tactical engagements.
 
 Deployment Volume:
 
-10 × 10 × 6 UB
+`10 × 10 × 6 UB`
 
 Combined-arms battles.
 

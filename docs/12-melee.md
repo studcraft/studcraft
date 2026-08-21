@@ -145,12 +145,6 @@ Shields are defensive components. They never generate Attack Dice. Their interac
 
 ---
 
-# MEL-010 — Merged into Component Targeting
-
-Reserved for rule-ID stability. Vehicle component targeting is fully defined by MEL-002 — a vehicle component is targeted like any other: visible and physically reachable.
-
----
-
 # MEL-011 — Physical Representation
 
 Combat results should be represented on the LEGO model whenever possible, per the universal physical-representation principle (`02-core-rules.md`, CORE-016; `16-damage-system.md`, DMG-005, DMG-006).

@@ -183,19 +183,24 @@ These additions must preserve the Impact-based combat system.
 
 # CBT-015 — Attacking While Wounded
 
-A Wounded weapon (`16-damage-system.md`, DMG-005) still fires, less reliably.
+A Wounded weapon (`16-damage-system.md`, DMG-005) still fires, but less reliably.
 
-For **each** Attack Die it generates (CBT-004; `10-weapons.md`, WPN-006; `12-melee.md`, MEL-003), roll **two dice instead of one, and read only the lower of the two**. That pair resolves as a single die against CBT-005's unchanged threshold: a 4, 5 or 6 generates one Impact, anything lower generates none. A hit therefore needs both dice at 4 or better — one chance in four, where an Operational weapon has one in two.
+For each Attack Die it generates (CBT-004; `10-weapons.md`, WPN-006; `12-melee.md`, MEL-003), roll **two D6 and keep the lower result**. Resolve that result using CBT-005:
 
-**The second die is never an Impact.** The number of Attack Dice is still the number of functional muzzles (`10-weapons.md`, WPN-006) or independently wielded melee weapons (`12-melee.md`, MEL-003), and each muzzle still generates exactly one impact (`16-damage-system.md`, DMG-010). A Wounded weapon rolls more dice and produces no more Impacts than it did before. `16-damage-system.md` (DMG-011) states the same thing from the damage side.
+- 4–6: one Impact.
+- 1–3: no Impact.
 
-This rule reads the state of the component that provides the attack. Usually that is the weapon, which is a component in its own right (`16-damage-system.md`, DMG-001; `02-core-rules.md`, CORE-014): a Wounded soldier carrying an Operational rifle attacks exactly as if unhurt, and an unhurt soldier carrying a Wounded rifle rolls the pair of dice above.
+The two dice resolve as one Attack Die. The number of Attack Dice does not change: each functional muzzle or independently wielded melee weapon still generates one die. The second die never generates an additional Impact.
 
-An unarmed attack (`12-melee.md`, MEL-008) is the one case where the attacker *is* the weapon system, so there the rule reads the attacker: a Wounded minifigure punches with the pair of dice above.
+The rule applies to the component making the attack:
 
-Degradations never stack. A Wounded minifigure firing a Wounded rifle rolls one pair per Attack Die, not two — this rule reads one component per attack, and for that attack the component is the rifle.
+- A Wounded soldier with an Operational weapon attacks normally.
+- An Operational soldier with a Wounded weapon uses this rule.
+- An unarmed attack (`12-melee.md`, MEL-008) uses the attacker's own state.
 
-Everything else the weapon has is unchanged: its Range (CBT-003), the Impact Strength of every die it rolls (`10-weapons.md`, WPN-021), the 1 Action Point the attack costs (CBT-001), and whether its dice may be split across targets (CBT-007).
+Wounded states do not stack. If both the attacker and its weapon are Wounded, apply this rule only once to each Attack Die.
+
+Everything else remains unchanged: Range (CBT-003), Impact Strength (`10-weapons.md`, WPN-021), Action Point cost (CBT-001), and target allocation (CBT-007).
 
 ---
 

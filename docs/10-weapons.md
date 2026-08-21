@@ -8,9 +8,7 @@
 
 This document defines how weapons are built, measured and used during a game of StudCraft.
 
-Weapons in StudCraft do not have traditional statistics.
-
-Instead, every weapon derives its capabilities directly from its physical LEGO construction.
+Weapons do not use predefined statistics. Their capabilities emerge from their physical construction.
 
 The weapon model is its profile.
 
@@ -18,11 +16,11 @@ The weapon model is its profile.
 
 # Design Philosophy
 
-StudCraft weapons follow one simple principle:
+StudCraft weapons follow one principle:
 
 > If two players can look at the same weapon, they should reach the same conclusion about how it behaves.
 
-Weapon performance must emerge from:
+Weapon performance emerges from:
 
 - Physical size
 - Construction
@@ -39,11 +37,11 @@ A weapon is any LEGO construction capable of making an attack.
 
 Every ranged weapon must include:
 
-- A weapon body — the structure carrying the muzzle or striking end: barrel, mechanism, support. Decoration does not count.
-- At least one visible functional muzzle (WPN-002).
+- A weapon body carrying the muzzle or striking end.
+- At least one functional muzzle (WPN-002).
 - A physical mounting point.
 
-Melee weapons replace the functional muzzle with a functional striking end, visible in the same way, as defined in `12-melee.md` (MEL-013).
+Melee weapons replace the muzzle with a functional striking end, as defined in `12-melee.md` (MEL-013).
 
 Weapons that do not satisfy these conditions are decorative.
 
@@ -51,46 +49,44 @@ Weapons that do not satisfy these conditions are decorative.
 
 # WPN-002 — Functional Muzzle
 
-A functional muzzle is a round construction area on the Weapon Front — a round plate or round tile. Common sizes:
+A functional muzzle is a round construction area on the Weapon Front. Common sizes include:
 
 - 1×1
 - 2×2
 - 3×3
 - 4×4
 
-This list is illustrative, not a ceiling — a muzzle may be any size the Weapon Front Footprint (WPN-019) can physically hold. Larger muzzles (5×5 and beyond) are valid on a large enough Weapon Front, at the cost of a longer Weapon Body (WPN-018) and a bigger platform to carry it (WPN-004).
+This list is illustrative, not a limit. A muzzle may be any size that physically fits its Weapon Front Footprint (WPN-019).
 
-Round LEGO plates and tiles are not manufactured in every size — 1×1, 2×2, 4×4, 6×6, and 8×8 are common; 3×3, 5×5, and other odd sizes are not standard single pieces. A muzzle at one of these sizes is still valid: build the footprint slot from the closest available round element, or assemble it from more than one round piece, as long as the result reads clearly as a round muzzle occupying that N×N slot.
+Square or rectangular pieces do not represent functional muzzles. The muzzle must be visibly round, whether made from a single piece or several pieces.
 
-Square or rectangular pieces (e.g. 1×1 square plate, 1×2, 2×1, 1×3, 2×4) are not valid — only round pieces represent a muzzle. The area a muzzle occupies on the Weapon Front Footprint is still measured as an N×N grid slot (per WPN-019/WPN-020), the same way a round LEGO plate or tile occupies a square footprint of studs even though the visible piece is round.
+Each functional muzzle represents one firing barrel.
 
-Each functional muzzle represents one firing barrel. Muzzle size determines Impact Strength (WPN-021).
+Muzzle size determines Impact Strength (WPN-021).
 
-A functional muzzle is the physical contact surface through which a ranged weapon transfers energy into an Impact. Melee weapons use a functional striking end in its place, which plays exactly the same role — see `12-melee.md` (MEL-013).
+Melee weapons use a functional striking end in place of a muzzle, as defined in `12-melee.md` (MEL-013).
 
 ---
 
 # WPN-003 — Weapon Length
 
-Weapon Length is the longest dimension of the functional Weapon Body, measured along the weapon's firing axis — the axis running perpendicular to the Weapon Front (WPN-019), which is the face the length axis points through.
+Weapon Length is the longest dimension of the functional Weapon Body, measured along its firing axis.
 
-Measure the Weapon Body only. Mounting hardware (WPN-009) and decorative elements are not part of it and are ignored.
+Mounting hardware and decorative elements are ignored.
 
 ---
 
 # WPN-004 — Weapon Capacity
 
-The sum of the Weapon Length of every weapon mounted on a platform may never exceed the platform's longest dimension (its Platform Length).
+The sum of the Weapon Length of every weapon mounted on a platform may not exceed the platform's longest horizontal dimension.
 
-```
-Σ(Weapon Length) ≤ Platform Length
-```
+**Σ(Weapon Length) ≤ Platform Length**
 
-Platform Length is the largest **horizontal** dimension of the Unit Base or vehicle carrying the weapons. A Unit Base is a volume — see `02-core-rules.md` (CORE-001) — and this reads only its `4 × 3` stud footprint, so infantry's Platform Length stays 4 studs and the Unit Base's height never enters the calculation.
+Platform Length is the largest horizontal dimension of the Unit Base or vehicle carrying the weapons.
 
-Examples
+Examples:
 
-Infantry (1 UB, 4 × 3 studs — Platform Length 4)
+**Infantry — 1 UB, 4 × 3 studs**
 
 Valid:
 
@@ -102,7 +98,7 @@ Invalid:
 
 - Two weapons, length 4 each.
 
-Jeep (2 × 3 UB, 8 × 9 studs — Platform Length 9)
+**Jeep — 2 × 3 UB, 8 × 9 studs**
 
 Valid:
 
@@ -120,89 +116,60 @@ Invalid:
 
 # WPN-005 — Weapon Range
 
-Weapon range is determined by construction.
-
-Range equals:
-
-**Weapon Length × 6**
-
-Examples
+Weapon Range equals **Weapon Length × 6**.
 
 | Weapon Length | Maximum Range |
-|---------------|--------------:|
+|---|---:|
 | 2 studs | 12 studs |
 | 4 studs | 24 studs |
 | 6 studs | 36 studs |
 | 8 studs | 48 studs |
 | 12 studs | 72 studs |
 
-No additional range values exist.
-
-There is no maximum Range, for the same reason there is no maximum Impact Strength (WPN-021): the limit is what the attacker's platform can carry. That limit is real, it is simply not written as a number. Weapon Length is bounded by Platform Length (WPN-004), platform size by the agreed Deployment Volume (`08-vehicles.md`, VEH-001; `06-deployment.md`, DEP-003), and the Deployment Volume by the battlefield the players agree on before it (`03-game-flow.md`, FLOW-001). Range therefore scales with the size of the game on its own.
-
-Maximum Range is rarely the practical limit in any case. Line of Sight is a physical check (`02-core-rules.md`, CORE-008), so a weapon reaching 72 studs only matters where 72 studs of clear sight exist. On a battlefield with terrain, that is uncommon.
+Line of Sight remains a physical check (`02-core-rules.md`, CORE-008), so maximum range is only relevant where that distance is unobstructed.
 
 ---
 
 # WPN-006 — Rate of Fire
 
-Each functional muzzle grants:
+Each functional muzzle grants **1 Attack Die (D6)**.
 
-**1 Attack Die (D6)**
+Muzzle size affects Impact Strength (WPN-021), not the number of dice.
 
-regardless of muzzle size. Muzzle size affects Impact Strength (WPN-021), not the number of dice.
+Each die is resolved as an Attack Roll (`11-combat.md`, CBT-005):
 
-Each die is rolled and resolved as an Attack Roll (`11-combat.md`, CBT-005): a result of 4, 5, or 6 confirms the shot left the muzzle and generates one valid Impact; a result of 1, 2, or 3 means that die produced nothing.
-
-Examples
+- 4–6: the shot generates one Impact.
+- 1–3: the die produces nothing.
 
 | Functional Muzzles | Attack Dice |
-|-------------------:|------------:|
+|---:|---:|
 | 1 | 1 |
 | 2 | 2 |
 | 3 | 3 |
 | 4 | 4 |
 | 6 | 6 |
 
-A Wounded weapon still grants one die per muzzle; what changes is how each of those dice is read (`11-combat.md`, CBT-015).
-
-Rate of fire is entirely determined by construction.
+A Wounded weapon still grants one die per muzzle; the dice are resolved differently as defined in `11-combat.md` (CBT-015).
 
 ---
 
 # WPN-007 — Muzzle Adjacency
 
-Functional muzzles may be placed directly adjacent to one another, sharing an edge with no gap of weapon body between them.
+Functional muzzles may be placed directly adjacent to one another.
 
-Example
+No minimum separation is required.
 
-```
-██··
-```
-
-Where each `█` cell is a separate functional muzzle occupying adjacent footprint cells.
-
-The only placement restriction is that muzzles may not overlap (WPN-020). No minimum separation between muzzles is required.
+Muzzles may not overlap (WPN-020).
 
 ---
 
 # WPN-008 — Weapon Systems
 
-Each independently mounted weapon is considered its own weapon system.
+Each independently mounted weapon is a separate weapon system.
 
-Examples
+For example, a tank with a main cannon, coaxial machine gun and roof machine gun has three weapon systems.
 
-A tank with:
-
-- Main Cannon
-- Coaxial Machine Gun
-- Roof Machine Gun
-
-contains:
-
-Three independent weapon systems.
-
-Targeting rules for independent weapon systems are defined in `11-combat.md` (CBT-006, CBT-007).
+Targeting rules are defined in `11-combat.md` (CBT-006, CBT-007).
 
 ---
 
@@ -214,9 +181,9 @@ Valid mounts include:
 
 - Hands
 - Turrets
-- Hull Mounts
-- Pintle Mounts
-- Side Mounts
+- Hull mounts
+- Pintle mounts
+- Side mounts
 
 Floating weapons are not permitted.
 
@@ -224,7 +191,11 @@ Floating weapons are not permitted.
 
 # WPN-010 — Infantry Weapons
 
-Infantry weapons must be carried by the minifigure in the two hands `17-infantry.md` (INF-001) gives it: one-handed weapons (knife, sword, pistol) occupy one of them, two-handed weapons (rifle, machine gun, rocket launcher) occupy both.
+Infantry weapons must be carried by the minifigure in its two hands (`17-infantry.md`, INF-001).
+
+One-handed weapons occupy one hand.
+
+Two-handed weapons occupy both.
 
 The model determines what the unit can use.
 
@@ -234,26 +205,24 @@ The model determines what the unit can use.
 
 Vehicle weapons must be permanently mounted.
 
-Examples:
+Examples include:
 
-- Hull Cannon
-- Turret Cannon
-- Side Weapon
-- Roof Weapon
+- Hull cannons
+- Turret cannons
+- Side weapons
+- Roof weapons
 
-Weapon position determines firing arc.
+Weapon position determines its firing arc.
 
 ---
 
 # WPN-012 — Line of Fire
 
-A weapon's Line of Fire follows the universal Line of Sight rule (`11-combat.md`, CBT-002) — determined from the attacker's point of view (`02-core-rules.md`, CORE-008), not the muzzle specifically: buildings, terrain and vehicles block it, and transparent elements do not.
+A weapon's Line of Fire follows the universal Line of Sight rule (`11-combat.md`, CBT-002).
 
----
+It is determined from the attacker's point of view (`02-core-rules.md`, CORE-008), not from the muzzle itself.
 
-# WPN-013 — Attack Procedure
-
-Resolving a ranged attack follows the universal Attack Sequence defined in `11-combat.md` (CBT-001): declare weapon, declare target, verify Line of Sight, verify Range, roll Attack Dice, count Impacts, defender resolves Impacts, update the model.
+Buildings, terrain and vehicles block Line of Sight. Transparent elements do not.
 
 ---
 
@@ -261,54 +230,33 @@ Resolving a ranged attack follows the universal Attack Sequence defined in `11-c
 
 A unit carrying multiple weapons may use them according to its available Action Points.
 
-Future scenarios may limit the number of weapons fired during a single activation.
-
 ---
 
 # WPN-015 — Decorative Weapons
 
 Decorative barrels, antennas, hoses and mechanical details have no gameplay effect.
 
-Only functional muzzles count.
+Only functional weapons and their functional muzzles count.
 
 ---
 
 # WPN-016 — Weapon Damage
 
-Weapons do not possess a damage value. Weapons generate Attack Dice, each carrying an Impact Strength derived from the muzzle or striking end that rolled it (WPN-021) — a geometric property of the weapon, not a hidden statistic.
+Weapons do not have a damage value.
 
-The final effect of a successful Impact depends entirely on the target: its Resistance/Armour and the Geometry Check (`16-damage-system.md`, DMG-003, DMG-014), and the Damage Roll (DMG-015). Cover only determines whether the target can be selected at all (`02-core-rules.md`, CORE-010) — it has no effect once an attack is declared.
+Each successful Attack Die generates an Impact whose Strength is determined by the muzzle or striking end that produced it (WPN-021).
 
-This keeps weapon construction simple while allowing future expansion.
+The effect of the Impact depends on the target's Resistance and the Geometry Check (`16-damage-system.md`, DMG-003, DMG-014), followed by the Damage Roll (DMG-015).
 
----
-
-# WPN-017 — Future Weapon Types
-
-Future supplements may introduce:
-
-- Flamethrowers
-- Explosive Weapons
-- Beam Weapons
-- Energy Weapons
-- Indirect Fire
-- Smoke Launchers
-
-These must continue to follow the StudCraft Weapon Construction Standard.
-
-Reloading is future work of its own: no weapon in the current construction rules runs out of ammunition, so nothing reloads today.
+Cover only determines whether the target can be selected (`02-core-rules.md`, CORE-010).
 
 ---
 
 # WPN-018 — Weapon Proportion
 
-Weapon Length must be at least twice the Weapon Width.
+Weapon Length must be at least twice its Weapon Width.
 
-```
-Length ≥ 2 × Width
-```
-
-Weapon Width is the smallest dimension of the Weapon Body.
+**Length ≥ 2 × Width**
 
 Valid examples:
 
@@ -325,150 +273,92 @@ Invalid examples:
 - 4×4
 - 6×6
 
-This prevents unrealistic weapon proportions.
-
 ---
 
 # WPN-019 — Weapon Front Footprint
 
-Every weapon has exactly one Weapon Front — the only face from which the weapon may fire.
+Every weapon has exactly one Weapon Front: the only face from which it may fire.
 
-Muzzles may not be placed on the rear, side, top, or bottom faces of the weapon.
+The Weapon Front is a square construction area whose dimensions equal the Weapon Width.
 
-The Weapon Front is represented by a square construction area, the Weapon Front Footprint:
-
-```
-Weapon Width × Weapon Width
-```
-
-Examples
-
-Weapon Width = 1
-
-```
-■
-```
-
-Weapon Width = 2
-
-```
-■■
-■■
-```
-
-Weapon Width = 4
-
-```
-■■■■
-■■■■
-■■■■
-■■■■
-```
-
-The footprint defines the only available space for muzzle construction.
+Muzzles may only be placed within this footprint.
 
 ---
 
 # WPN-020 — Muzzle Placement
 
-Every muzzle occupies one square footprint slot inside the Weapon Front Footprint, built as a round piece (WPN-002).
+Every muzzle occupies a square footprint slot inside the Weapon Front Footprint (WPN-019).
 
 Rules:
 
 - Muzzles must be round (WPN-002).
 - Muzzles may not overlap.
 - Every muzzle must fit entirely inside the Weapon Front Footprint.
-- Unused footprint space is allowed. Muzzles are not required to cover every square.
-- Muzzles may be directly adjacent to one another (WPN-007).
+- Unused footprint space is allowed.
+- Muzzles may be adjacent to one another (WPN-007).
 
-The designer may partition the Weapon Front Footprint in any valid way.
+The designer may arrange the muzzles in any valid configuration.
 
-Example
+Example:
 
-Weapon Body: 8 × 4. Weapon Width: 4. Weapon Front Footprint:
+A Weapon Body 8 × 4 has a Weapon Width of 4 and therefore a 4 × 4 Weapon Front Footprint.
 
-```
-■■■■
-■■■■
-■■■■
-■■■■
-```
+Possible configurations include:
 
-Valid configurations:
+**Twin Barrel**
 
-Twin Barrel
+- 2 muzzles
+- 2 Attack Dice
+- Impact Strength 3 each
 
-```
-●●··
-····
-····
-····
-```
+**Quad Barrel**
 
-2 Attack Dice, Muzzle Size 1, Impact Strength 3 each.
+- 4 muzzles
+- 4 Attack Dice
+- Impact Strength 3 each
 
-Quad Barrel
+**Heavy Cannon**
 
-```
-●●··
-●●··
-····
-····
-```
+- 1 muzzle
+- 1 Attack Die
+- Impact Strength 6
 
-4 Attack Dice, Muzzle Size 1, Impact Strength 3 each.
+**Hybrid**
 
-Heavy Cannon
+- 1 muzzle of size 2
+- 2 muzzles of size 1
+- 3 Attack Dice
+- Impact Strengths 6, 3 and 3
 
-```
-██··
-██··
-····
-····
-```
-
-1 Attack Die, Muzzle Size 2, Impact Strength 6.
-
-Hybrid
-
-```
-██··
-██··
-●●··
-····
-```
-
-3 Attack Dice. Muzzle Sizes: 2, 1, 1. Impact Strengths: 6, 3, 3.
-
-Every valid partition produces a different weapon. No weapon profile is required.
+No weapon profile is required. The physical configuration determines the result.
 
 ---
 
 # WPN-021 — Impact Strength
 
-Impact Strength equals the size of the muzzle — or, for melee weapons, the functional striking end (`12-melee.md`, MEL-013) — that generated the attack, multiplied by 3.
+Impact Strength equals the muzzle size multiplied by 3.
 
-One stud of muzzle width represents one brick of penetrating power, and a brick is 3 plate layers (`16-damage-system.md`, DMG-003) — so Impact Strength and Resistance are both counts of plate layers, and the Geometry Check (DMG-014) compares like with like instead of two different units.
+For melee weapons, use the size of the functional striking end (`12-melee.md`, MEL-013).
 
-| Size | Impact Strength |
-|--------|-----------------:|
+| Muzzle Size | Impact Strength |
+|---|---:|
 | 1×1 | 3 |
 | 2×2 | 6 |
 | 3×3 | 9 |
 | 4×4 | 12 |
 | N×N | 3N |
 
-As a shortcut: a muzzle N studs wide defeats a component N bricks thick. This stops dividing evenly once a component is built from plates rather than whole bricks (a 4-plate shield is Resistance 4, not a whole number of bricks) — the shortcut aids reasoning, but the table above is the operative value.
+A muzzle N studs wide produces an Impact Strength of 3N.
 
-There is no maximum size. A large enough Weapon Front Footprint (WPN-019) supports arbitrarily large muzzles or striking ends, with Impact Strength scaling accordingly. Threatening a highly Resistant component (`16-damage-system.md`, DMG-003) requires a correspondingly large Weapon Front, which in turn requires a longer Weapon Body (WPN-018) and a larger platform to carry it (WPN-004) — bigger guns need bigger platforms. No component is unconditionally invulnerable; it is only safe from whatever can't be mounted on the attacker's current platform. An infantry model, carrying the largest muzzle its platform permits (2×2, per WPN-004/WPN-018/WPN-019/WPN-020), generates Impact Strength 6 — enough to affect a component built from one or two standard bricks (Resistance 3 or 6).
+A weapon with multiple muzzles of different sizes produces Attack Dice with different Impact Strengths. Each die uses the size of the muzzle that generated it.
 
-A weapon with multiple muzzles or striking ends of different sizes produces Attack Dice with different Impact Strengths — each die's Impact Strength depends only on the muzzle or striking end that rolled it.
+There is no fixed maximum Impact Strength. Larger muzzles require larger Weapon Front Footprints, Weapon Bodies and platforms.
 
 ---
 
 # Weapon Archetypes
 
-StudCraft defines no weapon classes. Weapons emerge naturally from construction. These are illustrative examples only, not additional rules:
+StudCraft defines no weapon classes. These are construction examples only:
 
 - One small muzzle → Rifle
 - Several small muzzles → Machine Gun
@@ -476,33 +366,27 @@ StudCraft defines no weapon classes. Weapons emerge naturally from construction.
 - Many small muzzles → Rocket Launcher
 - Several medium muzzles → Naval Battery
 
-Every archetype follows exactly the same construction rules (WPN-002 through WPN-021).
+All follow the same construction rules.
 
 ---
 
 # Summary
 
-Weapons in StudCraft are defined by three physical properties:
+Weapons are defined by three physical properties:
 
 ## Length
 
-Determines Range (WPN-005) and Weapon Capacity consumption (WPN-004).
-
----
+Determines Range (WPN-005) and Weapon Capacity (WPN-004).
 
 ## Muzzle Count
 
 Determines the number of Attack Dice (WPN-006).
 
----
-
 ## Muzzle Size
 
-Determines Impact Strength (WPN-021). Muzzles are always round (WPN-002).
+Determines Impact Strength (WPN-021).
 
----
-
-Weapons define only how an Impact is generated. Every consequence of that Impact is determined by Combat Resolution (`11-combat.md`) and the Component Damage System (`16-damage-system.md`).
+Weapons define only how an Impact is generated. Combat and the Component Damage System determine its consequences (`11-combat.md`, `16-damage-system.md`).
 
 No hidden statistics are required.
 
