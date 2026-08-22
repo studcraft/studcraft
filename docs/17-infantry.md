@@ -180,12 +180,15 @@ The first brick (3 plate layers) causes no damage. For every complete brick beyo
 
 Each Damage Roll is resolved independently:
 
-* **1–3:** Damage — advance the faller's Component State one step.
-* **4–6:** No Damage — no effect.
+| D6 Result | Result                                                  |
+| --------- | ------------------------------------------------------- |
+| 1–3       | Damage — advance the faller's Component State one step. |
+| 4–6       | No Damage — no effect.                                  |
 
 Falling damage does not use an Impact, so no Geometry Check is made and Resistance does not apply.
 
 Vehicle falling is resolved separately under `08-vehicles.md` (VEH-026).
+
 
 ## Examples
 
