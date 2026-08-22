@@ -10,11 +10,18 @@ Infantry is a unit domain, as Vehicles is. The mechanics every unit shares are `
 
 ---
 
-# Design Philosophy
+## Design Philosophy
 
-Every distance infantry moves is a count of its own base, so a player measures with a spare base rather than with a ruler.
+Infantry has no movement statistic.
 
-Infantry has no statistics. What a model can do follows from the base it stands on and from the Action Points every unit receives.
+Its movement is derived from its Unit Base:
+
+* The 3-stud depth defines forward and backward steps.
+* The 4-stud width defines sideways steps.
+
+This makes movement measurable directly from the model. A spare Unit Base can be used instead of a ruler.
+
+The infantry base is Gameplay Geometry (`15-geometry-layers.md`, GEO-001). Visual Geometry does not modify movement measurements (`15-geometry-layers.md`, GEO-003).
 
 ---
 
