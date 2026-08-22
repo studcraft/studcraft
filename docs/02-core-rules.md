@@ -14,21 +14,22 @@ These rules apply to all units unless another rule explicitly states otherwise.
 
 # Design Philosophy
 
-StudCraft uses a small set of universal systems shared by every unit.
+StudCraft is built around a small set of **universal foundations** shared by every game system.
 
-The model provides the physical values and capabilities; these rules define how those values are used.
+These foundations provide the common language for how the game measures space, handles actions, determines direction and visibility, and represents game state.
 
-The core systems are:
+## Universal Foundations
 
 * **Unit Bases (UB)** — the universal spatial measurement.
 * **Action Points (AP)** — the universal action economy.
-* **Facing** — the common reference for direction and movement.
-* **Physical Visibility** — line of sight is determined by the model and battlefield.
-* **Physical Representation** — game state should be represented by the model whenever possible.
+* **Facing** — the common reference for direction and orientation.
+* **Physical Visibility** — line of sight is determined by the models and battlefield.
+* **Physical Representation** — game state should be represented physically whenever possible.
 
-Domain rules such as Infantry, Vehicles, Weapons and Damage build on these systems rather than creating parallel ones.
+Systems such as **Movement, Combat, Damage, Weapons, Infantry, and Vehicles** build upon these foundations rather than creating parallel rules.
 
 > **The model supplies the values. The ruleset supplies the procedures.**
+
 
 ---
 
