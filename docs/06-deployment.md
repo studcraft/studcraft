@@ -18,13 +18,17 @@ The battlefield determines the size of the game.
 
 # Design Philosophy
 
-StudCraft measures army size using physical volume instead of abstract points.
+StudCraft measures army size using physical space instead of abstract points.
 
-Every vehicle and infantry model occupies space; a scenario-placed structure's Deployment Volume occupation is not yet defined (`02-core-rules.md`, CORE-005).
+Every vehicle and infantry model occupies physical space. The floor area occupied by a model determines how much Deployment Volume floor space is required to deploy it.
 
-The floor that space covers becomes the cost of including the model, and it is also what a vehicle's height has to justify (`08-vehicles.md`, VEH-028). Height itself is never charged separately: the second thing bounding it is a ceiling the players agreed to (DEP-001), not a price any one of them pays.
+Vehicle height is not determined by its footprint.
 
-Wider models provide greater capabilities but consume more deployment capacity.
+The Deployment Volume defines both the available floor area and the maximum deployment height. A model may be deployed if its physical geometry fits within the agreed Deployment Volume.
+
+Wider models consume more floor space. Taller models require sufficient vertical clearance.
+
+Balance emerges from the physical space available rather than from points or army lists.
 
 ---
 
@@ -34,8 +38,8 @@ Before the game begins, players agree on a **Deployment Volume**.
 
 A Deployment Volume is measured in **Unit Bases (UB)** (`02-core-rules.md`, CORE-001) and written `W × D × H`.
 
-* `W × D` is the floor area, counted in Unit Bases.
-* `H` is the maximum height in Unit Bases.
+* `W × D` is the available floor area, counted in Unit Bases.
+* `H` is the maximum deployment height in Unit Bases.
 
 If only two dimensions are given, the Deployment Volume is **1 UB high**.
 
@@ -49,7 +53,7 @@ Deployment Volumes may have any dimensions agreed upon by the players or defined
 
 # DEP-002 — Army Capacity
 
-A player's army is any combination of models that can be physically placed within the agreed Deployment Volume (`DEP-001`).
+A player's army is any combination of models that can be physically placed within the agreed Deployment Volume.
 
 Every model must fit within the Deployment Volume's floor and beneath its ceiling. Models cannot overlap.
 
@@ -63,25 +67,31 @@ The physical placement of the models is the final check. A combination is legal 
 
 A vehicle occupies every Unit Base covered by its footprint.
 
+The footprint determines the vehicle's horizontal Deployment Volume occupation.
+
 Example:
 
 Vehicle dimensions:
 
 `2 × 5 UB`
 
-Deployment cost:
+Deployment occupation:
 
-10 Unit Bases.
+`10 Unit Bases`
 
-Those Unit Bases are spent, and cannot be spent again.
+Those Unit Bases are occupied and cannot be occupied by another model.
 
-That same footprint bounds the vehicle's height: one Unit Base for every two studs of its narrowest side (`08-vehicles.md`, VEH-028). Where an outline is not rectangular the height is read from the smallest rectangle of Unit Bases enclosing it, which never changes what is charged here. The agreed ceiling (DEP-001) bounds it a second time, and a vehicle must satisfy both.
+Vehicle height is checked separately against the Deployment Volume ceiling.
 
 ---
 
 # DEP-004 — Infantry
 
-Each infantry model occupies 1 Unit Base (`02-core-rules.md`, CORE-003). Deployed individually, this UB counts against the Deployment Volume; already embarked inside a transport, it counts only against the transport's own interior UB (DEP-006) — not as additional Deployment Volume.
+Each infantry model occupies 1 Unit Base (`02-core-rules.md`, CORE-003).
+
+When deployed individually, this UB counts against the Deployment Volume floor.
+
+When embarked inside a transport, the infantry model occupies the transport's interior space and does not consume additional Deployment Volume floor space (`DEP-006`).
 
 ---
 
@@ -103,7 +113,7 @@ If it does not fit, it cannot.
 
 Embarked units are considered part of the transport during deployment.
 
-Their occupied space is the transport interior, not additional Deployment Volume.
+Their occupied space is the transport interior, not additional Deployment Volume floor space.
 
 This represents one of the main strategic advantages of transport vehicles.
 
@@ -117,13 +127,19 @@ It physically carries:
 
 8 infantry.
 
-Deployment Cost:
+Deployment occupation:
 
 Only the transport footprint.
 
-The infantry do not consume additional Deployment Volume while embarked.
+The infantry do not consume additional Deployment Volume floor space while embarked.
 
-The waiver is for **embarked** units. A model carried on the outside — on a roof, a bonnet, a hull top or the outside of a turret — is not embarked, so it is deployed individually and costs Deployment Volume of its own: one Unit Base for an infantry model (DEP-004), its own footprint for a vehicle (DEP-003). Embarking means occupying a constructed interior space measured in Unit Bases (`09-transport.md`, TRN-001), and an externally carried model counts toward the carrier's height as well (`08-vehicles.md`, VEH-030).
+The waiver applies only to embarked units. A model carried on the outside — on a roof, bonnet, hull top or outside of a turret — is not embarked.
+
+An externally carried infantry model is therefore deployed individually and occupies 1 Unit Base of Deployment Volume floor space (`DEP-004`).
+
+An externally carried vehicle is deployed according to its own footprint (`DEP-003`).
+
+Externally carried models also form part of the physical model for deployment-height purposes and must fit beneath the Deployment Volume ceiling (`08-vehicles.md`, VEH-030).
 
 ---
 
@@ -131,7 +147,9 @@ The waiver is for **embarked** units. A model carried on the outside — on a ro
 
 Embarking, disembarking, access points, and open/closed transport rules are defined in `09-transport.md`.
 
-Deployment only determines how much battlefield space a transport (and its embarked units) consumes before the game begins. See DEP-005 and DEP-006.
+Deployment only determines how much battlefield space a transport and its embarked units consume before the game begins.
+
+See `DEP-005` and `DEP-006`.
 
 ---
 
@@ -142,10 +160,12 @@ Players may freely combine infantry, vehicles and transports within their Deploy
 For example, a `5 × 4 × 2 UB` Deployment Volume may contain:
 
 * **20 infantry**, filling the floor.
-* **2 tanks and 8 infantry**, if their footprints can be placed within the floor.
-* **1 super-heavy transport carrying 2 walkers and 4 infantry**, provided the transport and its contents satisfy the applicable transport and height requirements.
+* **2 tanks and 8 infantry**, if their footprints can be placed within the floor and all models fit beneath the ceiling.
+* **1 super-heavy transport carrying 2 walkers and 4 infantry**, provided the transport and its contents satisfy the applicable transport rules and the complete deployed model fits within the Deployment Volume.
 
-These are examples only. Any combination is legal if the models physically fit within the Deployment Volume.
+These are examples only.
+
+Any combination is legal if all models can be physically placed within the Deployment Volume at the same time.
 
 ---
 
@@ -197,13 +217,13 @@ No upper limit exists.
 
 StudCraft intentionally replaces army points with physical space.
 
-Players pay for wider units by sacrificing floor space — and for taller ones twice over, since height is bounded by that same floor and again by the volume the players agreed to.
+Wider models consume more floor space, while taller models require sufficient vertical clearance within the agreed Deployment Volume.
 
-Large vehicles gain transport capacity, survivability and firepower naturally.
+Large vehicles gain transport capacity, survivability and firepower naturally through their physical construction.
 
 Small forces gain flexibility and numbers.
 
-Balance emerges from construction rather than army lists.
+Balance emerges from construction and physical deployment space rather than from points values.
 
 ---
 
@@ -211,10 +231,10 @@ Balance emerges from construction rather than army lists.
 
 Deployment follows four principles:
 
-1. Army size is measured in Unit Bases.
-2. Vehicles consume floor space according to their footprint, which also bounds their height, and must fit under the agreed ceiling as well.
-3. Transport capacity depends on physical interior volume.
-4. Embarked units do not consume additional Deployment Volume.
+1. Army size is measured using Unit Bases.
+2. Vehicles consume floor space according to their footprint.
+3. A model's height is checked against the Deployment Volume ceiling.
+4. Transport capacity depends on physical interior space, and embarked units do not consume additional Deployment Volume floor space.
 
 Embarking, disembarking and access point rules are defined in `09-transport.md`.
 

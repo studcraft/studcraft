@@ -378,7 +378,7 @@ Movable Gameplay Geometry is measured in its highest position during play.
 
 Models carried outside a vehicle are not embarked and count toward vehicle height. They also occupy their own Deployment Volume space (`06-deployment.md`, DEP-006).
 
-Adding Visual Geometry does not change vehicle height or legality (`15-geometry-layers.md`, GEO-007).
+Adding Visual Geometry does not change vehicle height or legality.
 
 ---
 

@@ -288,7 +288,7 @@ Each floor above the lowest adds its own physical thickness.
 
 Each level has its own cargo capacity and clearance (`TRN-003`, `TRN-019`).
 
-The number of levels a vehicle can contain is limited by its construction and maximum height (`08-vehicles.md`, VEH-028).
+The number of levels a vehicle can contain is limited by its construction and deployment height agreement.
 
 ---
 
