@@ -204,6 +204,4 @@ By using a small number of universal systems and expressing gameplay through phy
 
 ---
 
-> **The Model Is The Rules.**
-
 > **Every Brick Matters.**
