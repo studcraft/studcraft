@@ -90,7 +90,7 @@ Muzzle size times three (WPN-021).
 # body, its own sub-headings included. That pattern is deleted along with the
 # code that used it — reimporting it just to keep a comparison test alive
 # would keep the defect on life support, so it is reproduced here, once, as a
-# literal, for `TestTheMigrationMovesNothingButDEP009` alone.
+# literal, for `TestTheMigrationOnlyGrowsBodiesWithSubHeadings` alone.
 _OLD_HEADING_RE = re.compile(r"^#{1,2} \S")
 _OLD_RULE_HEADER_LINE_RE = re.compile(r"^#{1,2} ([A-Z]{2,6})-(\d{3}) — (.+?)\s*$")
 
@@ -202,25 +202,26 @@ class TestOutline:
 
 
 class TestABodyDoesNotStopAtItsOwnSubHeading:
-    """Regression test for the bug this migration exists to fix:
-    `scripts/rule.py show DEP-009` printed without its four scenario
-    sub-sections, because the old body-end rule stopped at *any* heading,
-    including a rule's own `##` scenarios.
+    """Regression test for the bug this migration exists to fix: a rule was
+    printed without its own sub-sections, because the old body-end rule
+    stopped at *any* heading, including a rule's own `##` scenarios.
+
+    `DOCUMENT_WITH_A_CHAPTER` carries the shape — VEH-001 and its
+    `## Scenario One`. Which rules in `docs/` have sub-sections changes with
+    the ruleset; the shape does not.
     """
 
-    def test_dep_009s_body_reaches_past_massive_battle(self):
-        path = DOCS_DIR / "06-deployment.md"
-        text = path.read_text()
-        lines = text.splitlines()
-        massive_battle_line = next(
+    def test_a_body_reaches_past_its_own_sub_heading(self):
+        lines = DOCUMENT_WITH_A_CHAPTER.splitlines()
+        scenario_line = next(
             number for number, line in enumerate(lines, start=1)
-            if line == "## Massive Battle"
+            if line == "## Scenario One"
         )
 
-        rules = build_index.parse_document(path.name, text)
-        (dep009,) = [rule for rule in rules if rule["id"] == "DEP-009"]
+        rules = build_index.parse_document("08-vehicles.md", DOCUMENT_WITH_A_CHAPTER)
+        (veh001,) = [rule for rule in rules if rule["id"] == "VEH-001"]
 
-        assert dep009["line_end"] > massive_battle_line
+        assert veh001["line_end"] > scenario_line
 
 
 class TestLineEnd:
@@ -230,22 +231,31 @@ class TestLineEnd:
                 assert rule["line_end"] >= rule["line"], rule["id"]
 
 
-class TestTheMigrationMovesNothingButDEP009:
+class TestTheMigrationOnlyGrowsBodiesWithSubHeadings:
     """The measurements taken for this migration say the citation graph does
-    not move — `cites` is identical for all 197 rules, before and after — and
-    that exactly one rule's body grows: DEP-009's, whose scenario
-    sub-sections name no rule ID at all. This pins both claims against the
-    real `docs/`, rather than trusting them.
+    not move — `cites` is identical for every rule, before and after — and
+    that the only bodies that grow are the ones the old body-end rule cut
+    short: rules carrying a `#`/`##` sub-heading of their own.
+
+    *Which* rules those are is a property of `docs/` on the day it is read,
+    and naming one here makes an ordinary edit to that rule fail a test about
+    body spans. What is pinned is the property.
     """
 
-    def test_197_rules_same_cites_and_only_dep_009s_body_grows(self):
+    def test_same_rules_same_cites_and_only_sub_sectioned_bodies_grow(self):
         old: dict[str, dict] = {}
         new: dict[str, dict] = {}
+        sub_sectioned: set[str] = set()
         for path in sorted(DOCS_DIR.glob("*.md")):
             text = path.read_text()
             old.update(_pre_migration_parse(text))
             for rule in build_index.parse_document(path.name, text):
                 new[rule["id"]] = {"line_end": rule["line_end"], "cites": rule["cites"]}
+            for section in ruleset_ast.parse_text(path.name, text).root.rules():
+                # Level 3 and deeper never closed a body: `_OLD_HEADING_RE`
+                # matched `#` and `##` only.
+                if any(child.level <= 2 for child in section.children):
+                    sub_sectioned.add(section.rule_id)
 
         # Not a rule count. Retiring an ID is legal — `system/documentation-standards.md`
         # (Naming Conventions) — and a hardcoded total makes every retirement
@@ -258,10 +268,10 @@ class TestTheMigrationMovesNothingButDEP009:
         new_cites = {rule_id: entry["cites"] for rule_id, entry in new.items()}
         assert old_cites == new_cites
 
-        grown = [rid for rid in new if new[rid]["line_end"] > old[rid]["line_end"]]
-        shrunk = [rid for rid in new if new[rid]["line_end"] < old[rid]["line_end"]]
-        assert grown == ["DEP-009"]
-        assert shrunk == []
+        grown = {rid for rid in new if new[rid]["line_end"] > old[rid]["line_end"]}
+        shrunk = {rid for rid in new if new[rid]["line_end"] < old[rid]["line_end"]}
+        assert grown == sub_sectioned
+        assert shrunk == set()
 
 
 class TestWritingTheIndex:
