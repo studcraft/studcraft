@@ -158,7 +158,7 @@ A stepped surface (`07-movement.md`, MOVE-013) is climbed one step at a time, an
 
 **Each such step is charged.** A move crossing two steps of 4 to 6 plate layers spends the movement action's Action Point and 2 more, because it climbed two obstacles and not one — INF-007's "2 AP in total" counts one climb, which is the ordinary case rather than the only one. A staircase steep enough to charge for twice is one a unit may not finish in a single activation, which the 3 Action Points of `02-core-rules.md` (CORE-006) bound on their own.
 
-Distance travelled up either counts against the normal movement limit (INF-002).
+Distance traveled up either counts against the normal movement limit (INF-002).
 
 A vehicle reads the same staircase as one obstacle of its total rise rather than a series of small ones (`08-vehicles.md`, VEH-027): infantry takes the steps and a vehicle cannot.
 
@@ -172,29 +172,28 @@ A vertical face taller than INF-008's threshold cannot be climbed unless a slope
 
 # INF-011 — Falling Damage
 
-When a fall happens and where the unit is placed is the general rule (`07-movement.md`, MOVE-015); this rule states what it costs an infantry model. Falling damage depends on the height fallen, measured in plate layers — the same unit obstacles use (INF-006).
+Falling and placement are resolved according to `07-movement.md` (MOVE-015).
 
-Roll **one D6 for every complete brick (3 plate layers) fallen beyond the first**. A remainder of one or two plate layers adds no die.
+For infantry, falling damage is based on height fallen, measured in plate layers (`INF-006`).
 
-The first brick is free, which is why a fall of 3 plate layers or less needs no roll at all: INF-006 already treats that height as trivial to cross, and stepping down it is no more dangerous than stepping over it.
+The first brick (3 plate layers) causes no damage. For every complete brick beyond the first, roll 1D6 as a Damage Roll (`16-damage-system.md`, DMG-015).
 
-Each die is treated as a Damage Roll (`16-damage-system.md`, DMG-015): a result of 4, 5, or 6 means no damage. A result of 1, 2, or 3 advances the faller's Component State one step (`Operational → Wounded`, or `Wounded → Dead`).
+Each Damage Roll is resolved independently:
 
-The dice are independent and are never pooled, resolved exactly as multiple Impacts are (DMG-016). Two failed dice therefore take an Operational unit to Dead — the higher the fall, the more dice, and the more likely both a wound and a death.
+* **1–3:** Damage — advance the faller's Component State one step.
+* **4–6:** No Damage — no effect.
 
-This is a declared exception to the normal sequence: falling has no Impact Strength and no attacker, so there is no Geometry Check (DMG-014) to pass first. The Damage Rolls apply directly, and Resistance plays no part in falling damage.
+Falling damage does not use an Impact, so no Geometry Check is made and Resistance does not apply.
 
-No height is certainly fatal. A unit that survives a very tall fall has simply passed every Damage Roll, which `16-damage-system.md` (DMG-015) already describes as a fortunate landing rather than an oversight. This is intentional: in StudCraft, geometry can rule an outcome out — the first brick of a fall, like an Impact below a component's Resistance (DMG-014) — but geometry never rules an outcome in. A minifig can survive two cannon Impacts for the same reason it can survive a fall from a tower.
+Vehicle falling is resolved separately under `08-vehicles.md` (VEH-026).
 
-Vehicle falling is defined separately in `08-vehicles.md` (VEH-026), which scales from each vehicle's own Terrain Threshold rather than from a fixed first brick.
+## Examples
 
-Example:
-
-- Fall of 1 brick (3 plate layers) → no dice, no damage.
-- Fall of 2 bricks → Roll 1D6. A failure wounds; a fall this short cannot kill an Operational unit.
-- Fall of 3 bricks → Roll 2D6, resolved independently. Two failures kill.
-- Fall of 5 bricks → Roll 4D6, resolved independently.
-- Fall of 10 bricks → Roll 9D6. Survival is very unlikely.
+* Fall of 1 brick (3 plate layers) → 0 Damage Rolls.
+* Fall of 2 bricks → 1 Damage Roll.
+* Fall of 3 bricks → 2 Damage Rolls.
+* Fall of 5 bricks → 4 Damage Rolls.
+* Fall of 10 bricks → 9 Damage Rolls.
 
 ---
 
