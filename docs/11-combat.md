@@ -137,8 +137,6 @@ When Attack Dice are split:
 * A die assigned to a target that fails either check has no valid target and is not rolled.
 * The attack still costs the single Action Point for that weapon system.
 
-See `16-damage-system.md`, DMG-018, Weapon Distribution.
-
 ---
 
 # CBT-008 — Defender Resolution
@@ -152,7 +150,7 @@ That system determines:
 3. Whether the component changes state.
 4. Whether the Impact continues to another component.
 
-See `16-damage-system.md`, DMG-012 through DMG-017.
+See `16-damage-system.md`, DMG-011 through DMG-016.
 
 Combat generates the Impacts; the Damage System determines their consequences.
 
@@ -162,7 +160,7 @@ Combat generates the Impacts; the Damage System determines their consequences.
 
 Combat results are represented physically on the LEGO model.
 
-When a component is destroyed, it is physically removed according to the Universal Destruction rule (`16-damage-system.md`, DMG-006).
+When a component is destroyed, it is physically removed according to the Universal Destruction rule (`16-damage-system.md`, DMG-005).
 
 ---
 
@@ -177,7 +175,7 @@ Weapons provide offensive properties such as:
 * Ranged delivery through Range and Line of Sight.
 * Melee delivery through Physical Contact.
 
-Impact Strength (`10-weapons.md`, WPN-021) is derived from the physical size of the muzzle or striking end. It is used by the Damage System's Geometry Check (`16-damage-system.md`, DMG-014).
+Impact Strength (`10-weapons.md`, WPN-021) is derived from the physical size of the muzzle or striking end. It is used by the Damage System's Geometry Check (`16-damage-system.md`, DMG-013).
 
 The target's construction determines Resistance and all resulting consequences.
 
@@ -187,7 +185,7 @@ The target's construction determines Resistance and all resulting consequences.
 
 Cover does not modify weapon performance or Impact resolution.
 
-It only determines whether a component can be selected as a target (`02-core-rules.md`, CORE-010; `16-damage-system.md`, DMG-012).
+It only determines whether a component can be selected as a target (`02-core-rules.md`, CORE-010; `16-damage-system.md`, DMG-011).
 
 A hidden component is untargetable.
 
@@ -223,7 +221,7 @@ Future combat rules must preserve the Impact-based combat system.
 
 # CBT-015 — Attacking While Wounded
 
-A Wounded weapon (`16-damage-system.md`, DMG-005) still attacks, but each Attack Die is less reliable.
+A Wounded weapon (`16-damage-system.md`, DMG-002) still attacks, but each Attack Die is less reliable.
 
 For every Attack Die it generates:
 

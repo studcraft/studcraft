@@ -4,7 +4,7 @@
 `system/delegating-to-agents.md` ("Give the replacement text verbatim") fixes
 the shape every edit task in this repository takes:
 
-    - [ ] 2.1 In `CMP-001`, replace this anchor — the whole rule body:
+    - [ ] 2.1 In `AAA-001`, replace this anchor — the whole rule body:
 
     ```
     the text as it stands

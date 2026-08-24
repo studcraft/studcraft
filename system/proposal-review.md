@@ -148,9 +148,9 @@ because nobody wrote down the reason — one re-proposed a reordering that had
 been applied and reverted days earlier.
 
 A rejection and its reasoning belong in `design.md`, and if the question will
-recur for a reader of the ruleset, in the rule itself. `MEL-010`, `CBT-011` and
-`WPN-021` keep the superseded thing visible and say why, rather than leaving a
-clean surface that invites the same suggestion again.
+recur for a reader of the ruleset, in the rule itself. `CBT-011` and `WPN-021`
+keep the superseded thing visible and say why, rather than leaving a clean
+surface that invites the same suggestion again.
 
 ---
 

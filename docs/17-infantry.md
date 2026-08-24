@@ -10,7 +10,7 @@ Infantry is a unit domain, as Vehicles is. The mechanics every unit shares are `
 
 ---
 
-## Design Philosophy
+# Design Philosophy
 
 Infantry has no movement statistic.
 
@@ -176,7 +176,7 @@ Falling and placement are resolved according to `07-movement.md` (MOVE-015).
 
 For infantry, falling damage is based on height fallen, measured in plate layers (`INF-006`).
 
-The first brick (3 plate layers) causes no damage. For every complete brick beyond the first, roll 1D6 as a Damage Roll (`16-damage-system.md`, DMG-015).
+The first brick (3 plate layers) causes no damage. For every complete brick beyond the first, roll 1D6 as a Damage Roll (`16-damage-system.md`, DMG-014).
 
 Each Damage Roll is resolved independently:
 
@@ -202,7 +202,7 @@ Vehicle falling is resolved separately under `08-vehicles.md` (VEH-026).
 
 # INF-012 — Wounded Movement
 
-A Wounded infantry model (`16-damage-system.md`, DMG-005) moves **at most two steps** in whichever direction it travels.
+A Wounded infantry model (`16-damage-system.md`, DMG-002) moves **at most two steps** in whichever direction it travels.
 
 The step is the one that direction already uses (`02-core-rules.md`, CORE-001): the Unit Base's 3-stud depth forward and backward (INF-002, INF-004), and its 4-stud width sideways (INF-003). So a Wounded model may move **up to 6 studs forward or backward** and **up to 8 studs sideways** — distances those rules already allow, with the longer ones removed.
 

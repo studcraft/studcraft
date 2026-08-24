@@ -15,9 +15,10 @@ paths:
   guard. Read it before adding or editing a workflow.
 - `system/delegating-to-agents.md` — what belongs in a `.claude/agents/`
   definition, and what the reviewer still has to do afterwards.
-- `system/documentation-standards.md` — Repository Structure, and how a rule is
-  written. A new script states its own job in its docstring; the structure
-  table names directories, not files.
+- `system/documentation-standards.md` — Repository Structure, how a rule is
+  written, and Naming Conventions: **a script never names a rule that exists**,
+  in code, comment, docstring or `--help`. A new script states its own job in
+  its docstring; the structure table names directories, not files.
 
 `.claude/settings.json` also carries the `permissions` block. Its `deny` list is
 the git commands `system/repository-strategy.md` forbids and

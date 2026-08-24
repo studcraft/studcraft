@@ -65,7 +65,7 @@ What no script sees is **aim**: a cited ID that exists can still point at the wr
 
 ### 4. Rule-ID stability
 
-IDs are permanent — never renumbered, never reused. A superseded rule keeps its number and carries a note saying so (`MEL-010`, `CBT-011`, `WPN-021`). The `13-*.md` gap is deliberate for the same reason. Report any renumbering, any reuse, any gap that is not.
+IDs are permanent — never renumbered, never reused. A superseded rule keeps its number and carries a note saying so (`CBT-011`, `WPN-021`). The `13-*.md` gap is deliberate for the same reason. Report any renumbering, any reuse, any gap that is not.
 
 ### 5. Glossary coverage
 

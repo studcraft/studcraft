@@ -54,7 +54,7 @@ Targets resolve Impacts using the Component Damage System (`16-damage-system.md`
 
 ## Component
 
-A single visible physical part of a model that combat targets independently (Pilot, Door, Wheel, Weapon, Track, and similar). Components have no Hit Points — only a Component State and a Resistance, both read from the model. See `16-damage-system.md` (DMG-001, DMG-002).
+A single visible physical part of a model that combat targets independently (Pilot, Door, Wheel, Weapon, Track, and similar). Components have no Hit Points — only a Component State and a Resistance, both read from the model. See `16-damage-system.md` (DMG-001, DMG-002, DMG-003).
 
 ---
 
@@ -80,7 +80,7 @@ They may attack and be attacked, subject to normal Line of Sight. See `09-transp
 
 ## Closed Transport
 
-Passengers cannot be targeted directly; they are internal components the hull protects, reachable only if an Impact penetrates the hull with remaining strength (`09-transport.md`, TRN-010; `16-damage-system.md`, DMG-007, DMG-016).
+Passengers cannot be targeted directly; they are internal components the hull protects, reachable only if an Impact penetrates the hull with remaining strength (`09-transport.md`, TRN-010; `16-damage-system.md`, DMG-006, DMG-016).
 
 ---
 
@@ -100,7 +100,7 @@ The direction a unit is oriented toward, and what movement is performed relative
 
 ## Deployment Volume
 
-The limit on a player's army, agreed before the game and measured in Unit Bases: a floor of `W × D` Unit Bases to spend, and a ceiling `H` every model must stand under. See `06-deployment.md` (DEP-001).
+The limit on a player's army, agreed before the game and measured in Unit Bases: a floor of `W × D` Unit Bases every model must be placed within, and a ceiling `H` every model must stand under. See `06-deployment.md` (DEP-001).
 
 ---
 
@@ -228,19 +228,19 @@ Not a separate statistic — the colloquial name for a component's construction-
 
 ## Component State
 
-The three-state progression every component uses: `Operational`, `Wounded`, `Dead`. Universal — no component type has an exception. See `16-damage-system.md` (DMG-005).
+The three-state progression every component uses: `Operational`, `Wounded`, `Dead`. Universal — no component type has an exception. See `16-damage-system.md` (DMG-002).
 
 ---
 
 ## Geometry Check
 
-The step in damage resolution that compares an Impact's Strength against a component's Resistance; below Resistance, the Impact ends immediately with no further roll. See `16-damage-system.md` (DMG-014).
+The step in damage resolution that compares an Impact's Strength against a component's Resistance; below Resistance, the Impact ends immediately with no further roll. See `16-damage-system.md` (DMG-013).
 
 ---
 
 ## Damage Roll
 
-The die roll that follows a passed Geometry Check; on a 1, 2, or 3 the component's state advances by one step. See `16-damage-system.md` (DMG-015).
+The die roll that follows a passed Geometry Check; on a 1, 2, or 3 the component's state advances by one step. See `16-damage-system.md` (DMG-014).
 
 ---
 
@@ -288,13 +288,13 @@ The order in which players activate their units through a Turn: every player rol
 
 ## Wounded
 
-The middle Component State: the component still functions, and where the capability it provides is one of the three the ruleset degrades, it functions worse — a Wounded infantry model's movement (`17-infantry.md`, INF-012), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded, whether that is the weapon or an unarmed attacker (`11-combat.md`, CBT-015). A component that provides none of those — a door, a wheel, a shield — loses nothing by being Wounded. Nothing else about any component changes, and the next successful damaging Impact advances it to Dead. A Wounded infantry model is placed seated, which is how the state is shown on the model. See `16-damage-system.md`, DMG-005.
+The middle Component State: the component still functions, and where the capability it provides is one of the three the ruleset degrades, it functions worse — a Wounded infantry model's movement (`17-infantry.md`, INF-012), the movement of a vehicle whose Pilot is Wounded (`08-vehicles.md`, VEH-031), and how each Attack Die is read when the component providing the attack is Wounded, whether that is the weapon or an unarmed attacker (`11-combat.md`, CBT-015). A component that provides none of those — a door, a wheel, a shield — loses nothing by being Wounded. Nothing else about any component changes, and the next successful damaging Impact advances it to Dead. A Wounded infantry model is placed seated, which is how the state is shown on the model. See `16-damage-system.md`, DMG-002.
 
 ---
 
 ## Step
 
-An infantry movement increment: one Unit Base depth (3 studs) moving forward or backward, one Unit Base width (4 studs) moving sideways. Used to state a Wounded model's shorter limit as a count rather than a fraction, because half of a legal distance is not always a legal distance. See `17-infantry.md` (INF-012). Not to be confused with a stair's step (INF-009) or with a Component State advancing one step (`16-damage-system.md`, DMG-005).
+An infantry movement increment: one Unit Base depth (3 studs) moving forward or backward, one Unit Base width (4 studs) moving sideways. Used to state a Wounded model's shorter limit as a count rather than a fraction, because half of a legal distance is not always a legal distance. See `17-infantry.md` (INF-012). Not to be confused with a stair's step (INF-009) or with a Component State advancing one step (`16-damage-system.md`, DMG-002).
 
 ---
 

@@ -148,7 +148,7 @@ No visibility templates are used.
 
 Visual Geometry is physically present and therefore affects visibility (`15-geometry-layers.md`, GEO-004).
 
-A transparent element does not block sight. It stops an Impact only through its own Resistance, like any other component (`16-damage-system.md`, DMG-008).
+A transparent element does not block sight. It stops an Impact only through its own Resistance, like any other component (`16-damage-system.md`, DMG-007).
 
 ---
 
@@ -162,7 +162,7 @@ A transparent element does not block sight. It stops an Impact only through its 
 
 Cover is physical, not templated.
 
-A component that is completely hidden by terrain, another model or Visual Geometry cannot be selected as a target (`15-geometry-layers.md`, GEO-004; `16-damage-system.md`, DMG-012).
+A component that is completely hidden by terrain, another model or Visual Geometry cannot be selected as a target (`15-geometry-layers.md`, GEO-004; `16-damage-system.md`, DMG-011).
 
 A partially visible component has no separate cover level. It is simply visible or it is not.
 

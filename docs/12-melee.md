@@ -49,7 +49,7 @@ If the weapon cannot physically reach the target, the attack is not legal. No me
 
 # MEL-002 — Component Targeting
 
-A melee attack may target any visible, physically reachable component, exactly like a ranged attack (`16-damage-system.md`, DMG-012).
+A melee attack may target any visible, physically reachable component, exactly like a ranged attack (`16-damage-system.md`, DMG-011).
 
 Examples:
 
@@ -141,7 +141,7 @@ Shields are defensive components. They never generate Attack Dice. Their interac
 
 # MEL-011 — Physical Representation
 
-Combat results should be represented on the LEGO model whenever possible, per the universal physical-representation principle (`02-core-rules.md`, CORE-016; `16-damage-system.md`, DMG-005, DMG-006).
+Combat results should be represented on the LEGO model whenever possible, per the universal physical-representation principle (`02-core-rules.md`, CORE-016; `16-damage-system.md`, DMG-002, DMG-005).
 
 Examples:
 
@@ -188,9 +188,8 @@ Melee combat is a special case of the standard combat system, not an independent
 - Physical contact, not Line of Sight and Range, gates the attack (MEL-001, MEL-014).
 - Each independently wielded weapon generates exactly one Attack Die, regardless of striking-end count (MEL-003); a striking end's size still determines Impact Strength (MEL-013, WPN-021).
 - A Wounded weapon still generates that die and reads it worse — as does a Wounded minifigure attacking unarmed, the one attack whose weapon system is the attacker (MEL-008; `11-combat.md`, CBT-015).
-- A melee attack is one unit's own action — it never grants the target a free counter-attack (MEL-004).
 
-Every Impact — ranged or melee — then resolves through the exact same sequence: Attack Roll, Select Target Component, Geometry Check, Damage Roll, Component State Change, Penetration (`16-damage-system.md`, DMG-016). No separate damage system exists.
+Every Impact — ranged or melee — then resolves through the exact same sequence: Attack Roll (`11-combat.md`, CBT-005), then Select Target Component, Geometry Check, Damage Roll, Component State Change and Penetration (`16-damage-system.md`, DMG-008). No separate damage system exists.
 
 ---
 

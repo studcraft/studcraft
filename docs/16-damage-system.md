@@ -95,6 +95,7 @@ All other properties remain unchanged, including:
 
 * Resistance
 * Impact Strength
+* The Damage Roll rolled against it
 * Footprint
 * Unit Base occupancy
 * Transport capacity

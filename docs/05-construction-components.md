@@ -76,7 +76,7 @@ A turret is a weapon mount (`10-weapons.md`, WPN-009) that must physically rotat
 
 A Shield is defensive equipment physically attached to an infantry model, visible on it, and occupying one of the two hands `17-infantry.md` (INF-001) gives a minifigure.
 
-A shield protects only what it physically stands between: one interposed between the attacker and a component protects it (`16-damage-system.md`, DMG-007), one facing away blocks nothing. Orientation matters for that reason, not for any separate defensive bonus.
+A shield protects only what it physically stands between: one interposed between the attacker and a component protects it (`16-damage-system.md`, DMG-006), one facing away blocks nothing. Orientation matters for that reason, not for any separate defensive bonus.
 
 ---
 

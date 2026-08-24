@@ -43,7 +43,7 @@ A Deployment Volume is measured in **Unit Bases (UB)** (`02-core-rules.md`, CORE
 
 If only two dimensions are given, the Deployment Volume is **1 UB high**.
 
-The floor is counted rather than treated as a shape. A `5 × 1` floor and a `1 × 5` floor both contain five Unit Bases.
+A `5 × 1` floor and a `1 × 5` floor both contain five Unit Bases.
 
 Deployment Volumes may have any dimensions agreed upon by the players or defined by the scenario.
 
@@ -55,7 +55,7 @@ Deployment Volumes may have any dimensions agreed upon by the players or defined
 
 A player's army is any combination of models that can be physically placed within the agreed Deployment Volume.
 
-Every model must fit within the Deployment Volume's floor and beneath its ceiling. Models cannot overlap.
+Every model must fit within the Deployment Volume's floor and beneath its ceiling. Models cannot overlap. A model occupies whole Unit Bases: a footprint covering part of one covers all of it.
 
 The player chooses which models to deploy. No points or other army-capacity system is used.
 

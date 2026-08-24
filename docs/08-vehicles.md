@@ -35,7 +35,7 @@ A powered vehicle occupies two or more Unit Bases (UB) (`02-core-rules.md`, CORE
 | Heavy Transport |     3 × 8 UB |
 | Super Heavy     | Player Built |
 
-There is no maximum footprint size. A vehicle's footprint determines its maximum height (VEH-028), while the Deployment Volume provides an additional ceiling (`06-deployment.md`, DEP-001).
+There is no maximum footprint size. A vehicle's height is bounded by the agreed Deployment Volume ceiling (`06-deployment.md`, DEP-001).
 
 ---
 
@@ -159,7 +159,7 @@ A decorative empty seat is not a Pilot.
 
 The Pilot occupies one Unit Base (`09-transport.md`, TRN-014), so the vehicle requires space for the Pilot in addition to its machinery. This establishes the two-Unit-Base minimum in VEH-001.
 
-The Pilot resolves Impacts as a normal component (`16-damage-system.md`, DMG-005).
+The Pilot resolves Impacts as a normal component (`16-damage-system.md`, DMG-002).
 
 A vehicle without a Pilot, or with a Dead Pilot, cannot move unless another crew member takes over.
 
@@ -310,7 +310,7 @@ Measure the fall from the surface left to the surface reached, in plate layers (
 
 A fall no deeper than the Terrain Threshold causes no damage.
 
-Beyond the threshold, roll one D6 for every complete brick (3 plate layers) of additional fall. Each roll is a Damage Roll (`16-damage-system.md`, DMG-015):
+Beyond the threshold, roll one D6 for every complete brick (3 plate layers) of additional fall. Each roll is a Damage Roll (`16-damage-system.md`, DMG-014):
 
 * 4–6: no effect
 * 1–3: one component advances one state
@@ -349,13 +349,13 @@ Vehicle height is measured from the surface the vehicle rests on when standing o
 
 Locomotion counts.
 
-A vehicle carried inside another vehicle is measured as it would stand on its own, against its own limits (`09-transport.md`, TRN-001, TRN-003).
+A vehicle carried inside another vehicle is measured as it would stand on its own, against the agreed Deployment Volume ceiling (`06-deployment.md`, DEP-001; `09-transport.md`, TRN-001, TRN-003).
 
 Terrain does not change a vehicle's legal height. A vehicle on a hill, in a depression or on a ramp is not remeasured.
 
 Height is measured vertically, never along a leaning element.
 
-Terrain capability is still read from the relevant locomotion component (`VEH-022` through `VEH-024).
+Terrain capability is still read from the relevant locomotion component (`VEH-022` through `VEH-024`).
 
 ---
 
@@ -417,7 +417,7 @@ Vehicles have no predefined profiles or statistics.
 
 Terrain capability comes from the locomotion's construction.
 
-Height is determined by the vehicle's footprint and the Deployment Volume ceiling.
+Height is bounded by the agreed Deployment Volume ceiling.
 
 A Wounded Pilot reduces movement from three lengths to two.
 

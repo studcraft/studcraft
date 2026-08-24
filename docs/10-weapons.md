@@ -246,7 +246,7 @@ Weapons do not have a damage value.
 
 Each successful Attack Die generates an Impact whose Strength is determined by the muzzle or striking end that produced it (WPN-021).
 
-The effect of the Impact depends on the target's Resistance and the Geometry Check (`16-damage-system.md`, DMG-003, DMG-014), followed by the Damage Roll (DMG-015).
+The effect of the Impact depends on the target's Resistance and the Geometry Check (`16-damage-system.md`, DMG-003, DMG-013), followed by the Damage Roll (DMG-014).
 
 Cover only determines whether the target can be selected (`02-core-rules.md`, CORE-010).
 
