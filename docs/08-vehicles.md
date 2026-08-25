@@ -382,9 +382,11 @@ Adding Visual Geometry does not change vehicle height or legality.
 
 # VEH-031 — What Damage Does to Movement
 
-A vehicle moves **twice its own length** per movement action instead of three times (`VEH-004`) when its Pilot is Wounded (`VEH-013`), or when some but fewer than half of its locomotion components are Dead (`16-damage-system.md`, DMG-002).
+If one or more, but fewer than half, of a vehicle's locomotion components are Dead (`16-damage-system.md`, DMG-002), its movement is reduced to **twice its own length** per movement action instead of three times (`VEH-004`).
 
-A vehicle with **half or more** of its locomotion components Dead cannot move and is Immobilized (`VEH-019`).
+If half or more of them are Dead, the vehicle cannot move and is Immobilized (`VEH-019`).
+
+A vehicle with a Wounded Pilot (`VEH-013`) is also reduced to twice its length, unless it cannot move for another reason.
 
 Facing, measurement and Action Point cost are unchanged.
 
@@ -396,11 +398,9 @@ Facing, measurement and Action Point cost are unchanged.
 | Tank            | 45 studs |      30 studs |
 | Heavy Transport | 72 studs |      48 studs |
 
-The reduction is not cumulative: a vehicle moves twice its own length whether one cause applies or both.
-
 A Wounded locomotion component does not change movement distance.
 
-Locomotion components are the parts that carry the vehicle — wheels, track runs, legs, repulsors (`VEH-012`). Decorative parts are not locomotion (`15-geometry-layers.md`, GEO-002) and are not counted.
+A locomotion component provides the vehicle's movement or its support against the battlefield — wheels, tracks, legs, repulsors (`VEH-012`). The test is what the component does, not what type the vehicle is. Decorative parts are not locomotion (`15-geometry-layers.md`, GEO-002) and are not counted.
 
 Examples:
 

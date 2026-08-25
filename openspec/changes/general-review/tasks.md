@@ -4876,6 +4876,101 @@ Weapon Length is the longest dimension of the functional Weapon Body, measured a
 
 ---
 
+## 41. `VEH-031` takes the reviewer's structure
+
+**Review feedback on #130**, a second pass over the same rule. The reviewer sent
+a full replacement; three of its parts are better than what section 39 wrote and
+three things it drops are load-bearing, so the result is a merge rather than a
+paste.
+
+**Taken from the review:**
+
+- *"unless it cannot move for another reason"* — decides Wounded Pilot together
+  with half the locomotion Dead without leaving the reader to rank two sentences.
+- *"movement or support against the battlefield"* — a better definition than
+  "the parts that carry the vehicle". Support is what a leg or a repulsor does.
+- Reduction first, immobilization second, Pilot third. It reads in the order a
+  player meets the cases.
+
+**Kept against the review, each verified during this change:**
+
+- The movement table. Those numbers appear nowhere else.
+- "A Wounded locomotion component does not change movement distance" — it is what
+  keeps `DMG-002`'s Wounded list and the glossary's *Wounded* entry true
+  (task 27.17).
+- "Facing, measurement and Action Point cost are unchanged", and the citations.
+
+**Dropped, because the review's structure makes it unnecessary:** "The reduction
+is not cumulative." Both causes state the same reduced distance, so applying both
+gives that distance. The sentence guarded arithmetic that cannot happen.
+
+**The title stays `What Damage Does to Movement`.** The review proposed
+*Locomotion Damage*, which names one of the rule's two causes — and its own text
+places the Wounded Pilot clause under that title. It would only be right if the
+Pilot sentence moved to `VEH-013`, which would give one number two owners.
+
+- [x] 41.1 In `docs/08-vehicles.md`, `VEH-031`, replace this anchor:
+
+```
+A vehicle moves **twice its own length** per movement action instead of three times (`VEH-004`) when its Pilot is Wounded (`VEH-013`), or when some but fewer than half of its locomotion components are Dead (`16-damage-system.md`, DMG-002).
+
+A vehicle with **half or more** of its locomotion components Dead cannot move and is Immobilized (`VEH-019`).
+```
+
+with:
+
+```
+If one or more, but fewer than half, of a vehicle's locomotion components are Dead (`16-damage-system.md`, DMG-002), its movement is reduced to **twice its own length** per movement action instead of three times (`VEH-004`).
+
+If half or more of them are Dead, the vehicle cannot move and is Immobilized (`VEH-019`).
+
+A vehicle with a Wounded Pilot (`VEH-013`) is also reduced to twice its length, unless it cannot move for another reason.
+```
+
+- [x] 41.2 In `docs/08-vehicles.md`, `VEH-031`, replace this anchor:
+
+```
+The reduction is not cumulative: a vehicle moves twice its own length whether one cause applies or both.
+
+A Wounded locomotion component does not change movement distance.
+
+Locomotion components are the parts that carry the vehicle — wheels, track runs, legs, repulsors (`VEH-012`). Decorative parts are not locomotion (`15-geometry-layers.md`, GEO-002) and are not counted.
+```
+
+with:
+
+```
+A Wounded locomotion component does not change movement distance.
+
+A locomotion component provides the vehicle's movement or its support against the battlefield — wheels, tracks, legs, repulsors (`VEH-012`). The test is what the component does, not what type the vehicle is. Decorative parts are not locomotion (`15-geometry-layers.md`, GEO-002) and are not counted.
+```
+
+### Verification
+
+- [x] 41.3 `grep -c -F "not cumulative" docs/08-vehicles.md` returns **0**. Run
+      and confirmed.
+
+- [x] 41.4 `grep -c -F "support against the battlefield" docs/08-vehicles.md`
+      returns **1**. Run and confirmed.
+
+- [x] 41.5 `grep -c -F "What Damage Does to Movement" docs/08-vehicles.md`
+      returns **1**. The title is unchanged by this section.
+
+- [x] 41.6 `python3 scripts/rule.py refs VEH-031` — cited by `VEH-004`,
+      `VEH-019`, `VEH-024`, `DMG-002` and the glossary's *Wounded*; cites
+      `DMG-002`, `VEH-004`, `VEH-019`, `VEH-013`, `VEH-012` and `GEO-002`.
+      **No citation lost in the rewrite.**
+
+- [x] 41.7 `python3 scripts/preflight.py` — every check green. Run: all 12 pass.
+
+- [x] 41.8 Read `VEH-031` in full, then `DMG-002`'s Wounded list and the
+      glossary's *Wounded* entry. Both still say a Wounded wheel loses nothing,
+      and `VEH-031`'s surviving "A Wounded locomotion component does not change
+      movement distance" is what holds that true. The review's replacement had
+      dropped that sentence; keeping it is why this section is a merge.
+
+---
+
 ## 12. Archive housekeeping — a separate pull request
 
 `a-deployment-volume-is-floor-and-ceiling` (#129) carries an unarchived
