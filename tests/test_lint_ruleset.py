@@ -37,6 +37,44 @@ def structure_errors(name: str, text: str, has_rules: bool = True) -> list[str]:
     return lint_ruleset.check_structure({name: text}, ids)
 
 
+class TestScriptsNameNoLiveRule:
+    """The check that keeps a script's illustrations from becoming references.
+
+    Both cases are built in `tmp_path`: a script that names a live rule, and one
+    that names an invented ID. `tests/` is not covered by the check, which is
+    why this file may go on saying `VEH-001` in its own fixtures.
+    """
+
+    def _errors(self, tmp_path, monkeypatch, source: str) -> list[str]:
+        (tmp_path / "example.py").write_text(source)
+        monkeypatch.setattr(lint_ruleset, "SCRIPTS_DIR", tmp_path)
+        return lint_ruleset.check_scripts_name_no_live_rule(
+            {"08-vehicles.md": {"VEH-001", "VEH-002"}}
+        )
+
+    def test_a_script_naming_a_live_rule_is_reported(self, tmp_path, monkeypatch):
+        errors = self._errors(tmp_path, monkeypatch, "# see VEH-001 for the shape\n")
+        assert len(errors) == 1
+        assert "VEH-001" in errors[0]
+        assert "example.py:1" in errors[0]
+
+    def test_an_invented_id_is_accepted(self, tmp_path, monkeypatch):
+        assert self._errors(tmp_path, monkeypatch, "# see AAA-001 for the shape\n") == []
+
+    def test_an_invented_number_under_a_real_prefix_is_accepted(
+        self, tmp_path, monkeypatch
+    ):
+        assert self._errors(tmp_path, monkeypatch, "# a bare (VEH-099) is fine\n") == []
+
+    def test_every_offending_line_is_reported_not_only_the_first(
+        self, tmp_path, monkeypatch
+    ):
+        errors = self._errors(tmp_path, monkeypatch, "# VEH-001\n# nothing\n# VEH-002\n")
+        assert len(errors) == 2
+        assert "example.py:1" in errors[0]
+        assert "example.py:3" in errors[1]
+
+
 class TestTheDocumentSkeleton:
     def test_a_complete_document_reports_nothing(self):
         assert structure_errors("08-vehicles.md", COMPLETE) == []
@@ -59,9 +97,18 @@ class TestTheDocumentSkeleton:
         assert structure_errors("14-glossary.md", text, has_rules=False) == []
 
     def test_the_recorded_exemption_is_not_reported_again(self):
-        assert "02-core-rules.md" in lint_ruleset.SECTION_DEBT
-        text = COMPLETE.replace("# Design Philosophy", "# Notes").replace("# Summary", "# Notes")
+        # What 02-core-rules.md is still owed: a Summary, and nothing else.
+        assert lint_ruleset.SECTION_DEBT["02-core-rules.md"] == ("Summary",)
+        text = COMPLETE.replace("# Summary", "# Notes")
         assert structure_errors("02-core-rules.md", text) == []
+
+    def test_a_section_the_exemption_no_longer_covers_is_reported(self):
+        # The other half of the same exemption, retired once the document
+        # gained the section. An exemption records debt and never notices when
+        # the debt is paid, so the check has to be the thing that notices.
+        text = COMPLETE.replace("# Design Philosophy", "# Notes")
+        errors = structure_errors("02-core-rules.md", text)
+        assert any("Design Philosophy" in error for error in errors)
 
     def test_the_closing_motto_is_required(self):
         errors = structure_errors("08-vehicles.md", COMPLETE.replace("> **Every Brick Matters.**", "Done."))

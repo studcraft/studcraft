@@ -53,9 +53,9 @@ When movement ends, the unit occupies its new position completely.
 
 StudCraft does not use diagonal movement.
 
-A unit reaches an off-axis position by combining the moves and turns its own domain gives it — infantry combines forward or backward with sideways (`17-infantry.md`, INF-003), a vehicle combines forward movement with turns (`08-vehicles.md`, VEH-007). Each leg is its own movement action, costing 1 Action Point.
+A unit reaches an off-axis position by combining the movement and turns allowed by its own domain — infantry combines forward or backward movement with sideways movement (`17-infantry.md`, INF-003), while vehicles combine forward movement with turns (`08-vehicles.md`, VEH-007). Each movement leg is a separate movement action and costs 1 Action Point.
 
-This maintains compatibility with the LEGO grid, and means a unit with 3 AP can make at most three movement legs in an activation.
+> **No diagonal movement.**
 
 ---
 
@@ -73,9 +73,9 @@ Whether a given unit may ascend one is its own domain's question — infantry (`
 
 ## MOVE-013 — Stairs
 
-A stepped surface is terrain built from discrete steps, whatever the steps are built from, and each step has a measurable height.
+A stepped surface is terrain built from discrete steps, whatever the steps are built from, and each step has a measurable height. Each step is an obstacle in its own right, read individually.
 
-Whether a given unit may climb one is its own domain's question — infantry (`17-infantry.md`, INF-009), vehicles never (`08-vehicles.md`, VEH-027).
+Whether a given unit may climb one is its own domain's question — infantry (`17-infantry.md`, INF-009), vehicles (`08-vehicles.md`, VEH-027).
 
 ---
 

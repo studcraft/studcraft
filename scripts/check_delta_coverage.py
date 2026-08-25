@@ -22,8 +22,9 @@ This script runs the archive-time coherence check early, on every PR:
 
 Renaming a scenario therefore fails here rather than at archive time. That is
 intended: a scenario heading is an identifier. When its content becomes wrong,
-keep the name and correct the body — the same stable-identifier convention
-MEL-010 and CBT-011 follow in the ruleset itself.
+keep the name and correct the body — the same stable-identifier convention the
+ruleset itself follows, where a rule whose design was superseded keeps its
+number and carries a note saying so.
 
 Exit code 0 if every delta is coherent (or there are no deltas), 1 otherwise.
 """

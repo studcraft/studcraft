@@ -76,7 +76,7 @@ A turret is a weapon mount (`10-weapons.md`, WPN-009) that must physically rotat
 
 A Shield is defensive equipment physically attached to an infantry model, visible on it, and occupying one of the two hands `17-infantry.md` (INF-001) gives a minifigure.
 
-A shield protects only what it physically stands between: one interposed between the attacker and a component protects it (`16-damage-system.md`, DMG-007), one facing away blocks nothing. Orientation matters for that reason, not for any separate defensive bonus.
+A shield protects only what it physically stands between: one interposed between the attacker and a component protects it (`16-damage-system.md`, DMG-006), one facing away blocks nothing. Orientation matters for that reason, not for any separate defensive bonus.
 
 ---
 
@@ -90,15 +90,15 @@ Gameplay always reflects the current physical model.
 
 # CMP-018 — Access Openings
 
-An access opening, with the component in its open position, must physically pass every model that uses it. What must pass is the Unit Bases that model occupies (`02-core-rules.md`, CORE-001) rather than its loose plastic, which is what makes the check a measurement rather than an attempt: the opening must be at least as wide as the model's front edge (`02-core-rules.md`, CORE-002) and as tall as the model stands. An opening that does not pass a model is decorative for that model and has no gameplay effect (CMP-001).
+An access opening must physically pass every model that uses it.
 
-Measure the *clear* opening rather than the nominal frame: an element hanging in the doorway reduces it exactly as much as the frame does — see `15-geometry-layers.md` (GEO-004).
+With the component in its open position, measure the **clear opening**, including any elements that reduce its available space (`15-geometry-layers.md`, GEO-004). The opening must be at least as wide as the model's front edge (`02-core-rules.md`, CORE-002) and as tall as the model stands.
 
-The check is made against the opening, not against the approach. Whether a model can reach the opening is the terrain's question — `17-infantry.md` (INF-008) for infantry, `08-vehicles.md` (VEH-021) for vehicles — and what must pass through the opening is this rule's.
+Whether a model can reach the opening is governed by the applicable movement rule (`17-infantry.md`, INF-008; `08-vehicles.md`, VEH-021).
 
-A component may therefore be an access point for one model and decorative for another — a hatch that passes a minifigure but not a motorcycle. The plastic has not changed; the question has.
+The check is made against the model as physically built and is repeated whenever the model changes (CMP-016).
 
-An opening is checked against the plastic as it stands: at the bench, like every other construction requirement in this document, and again whenever the model changes (CMP-016).
+> **If it fits, it passes.**
 
 ---
 

@@ -133,23 +133,41 @@ class TestFences:
 
 
 class TestLineEndCoversDescendants:
-    """The regression test for the bug that motivated this module:
-    `scripts/rule.py show DEP-009` printed without its four scenario
-    sub-sections because the old pattern ended a rule's body at *any*
-    heading, including its own.
+    """The regression test for the bug that motivated this module: a rule
+    printed without its own sub-sections, because the old pattern ended a
+    rule's body at *any* heading, including its own.
+
+    Which rules in `docs/` carry sub-sections is a property of the ruleset on
+    the day it is read, so the behaviour is pinned against a document written
+    here and the invariant is pinned against all fifteen.
     """
 
-    def test_dep_009_span_reaches_past_massive_battle(self):
-        document = ruleset_ast.parse(DOCS_DIR / "06-deployment.md")
-        (dep009,) = [s for s in document.root.rules() if s.rule_id == "DEP-009"]
+    def test_a_rules_span_reaches_past_its_own_sub_sections(self):
+        text = (
+            "# DEP-001 — With Scenarios\n\nintro\n\n"
+            "## Patrol\n\nsmall\n\n"
+            "## Massive Battle\n\nthe last line of the rule\n\n"
+            "# DEP-002 — After\n\nnext\n"
+        )
+        document = ruleset_ast.parse_text("t.md", text)
+        rule, _after = document.root.children
 
-        assert [child.title for child in dep009.children] == [
-            "Patrol", "Skirmish", "Battle", "Massive Battle",
-        ]
+        assert [child.title for child in rule.children] == ["Patrol", "Massive Battle"]
 
-        massive_battle = dep009.children[-1]
-        assert dep009.line_end == massive_battle.line_end
-        assert dep009.line_end > massive_battle.line
+        last = rule.children[-1]
+        assert rule.line_end == last.line_end
+        assert rule.line_end > last.line
+
+    @pytest.mark.parametrize("path", DOCS, ids=lambda p: p.name)
+    def test_no_section_ends_before_its_last_descendant(self, path: Path) -> None:
+        document = ruleset_ast.parse(path)
+        for section in document.root.walk():
+            if not section.children:
+                continue
+            assert section.line_end == section.children[-1].line_end, (
+                f"{path.name}:{section.line} {section.title!r} ends at "
+                f"{section.line_end}, before its last sub-section does"
+            )
 
 
 class TestBodyText:
@@ -172,14 +190,36 @@ class TestBodyText:
 
 class TestProseLines:
     def test_excludes_fenced_content(self):
-        # DMG-009's sequence diagram is the only place "Physical Model Changes"
-        # appears in the whole document — a citation scanner run over
-        # prose_lines() can never mistake it for real prose.
-        document = ruleset_ast.parse(DOCS_DIR / "16-damage-system.md")
-        assert any("Physical Model Changes" in line for line in document.lines)
+        # A citation scanner run over prose_lines() can never see a rule ID
+        # that only a fenced example contains. Written here rather than read
+        # out of `docs/`: which document holds a fence today is not what this
+        # is about.
+        text = (
+            "# DMG-001 — Fenced Example\n\nReal prose, citing DMG-015.\n\n"
+            "```\nFenced prose, citing DMG-999.\n```\n\nMore real prose.\n"
+        )
+        document = ruleset_ast.parse_text("t.md", text)
+        assert any("DMG-999" in line for line in document.lines)
 
         prose = document.root.prose_lines(document.lines)
-        assert not any("Physical Model Changes" in line for line in prose)
+        assert not any("DMG-999" in line for line in prose)
+        assert any("DMG-015" in line for line in prose)
+
+    @pytest.mark.parametrize("path", DOCS, ids=lambda p: p.name)
+    def test_drops_the_fenced_lines_of_a_real_document_and_nothing_else(
+        self, path: Path
+    ) -> None:
+        document = ruleset_ast.parse(path)
+        fenced = {
+            number
+            for section in document.root.walk()
+            for block in section.blocks
+            if block.kind == "fence"
+            for number in range(block.line_start, block.line_end + 1)
+        }
+
+        prose = document.root.prose_lines(document.lines)
+        assert len(prose) == len(document.lines) - len(fenced), path.name
 
 
 class TestToDict:

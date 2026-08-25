@@ -150,7 +150,7 @@ def tasks_with_commands(text: str) -> list[tuple[str, bool, str, str]]:
     """(task number, ticked, command, the expectation prose after it).
 
     A task wraps across several indented lines, and the number that matters is
-    as often on the second as on the first — "before: **2** (TRN-005's sentence
+    as often on the second as on the first — "before: **2** (AAA-005's sentence
     ...), after: **0**". Reading only the first line truncates the expectation
     exactly where it stops being useful, so continuation lines are folded in.
     """

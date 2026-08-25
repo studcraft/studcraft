@@ -4,18 +4,18 @@
 The index built by `scripts/build_index.py` answers, in one command each, the
 questions an audit otherwise answers by opening fifteen documents:
 
-  rule.py show VEH-013        the rule itself, as it reads in docs/
-  rule.py refs VEH-013        every rule that cites it — the inverse graph
-  rule.py neighbors VEH-013   what sits either side of it in its document
+  rule.py show <ID>           the rule itself, as it reads in docs/
+  rule.py refs <ID>           every rule that cites it — the inverse graph
+  rule.py neighbors <ID>      what sits either side of it in its document
   rule.py touched <change>    every rule an OpenSpec change names
   rule.py orphans             rules nothing cites and no glossary entry defines
   rule.py glossary            glossary entries that point at no rule
-  rule.py doc 08-vehicles.md  a document's chapters and rules, first sentence too
+  rule.py doc <document.md>   a document's chapters and rules, first sentence too
 
 **Every command except `orphans` and `glossary` takes as many arguments as you
 like**, and runs once per argument:
 
-  rule.py show CORE-002 CORE-006 FLOW-002 FLOW-003 FLOW-004
+  rule.py show <ID> <ID> <ID> <ID> <ID>
 
 Use that rather than a shell loop. A loop needs `$id`, and a command carrying a
 shell expansion cannot be matched by any permission rule — it interrupts to ask,

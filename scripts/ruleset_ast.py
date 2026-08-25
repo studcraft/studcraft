@@ -9,7 +9,8 @@ and a third, independent copy of the body-end pattern inside the linter. They
 disagreed with each other, silently — a rule written at `###` was invisible
 to one and not another, and a rule's own `##`/`###` sub-headings were read as
 the start of the next rule by every script that bounded a rule's body with a
-heading pattern of its own, `scripts/rule.py show DEP-009` included.
+heading pattern of its own — any rule carrying scenario sub-headings was
+printed without them.
 
 This module fixes that by building one tree per document and letting every
 caller read the same tree. It is not a CommonMark parser and does not try to
@@ -48,7 +49,7 @@ ATX_HEADING_RE = re.compile(r"^(#{1,3}) (\S.*?)\s*$")
 
 # The one definition of a rule heading, matched against a heading's *title*
 # (the text after the hashes and the one space), never against the raw line.
-# The em dash is required here: a heading like "## DMG-005 States" (no em
+# The em dash is required here: a heading like "## AAA-005 States" (no em
 # dash) is unambiguously not a rule, everywhere this module is used.
 # repo.RULE_ID_RE deliberately does not demand one — it looks for an ID
 # anywhere in prose, not for a heading, so it never has to decide this.
@@ -86,10 +87,10 @@ class Section:
     title: str  # heading text after the hashes and one space
     line: int  # the heading's own line, 1-indexed; 0 for the root
     line_end: int  # last line belonging to this section, descendants included
-    rule_id: str | None  # "MOVE-012" when this heading is a rule header
-    rule_prefix: str | None  # "MOVE"
+    rule_id: str | None  # "AAA-012" when this heading is a rule header
+    rule_prefix: str | None  # "AAA"
     rule_number: int | None  # 12
-    rule_title: str | None  # "Slopes"
+    rule_title: str | None  # the text after the em dash
     blocks: list[Block] = field(default_factory=list)  # this section's own, pre-first-child
     children: list[Section] = field(default_factory=list)
 

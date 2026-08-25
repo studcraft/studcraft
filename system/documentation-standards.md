@@ -139,14 +139,25 @@ Rule identifiers are never renumbered and never reused: `MOVE-001`, `WPN-001`,
 number is never reused either.
 
 A rule may be deleted. Its number is retired, never reissued, and no stub is
-left in its place — the diff records that the rule was there. `MEL-010` is the
-one stub, a number kept because its rule merged into another. Where the rule
-stays and only its design was superseded, the note goes inside that rule:
-`CBT-011` and `WPN-021` (`system/proposal-review.md`).
+left in its place — the diff records that the rule was there. Where the rule
+stays and only its design was superseded, the note goes inside that rule.
 
 Image filenames are a separate namespace owned by `assets/IMAGES.md`.
 `scripts/lint_ruleset.py` checks them against that convention and against the
 rule IDs in `docs/`.
+
+**A script never names a rule that exists**, in code, comment, docstring or
+`--help` text. No script's behaviour depends on one — the only rule-shaped
+thing in `scripts/` is `repo.RULE_ID_RE` — and an illustration that names a
+live ID is a dependency on a rule that can be retired or renumbered. Illustrate
+with an invented prefix (`AAA-001`, `BBB-002`), a placeholder, or an invented
+number under a real prefix (`VEH-099`): none of the three can rot.
+
+`tests/` is not held to this. A test fixture defines its own document, so an ID
+inside one is local by construction and names nothing in `docs/`. What a test
+must not do is reach into `docs/` for a *real* rule — that is the dependency,
+and it is what `tests/test_ruleset_ast.py` and `tests/test_build_index.py` were
+repaired for.
 
 ---
 

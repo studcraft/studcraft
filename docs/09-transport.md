@@ -8,138 +8,86 @@
 
 This document defines how units embark, travel and disembark from transport vehicles.
 
-StudCraft does not use abstract transport statistics.
-
-Instead, transport capacity is the **Unit Base (UB)** volume available inside the vehicle.
-
-This creates a unified system where deployment, movement and transport all use the same unit of measurement.
+Transport capacity is measured entirely in **Unit Bases (UB)**.
 
 ---
 
 # Design Philosophy
 
-Transport vehicles are mobile spaces.
+Transport vehicles are physical spaces.
 
-Every transported object occupies physical space measured in Unit Bases.
-
-The interior layout of a vehicle is therefore a meaningful design decision.
+Their capacity and layout are determined by their construction.
 
 ---
 
 # TRN-001 — Unit Base Occupancy
 
-Every transported object occupies Unit Base volume — one or more whole Unit Bases, or a share of one where the object is cargo shorter than a Unit Base (TRN-013). See `02-core-rules.md` (CORE-001) for the Unit Base definition.
+Every transported object occupies one or more Unit Bases, except cargo, which may occupy a fraction of one (`TRN-013`).
 
-This represents the minimum operational space required by the object.
+See `02-core-rules.md` (CORE-001) for the Unit Base definition.
 
 Examples:
 
 - Infantry: 1 UB
-- Supply crate: up to 1 UB (TRN-013)
 - Motorcycle: 2 UB
-- Light Walker: 2 UB
-- Heavy Walker: Defined by its footprint
+- Walker: its footprint
+- Cargo: its physical volume
 
 ---
 
 # TRN-002 — Infantry Occupancy
 
-Every infantry model always occupies exactly **1 Unit Base** (`02-core-rules.md`, CORE-003).
+Every infantry model occupies exactly **1 Unit Base**, including its weapons and equipment (`02-core-rules.md`, CORE-003).
 
-This includes:
-
-- The minifigure
-- Its weapons
-- Equipment
-- Backpack
-- Shield
-- Accessories
-
-Whether standing or seated, the infantry model continues to occupy exactly one Unit Base.
-
-Changing posture never changes transport capacity.
-
-A Unit Base is a volume, and cargo may divide one (TRN-013) — see `02-core-rules.md` (CORE-001). A minifigure never does: no Unit Base is shared with one, even when a seated model physically leaves room above it. The space is claimed on embarking (TRN-005).
+Infantry never shares a Unit Base, regardless of posture.
 
 ---
 
 # TRN-003 — Cargo Capacity
 
-A transport vehicle's capacity is the Unit Base volume available inside its cargo compartment — see `02-core-rules.md` (CORE-001).
+A transport's capacity is the Unit Base volume available inside its cargo compartment.
 
-Count the Unit Bases its floor holds, then check its clearance (TRN-019): a position with less than one Unit Base of clear height above it is a partial Unit Base, not a whole one.
+Count the Unit Bases available on the compartment floor and apply its clear height (`TRN-019`).
 
-A load is measured against that volume:
-
-- Infantry counts one whole Unit Base apiece, and never shares (TRN-002).
-- Cargo counts its own height, and several objects may share one Unit Base (TRN-013).
+- Infantry occupies 1 UB and never shares it (`TRN-002`).
+- Cargo may share a UB vertically (`TRN-013`).
+- A load is legal when its occupied volume does not exceed the available capacity.
 
 Example:
 
-Cargo bay:
-
-2 × 4 UB, one Unit Base of clear height
-
-Capacity:
-
-8 UB
-
-Possible loads:
-
-- 8 infantry
-- 4 infantry + 1 light walker (2 UB) + 2 UB of cargo
-- 6 infantry + six ammo crates of 4 plate layers each — three crates share one Unit Base, so six take two
-- Any legal combination occupying no more than 8 UB
+A cargo bay measuring `2 × 4 UB` with one Unit Base of clear height provides **8 UB** of capacity.
 
 ---
 
 # TRN-004 — Interior Layout
 
-The cargo compartment should clearly represent its available Unit Bases.
+The interior layout of a transport determines its available space.
 
-Interior design is part of the game.
-
-Examples:
-
-- Seats
-- Benches
-- Cargo racks
-- Empty floor
-- Equipment lockers
-
-These elements occupy space and influence transport capacity.
+Seats, benches, racks, lockers and other functional elements occupy physical space and may reduce capacity.
 
 ---
 
 # TRN-005 — Embarking
 
-Embarking costs **1 Action Point** — an infantry model of one Unit Base and a motorcycle of two pay the same, matching Disembarking (TRN-006).
+Embarking costs **1 Action Point**.
 
-The AP is spent from the embarking unit's own pool, during its own activation (`03-game-flow.md`, FLOW-004) — the same allotment (`02-core-rules.md`, CORE-006) it can also spend moving, attacking, or otherwise acting that same activation (`03-game-flow.md`, FLOW-007). It does not receive a separate activation later just because it ended up inside a transport.
+The unit must:
 
-Requirements:
+- Be adjacent to a functional access point.
+- Use an open access point.
+- Fit inside the transport (`TRN-001`, `TRN-019`).
 
-- The unit must be adjacent to a functional access point.
-- The access point must be open.
-- The transport must have as many free Unit Bases as the unit occupies (TRN-001) — free as a volume, so the compartment's clearance must admit them (TRN-019). For an infantry model that is one; for a motorcycle, two.
-
-The model is then physically placed in the Unit Bases it occupies.
+Place the unit inside the available transport space.
 
 ---
 
 # TRN-006 — Disembarking
 
-Disembarking costs:
+Disembarking costs **1 Action Point**.
 
-**1 Action Point**
+The unit must be placed adjacent to a functional access point with enough space to stand there.
 
-The cost is the same whatever the unit occupies, matching Embarking (TRN-005).
-
-The AP is spent from the disembarking unit's own pool, during its own activation — a unit that begins its activation already embarked spends AP to disembark, then may spend whatever remains of its allotment (`02-core-rules.md`, CORE-006) to move, attack, or otherwise act.
-
-The unit must be placed adjacent to a functional access point.
-
-If there is insufficient space outside the vehicle, the unit cannot disembark.
+If no legal position is available, it cannot disembark.
 
 ---
 
@@ -147,7 +95,7 @@ If there is insufficient space outside the vehicle, the unit cannot disembark.
 
 Only functional access points may be used.
 
-An access point's opening must physically pass the models that use it; one that does not is decorative (`05-construction-components.md`, CMP-018).
+An access point must physically pass the models that use it (`05-construction-components.md`, CMP-018).
 
 Examples:
 
@@ -156,19 +104,11 @@ Examples:
 - Side hatches
 - Roof hatches
 
-Decorative access points have no gameplay effect.
-
 ---
 
 # TRN-008 — Opening and Closing
 
-Opening or closing any access point costs **1 Action Point** (`02-core-rules.md`, CORE-007).
-
-Examples:
-
-- Door
-- Ramp
-- Cargo hatch
+Opening or closing an access point costs **1 Action Point** (`02-core-rules.md`, CORE-007).
 
 The component must physically move.
 
@@ -176,7 +116,13 @@ The component must physically move.
 
 # TRN-009 — Open Transport
 
-A transport is considered open when transported units are physically visible.
+A transport is open when its passengers are physically visible.
+
+Visible passengers:
+
+- May be targeted.
+- May attack.
+- Follow normal line of sight rules (`02-core-rules.md`, CORE-008, CORE-009).
 
 Examples:
 
@@ -186,74 +132,66 @@ Examples:
 - Open boat
 - Flatbed vehicle
 
-Visible passengers:
-
-- May be targeted.
-- May attack.
-- Require normal line of sight (`02-core-rules.md`, CORE-008/CORE-009; `11-combat.md`, CBT-002).
-
 ---
 
 # TRN-010 — Closed Transport
 
-A transport is considered closed when passengers are completely enclosed.
+A transport is closed when its passengers are completely enclosed.
 
 Passengers inside:
 
 - Cannot be targeted directly.
-- Cannot attack unless firing through an opening.
+- Cannot attack unless they have physical line of sight through an opening.
 
-Protection comes from the vehicle's construction: passengers are internal components the hull protects, exactly like any other Internal Components relationship (`16-damage-system.md`, DMG-007) — an Impact that penetrates the hull with remaining strength continues toward them (DMG-017) like it would toward any protected component. No additional armour value is required; the hull's own Resistance is what stands between the Impact and the passengers.
+The vehicle's construction protects its passengers according to the Component Damage System (`16-damage-system.md`).
 
 ---
 
 # TRN-011 — Firing Ports
 
-A transport may include:
+A transport may provide firing ports through:
 
 - Windows
 - Gun ports
 - Roof hatches
 - Observation slits
 
-Only passengers with physical line of sight through these openings may attack.
+A passenger may attack through an opening only if it has physical line of sight to the target.
 
-The opening determines the firing arc.
+The opening determines the available firing arc.
 
-A firing port passes a line of sight, not a model, so the access-opening requirement does not apply to it (`05-construction-components.md`, CMP-018). A roof hatch serving as both a firing port and an access point must satisfy that requirement in its access-point role only.
+A firing port does not need to pass a model (`05-construction-components.md`, CMP-018).
+
+A component serving as both a firing port and an access point must satisfy CMP-018 in its access-point role.
 
 ---
 
 # TRN-012 — Transparent Elements
 
-Transparent LEGO elements represent windows or viewports (`05-construction-components.md`, CMP-022).
+Transparent LEGO elements may represent windows or viewports (`05-construction-components.md`, CMP-022).
 
-Passengers and attackers may interact through them if line of sight exists (`02-core-rules.md`, CORE-008).
+They do not block line of sight when transparent (`02-core-rules.md`, CORE-008).
 
 ---
 
 # TRN-013 — Cargo
 
-Cargo occupies Unit Bases, and unlike infantry it may share one.
+Cargo occupies physical volume and may share a Unit Base vertically.
 
-A Unit Base divides into **slices**. A slice measures 4 × 3 studs by the height of the object standing in it, and the slices sharing one Unit Base may total no more than the Unit Base's height — see `02-core-rules.md` (CORE-001).
+A Unit Base may be divided into slices according to cargo height. The total height of cargo sharing one Unit Base cannot exceed its 13 plate layers (`02-core-rules.md`, CORE-001).
 
-- An object **narrower** than 4 × 3 studs still takes a whole slice: the horizontal footprint is already spent, so sharing is only ever vertical.
-- An object **wider or longer** than one Unit Base takes a slice of its own height in every Unit Base its footprint covers.
+Cargo narrower than `4 × 3` studs still occupies a full horizontal slice. Sharing is therefore vertical only.
 
-| Cargo | Footprint | Height |
-|---|---|---|
-| Ammo crate | 1 UB | 4 plate layers |
-| Fuel drum pallet | 1 UB | 8 plate layers |
-| Drone | 1 UB | 13 plate layers |
-| Motorbike | 2 UB | 13 plate layers |
-| Walker | 2 UB or more | 13 plate layers |
+Cargo covering multiple Unit Bases occupies the corresponding slice in each one.
 
-Footprints and heights are read from the model like every other measured value; the figures above are examples, not assignments.
+Examples:
 
-Three ammo crates of 4 plate layers therefore share one Unit Base. A crate and a minifigure never share one: the minifigure occupies a whole Unit Base standing or seated (TRN-002), leaving no slice for the crate.
+- A 4-plate crate occupies 4/13 UB.
+- Three 4-plate crates fit in one UB.
+- A 13-plate cargo object occupies one full UB.
+- Infantry never shares a UB (`TRN-002`).
 
-Cargo and passengers compete equally for transport space.
+Cargo and passengers use the same available transport volume.
 
 ---
 
@@ -261,27 +199,23 @@ Cargo and passengers compete equally for transport space.
 
 Crew members occupy their own Unit Bases.
 
-Driver positions are separate from passenger compartments.
+A crew position is separate from passenger capacity.
 
-Crew space does not count as cargo capacity.
+A driver position therefore requires its own space in addition to cargo or passenger space.
 
 ---
 
 # TRN-015 — Emergency Exit
 
-If one access point becomes unusable,
+If an access point becomes unusable, passengers may use any remaining functional access point.
 
-passengers may use any remaining functional access point.
-
-If none remain,
-
-the passengers are trapped.
+If none remain, they cannot disembark.
 
 ---
 
 # TRN-016 — Destroyed Access Points
 
-Destroyed access points permanently alter the vehicle.
+A destroyed access point permanently changes the vehicle's available access.
 
 Examples:
 
@@ -289,30 +223,28 @@ Examples:
 - Jammed hatch
 - Destroyed ramp
 
-The LEGO model should represent these changes whenever possible.
+The model should represent the change whenever possible.
 
 ---
 
 # TRN-017 — Interior Design Matters
 
-The internal layout of a transport affects gameplay.
+Interior construction affects transport capacity and operation.
 
 Examples:
 
-- Wide corridors improve deployment.
-- Multiple exits improve flexibility.
-- Benches reduce available cargo space.
-- Large ramps simplify disembarkation.
-
-Well-designed interiors provide tactical advantages.
+- Benches reduce available space.
+- Wide corridors provide easier access.
+- Multiple exits provide alternative access points.
+- Large ramps provide access to larger models.
 
 ---
 
 # TRN-018 — Mobile Terrain
 
-Transport vehicles are also terrain features.
+Transport vehicles are battlefield terrain.
 
-Players interact with:
+Their:
 
 - Doors
 - Windows
@@ -321,46 +253,42 @@ Players interact with:
 - Hatches
 - Ramps
 
-Every structural element may become tactically relevant.
+may interact with units and movement according to the rules governing those elements.
 
 ---
 
 # TRN-019 — Interior Clearance
 
-What must fit inside a vehicle is the Unit Base itself — see `02-core-rules.md` (CORE-001) for its dimensions — rather than the loose model, and a model that would slip into a gap smaller than its Unit Base does not fit there. A position offering less than one Unit Base of clear height is therefore a partial Unit Base (TRN-003), and holds no whole one.
+A model fits inside a transport only if the Unit Base volume it occupies can physically fit within the available space (`02-core-rules.md`, CORE-001).
 
-Clearance is measured from the surface the model rests on — the floor, the deck or the bench, and for infantry the surface under its base rather than the top of it — upward to whatever is above it. That surface is the model's floor, not an obstruction: a bench 3 plate layers high needs one Unit Base of clear height *above the bench*. Seating raises the roof a compartment needs rather than shrinking its occupant — which is what TRN-017 already means by "benches reduce available cargo space".
+Measure clear height from the surface the model rests on to the obstruction above it.
 
-Everything else physically in the way does count: a roof, a beam, a rack, a pipe. An element that reduces a compartment's usable volume is modifying Gameplay Geometry, not decorating it — see `15-geometry-layers.md` (GEO-002) — whatever it looks like.
+- Infantry and crew require **1 UB** of clear height.
+- Cargo requires only its own height (`TRN-013`).
+- Benches, roofs, racks, beams and other elements reduce available space.
+- An open position has no upper clearance requirement.
 
-- **Infantry and crew need one Unit Base of clear height.** An infantry model occupies exactly one Unit Base whether standing or seated (TRN-002), and a crew member occupies one like any other passenger (TRN-014). A compartment shorter than that carries neither.
-- **Cargo needs only its own height.** Cargo divides a Unit Base (TRN-013), so a compartment 9 plate layers high carries cargo up to 9 plate layers — a partial Unit Base per position, in TRN-003's sense.
-
-A low closed transport is therefore not an illegal model. It is a freight hull rather than a troop hull.
-
-A position with no roof over it has nothing above to measure against, so no clearance applies there. Where an enclosure is incomplete enough that its occupants stay visible, the transport is open by TRN-009's own test, and its passengers are targetable, able to attack, and without the hull protection TRN-010 gives them. The builder pays in survivability rather than in a legality ruling.
-
-**What this costs an existing model.** A closed compartment built under one Unit Base of clear height stops carrying infantry, and that includes a closed cockpit: a Pilot with no Unit Base is no Pilot, and a vehicle without a Pilot cannot move — see `08-vehicles.md` (VEH-013). Raising the roof by a plate or two, or opening it, is the whole repair.
+A compartment shorter than 1 UB of clear height cannot carry infantry or crew.
 
 ---
 
 # TRN-020 — Interior Levels
 
-A vehicle may stack interior levels.
+A vehicle may have multiple interior levels.
 
-Each level needs one Unit Base of clear height above its own floor (`02-core-rules.md`, CORE-001), and each floor above the lowest costs what it measures — one plate at its thinnest.
+Each level requires **1 Unit Base of clear height** above its own floor (`02-core-rules.md`, CORE-001).
 
-| Levels | Height needed above the lowest interior floor |
-|---|---|
-| 1 | one Unit Base |
-| 2 | two Unit Bases + 1 plate |
-| 3 | three Unit Bases + 2 plates |
+Each floor above the lowest adds its own physical thickness.
 
-The lowest level rests on the vehicle's own hull and pays nothing for it — which is why an interior exactly two Unit Bases tall does not hold two levels. It is one plate short.
+| Levels | Minimum height above lowest floor |
+|---|---:|
+| 1 | 1 UB |
+| 2 | 2 UB + 1 plate |
+| 3 | 3 UB + 2 plates |
 
-Each level is a cargo compartment like any other: its capacity is read from TRN-003 and its clearance from TRN-019.
+Each level has its own cargo capacity and clearance (`TRN-003`, `TRN-019`).
 
-How many levels a vehicle has room for is bounded by its own height rather than by this rule, and that height answers to two limits — its footprint and the agreed ceiling (`08-vehicles.md`, VEH-028).
+The number of levels a vehicle can contain is limited by its construction and deployment height agreement.
 
 ---
 
@@ -368,15 +296,15 @@ How many levels a vehicle has room for is bounded by its own height rather than 
 
 Transport in StudCraft follows these principles:
 
-1. Everything occupies Unit Bases.
-2. Infantry always occupies exactly 1 UB, and never shares it.
-3. Transport capacity is the Unit Base volume available inside, and cargo may share a Unit Base.
-4. A closed compartment shorter than one Unit Base of clear height carries cargo but no infantry, crew included.
-5. Embarking costs 1 AP, whatever the unit occupies.
-6. Disembarking costs 1 AP, whatever the unit occupies.
+1. Transport capacity is measured in Unit Bases.
+2. Infantry occupies exactly 1 UB and never shares it.
+3. Cargo may share a Unit Base vertically.
+4. A model must physically fit inside its transport.
+5. Embarking costs 1 AP.
+6. Disembarking costs 1 AP.
 7. Open transports expose passengers.
-8. Closed transports protect passengers.
-9. Interior design is part of gameplay.
+8. Closed transports protect passengers according to their construction.
+9. Interior construction determines available capacity and access.
 
 ---
 

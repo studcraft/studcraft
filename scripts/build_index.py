@@ -75,9 +75,10 @@ def _rules_in(document: Document) -> list[dict]:
     for section in document.root.rules():
         body = section.body_text(document.lines)
         # `body` includes fenced content, deliberately: a rule named inside a
-        # fenced diagram *is* referenced by that document — 11-combat.md's
-        # Combat Flow names DMG-012 through DMG-017 in a fence, and that is
-        # the map of the procedure, not an example of syntax. This is now
+        # fenced diagram *is* referenced by that document — a flow diagram
+        # naming the rules it sequences is the map of the procedure, not an
+        # example of syntax. No fence in docs/ names one today; the inclusion
+        # is what keeps the next one counted. This is now
         # different from scripts/lint_ruleset.py's citation scan, which reads
         # prose only. The two answer different questions: this index asks
         # what a rule is connected to, the linter asks whether a written
@@ -120,8 +121,8 @@ def build_outline(document: Document) -> list[dict]:
     sections) and, for any that is not itself a rule, that section's level-2
     children. A level-1 section that *is* a rule is not recursed into — its
     own `##`/`###` sub-headings are its body, not further outline entries.
-    `06-deployment.md`'s DEP-009 is exactly that case: four `##` scenarios
-    that must not appear as chapters or as rules.
+    A rule presenting several worked scenarios as `##` sub-headings is exactly
+    that case: they must not appear as chapters or as rules.
 
     The document's own title is skipped by position, not by pattern: every
     docs/*.md opens with its own `# Name` line before `# Purpose`, so

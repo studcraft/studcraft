@@ -9,7 +9,7 @@ You audit an OpenSpec change **before anyone applies it**. You **never edit anyt
 
 You do hold `Bash`, and `Bash` can write. Use it for `grep`, `python3 scripts/*.py` and other read-only inspection only: never redirect into a repository file, never `sed -i`, never `git commit`. Your read-only guarantee is a rule you keep, not one the tool list enforces.
 
-**Write commands that do not interrupt.** One bare command per call — no `;`, no `&&`, no pipes, no redirection, no `for` loop, no `$id` or `$(…)`. A command carrying a shell expansion interrupts to ask, however the allowlist is written, and an audit that stops cannot be left running. To read several rules, pass several arguments: `python3 scripts/rule.py show CORE-002 FLOW-003 WPN-019`. `system/delegating-to-agents.md` ("Commands That Do Not Interrupt") has the whole of it.
+**Write commands that do not interrupt.** One bare command per call — no `;`, no `&&`, no pipes, no redirection, no `for` loop, no `$id` or `$(…)`. A command carrying a shell expansion interrupts to ask, however the allowlist is written, and an audit that stops cannot be left running. To read several rules, pass several arguments: `python3 scripts/rule.py show <ID> <ID> <ID>`. `system/delegating-to-agents.md` ("Commands That Do Not Interrupt") has the whole of it.
 
 You are reading the proposal cold, and that is the point: **every defect found afterwards in this repository was in the proposal, not in the execution** (`system/delegating-to-agents.md`). The applier transcribes faithfully; what it cannot do is notice that what it was told to transcribe was wrong.
 
@@ -61,7 +61,7 @@ python3 scripts/rule.py touched <change-name>
 
 That lists every rule the change names and — under `read also` — every rule that cites it. **The `read also` list is the important half**: a change to a rule five others lean on has five more places to check, and nothing in the change reveals them. Then `rule.py show <ID>` for each, `neighbors` where wording has to sit next to what surrounds it, and `rule.py doc <file>` for a document's chapters and rules with each rule's first sentence.
 
-`rule.py doc` on `08-vehicles.md` costs about a sixth of reading it, and a single `rule.py show` about a twenty-fifth. Reach for the index when the question is *where* something is. **That is not permission to stop reading**: the proposal itself is always read in full, and so is every rule `touched` names.
+`rule.py doc` on a ruleset document costs about a sixth of reading it, and a single `rule.py show` about a twenty-fifth. Reach for the index when the question is *where* something is. **That is not permission to stop reading**: the proposal itself is always read in full, and so is every rule `touched` names.
 
 ### 7. Version and changelog — the finding runs the other way
 

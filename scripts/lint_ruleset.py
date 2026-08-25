@@ -3,18 +3,18 @@
 
 Checks things a human reviewer shouldn't have to catch by hand:
 
-- Duplicate rule IDs within a document (e.g. two `# WPN-002` headers).
+- Duplicate rule IDs within a document (e.g. two `# AAA-002` headers).
 - Rule IDs that aren't strictly increasing within their document.
 - Cross-document rule references that point at an ID which doesn't exist
   in the target document, in both of the forms this repo writes:
-  the parenthesised "`10-weapons.md` (WPN-002)" and the comma form
-  "`08-vehicles.md`, VEH-013", including comma-separated runs of IDs.
+  the parenthesised "`nn-other.md` (AAA-002)" and the comma form
+  "`nn-other.md`, AAA-013", including comma-separated runs of IDs.
   A parenthesised ID carrying the citing document's own prefix is
   checked against that document instead of against the filename that
   happens to precede it — each document owns its namespace, so
-  "`09-transport.md`, TRN-001), ... its own Unit Base (DEP-004)" in
-  06-deployment.md is a reference to DEP-004 and not a broken one into
-  09-transport.md.
+  "`nn-other.md`, AAA-001), ... its own Unit Base (BBB-004)" in the
+  document owning `BBB-` is a reference to BBB-004 and not a broken one
+  into `nn-other.md`.
 - `**Version:**` headers that disagree with each other (all docs/*.md
   are expected to share one project version). A missing one is not an
   error: only the Release cut may write that line, and it inserts one
@@ -28,6 +28,8 @@ Checks things a human reviewer shouldn't have to catch by hand:
 - The image filenames in assets/IMAGES.md: that each follows the naming
   convention that file defines, that it names a document which exists,
   and that the rule it illustrates exists in that document.
+- Rule IDs named anywhere in scripts/: none may be a rule that exists in
+  docs/, per system/documentation-standards.md (Naming Conventions).
 
 This is a structural check, not a semantic one: it cannot tell you that
 a rule contradicts another rule's intent (see system/workflow.md and
@@ -45,16 +47,17 @@ from repo import DOCS_DIR, REPO_ROOT, RULE_ID_RE  # noqa: E402
 from ruleset_ast import Section, parse_text  # noqa: E402
 
 IMAGES_INDEX = REPO_ROOT / "assets" / "IMAGES.md"
+SCRIPTS_DIR = REPO_ROOT / "scripts"
 
 VERSION_RE = re.compile(r"^\*\*Version:\*\*\s*(\d+\.\d+\.\d+)\s*(.*)$", re.MULTILINE)
 CROSS_REF_RE = re.compile(r"`([\w.-]+\.md)`[^\n]{0,80}?\(([A-Z]{2,6}-\d{3})\)")
 
-# The comma form — "`08-vehicles.md`, VEH-013" — is what this repo writes most,
+# The comma form — "`nn-other.md`, AAA-013" — is what this repo writes most,
 # and until this existed nothing checked it: roughly two thirds of the citations
 # in docs/ were never verified by any script. A citation may name several IDs in
-# a run ("`02-core-rules.md`, CORE-008, CORE-009"), so capture the whole run and
+# a run ("`nn-other.md`, AAA-008, AAA-009"), so capture the whole run and
 # split it afterwards. The run stops at the first thing that isn't an ID, which
-# is what keeps "`16-damage-system.md`, DMG-019, Repairs)" from swallowing the
+# is what keeps "`nn-other.md`, AAA-019, Repairs)" from swallowing the
 # word Repairs.
 COMMA_REF_RE = re.compile(r"`([\w.-]+\.md)`,\s+((?:[A-Z]{2,6}-\d{3}(?:,\s+)?)+)")
 
@@ -65,12 +68,14 @@ MOTTOS = ("> **Every Brick Matters.**", "> **The Model Is The Rules.**")
 # themselves are the definitions — so it is not checked as one.
 REQUIRED_SECTIONS = ("Purpose", "Design Philosophy", "Summary")
 
-# 02-core-rules.md predates the standard and has neither a Design Philosophy nor
-# a Summary section. Adding them changes the ruleset, which needs an OpenSpec
-# proposal, so it is recorded here rather than fixed in passing. The point of
-# the exemption is that it is a closed list: a *new* document cannot join it
-# without someone editing this line.
-SECTION_DEBT = {"02-core-rules.md": ("Design Philosophy", "Summary")}
+# 02-core-rules.md predates the standard and had neither a Design Philosophy nor
+# a Summary section. It has a Design Philosophy now, so only the Summary is still
+# owed. Adding one changes the ruleset, which needs an OpenSpec proposal, so it is
+# recorded here rather than fixed in passing. The point of the exemption is that
+# it is a closed list: a *new* document cannot join it without someone editing
+# this line, and an entry that stops being true is meant to shrink like this one
+# rather than sit unread.
+SECTION_DEBT = {"02-core-rules.md": ("Summary",)}
 
 
 # assets/IMAGES.md groups its entries under one "## docs/<file>.md" heading per
@@ -163,7 +168,7 @@ def check_image_index(ids_by_file: dict[str, set[str]]) -> list[str]:
 
         # A row whose Rule cell is exactly one ID is the numbered case and takes
         # that ID as its prefix. Anything else — a heading, or a range such as
-        # "Terrain Movement (MOVE-009 – MOVE-011)" — is the unnumbered case and
+        # "Terrain Movement (AAA-009 – AAA-011)" — is the unnumbered case and
         # takes the document number instead.
         if len(cited) == 1 and rule_cell == cited[0]:
             expected = cited[0].lower()
@@ -397,8 +402,8 @@ def check_citations(
             if target_file not in ids_by_file:
                 continue
             # The parenthesised form leaves up to 80 characters between the
-            # filename and the ID, which is what lets "see `10-weapons.md`
-            # (WPN-002)" and a continuation form, where a second bare ID follows
+            # filename and the ID, which is what lets "see `nn-other.md`
+            # (AAA-002)" and a continuation form, where a second bare ID follows
             # the cited one after a few words of prose, both match. That window also
             # lets the pattern reach past one citation and pick up a bare
             # same-document ID that was never a reference into the cited file.
@@ -421,6 +426,34 @@ def check_citations(
                 if rule_id not in ids_by_file[target_file]:
                     errors.append(f"{name}: references {target_file}, {rule_id}, which does not exist")
 
+    return errors
+
+
+def check_scripts_name_no_live_rule(ids_by_file: dict[str, set[str]]) -> list[str]:
+    """No file in scripts/ may name a rule that exists in docs/.
+
+    `system/documentation-standards.md` (Naming Conventions) states the rule and
+    the reason: no script's behaviour depends on a rule, so every ID in scripts/
+    is an illustration, and an illustration naming a live ID is a dependency on
+    a rule that can be retired or renumbered. Three had rotted before anything
+    checked — one named a rule that no longer existed at all.
+
+    `tests/` is deliberately not covered. A fixture defines its own document, so
+    an ID inside one is local by construction and names nothing in docs/.
+    """
+    live = {rule_id for ids in ids_by_file.values() for rule_id in ids}
+
+    errors: list[str] = []
+    for path in sorted(SCRIPTS_DIR.glob("*.py")):
+        for number, line in enumerate(path.read_text().splitlines(), start=1):
+            for rule_id in dict.fromkeys(RULE_ID_RE.findall(line)):
+                if rule_id in live:
+                    errors.append(
+                        f"scripts/{path.name}:{number}: names {rule_id}, which is a "
+                        f"rule in docs/. Illustrate with an invented prefix "
+                        f"(AAA-001, BBB-002) or a placeholder — "
+                        f"system/documentation-standards.md (Naming Conventions)."
+                    )
     return errors
 
 
@@ -470,6 +503,7 @@ def main() -> int:
     errors.extend(check_structure(texts, ids_by_file))
     errors.extend(check_chapter_depth(texts))
     errors.extend(check_image_index(ids_by_file))
+    errors.extend(check_scripts_name_no_live_rule(ids_by_file))
 
     if errors:
         for error in errors:
