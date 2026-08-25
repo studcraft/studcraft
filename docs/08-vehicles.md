@@ -69,7 +69,7 @@ Measure from the vehicle's front along its facing (`07-movement.md`, MOVE-003). 
 | Tank            | 15 studs | 45 studs |
 | Heavy Transport | 24 studs | 72 studs |
 
-A Wounded Pilot or a Dead locomotion component reduces this to twice the vehicle's length (VEH-031).
+A Wounded Pilot or locomotion damage changes this (VEH-031).
 
 ---
 
@@ -380,9 +380,11 @@ Adding Visual Geometry does not change vehicle height or legality.
 
 ---
 
-# VEH-031 — Reduced Movement
+# VEH-031 — What Damage Does to Movement
 
-A vehicle moves **twice its own length** per movement action instead of three times (`VEH-004`) when its Pilot is Wounded (`VEH-013`) or a locomotion component is Dead (`16-damage-system.md`, DMG-002).
+A vehicle moves **twice its own length** per movement action instead of three times (`VEH-004`) when its Pilot is Wounded (`VEH-013`), or when some but fewer than half of its locomotion components are Dead (`16-damage-system.md`, DMG-002).
+
+A vehicle with **half or more** of its locomotion components Dead cannot move and is Immobilized (`VEH-019`).
 
 Facing, measurement and Action Point cost are unchanged.
 
@@ -394,11 +396,21 @@ Facing, measurement and Action Point cost are unchanged.
 | Tank            | 45 studs |      30 studs |
 | Heavy Transport | 72 studs |      48 studs |
 
-The reduction is not cumulative. A vehicle moves twice its own length whether one cause applies or both, and however many locomotion components are Dead.
+The reduction is not cumulative: a vehicle moves twice its own length whether one cause applies or both.
 
 A Wounded locomotion component does not change movement distance.
 
-A vehicle whose locomotion is entirely destroyed cannot move and is Immobilized (`VEH-019`).
+Locomotion components are the parts that carry the vehicle — wheels, track runs, legs, repulsors (`VEH-012`). Decorative parts are not locomotion (`15-geometry-layers.md`, GEO-002) and are not counted.
+
+Examples:
+
+| Locomotion    | 1 Dead      | 2 Dead      |
+| ------------- | ----------- | ----------- |
+| 2 wheels      | cannot move | —           |
+| 4 wheels      | reduced     | cannot move |
+| 2 tracks      | cannot move | —           |
+| 4 walker legs | reduced     | cannot move |
+| 4 repulsors   | reduced     | cannot move |
 
 ---
 
@@ -419,7 +431,7 @@ Terrain capability comes from the locomotion's construction.
 
 Height is bounded by the agreed Deployment Volume ceiling.
 
-A Wounded Pilot or a Dead locomotion component reduces movement from three lengths to two.
+A Wounded Pilot or locomotion damage changes movement (VEH-031).
 
 ---
 

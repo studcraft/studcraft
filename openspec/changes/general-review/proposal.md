@@ -140,11 +140,13 @@ marker survived intact. All three are now answered rather than re-marked.
   the controls for **1 Action Point**, moving physically into the operating
   position. "Or with a Dead Pilot" goes with it: a Dead component is removed from
   the model, so that state cannot persist.
-- **Locomotion damage.** A Dead locomotion component reduces movement to twice
-  the vehicle's length, the same reduction a Wounded Pilot causes and **not
-  cumulative** with it — which is why `VEH-031` is retitled from *Wounded Pilot*
-  to *Reduced Movement*. Locomotion destroyed **entirely** immobilizes the
-  vehicle, and `VEH-019`'s list of causes now names a rule for each.
+- **Locomotion damage, counted.** Some but fewer than half of a vehicle's
+  locomotion components Dead reduces movement to twice its length — the same
+  reduction a Wounded Pilot causes, and **not cumulative** with it. **Half or
+  more** Dead and the vehicle cannot move. `VEH-031` is retitled from *Wounded
+  Pilot* to **What Damage Does to Movement**, and defines a locomotion component
+  functionally: what carries the vehicle, decoration excluded. `VEH-019`'s list of
+  causes now names a rule for each.
 
 - **Stranded vehicles.** `VEH-025` said freeing one was "not currently defined";
   it now says a stranded vehicle cannot be freed. The model already answered it —

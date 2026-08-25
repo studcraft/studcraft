@@ -4651,19 +4651,189 @@ definition's axis, and three passages a reader could over-read.
    reader can take them as promising decoration never matters. `GEO-005:116` and
    the glossary's *Functional Equivalence* read the same way.
 
-3. **`VEH-031` is titled *Reduced Movement*** and closes on an immobilization. It
-   points at `VEH-019`, which owns that, so it does not mislead — but the title
-   covers one of the two things the rule now says.
-
-4. **The glossary's *Wounded* entry** is the ruleset's fullest statement of that
+3. **The glossary's *Wounded* entry** is the ruleset's fullest statement of that
    state and does not mention that 1 Action Point ends it. Not a contradiction —
    it never claimed to list the exits — but a reader looking the state up will not
    learn how to leave it.
 
-5. **`assets/IMAGES.md` declines `CBT-007`** as "a binary construction check made
+4. **`assets/IMAGES.md` declines `CBT-007`** as "a binary construction check made
    directly on the model". Section 29 gave the rule a reach limit resolved by
    pointing the arm at the target, which is spatial. The claim is not false; the
    reason no longer covers the whole rule.
+
+**Closed since this list was written:** `VEH-031`'s title named one of the two
+outcomes it states. Section 39 retitles it *What Damage Does to Movement*.
+
+---
+
+## 39. `VEH-031`'s locomotion threshold, stated as a number
+
+**A rule change, requested by the maintainer on pull request #130** after the
+branch was pushed. The threshold section 27 left as "entirely destroyed" is
+replaced by a counted one.
+
+> If one or more, but fewer than half, of a vehicle's locomotion components are Dead, its movement is reduced to 2× its length.
+> If half or more are Dead, the vehicle cannot move.
+
+> Define locomotion components functionally: wheels, tracks, walker legs, repulsors. Decorative parts do not count.
+> Keep the rule generic rather than tying it to specific vehicle types.
+
+**`VEH-031` and nothing else.** The maintainer was explicit: *"solo habla para la
+regla VEH-031, no más."*
+
+- [x] 39.1 In `docs/08-vehicles.md`, `VEH-031`, replace this anchor:
+
+```
+A vehicle moves **twice its own length** per movement action instead of three times (`VEH-004`) when its Pilot is Wounded (`VEH-013`) or a locomotion component is Dead (`16-damage-system.md`, DMG-002).
+```
+
+with:
+
+```
+A vehicle moves **twice its own length** per movement action instead of three times (`VEH-004`) when its Pilot is Wounded (`VEH-013`), or when some but fewer than half of its locomotion components are Dead (`16-damage-system.md`, DMG-002).
+
+A vehicle with **half or more** of its locomotion components Dead cannot move and is Immobilized (`VEH-019`).
+```
+
+- [x] 39.2 In `docs/08-vehicles.md`, `VEH-031`, replace this anchor:
+
+```
+The reduction is not cumulative. A vehicle moves twice its own length whether one cause applies or both, and however many locomotion components are Dead.
+
+A Wounded locomotion component does not change movement distance.
+
+A vehicle whose locomotion is entirely destroyed cannot move and is Immobilized (`VEH-019`).
+```
+
+with:
+
+```
+The reduction is not cumulative: a vehicle moves twice its own length whether one cause applies or both.
+
+A Wounded locomotion component does not change movement distance.
+
+Locomotion components are the parts that carry the vehicle — wheels, track runs, legs, repulsors (`VEH-012`). Decorative parts are not locomotion (`15-geometry-layers.md`, GEO-002) and are not counted.
+
+Examples:
+
+| Locomotion    | 1 Dead      | 2 Dead      |
+| ------------- | ----------- | ----------- |
+| 2 wheels      | cannot move | —           |
+| 4 wheels      | reduced     | cannot move |
+| 2 tracks      | cannot move | —           |
+| 4 walker legs | reduced     | cannot move |
+| 4 repulsors   | reduced     | cannot move |
+```
+
+  **"however many locomotion components are Dead" goes.** It was true when the
+  only alternative was total destruction; with a counted threshold it contradicts
+  the rule above it.
+
+  The definition is functional and generic, as asked: what carries the vehicle,
+  not which vehicle it is. It leans on `VEH-012` for the systems and on `GEO-002`
+  for what decoration is, rather than restating either.
+
+  The table is examples, not categories. Every row is the maintainer's, and the
+  arithmetic is the rule's: 1 of 2 is half, 1 of 4 is not, 2 of 4 is.
+
+- [x] 39.3 In `docs/08-vehicles.md`, `VEH-004`, replace this anchor — one line
+      below the movement table:
+
+```
+A Wounded Pilot or a Dead locomotion component reduces this to twice the vehicle's length (VEH-031).
+```
+
+with:
+
+```
+A Wounded Pilot or locomotion damage changes this (VEH-031).
+```
+
+  **"a Dead locomotion component reduces this" is now wrong**, and the maintainer
+  asked for it: with two wheels and one Dead the vehicle does not move at all.
+  The line stops naming an outcome `VEH-031` owns and points at it instead.
+
+- [x] 39.4 In `docs/08-vehicles.md`, the Summary, replace this anchor:
+
+```
+A Wounded Pilot or a Dead locomotion component reduces movement from three lengths to two.
+```
+
+with:
+
+```
+A Wounded Pilot or locomotion damage changes movement (VEH-031).
+```
+
+  **The same false sentence, in the second place it is written.** The maintainer
+  named `VEH-004`'s line; this is the same claim in the document's Summary, and
+  `system/proposal-review.md` ("The Summary Is Part of the Rule") is explicit that
+  a change touching a rule checks the Summary in the same pass. Fixing one and
+  leaving the other would leave the defect this whole change exists to remove.
+
+- [x] 39.11 In `docs/08-vehicles.md`, replace this anchor — the rule heading:
+
+```
+# VEH-031 — Reduced Movement
+```
+
+with:
+
+```
+# VEH-031 — What Damage Does to Movement
+```
+
+  **The rule now states two outcomes in two paragraphs**, and *Reduced Movement*
+  names one of them. The new title follows the pattern of its two neighbours —
+  `VEH-029 — Where Height Is Counted From`, `VEH-030 — What Counts Toward
+  Height` — and is honest that the answer is sometimes that movement stops.
+
+  **Rejected:** *Movement Penalties* ("penalty" is abstract-statistic vocabulary
+  the ruleset uses nowhere), *Locomotion Damage* (leaves out the Wounded Pilot,
+  which is half the rule), *Immobilization* (`VEH-019` owns that; this rule says
+  when).
+
+  **The rule keeps its number and is retitled** — the thing no script reports
+  (`design.md`, Decision 12). It is the fourth retitle in this change, after
+  `WPN-003`, `DMG-018` and `VEH-031` itself in section 27. Citations travel by ID,
+  so `VEH-004`, `VEH-019`, `VEH-024`, `DMG-002` and the glossary's *Wounded* are
+  unaffected.
+
+### Verification
+
+- [x] 39.5 `grep -c -F "entirely destroyed" docs/08-vehicles.md` returns **0**.
+      Run and confirmed.
+
+- [x] 39.6 `grep -c -F "half or more" docs/08-vehicles.md` returns **1**. Run and
+      confirmed.
+
+- [x] 39.7 `grep -c -F "Dead locomotion component" docs/08-vehicles.md` returns
+      **0**. It was 2 — `VEH-004`'s line and the Summary's, both replaced by tasks
+      39.3 and 39.4. Run and confirmed.
+
+- [x] 39.8 `python3 scripts/rule.py refs VEH-031 VEH-012 GEO-002` — `VEH-031`
+      gains `VEH-012` and `GEO-002` as targets; its own citers are unchanged:
+      `VEH-004`, `VEH-019`, `VEH-024`, `DMG-002` and the glossary's *Wounded*.
+
+- [x] 39.9 `python3 scripts/preflight.py` — every check green. Run: all 12 pass.
+
+- [x] 39.12 `grep -c -F "VEH-031 — Reduced Movement" docs/08-vehicles.md` returns
+      **0**, and `python3 scripts/rule.py show VEH-031` prints *What Damage Does
+      to Movement*. Both run and confirmed.
+
+- [x] 39.13 `python3 scripts/build_index.py` — the index carries rule titles and
+      one changed. Run.
+
+- [x] 39.14 `python3 scripts/preflight.py` — every check green after the index is
+      rebuilt. Run: all 12 pass.
+
+- [x] 39.10 Read `VEH-031` in full, then `VEH-004`, `VEH-012`, `VEH-019` and
+      `VEH-024`. Every example row follows from the rule's own two sentences:
+      1 of 2 is half, 1 of 4 is not, 2 of 4 is. The title names both outcomes.
+
+      **`VEH-024` is deliberately untouched.** "If the hover assembly is destroyed
+      … Immobilized (`VEH-031`)" stays true: all of it destroyed is half or more.
+      A hover vehicle with four repulsors and two Dead is answered by `VEH-031`.
 
 ---
 

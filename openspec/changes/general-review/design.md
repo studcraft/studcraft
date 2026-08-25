@@ -575,16 +575,22 @@ one vehicle length — `VEH-004` is three, `VEH-031` is two — so "one step" wr
 itself, and it lands on the reduction `VEH-031` already defines.
 
 **Not cumulative, as instructed.** One rule, one reduced distance, whatever
-combination of causes applies. That is why `VEH-031` is retitled from *Wounded
-Pilot* to *Reduced Movement*: it now states the reduced distance and the two ways
-to reach it.
+combination of causes applies. That is why `VEH-031` stops being titled *Wounded
+Pilot*: it states one reduced distance and every way to reach it.
 
-**The two rulings meet at the component/system line.** One destroyed locomotion
-component costs a step; the locomotion system entirely destroyed immobilizes the
-vehicle (`VEH-012` — every vehicle represents one locomotion system). Without
-that line the two rulings answer the same question twice, and a vehicle with no
-wheels left would still roll two lengths a turn — the ruleset contradicting the
-model, which is `CODE_OF_DESIGN.md` Principle 1 exactly.
+**The two rulings meet at a threshold**, and the threshold is counted rather than
+described. Some locomotion components Dead costs a step; enough of them and the
+vehicle stops. Without that line the two rulings answer the same question twice,
+and a vehicle with no wheels left would still roll two lengths a turn — the
+ruleset contradicting the model, which is `CODE_OF_DESIGN.md` Principle 1 exactly.
+
+**Where the threshold sits was settled on the pull request, not here.** This
+decision wrote it as "entirely destroyed"; the maintainer replaced that with
+**half or more**, and `tasks.md` section 39 carries the counted rule, the
+functional definition of a locomotion component, and the worked examples. The
+rule is retitled again with it — **What Damage Does to Movement**, matching
+`VEH-029` and `VEH-030` beside it, because a rule that states two outcomes should
+not be named after one.
 
 **`VEH-019`'s list gains an owner per cause** rather than keeping the vague
 "locomotion damage": Pilot loss is `VEH-013`, destroyed locomotion is `VEH-031`,
