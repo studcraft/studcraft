@@ -837,16 +837,20 @@ What would have to be decided: whether that sentence grants an attack outside th
       `not currently` and `sprinting`. **One plain pattern per command** —
       `scripts/verify_tasks.py` refuses a command containing `|`
       (`system/delegating-to-agents.md`, "Commands That Do Not Interrupt").
-- [ ] 13.7 Read `docs/17-infantry.md` end to end — not only the changed lines
-      (`system/proposal-review.md`).
-- [ ] 13.8 Read the other nine changed files in place, each around its edit:
+- [x] 13.7 Read `docs/17-infantry.md` end to end — not only the changed lines
+      (`system/proposal-review.md`). Read before the pull request was opened.
+      **Section 14 is what it caught**: `INF-007` named a single limit for a
+      rule that applies in every direction.
+- [x] 13.8 Read the other nine changed files in place, each around its edit:
       `CORE-001` and `CORE-005` (`docs/02-core-rules.md`), `FLOW-013`
       (`docs/03-game-flow.md`), `MOVE-003` (`docs/07-movement.md`), `VEH-011`
       (`docs/08-vehicles.md`), `CBT-013` through `CBT-015`
       (`docs/11-combat.md`), the *UB* and *Step* entries
       (`docs/14-glossary.md`), the *Unit Base (UB)* section
       (`docs/01-foundations.md`), Principle 9 (`CODE_OF_DESIGN.md`) and
-      `TODO.md` end to end.
+      `TODO.md` end to end. Read before the pull request was opened. **Sections
+      15 and 16 are what it caught**: the Design Philosophy never said the count
+      differs by axis, and Principle 9 was left quoting a rule and citing none.
 
 ---
 
