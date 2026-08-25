@@ -4626,43 +4626,40 @@ Material an Impact must cross is never ignored: a plate or panel outside a wall 
 **None of these is guessed at. Each changes what a rule means, or picks a
 number, and the changes in this file were settled before it was written.**
 
-Section 37 removed the two items that turned out not to be defects. Five remain,
-and **none of them changes an outcome at the table** — they are a title, a
-definition's axis, and three passages a reader could over-read.
+Section 37 removed the two items that turned out not to be defects, and sections
+39 and 40 closed the two that changed an outcome. **Three remain, and none of
+them changes anything at the table** — they are passages a reader could
+over-read, and the maintainer has left them deliberately:
 
-1. **Weapon Width has three candidates.** `WPN-003` says "the Weapon Body's
-   smallest dimension" and a body has three. For a body 8 long × 4 wide × 2 tall
-   that is 2, giving a `2 × 2` Weapon Front — while `WPN-020`'s worked example
-   says an `8 × 4` body has Weapon Width 4 and a `4 × 4` front, which holds only
-   if a body is described by two numbers. `WPN-019` requires the front to be
-   *square*, which an 8 × 4 × 2 body's front face is not.
+> If they are nuances and need no further clarification, leave them. We are not
+> going to write everything down.
 
-   **The wording is `main`'s, restored verbatim by task 25.1**, so this is
-   inherited rather than introduced — but section 25 promoted it from a rule
-   nothing cited into the definition three rules read. Naming the axis fixes it
-   and picks a number.
-
-   Related and also unstated: "firing axis" is used by `WPN-003` and the
-   glossary's *Weapon Body* and defined by no rule.
-
-2. **`GEO-005` and the boxed line.** "Build freely without changing the measured
+1. **`GEO-005` and the boxed line.** "Build freely without changing the measured
    rules of the model" and the Minimum Representation paragraph are unqualified.
    Both remain true of every measured value — Resistance is no longer one — but a
    reader can take them as promising decoration never matters. `GEO-005:116` and
    the glossary's *Functional Equivalence* read the same way.
 
-3. **The glossary's *Wounded* entry** is the ruleset's fullest statement of that
+2. **The glossary's *Wounded* entry** is the ruleset's fullest statement of that
    state and does not mention that 1 Action Point ends it. Not a contradiction —
    it never claimed to list the exits — but a reader looking the state up will not
    learn how to leave it.
 
-4. **`assets/IMAGES.md` declines `CBT-007`** as "a binary construction check made
+3. **`assets/IMAGES.md` declines `CBT-007`** as "a binary construction check made
    directly on the model". Section 29 gave the rule a reach limit resolved by
    pointing the arm at the target, which is spatial. The claim is not false; the
    reason no longer covers the whole rule.
 
-**Closed since this list was written:** `VEH-031`'s title named one of the two
-outcomes it states. Section 39 retitles it *What Damage Does to Movement*.
+**Closed since this list was written:**
+
+- `VEH-031`'s title named one of the two outcomes it states. Section 39 retitles
+  it *What Damage Does to Movement*.
+- `Weapon Width` had three candidate dimensions and `WPN-020`'s example assumed
+  two. Section 40 reads it off the Weapon Body's front face, which is built
+  square.
+- **"Firing axis" is still defined by no rule**, and stays that way. It is
+  inferable from `WPN-019` — the only face the weapon fires from — and is a
+  nuance of the kind this list now keeps rather than writes.
 
 ---
 
@@ -4834,6 +4831,48 @@ with:
       **`VEH-024` is deliberately untouched.** "If the hover assembly is destroyed
       … Immobilized (`VEH-031`)" stays true: all of it destroyed is half or more.
       A hover vehicle with four repulsors and two Dead is answered by `VEH-031`.
+
+---
+
+## 40. `Weapon Width` is read off the front face
+
+**A rule change, decided by the maintainer.** `WPN-003` said "the Weapon Body's
+smallest dimension" and a physical body has three, so an `8 × 4 × 2` body gave
+Width 2 and a `2 × 2` front — while `WPN-020`'s example gives an `8 × 4` body a
+`4 × 4` front. Different muzzle counts from one build.
+
+The ruleset already describes a body by two numbers everywhere (`WPN-018`'s
+pairs, `WPN-020`'s example) and `WPN-019` already requires the front to be square.
+One sentence says which two.
+
+- [x] 40.1 In `docs/10-weapons.md`, `WPN-003`, replace this anchor:
+
+```
+Weapon Length is the longest dimension of the functional Weapon Body, measured along its firing axis. Weapon Width is the Weapon Body's smallest dimension.
+```
+
+with:
+
+```
+Weapon Length is the longest dimension of the functional Weapon Body, measured along its firing axis. Weapon Width is the side of the Weapon Body's front face, which is built square.
+```
+
+  `WPN-018`'s `Length ≥ 2 × Width` is a ceiling and stays one. `WPN-019`'s square
+  Weapon Front stops being circular: `WPN-003` measures the face, `WPN-019` says
+  what the area is for. `WPN-020`'s `8 × 4` example now reads as length 8 and a
+  `4 × 4` face, which is what it always meant.
+
+### Verification
+
+- [x] 40.2 `grep -c -F "Weapon Body's smallest dimension" docs/10-weapons.md`
+      returns **0**. Run and confirmed.
+
+- [x] 40.3 Read `WPN-003`, `WPN-018`, `WPN-019` and `WPN-020` in that order. All
+      four describe one body the same way: a length along the firing axis and a
+      square front face whose side is the Width. `WPN-018`'s six valid pairs are
+      each a Width and a Length with `Length ≥ 2 × Width`, and all six stay legal.
+
+- [x] 40.4 `python3 scripts/preflight.py` — every check green. Run: all 12 pass.
 
 ---
 

@@ -216,6 +216,11 @@ Dimensions***, rather than back where it was: `WPN-018` is cited by nothing, and
 `WPN-003` is the rule that says which dimension of the Weapon Body is which.
 `MEL-014` and the glossary's *Weapon Body* keep citing it and both stay true.
 
+**Width is read off the front face**, which is built square. `main`'s wording —
+"the smallest dimension of the Weapon Body" — left three candidates on a physical
+body and disagreed with `WPN-020`'s `8 × 4` example. Reading the face makes
+`WPN-003`, `WPN-018`, `WPN-019` and `WPN-020` describe one body the same way.
+
 **The rule keeps its number while its title and content widen** — the one thing
 `design.md` (Decision 12) records that no script reports. `tasks.md` (section 25).
 
