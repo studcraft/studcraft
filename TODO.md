@@ -10,27 +10,7 @@ Work someone has decided to *do* belongs in the issue tracker, not here; see iss
 
 ---
 
-## Structures
-
-### Structure-wide damage
-
-`CORE-005` (`docs/02-core-rules.md`):
-
-> Structure-wide effects such as building collapse or breaching are not currently defined.
-
-What would have to be decided: whether structures can suffer whole-structure effects such as collapse or breaching, and what rules resolve those effects.
-
----
-
 ## Vehicles
-
-### Lateral movement for hover vehicles
-
-`VEH-011` (`docs/08-vehicles.md`):
-
-> Future rules may introduce lateral movement.
-
-What would have to be decided: whether hover vehicles should gain a side-movement action distinct from their current forward, backward and turning movement, and at what AP cost.
 
 ### Reverse movement restrictions
 
@@ -44,22 +24,12 @@ What would have to be decided: whether any scenario or vehicle type should reduc
 
 ## Combat
 
-### Suppression, blast, fire, smoke, explosions, overwatch, reaction fire
+### Whether visibility grants a shot outside a unit's activation
 
-`CBT-014` (`docs/11-combat.md`):
+`CORE-009` (`docs/02-core-rules.md`):
 
-> Future combat rules must preserve the Impact-based combat system.
+> **If you can see it, you can shoot it.**
 
-The same rule explicitly lists the following mechanics as not currently part of StudCraft:
-
-* Suppression
-* Blast Weapons
-* Fire
-* Smoke
-* Explosions
-* Overwatch
-* Reaction Fire
-
-What would have to be decided: mechanics for each of these effects that preserve the Impact-based combat system rather than introducing a parallel damage mechanic.
+What would have to be decided: whether that sentence grants an attack outside the attacker's own activation. `CBT-001` charges an attack 1 Action Point and `CORE-006` spends Action Points inside an activation, but no rule states the consequence, and `FLOW-013` lets a scenario extend the ruleset.
 
 ---

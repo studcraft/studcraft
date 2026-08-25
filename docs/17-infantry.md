@@ -16,10 +16,12 @@ Infantry has no movement statistic.
 
 Its movement is derived from its Unit Base:
 
-* The 3-stud depth defines forward and backward steps.
-* The 4-stud width defines sideways steps.
+* Forward and backward movement counts its 3-stud depth.
+* Sideways movement counts its 4-stud width.
 
 This makes movement measurable directly from the model. A spare Unit Base can be used instead of a ruler.
+
+The count differs by axis because the axes do: 4 UB forward and 3 UB sideways are both 12 studs.
 
 The infantry base is Gameplay Geometry (`15-geometry-layers.md`, GEO-001). Visual Geometry does not modify movement measurements (`15-geometry-layers.md`, GEO-003).
 
@@ -41,21 +43,19 @@ A minifigure has two hands, and may only use equipment it can physically carry i
 
 Standard infantry movement:
 
-**Up to 12 studs forward, in multiples of 3 studs**
+**Up to 4 UB forward.**
 
-12 is the maximum, not a fixed distance — a unit may move 3, 6, 9 or 12 studs, or stay put.
+A unit may move 1, 2, 3 or 4 UB, or stay put.
 
-The step size is the Unit Base's depth (`02-core-rules.md`, CORE-001): moving forward crosses the 3-stud axis, so forward movement counts whole base-depths, exactly as side movement counts whole base-widths of 4 (INF-003). Both numbers come from the base itself, so a player can measure either by laying spare infantry bases end to end.
+Forward movement reads the Unit Base's 3-stud depth (`02-core-rules.md`, CORE-001), so 4 UB is 12 studs.
 
-The distance is measured from the face of the base that leads in the direction of travel — the front face moving forward, the rear face moving backward (INF-004), the corresponding side face moving sideways (INF-003). This is the general measurement rule (`07-movement.md`, MOVE-003) read against an infantry base.
+Each movement action costs **1 Action Point** (`02-core-rules.md`, CORE-006) and moves the unit in a single direction. Changing direction requires a separate movement action (`07-movement.md`, MOVE-007).
 
-One movement action costs **1 Action Point** (`02-core-rules.md`, CORE-006) and moves the unit in a single direction. Changing direction requires a second movement action (`07-movement.md`, MOVE-007).
+Distance is measured from the face of the base that leads in the direction of travel — the front face moving forward, the rear face moving backward (INF-004), the corresponding side face moving sideways (INF-003). This is the general measurement rule (`07-movement.md`, MOVE-003) read against an infantry base.
 
-Each movement action is measured independently: a unit spending two Action Points on movement makes two separate moves of up to 12 studs each, not one move of 24.
+Each movement action is measured independently: spending two Action Points on movement allows two separate moves of up to 4 UB each, not one move of 8 UB.
 
 A Wounded model's limit is lower — see INF-012.
-
-Future scenarios may allow sprinting or other special movement.
 
 ---
 
@@ -63,18 +63,15 @@ Future scenarios may allow sprinting or other special movement.
 
 Infantry may move sideways, left or right.
 
-**Up to 12 studs, in multiples of 4 studs**
+**Up to 3 UB sideways.**
 
-The step size is the Unit Base's width (`02-core-rules.md`, CORE-001) — moving sideways crosses the 4-stud axis. Legal distances are therefore 4, 8 and 12 studs. Partial side movement is not allowed.
+A unit may move 1, 2 or 3 UB sideways, or stay put.
 
-Side movement is a movement action and costs **1 Action Point**, the same as moving forward (INF-002).
+Side movement reads the Unit Base's 4-stud width (`02-core-rules.md`, CORE-001), so 3 UB is 12 studs.
+
+Side movement is a movement action and costs **1 Action Point**, the same as forward movement (INF-002).
 
 Infantry reaches an off-axis position by combining a forward or backward move with a side move, each its own movement action (`07-movement.md`, MOVE-007).
-
-Example — instead of moving diagonally:
-
-- Forward 6 studs (1 AP)
-- Left 4 studs (1 AP)
 
 A Wounded model's limit is lower — see INF-012.
 
@@ -84,11 +81,11 @@ A Wounded model's limit is lower — see INF-012.
 
 Infantry may move backwards.
 
-**Up to 12 studs, in multiples of 3 studs** — the same limit and step size as forward movement (INF-002), because backward movement crosses the same 3-stud axis of the base.
+**Up to 4 UB backward.**
+
+Backward movement reads the same 3-stud axis and the same limit as forward movement, and costs **1 Action Point** (INF-002).
 
 The unit keeps its facing. No rotation is required.
-
-Backward movement is a movement action and costs **1 Action Point**.
 
 A Wounded model's limit is lower — see INF-012.
 
@@ -114,7 +111,7 @@ Terrain physically affects infantry movement. What a slope and a stepped surface
 
 ## INF-006 — One Brick Obstacles
 
-Height: **up to 3 plate layers** (one brick or less).
+Height: **up to 3 plate layers**.
 
 Obstacle height is measured in plate layers, the same unit `16-damage-system.md` (DMG-003) uses: a plate counts as 1 and a standard brick as 3.
 
@@ -124,17 +121,17 @@ Infantry may cross freely. No additional movement cost.
 
 ## INF-007 — Two Brick Obstacles
 
-Height: **4 to 6 plate layers** (more than one brick, up to two).
+Height: **4 to 6 plate layers**.
 
-Infantry may climb. Climbing costs **1 additional Action Point** on top of the movement action that crosses the obstacle, so a move over such an obstacle costs 2 AP in total.
+Infantry may climb. Climbing costs **1 additional Action Point** for each such obstacle the move crosses, on top of the movement action itself — so a move over one such obstacle costs **2 AP**.
 
-The climb is part of that movement action and does not increase the distance the unit may travel: the limit on that move still applies as a whole — 12 studs (INF-002), or a Wounded model's shorter limit (INF-012).
+The climb is part of that movement action and does not increase the movement limit: the full move still counts against the limit its own direction sets — **4 UB** forward or backward (INF-002, INF-004), **3 UB** sideways (INF-003) — or the Wounded model's shorter limit (INF-012).
 
 ---
 
 ## INF-008 — Three Brick Obstacles
 
-Height: **7 or more plate layers** (taller than two bricks).
+Height: **7 or more plate layers**.
 
 Cannot be climbed directly.
 
@@ -152,19 +149,15 @@ Without one of these, the obstacle is impassable.
 
 ## INF-009 — Slopes and Stairs
 
-Infantry may move normally over connected slopes (`07-movement.md`, MOVE-012) at no additional Action Point cost: a slope is ordinary terrain, not an obstacle to climb.
+Infantry may move normally over connected slopes (`07-movement.md`, MOVE-012) at no additional Action Point cost.
 
-A stepped surface (`07-movement.md`, MOVE-013) is climbed one step at a time, and each step is an obstacle read exactly like any other — 3 plate layers or fewer crossed freely (INF-006), 4 to 6 for 1 additional Action Point (INF-007), 7 or more not climbable at all (INF-008), which stops the climb at that step. Stairs built from steps of a plate or two therefore cost nothing.
+A stepped surface (`07-movement.md`, MOVE-013) is climbed one step at a time. Each step is treated as an obstacle:
 
-**Each such step is charged.** A move crossing two steps of 4 to 6 plate layers spends the movement action's Action Point and 2 more, because it climbed two obstacles and not one — INF-007's "2 AP in total" counts one climb, which is the ordinary case rather than the only one. A staircase steep enough to charge for twice is one a unit may not finish in a single activation, which the 3 Action Points of `02-core-rules.md` (CORE-006) bound on their own.
+- 3 plate layers or fewer: no additional AP (INF-006).
+- 4 to 6 plate layers: +1 AP (INF-007).
+- 7 or more plate layers: cannot be climbed (INF-008), which stops the climb at that step.
 
-Distance traveled up either counts against the normal movement limit (INF-002).
-
----
-
-## INF-010 — Vertical Access
-
-A vertical face taller than INF-008's threshold cannot be climbed unless a slope, stair or ramp physically reaches it. Those are the three legal access points INF-008 lists, and no other construction grants access.
+Distance traveled up a slope or a stepped surface counts against the normal movement limit (INF-002).
 
 ---
 
@@ -200,13 +193,13 @@ Vehicle falling is resolved separately under `08-vehicles.md` (VEH-026).
 
 # INF-012 — Wounded Movement
 
-A Wounded infantry model (`16-damage-system.md`, DMG-002) moves **at most two steps** in whichever direction it travels.
+A Wounded infantry model (`16-damage-system.md`, DMG-002) moves **at most 2 UB** in whichever direction it travels.
 
-The step is the one that direction already uses (`02-core-rules.md`, CORE-001): the Unit Base's 3-stud depth forward and backward (INF-002, INF-004), and its 4-stud width sideways (INF-003). So a Wounded model may move **up to 6 studs forward or backward** and **up to 8 studs sideways** — distances those rules already allow, with the longer ones removed.
+Each direction reads its own axis of the Unit Base (`02-core-rules.md`, CORE-001), so 2 UB is **6 studs forward or backward** (INF-002, INF-004) and **8 studs sideways** (INF-003) — distances those rules already allow, with the longer ones removed.
 
 Nothing else about the move changes. It still costs **1 Action Point**, it still travels in a single direction (`07-movement.md`, MOVE-007), and rotation (INF-005), slopes and stairs (INF-009) and falling (`07-movement.md`, MOVE-015; INF-011) are untouched. Climbing a two-brick obstacle still costs the 1 additional Action Point INF-007 charges — what changes there is the length of the move the climb belongs to, not the climb.
 
-The limit is counted in steps rather than taken as half the normal distance because half of a side move is 6 studs, which INF-003 does not allow. A fraction of a legal distance is not always a legal distance; a count of steps always is.
+The limit is counted in whole Unit Bases rather than taken as half the normal distance, because half of a 3 UB side move is not a whole Unit Base.
 
 ---
 
@@ -215,12 +208,12 @@ The limit is counted in steps rather than taken as half the normal distance beca
 Infantry in StudCraft follows seven simple principles:
 
 1. An infantry model is a minifigure with two hands, on a base of `4 × 3` studs, one plate thick, whose 4-stud edge is its front.
-2. Forward and backward movement is up to 12 studs, in multiples of 3.
-3. Side movement is up to 12 studs, in multiples of 4.
+2. Forward and backward movement is up to 4 UB, read across the Unit Base's 3-stud depth — 12 studs.
+3. Side movement is up to 3 UB, read across its 4-stud width — 12 studs.
 4. Each movement action costs 1 Action Point, and so does a rotation.
-5. Obstacles up to 3 plate layers are crossed freely, 4 to 6 cost 1 additional Action Point, and 7 or more need a slope, a stair or a ramp — and a stair's own steps are obstacles read the same way.
+5. Obstacles up to 3 plate layers are crossed freely, 4 to 6 cost 1 additional Action Point each, and 7 or more need a slope, a stair or a ramp — and a stair's own steps are obstacles read the same way.
 6. A fall rolls one D6 per complete brick beyond the first, each die a Damage Roll.
-7. A Wounded model moves at most two steps in any direction — 6 studs forward or backward, 8 sideways.
+7. A Wounded model moves at most 2 UB in any direction — 6 studs forward or backward, 8 sideways.
 
 ---
 

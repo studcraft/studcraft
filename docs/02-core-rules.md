@@ -67,6 +67,8 @@ Height is counted in plate layers, the ruleset's vertical unit: a plate counts a
 
 A footprint written `W × D UB` counts 4-stud widths by 3-stud depths, so a `2 × 3 UB` footprint measures `8 × 9` studs.
 
+A distance written `N UB` counts N Unit Bases along the single axis its rule names: 4 UB of depth is 12 studs, 3 UB of width is 12 studs (`17-infantry.md`, INF-002, INF-003).
+
 Each rule states which dimensions of the Unit Base it reads. A measured value never replaces a physical check (`15-geometry-layers.md`, GEO-003, GEO-004).
 
 ---
@@ -109,8 +111,6 @@ How a unit crosses or occupies these constructions is defined by its domain rule
 
 * Infantry: `17-infantry.md`
 * Vehicles: `08-vehicles.md`
-
-Structure-wide effects such as building collapse or breaching are not currently defined.
 
 ---
 

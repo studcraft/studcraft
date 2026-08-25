@@ -203,11 +203,11 @@ Avoid introducing additional resource systems unless they provide significant va
 
 Visibility is determined by the model, not by abstract templates.
 
-The core rule is simple:
+The core rule is simple — `docs/02-core-rules.md` (CORE-009) states it, and is the authority:
 
 > **If you can see it, you can shoot it.**
 
-Visibility is symmetric: what can see you can target you. Whether that produces a shot outside a unit's own activation is a rule, not a principle — `docs/11-combat.md` (CBT-014) decides it.
+Visibility is symmetric: what can see you can target you.
 
 Construction determines cover, exposure and firing opportunities.
 

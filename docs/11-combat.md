@@ -206,22 +206,6 @@ All components use the same Damage System. There is no separate Armour mechanic.
 
 ---
 
-# CBT-014 — Future Combat Extensions
-
-The following are **not currently part of StudCraft**:
-
-* Suppression
-* Blast Weapons
-* Fire
-* Smoke
-* Explosions
-* Overwatch
-* Reaction Fire
-
-Future combat rules must preserve the Impact-based combat system.
-
----
-
 # CBT-015 — Attacking While Wounded
 
 A Wounded weapon (`16-damage-system.md`, DMG-002) still attacks, but each Attack Die is less reliable.
