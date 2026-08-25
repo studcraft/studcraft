@@ -60,6 +60,16 @@ Two ruleset documents and **one capability delta**: five anchor pairs, plus a
 `MODIFIED` requirement against `unit-base` written directly into
 `specs/unit-base/spec.md` rather than as an anchor pair.
 
+**That delta is superseded and has moved.** `general-review` (#130) modified the
+same requirement afterwards and is the later change, so it carries the
+authoritative version (`system/workflow.md`, "When several changes modified the
+same requirement"). This change's delta now lives at
+`specs-superseded/unit-base/spec.md`, with a header saying why, and this change
+carries no live delta.
+
+**Every `specs/unit-base/spec.md` path below is the record of where it was
+written and verified, not a path that still resolves.**
+
 | `proposal.md` item | Task | Path |
 |---|---|---|
 | `DEP-001` — `W × D` yields a count | 1.1 | `docs/06-deployment.md` |
