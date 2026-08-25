@@ -10,8 +10,9 @@ to verify, so a reviewer can check the claim rather than take it.
 **Part B is applied**, by `scripts/apply_tasks.py` rather than by hand — 46
 anchor pairs across 17 files, in two runs. It is written as anchor pairs for
 that reason: every anchor was checked with exact-substring matching and occurred
-**exactly once in the file its task names**. One box is unticked, task 12.1, and
-that is deliberate.
+**exactly once in the file its task names**. Task 12.1 was left unticked
+deliberately, because it belonged in its own pull request; #131 made that pull
+request and the box is ticked now.
 
 If an anchor returns anything other than 1, **stop and report it** rather than
 guessing which occurrence was meant. Never edit a document to make a
@@ -4978,11 +4979,16 @@ A locomotion component provides the vehicle's movement or its support against th
 `MODIFIED` delta against `unit-base`'s *Unit Base Projections*, which this
 change supersedes (`specs/unit-base/spec.md`).
 
-- [ ] 12.1 Move #129's `specs/unit-base/spec.md` to `specs-superseded/` in its
+- [x] 12.1 Move #129's `specs/unit-base/spec.md` to `specs-superseded/` in its
       own directory, with a note naming this change (`system/workflow.md`,
       "When several changes modified the same requirement"). **Not in this pull
       request** — `Docs require OpenSpec proposal` fails a PR touching two
       change directories.
+
+      **Done in #131** (`0890dc9`), as its own pull request, and #129 has since
+      been archived. The delta is at
+      `openspec/changes/archive/2026-08-25-a-deployment-volume-is-floor-and-ceiling/specs-superseded/unit-base/spec.md`.
+      Ticked because the work landed, not because this pull request did it.
 
 ---
 
