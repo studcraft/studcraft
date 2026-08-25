@@ -16,7 +16,7 @@ The resource every unit spends during its activation. See `02-core-rules.md`, CO
 
 Unit Base.
 
-The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 13 plate layers tall. See `02-core-rules.md` (CORE-001).
+The universal measurement of StudCraft: a volume 4 studs wide, 3 studs deep and 13 plate layers tall. A footprint written `W × D UB` counts widths by depths; a distance written `N UB` counts N Unit Bases along the axis its rule names. See `02-core-rules.md` (CORE-001).
 
 ---
 
@@ -294,7 +294,7 @@ The middle Component State: the component still functions, and where the capabil
 
 ## Step
 
-An infantry movement increment: one Unit Base depth (3 studs) moving forward or backward, one Unit Base width (4 studs) moving sideways. Used to state a Wounded model's shorter limit as a count rather than a fraction, because half of a legal distance is not always a legal distance. See `17-infantry.md` (INF-012). Not to be confused with a stair's step (INF-009) or with a Component State advancing one step (`16-damage-system.md`, DMG-002).
+An infantry movement increment of one Unit Base: its 3-stud depth moving forward or backward, its 4-stud width moving sideways. See `17-infantry.md` (INF-002, INF-003, INF-004). Not to be confused with a stair's step (INF-009) or with a Component State advancing one step (`16-damage-system.md`, DMG-002).
 
 ---
 

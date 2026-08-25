@@ -86,6 +86,7 @@ Examples:
 - Vehicle footprints are measured in UB, horizontally.
 - Transport capacity is measured in UB, as a volume.
 - Cargo occupies UB, and several objects may share one (`09-transport.md`, TRN-013).
+- Infantry movement is measured in UB, along a named axis of the base (`17-infantry.md`, INF-002).
 
 Using a single measurement system keeps the rules simple and consistent.
 

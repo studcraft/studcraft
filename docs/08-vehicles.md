@@ -132,8 +132,6 @@ Hover vehicles move forward and backward using standard movement (VEH-004).
 
 They may turn 90° left or right for **1 Action Point**, pivoting around their centre.
 
-Future rules may introduce lateral movement.
-
 ---
 
 # VEH-012 — Locomotion Type
@@ -323,7 +321,7 @@ Crew and passengers are never harmed by a vehicle's fall.
 
 Hover vehicles take no falling damage.
 
-Infantry may disembark from a vehicle at the bottom of a drop (`09-transport.md`, TRN-006), but the drop's walls remain ordinary terrain (`17-infantry.md`, INF-008, INF-010).
+Infantry may disembark from a vehicle at the bottom of a drop (`09-transport.md`, TRN-006), but the drop's walls remain ordinary terrain (`17-infantry.md`, INF-008).
 
 ---
 

@@ -43,7 +43,7 @@ Which directions a unit may move in is its own domain's rule: infantry moves for
 
 Movement is measured along the direction of travel, and the whole distance is measured from one point on the model, not from wherever the model happens to be widest.
 
-Where that point is, is its own domain's rule — infantry measures from the face of its base that leads in the direction of travel (`17-infantry.md`, INF-002), a vehicle from its front along its facing (`08-vehicles.md`, VEH-004).
+Where that point is, is its own domain's rule — infantry (`17-infantry.md`, INF-002), vehicles (`08-vehicles.md`, VEH-004).
 
 When movement ends, the unit occupies its new position completely.
 
@@ -83,7 +83,7 @@ Whether a given unit may climb one is its own domain's question — infantry (`1
 
 Any stable LEGO surface may support a unit, and physical construction determines accessibility.
 
-Which constructions grant a given unit access is its own domain's question — infantry (`17-infantry.md`, INF-008, INF-010), vehicles (`08-vehicles.md`, VEH-021, VEH-027).
+Which constructions grant a given unit access is its own domain's question — infantry (`17-infantry.md`, INF-008), vehicles (`08-vehicles.md`, VEH-021, VEH-027).
 
 ---
 
