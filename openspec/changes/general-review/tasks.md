@@ -4621,18 +4621,17 @@ Material an Impact must cross is never ignored: a plate or panel outside a wall 
 
 ---
 
-## 38. Left for the maintainer
+## 38. Read, decided, and left as they are
 
-**None of these is guessed at. Each changes what a rule means, or picks a
-number, and the changes in this file were settled before it was written.**
-
-Section 37 removed the two items that turned out not to be defects, and sections
-39 and 40 closed the two that changed an outcome. **Three remain, and none of
-them changes anything at the table** — they are passages a reader could
-over-read, and the maintainer has left them deliberately:
+**Nothing here is outstanding.** The audit of the applied text raised seven
+items. Section 37 found two of them were not defects. Sections 39, 40 and 41
+closed the ones that changed an outcome. The rest were read and kept:
 
 > If they are nuances and need no further clarification, leave them. We are not
 > going to write everything down.
+
+**Kept deliberately.** Each is a passage a reader could over-read. None
+contradicts a rule, and none changes anything at the table:
 
 1. **`GEO-005` and the boxed line.** "Build freely without changing the measured
    rules of the model" and the Minimum Representation paragraph are unqualified.
@@ -4650,16 +4649,18 @@ over-read, and the maintainer has left them deliberately:
    pointing the arm at the target, which is spatial. The claim is not false; the
    reason no longer covers the whole rule.
 
-**Closed since this list was written:**
+4. **"Firing axis"** is used by `WPN-003` and the glossary's *Weapon Body* and
+   defined by no rule. It is inferable from `WPN-019` — the only face the weapon
+   fires from.
+
+**Fixed instead of kept:**
 
 - `VEH-031`'s title named one of the two outcomes it states. Section 39 retitles
-  it *What Damage Does to Movement*.
+  it *What Damage Does to Movement*, and section 41 takes the reviewer's
+  structure for the rule itself.
 - `Weapon Width` had three candidate dimensions and `WPN-020`'s example assumed
   two. Section 40 reads it off the Weapon Body's front face, which is built
   square.
-- **"Firing axis" is still defined by no rule**, and stays that way. It is
-  inferable from `WPN-019` — the only face the weapon fires from — and is a
-  nuance of the kind this list now keeps rather than writes.
 
 ---
 
