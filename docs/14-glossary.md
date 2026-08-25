@@ -292,10 +292,4 @@ The middle Component State: the component still functions, and where the capabil
 
 ---
 
-## Step
-
-An infantry movement increment of one Unit Base: its 3-stud depth moving forward or backward, its 4-stud width moving sideways. See `17-infantry.md` (INF-002, INF-003, INF-004). Not to be confused with a stair's step (INF-009) or with a Component State advancing one step (`16-damage-system.md`, DMG-002).
-
----
-
 > **Every Brick Matters.**

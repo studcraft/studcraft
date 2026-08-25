@@ -16,8 +16,8 @@ Infantry has no movement statistic.
 
 Its movement is derived from its Unit Base:
 
-* The 3-stud depth defines forward and backward steps.
-* The 4-stud width defines sideways steps.
+* Forward and backward movement counts its 3-stud depth.
+* Sideways movement counts its 4-stud width.
 
 This makes movement measurable directly from the model. A spare Unit Base can be used instead of a ruler.
 
@@ -43,7 +43,7 @@ A minifigure has two hands, and may only use equipment it can physically carry i
 
 Standard infantry movement:
 
-**Up to 4 UB forward, in whole UB steps.**
+**Up to 4 UB forward.**
 
 A unit may move 1, 2, 3 or 4 UB, or stay put.
 
@@ -63,7 +63,7 @@ A Wounded model's limit is lower — see INF-012.
 
 Infantry may move sideways, left or right.
 
-**Up to 3 UB sideways, in whole UB steps.**
+**Up to 3 UB sideways.**
 
 A unit may move 1, 2 or 3 UB sideways, or stay put.
 
@@ -81,7 +81,7 @@ A Wounded model's limit is lower — see INF-012.
 
 Infantry may move backwards.
 
-**Up to 4 UB backward, in whole UB steps.**
+**Up to 4 UB backward.**
 
 Backward movement reads the same 3-stud axis and the same limit as forward movement, and costs **1 Action Point** (INF-002).
 

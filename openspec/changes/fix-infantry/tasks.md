@@ -934,3 +934,125 @@ The core rule is simple — `docs/02-core-rules.md` (CORE-009) states it, and is
       and backward 4 UB, sideways 3 UB, `INF-007` now defers to whichever the
       move's direction sets, `INF-012` halves the count on the axis the
       direction already uses. One maximum per move.
+
+---
+
+# Part E — Review of #133
+
+The reviewer asked that the glossary's *Step* entry be removed, **if a
+repository-wide search confirms no remaining normative use of the term**, on the
+grounds that `UB` is the single distance unit and a second movement increment
+beside it is ambiguity without a purpose.
+
+**The search does not confirm it — it locates it.** `grep -rni "step" docs/`
+returns five lines where "step" is an infantry movement increment: the three
+rule headlines *"in whole UB steps"* and the two Design Philosophy bullets.
+Every other hit is a different term: a stepped surface's step, which
+`MOVE-013` owns; a numbered procedure step; a Component State advancing one
+step.
+
+So the term goes from the rules first, and the entry with it. **The headlines do
+not need it** — each is followed by a line enumerating the legal counts, which
+is what "whole" was saying.
+
+**`INF-009` is not touched**, at the reviewer's request. Its steps are stairs,
+not distances.
+
+## 18. `docs/17-infantry.md` — the rules stop using "step" as a distance
+
+- [x] 18.1 In `docs/17-infantry.md`, Design Philosophy, replace this anchor —
+      the two bullets:
+
+```
+* The 3-stud depth defines forward and backward steps.
+* The 4-stud width defines sideways steps.
+```
+
+with:
+
+```
+* Forward and backward movement counts its 3-stud depth.
+* Sideways movement counts its 4-stud width.
+```
+
+- [x] 18.2 In `docs/17-infantry.md`, `INF-002`, replace this anchor — the
+      headline:
+
+```
+**Up to 4 UB forward, in whole UB steps.**
+```
+
+with:
+
+```
+**Up to 4 UB forward.**
+```
+
+- [x] 18.3 In `docs/17-infantry.md`, `INF-003`, replace this anchor — the
+      headline:
+
+```
+**Up to 3 UB sideways, in whole UB steps.**
+```
+
+with:
+
+```
+**Up to 3 UB sideways.**
+```
+
+- [x] 18.4 In `docs/17-infantry.md`, `INF-004`, replace this anchor — the
+      headline:
+
+```
+**Up to 4 UB backward, in whole UB steps.**
+```
+
+with:
+
+```
+**Up to 4 UB backward.**
+```
+
+## 19. `docs/14-glossary.md` — the *Step* entry is removed
+
+Nothing cites it, and `CORE-001` now owns what it said: a distance written
+`N UB` counts N Unit Bases along the axis its rule names. The entry's
+"not to be confused with" clause goes with it — `MOVE-013` defines a stepped
+surface's step where a reader meets it, and `DMG-002` owns the Component State.
+
+- [x] 19.1 In `docs/14-glossary.md`, replace this anchor — the whole *Step*
+      entry and the separator above it. **The last line of the *Wounded* entry
+      is part of the anchor and must be written back:**
+
+```
+A component that provides none of those — a door, a wheel, a shield — loses nothing by being Wounded. Nothing else about any component changes, and the next successful damaging Impact advances it to Dead. A Wounded infantry model is placed seated, which is how the state is shown on the model. See `16-damage-system.md`, DMG-002.
+
+---
+
+## Step
+
+An infantry movement increment of one Unit Base: its 3-stud depth moving forward or backward, its 4-stud width moving sideways. See `17-infantry.md` (INF-002, INF-003, INF-004). Not to be confused with a stair's step (INF-009) or with a Component State advancing one step (`16-damage-system.md`, DMG-002).
+
+---
+```
+
+with:
+
+```
+A component that provides none of those — a door, a wheel, a shield — loses nothing by being Wounded. Nothing else about any component changes, and the next successful damaging Impact advances it to Dead. A Wounded infantry model is placed seated, which is how the state is shown on the model. See `16-damage-system.md`, DMG-002.
+
+---
+```
+
+## 20. Verify
+
+- [x] 20.1 `grep -rni step docs/` returns no line where "step" is a distance:
+      every hit is a stepped surface, a numbered procedure step, or a Component
+      State advancing one step.
+- [x] 20.2 `python3 scripts/preflight.py` — every check green.
+- [x] 20.3 Read `INF-002`, `INF-003` and `INF-004` and confirm each still says
+      that only whole Unit Bases may be moved. Read: `INF-002` enumerates
+      "1, 2, 3 or 4 UB, or stay put", `INF-003` enumerates "1, 2 or 3 UB
+      sideways, or stay put", and `INF-004` takes "the same limit as forward
+      movement (INF-002)", which is that enumeration.
