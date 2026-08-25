@@ -160,8 +160,6 @@ A stepped surface (`07-movement.md`, MOVE-013) is climbed one step at a time, an
 
 Distance traveled up either counts against the normal movement limit (INF-002).
 
-A vehicle reads the same staircase as one obstacle of its total rise rather than a series of small ones (`08-vehicles.md`, VEH-027): infantry takes the steps and a vehicle cannot.
-
 ---
 
 ## INF-010 — Vertical Access

@@ -125,16 +125,19 @@ Unless restricted by a scenario, independent weapon systems may attack different
 
 A single weapon system normally assigns all of its Attack Dice to one target.
 
-Its dice may be split between multiple targets only when its mount can physically rotate to re-aim independently of the platform carrying it, such as a turntable, ball joint or swivel mount.
+Its dice may be split between multiple targets only when its mount can physically rotate to re-aim independently of the platform carrying it, such as a turntable, ball joint, swivel mount or a minifigure's shoulder — the rotation point is the shoulder, not the hand.
+
+Each target must be one the mount reaches by rotating alone, without turning the platform. A minifigure's arm therefore covers the targets in front of it and no others.
 
 Fixed mounts cannot split their Attack Dice between targets.
 
 When Attack Dice are split:
 
 * All targets must be declared before any die is rolled.
+* The mount must reach each target by rotating alone.
 * Line of Sight is checked separately for each target.
 * Weapon Range is checked separately for each target.
-* A die assigned to a target that fails either check has no valid target and is not rolled.
+* A die assigned to a target that fails any of these checks has no valid target and is not rolled.
 * The attack still costs the single Action Point for that weapon system.
 
 ---

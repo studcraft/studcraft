@@ -43,8 +43,6 @@ A Deployment Volume is measured in **Unit Bases (UB)** (`02-core-rules.md`, CORE
 
 If only two dimensions are given, the Deployment Volume is **1 UB high**.
 
-A `5 × 1` floor and a `1 × 5` floor both contain five Unit Bases.
-
 Deployment Volumes may have any dimensions agreed upon by the players or defined by the scenario.
 
 > **If it fits, it deploys.**
@@ -157,11 +155,11 @@ See `DEP-005` and `DEP-006`.
 
 Players may freely combine infantry, vehicles and transports within their Deployment Volume.
 
-For example, a `5 × 4 × 2 UB` Deployment Volume may contain:
+For example:
 
-* **20 infantry**, filling the floor.
-* **2 tanks and 8 infantry**, if their footprints can be placed within the floor and all models fit beneath the ceiling.
-* **1 super-heavy transport carrying 2 walkers and 4 infantry**, provided the transport and its contents satisfy the applicable transport rules and the complete deployed model fits within the Deployment Volume.
+* 20 infantry.
+* 2 tanks and 8 infantry.
+* 1 super-heavy transport carrying 2 walkers and 4 infantry.
 
 These are examples only.
 

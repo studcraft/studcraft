@@ -106,7 +106,7 @@ The limit on a player's army, agreed before the game and measured in Unit Bases:
 
 ## Weapon Range
 
-The maximum distance a ranged weapon may attack, equal to Weapon Length × 6. Bounded in practice by Line of Sight and by what the attacker's platform can carry, rather than by a written maximum. See `10-weapons.md` (WPN-005).
+The maximum distance a ranged weapon may attack, equal to Weapon Length × 6. Bounded in practice by Line of Sight rather than by a written maximum. See `10-weapons.md` (WPN-005).
 
 ---
 
@@ -142,7 +142,7 @@ The square construction area (Weapon Width × Weapon Width) on the Weapon Front 
 
 ## Muzzle
 
-A round functional construction area (typically 1×1 through 4×4, with no fixed maximum — see `10-weapons.md` WPN-002) on the Weapon Front Footprint, built from a round plate or round tile, representing one firing barrel.
+A round functional construction area (typically 1×1 through 4×4, with no fixed maximum — see `10-weapons.md` WPN-002) on the Weapon Front Footprint, representing one firing barrel.
 
 Each functional muzzle grants one Attack Die. Muzzles may be placed directly adjacent to one another.
 
@@ -192,7 +192,7 @@ The measurable properties of a model that feed a rule's measured value (Range, A
 
 ## Visual Geometry
 
-Every decorative element of a model that does not modify Gameplay Geometry. Never affects measured rule values; still counts for physical checks like Line of Sight and Cover. See `15-geometry-layers.md` (GEO-002, GEO-004).
+Every decorative element of a model that does not modify Gameplay Geometry. Never affects measured rule values; still counts for physical checks like Line of Sight and Cover, and for the Resistance of material an Impact crosses. See `15-geometry-layers.md` (GEO-002, GEO-004).
 
 ---
 
@@ -204,7 +204,7 @@ Two models with identical Gameplay Geometry produce identical measured values, r
 
 ## Resistance
 
-The smallest structural cross-section an Impact must cross, measured in plate layers and read directly from the model, not assigned as a statistic — no component type is exempt, moulded pieces included. See `16-damage-system.md` (DMG-003, DMG-004).
+The smallest cross-section of material an Impact must cross in its direction of travel, measured in plate layers and read directly from the model, not assigned as a statistic — no component type is exempt, moulded pieces included. See `16-damage-system.md` (DMG-003, DMG-004).
 
 ---
 
@@ -228,7 +228,7 @@ Not a separate statistic — the colloquial name for a component's construction-
 
 ## Component State
 
-The three-state progression every component uses: `Operational`, `Wounded`, `Dead`. Universal — no component type has an exception. See `16-damage-system.md` (DMG-002).
+The three-state progression every component uses: `Operational`, `Wounded`, `Dead`. No component type is exempt from the states; only a Wounded minifigure can run them backwards (`16-damage-system.md`, DMG-018). See `16-damage-system.md` (DMG-002).
 
 ---
 
@@ -258,7 +258,7 @@ The definition of one particular game: how it ends and how victory is judged, at
 
 ## Access Opening
 
-The gap a model passes through when it uses a door, hatch or ramp. An access point whose opening does not physically pass a given model is decorative for that model and has no gameplay effect. See `05-construction-components.md` (CMP-018).
+The gap a model passes through when it uses a door, hatch or ramp. See `05-construction-components.md` (CMP-018).
 
 ---
 

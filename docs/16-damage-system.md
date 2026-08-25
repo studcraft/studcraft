@@ -123,7 +123,7 @@ Resistance is never assigned as a statistic.
 
 It is measured directly from the LEGO construction.
 
-Resistance is the **smallest structural section that an Impact must cross in its direction of travel**, measured in plate layers.
+Resistance is the **smallest section of material an Impact must cross in its direction of travel**, measured in plate layers.
 
 The conversion is:
 
@@ -419,24 +419,15 @@ Penetration therefore follows the physical path of the Impact and does not depen
 
 ---
 
-## DMG-018 — Repairs
+## DMG-018 — Recovery
 
-A unit may spend **1 Action Point**, once per activation, to repair one of its own Wounded components.
+A damaged component is not repaired. What is broken stays broken.
 
-The component returns:
+A Wounded minifigure is the one thing that recovers: it may spend **1 Action Point** to return to Operational — infantry on foot, and a Pilot or crew member inside a vehicle alike.
 
 **Wounded → Operational**
 
-For infantry, this is represented by standing the minifigure back up.
-
-Repairing another unit requires:
-
-* A visible repair tool or equipment.
-* Physical adjacency to the target.
-
-Dead components cannot be repaired because they have already been removed from the model.
-
-Repairs reverse a Wounded state but do not recreate destroyed physical components.
+A Dead component cannot return. It has already been removed from the model (`DMG-002`).
 
 ---
 
@@ -608,7 +599,7 @@ The Damage System defines:
 * Damage Rolls
 * Penetration
 * Multiple Impacts
-* Repairs
+* Recovery
 
 Weapon attack generation and Attack Rolls are defined by `11-combat.md`.
 

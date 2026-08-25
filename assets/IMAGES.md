@@ -45,46 +45,17 @@ None of the files listed below exist yet. `assets/images/.gitkeep` holds the dir
 
 ---
 
-## Images supplement the text; they do not replace it
-
-When an image lands, **leave the ASCII block in the rule.** The column above is headed *"Why text alone is not enough"*, not *"what the text should be replaced by"*.
-
-`docs/` is read in a terminal, through `grep`, and by screen readers. A rule whose only diagram is a `.png` becomes unreadable in all three the moment images do not load. Two representations of one spatial fact in different media is not the duplication this repo works to remove — that is two *rules* stating the same mechanic, which can drift apart into a contradiction. A picture and its text alternative cannot contradict each other; at worst one is less clear.
-
-## Why the weapon grids are worth illustrating at all
-
-The three grid rules use overlapping symbols with different meanings, and no rule carries a legend:
-
-| Symbol | WPN-007 | WPN-019 | WPN-020 |
-|---|---|---|---|
-| `█` | a functional muzzle | — | a size-2 muzzle |
-| `■` | — | a footprint slot | the unpartitioned footprint |
-| `●` | — | — | a size-1 muzzle |
-| `·` | unused footprint | — | unused footprint |
-
-A reader meeting `██··` in WPN-007 has to reconstruct that legend from rules further down the document, where the same characters mean something narrower. One consistent visual language across the three images removes that problem entirely — which is a better reason for these images than any individual diagram being hard to picture.
-
-The remaining notations are the three above. A fourth — a hollow `○` for a muzzle, where WPN-020 uses a filled `●` — is gone from the ruleset along with the rules that carried it.
-
-## Coverage of the character grids
-
-A full scan of `docs/` for block and shape glyphs (`█ ■ ● ○ · ▪ ▫ ░ ▒ □`) finds nine fenced grid blocks. All nine are in `10-weapons.md`, and all belong to the three rules listed in that section above — one in WPN-007, three in WPN-019, five in WPN-020. No other document represents LEGO geometry as characters, and there is no ASCII minifigure anywhere in the ruleset.
-
-The remaining fenced blocks stay as they are. Formulas are equations and an image would be worse than the text. Directed graphs belong in Mermaid, which stays diffable, rather than in a raster image.
-
----
-
 ## docs/02-core-rules.md
 
 | Rule | Filename | What it must show | Why text alone is not enough |
 |---|---|---|---|
-| CORE-001 | `assets/images/core-001-unit-base-volume.png` | Three panels. First, the Unit Base as a volume, dimensioned 4 studs wide × 3 studs deep × 13 plate layers tall, with a model inside it and the base it stands on drawn within the volume rather than below it. Second, the same volume seen from above, dimensioned `4 × 3` studs. Last, a "2 × 3 UB" footprint measuring 8 × 9 studs, beside a 6 × 12 rectangle marked wrong. | Two geometric facts here are carried by prose alone: that the unit encloses space rather than covering it, and that the base a model stands on is inside the volume rather than the floor under it — the rule says the height is measured from that base's underside, which a reader has to picture to apply. The rule text itself flags the 8×9-vs-6×12 confusion as one readers get wrong. |
+| CORE-001 | `assets/images/core-001-unit-base-volume.png` | Three panels. First, the Unit Base as a volume, dimensioned 4 studs wide × 3 studs deep × 13 plate layers tall, with a model inside it and the base it stands on drawn within the volume rather than below it. Second, the same volume seen from above, dimensioned `4 × 3` studs. Last, a `2 × 3 UB` footprint measuring 8 × 9 studs, with the multiplication marked on both axes. | Two geometric facts here are carried by prose alone: that the unit encloses space rather than covering it, and that the base a model stands on is inside the volume rather than the floor under it — the rule says the height is measured from that base's underside, which a reader has to picture to apply. |
 
 ## docs/05-construction-components.md
 
 | Rule | Filename | What it must show | Why text alone is not enough |
 |---|---|---|---|
-| CMP-018 | `assets/images/cmp-018-clear-opening.png` | A doorway in a vehicle wall, twice. Both times the frame's nominal aperture is dimensioned in studs and plate layers, a hinged element hangs part-way across it, and the measurement that counts is drawn around that element rather than around the frame — labelled as the clear opening. In the first, an opening 4 studs wide and 13 plate layers clear — one Unit Base — passes the model; in the second the same frame fails it, with only the hanging element differing between the two. | The frame is what a reader measures and the wrong thing to measure, and no wording of "clear rather than nominal" makes two identical frames visibly different sizes — a drawing of one doorway with two measurements does. It is also the only one of GEO-004's three physical checks that needs an image of its own: Cover is declined separately at CORE-010, and Line of Sight is whatever can physically be seen from where the shooter stands, which no drawing of one build settles. |
+| CMP-018 | `assets/images/cmp-018-clear-opening.png` | A doorway in a vehicle wall, twice. Both times the frame's nominal aperture is dimensioned, a hinged element hangs part-way across it, and the measurement that counts is drawn around that element rather than around the frame — labelled as the clear opening, and dimensioned against the model beside it: at least as wide as that model's front edge and as tall as it stands. In the first the model passes; in the second the same frame fails, with only the hanging element differing between the two. | The frame is what a reader measures and the wrong thing to measure, and no wording of "clear rather than nominal" makes two identical frames visibly different sizes — a drawing of one doorway with two measurements does. It is one of GEO-004's physical checks that needs an image of its own: Cover is declined separately at CORE-010, and Line of Sight is whatever can physically be seen from where the shooter stands, which no drawing of one build settles. |
 
 ## docs/08-vehicles.md
 
@@ -94,7 +65,7 @@ The remaining fenced blocks stay as they are. Formulas are equations and an imag
 | VEH-008 | `assets/images/veh-008-pivot-points.png` | A wheeled vehicle turning 90° around its rear axle, showing the wide arc the front corner sweeps, next to a tracked/walker/hover vehicle turning around its own centre. | "Pivot point is the rear axle" is one sentence, but a reader cannot picture how far the front of the vehicle swings, or how that differs from a centre-pivot turn (VEH-009 through VEH-011), without seeing both turns drawn. |
 | VEH-022 | `assets/images/veh-022-axle-height.png` | A wheel with its axle height (half the wheel's diameter) marked as the Terrain Threshold, plus the fallback measurement (half the track-run height) for a tracked vehicle with no visible axle. | "Axle height" requires identifying the actual rotation point on the model, and the rule supplies a second, different fallback for tracks — both need to be shown against a real build to apply correctly. |
 | VEH-023 | `assets/images/veh-023-knee-height.png` | A walker leg with its knee-joint height marked as the Terrain Threshold, plus the fallback (half the leg's standing height) when no distinct knee exists. | Where a "knee" sits on a player-built leg assembly varies model to model; the rule's own fallback shows the answer is meant to be read off the build, which only an image can standardise. |
-| VEH-024 | `assets/images/veh-024-hover-assembly-height.png` | A hover vehicle's emitter/pylon/skirt assembly with its full height marked from the ground to the hull, including an enclosed skirt that reaches the ground and leaves no visible gap. | The rule explicitly warns that "measuring the assembly rather than the visible gap matters for enclosed builds" — the intuitive reading (measure the gap) is wrong, and only a picture can pre-empt that mistake. |
+| VEH-024 | `assets/images/veh-024-hover-assembly-height.png` | A hover vehicle's emitter/pylon/skirt assembly with its full height marked from the ground to where it meets the hull, including an enclosed skirt that reaches the ground and leaves no visible gap. | The threshold is the assembly's height, and the intuitive reading is the gap under the hull. On an enclosed skirt the two differ by the whole assembly and the gap is zero, so the wrong reading produces a legal-looking answer rather than an obviously absent one. |
 | VEH-027 | `assets/images/veh-027-ascent-coverage.png` | A slope/ramp fully covering a rise, resting on both the lower and upper surface, next to an invalid example that leaves a gap at the top or bottom. | The rule turns on whether the ramp "physically covers the entire rise" — a binary construction fact that is easy to get subtly wrong (a ramp that looks close enough but does not actually touch the upper surface). |
 | VEH-029 | `assets/images/veh-029-resting-surface-datum.png` | A long-legged walker measured from the surface it rests on to the top of its Gameplay Geometry, with the leg assembly shaded as included. The same walker repeated on a slope, and again standing inside a carrier vehicle — each time measured against the same total, with the slope and the carrier's floor marked as changing nothing. | Where the count begins is the whole rule, and everything the model stands up on is part of its height. The repeated panels carry the half prose argues hardest, that terrain and being carried never re-measure a model whose legality was settled at the bench. |
 
@@ -108,10 +79,8 @@ The remaining fenced blocks stay as they are. Formulas are equations and an imag
 
 | Rule | Filename | What it must show | Why text alone is not enough |
 |---|---|---|---|
-| WPN-003 | `assets/images/wpn-003-length-axis-front-face.png` | A weapon body with its firing axis drawn perpendicular through the Weapon Front, and the Weapon Front Footprint (WPN-019) outlined on that face, distinguished from the other five faces of the body. | Weapon Length is defined via an axis "perpendicular to the Weapon Front," and the Weapon Front is itself "the only face from which the weapon may fire" — two spatial definitions that depend on each other and are easy to reverse without a 3D view. |
-| WPN-007 | `assets/images/wpn-007-muzzle-adjacency.png` | A Weapon Front Footprint holding two muzzles that share an edge, marked valid, beside the same footprint with two muzzles overlapping, marked invalid. Unused footprint cells visibly distinct from occupied ones. | The rule's `██··` block is the whole explanation and carries no legend, so a reader must infer that `█` is a muzzle and `·` is unused footprint from a later rule that uses the same characters for something narrower. The image also has to show that adjacency is allowed and only overlap is not — a distinction four characters cannot carry. |
-| WPN-019 | `assets/images/wpn-019-front-footprint-sizes.png` | The Weapon Front Footprint at Widths 1, 2 and 4 — a square of side Weapon Width — shown against the weapon body so the relationship between body width and available muzzle space is visible. | The rule shows three character squares with no indication of scale or of how they sit on the weapon. The footprint is the space every muzzle competes for, so getting its size wrong invalidates every weapon built from it. |
-| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` | Five panels: the unpartitioned Weapon Front Footprint the rule starts from, then that same footprint partitioned as twin barrel, quad barrel, heavy cannon and hybrid, each labelled with the Attack Dice and Impact Strengths it produces. | The rule's own ASCII diagrams compress a genuinely spatial muzzle layout into a flat character grid. A real image showing the same footprint yielding several distinct, valid weapons makes "no fixed weapon profile" concrete. |
+| WPN-003 | `assets/images/wpn-003-length-axis-front-face.png` | A weapon body with its firing axis drawn along the body, Weapon Length measured along that axis and Weapon Width marked as the body's smallest dimension, and the Weapon Front (WPN-019) outlined on the face the axis exits, distinguished from the other five faces. | Length and Width are two dimensions of one body read against different axes, and the Weapon Front is the only face the weapon fires from — three spatial facts that depend on each other and are easy to reverse without a 3D view. |
+| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` | Five panels: the unpartitioned Weapon Front Footprint the rule starts from, then that same footprint partitioned as twin barrel, quad barrel, heavy cannon and hybrid, each labelled with the Attack Dice and Impact Strengths it produces. | The rule lists its configurations as text and the layout they describe is spatial. One footprint shown yielding four distinct, valid weapons is what makes "no fixed weapon profile" concrete. |
 
 ## docs/15-geometry-layers.md
 
@@ -123,7 +92,7 @@ The remaining fenced blocks stay as they are. Formulas are equations and an imag
 
 | Rule | Filename | What it must show | Why text alone is not enough |
 |---|---|---|---|
-| DMG-003 | `assets/images/dmg-003-resistance-cross-section.png` | A shield built from bricks (Resistance 3) and a similarly-sized shield built from four stacked plates (Resistance 4), both with the Impact's direction of travel marked, showing Resistance as the layer count crossed, not the external silhouette. | The rule's own text notes that two builds of "similar external bulk" resolve to different Resistance values — the whole point is that the model's outside doesn't tell you the answer. Only a cross-section view can show that. |
+| DMG-003 | `assets/images/dmg-003-resistance-cross-section.png` | A shield built from bricks (Resistance 3) and a similarly-sized shield built from four stacked plates (Resistance 4), both with the Impact's direction of travel marked, showing Resistance as the layer count crossed, not the external silhouette. | Resistance is the thickness an Impact crosses in its direction of travel, so two shields of the same external size resolve differently depending on what they are built from. The outside of the model does not carry the answer, and only a cross-section shows it. |
 | DMG-012 | `assets/images/dmg-012-composite-targeting.png` | A vehicle (e.g. a jeep) with each independent component — chassis, driver, cannon, four wheels — outlined separately as its own targetable component. | Readers coming from other wargames default to treating "the vehicle" as one target. Seeing a single model broken into several independently-resolving components is the fastest way to unlearn that assumption. |
 | DMG-016 | `assets/images/dmg-016-penetration.png` | The worked Heavy Cannon vs. Shield example: an Impact of Strength 6 crossing a Shield of Resistance 3, continuing with Remaining Strength 3 toward a Minifig of Resistance 3 positioned behind it. | Penetration is defined algebraically (`Remaining Strength = Current Strength − Component Resistance`) and depends on components being physically arranged one behind another along the Impact's path — immediate in a side-view diagram, laborious to reconstruct from the formula alone. |
 
@@ -140,7 +109,7 @@ The remaining fenced blocks stay as they are. Formulas are equations and an imag
 
 ## Total and rejected candidates
 
-**22 images** specified, across 8 of the 15 ruleset documents (`02-core-rules.md`, `05-construction-components.md`, `08-vehicles.md`, `09-transport.md`, `10-weapons.md`, `15-geometry-layers.md`, `16-damage-system.md`, `17-infantry.md`).
+**20 images** specified, across 8 of the 15 ruleset documents (`02-core-rules.md`, `05-construction-components.md`, `08-vehicles.md`, `09-transport.md`, `10-weapons.md`, `15-geometry-layers.md`, `16-damage-system.md`, `17-infantry.md`).
 
 `02-core-rules.md` holds one entry and `17-infantry.md` four, after `CORE-002`'s moved to `INF-001` — see below.
 
@@ -163,7 +132,7 @@ The remaining 7 documents (`01-foundations.md`, `03-game-flow.md`, `06-deploymen
 Two entries described rules that had moved on, and `scripts/lint_ruleset.py` could not see it: it checks that a named rule ID exists in the document its section names, and both IDs still existed.
 
 - **`CORE-001`** specified six panels, including a derivation of the 13 plate layers from a minifigure and one panel per *projection* of the volume. `core-states-only-what-it-owns` had removed both — the derivation because the number is stated outright, and the word *projection* from the ruleset entirely, each rule naming the dimensions it reads instead. Three panels remain, for the facts `CORE-001` still carries.
-- **`CMP-018`** specified "the Unit Base's vertical projection" fitting a clear opening. Same removal; the rule now states 4 studs wide and 13 plate layers clear, and the entry says so.
+- **`CMP-018`** specified "the Unit Base's vertical projection" fitting a clear opening. Same removal; the rule now measures the model that uses the opening, and the entry says so.
 
 **Both were stale before the change that noticed them**, which is the argument for reading this file whenever a rule it names is edited: nothing mechanical will report it.
 
@@ -176,9 +145,9 @@ Rules considered and rejected, with reasons:
 - **VEH-025 (Stranded), VEH-026 (Vehicle Falling)** — Both are direct consequences of the Terrain Threshold already illustrated (VEH-022 – VEH-024) and the fall mechanic already illustrated (INF-011); no independent geometric fact to add.
 - **VEH-030 (What Counts Toward Height)** — Two of its three facts are checks read off the model: whether an element can move, and whether it is functional. This list already declines CBT-007 as "a binary construction check made directly on the model" and VEH-013 and CMP-008 as verified by looking at the build. Measuring a movable element in its highest position changes *when* the check is made, not what a reader has to picture, and the Gameplay-versus-Visual contrast the rule's table applies is drawn for GEO-005. The third, that an externally carried model counts, is a counting rule of the kind DEP-006 owns.
 - **VEH-013 (Pilot), CMP-008 (Turrets)** — "A visible minifigure in an operating position" and "a mount that physically rotates" are easily verified by looking at the model; nothing in the text is hard to picture.
-- **WPN-002 (Functional Muzzle), WPN-018 (Weapon Proportion)** — Neither displays a character grid. WPN-002 is a definition, and WPN-018 states a proportion as an inequality with valid/invalid dimension lists that read perfectly well as text. An image would add nothing to either.
-- ~~**WPN-007 (Muzzle Adjacency)**~~ — **Reclassified; now specified above.** Originally folded into the WPN-020 image on the grounds that adjacency is visible in those worked examples. That was correct under the original criterion, which asked whether the *concept* needed illustrating. It was reclassified when the criterion widened: a folded image inside WPN-020 does nothing for a reader of WPN-007, who still meets a bare `██··` and no legend.
-- ~~**WPN-019 (Weapon Front Footprint)**~~ — **Reclassified; now specified above.** Originally covered by WPN-003's image, which outlines the footprint on the weapon front. Same reasoning as WPN-007: WPN-019 has three character grids of its own, and an illustration living in another rule does not replace them.
+- **WPN-002 (Functional Muzzle), WPN-018 (Weapon Proportion)** — WPN-002 is a definition, and WPN-018 states a proportion as an inequality with valid/invalid dimension lists that read perfectly well as text. An image would add nothing to either.
+- **WPN-007 (Muzzle Adjacency)** — Adjacency and overlap are visible in WPN-020's worked examples, and whether two muzzles overlap is a check made on the built weapon. It was specified for a while, on the grounds that a reader met a bare `██··` block with no legend; the block is gone and the grounds with it.
+- **WPN-019 (Weapon Front Footprint)** — Covered by WPN-003's image, which outlines the footprint on the weapon front. It was specified for a while, because the rule carried three character grids of its own; those are gone and the grounds with them.
 - **WPN-008 / CBT-006, CBT-007 (Weapon Systems, Multiple Targets)** — "Each visible weapon is its own weapon system" is a counting rule, not a spatial one.
 - **DMG-006 (Internal Components)** — Introduces the "Armour → Pilot" concept that DMG-016's image already resolves mechanically; a separate diagram would repeat it.
 - **CBT-007 (Multiple Targets)** — Whether a mount rotates is a binary construction check made directly on the model, not something prose obscures.
@@ -187,4 +156,4 @@ Rules considered and rejected, with reasons:
 - **TRN-020 (Interior Levels)** — The stacking is arithmetic on a height the CORE-001 image already dimensions: one Unit Base of clear height per level, plus a plate for each floor above the lowest. How many levels fit is then a comparison against the agreed Deployment Volume ceiling, which is a number the players chose rather than a geometry a picture can settle.
 - **DEP-003, DEP-004 (Vehicle Footprint, Infantry)** — Both are direct multiplication/counting applications of the Unit Base's horizontal projection, already covered by the CORE-001 image. What DEP-003 occupies is that floor; height is checked separately against the agreed ceiling and needs no image of its own.
 - **DEP-006 (Embarked Units)** — The waiver and its limit are counting rules: an embarked model costs no Deployment Volume, an externally carried one costs its own. Nothing about where such a model sits is hard to picture.
-- **GEO-002, GEO-004 (Visual Geometry, Physical Checks)** — The structural-vs-decorative distinction and the "Visual Geometry still blocks sight" point are both carried by the GEO-005 image and its accompanying text; a second diagram would restate the same contrast. Of the three physical checks GEO-004 lists, Cover is declined at CORE-010 above and Line of Sight is settled from the shooter's own viewpoint rather than from any diagram; only access-opening clearance needs an image of its own, and it has one under `docs/05-construction-components.md` (CMP-018).
+- **GEO-002, GEO-004 (Visual Geometry, Physical Checks)** — The structural-vs-decorative distinction and the "Visual Geometry still blocks sight" point are both carried by the GEO-005 image and its accompanying text; a second diagram would restate the same contrast. Of the physical checks GEO-004 lists, Cover is declined at CORE-010 above and Line of Sight is settled from the shooter's own viewpoint rather than from any diagram; access-opening clearance needs an image of its own, and it has one under `docs/05-construction-components.md` (CMP-018).

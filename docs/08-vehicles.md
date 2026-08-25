@@ -69,7 +69,7 @@ Measure from the vehicle's front along its facing (`07-movement.md`, MOVE-003). 
 | Tank            | 15 studs | 45 studs |
 | Heavy Transport | 24 studs | 72 studs |
 
-A Wounded Pilot reduces this to twice the vehicle's length (VEH-031).
+A Wounded Pilot or a Dead locomotion component reduces this to twice the vehicle's length (VEH-031).
 
 ---
 
@@ -161,7 +161,9 @@ The Pilot occupies one Unit Base (`09-transport.md`, TRN-014), so the vehicle re
 
 The Pilot resolves Impacts as a normal component (`16-damage-system.md`, DMG-002).
 
-A vehicle without a Pilot, or with a Dead Pilot, cannot move unless another crew member takes over.
+A vehicle without a Pilot cannot move.
+
+Any other minifigure aboard — crew (`VEH-015`) or passenger (`VEH-016`) — may take over for **1 Action Point**, physically moving into the operating position. That minifigure is the Pilot from then on.
 
 ---
 
@@ -229,7 +231,7 @@ Examples:
 
 A vehicle that cannot move remains on the battlefield and may continue operating its functional systems unless another rule states otherwise.
 
-This includes vehicles immobilized by Pilot loss, locomotion damage or being stranded (`VEH-025`).
+This includes vehicles immobilized by Pilot loss (`VEH-013`), destroyed locomotion (`VEH-031`) or being stranded (`VEH-025`).
 
 ---
 
@@ -253,8 +255,6 @@ It is measured in plate layers (`16-damage-system.md`, DMG-003).
 * A rise greater than the threshold requires a slope or ramp (`VEH-027`).
 * A drop deeper than the threshold strands the vehicle (`VEH-025`).
 * Obstacles and drops equal to the threshold are crossed normally.
-
-Stairs are never a legal vehicle ascent.
 
 A vehicle leaving a height entirely is falling and uses VEH-026 instead.
 
@@ -286,7 +286,7 @@ Hover vehicles cannot be stranded by drops and may pass over depressions.
 
 They cannot cross a gap wider than their own footprint: a surface must remain beneath the vehicle.
 
-If the hover assembly is destroyed, the hull settles and its Terrain Threshold becomes 0.
+If the hover assembly is destroyed, the hull settles and the vehicle is Immobilized (`VEH-031`).
 
 ---
 
@@ -296,7 +296,7 @@ A vehicle that enters a drop deeper than its Terrain Threshold becomes **strande
 
 Its position in the depression represents the state; no marker is used (`02-core-rules.md`, CORE-016).
 
-Freeing a stranded vehicle is not currently defined.
+A stranded vehicle cannot be freed.
 
 Hover vehicles cannot be stranded (`VEH-024`).
 
@@ -335,11 +335,9 @@ A greater rise requires a slope or ramp covering the entire rise and resting on 
 
 If no suitable slope or ramp exists, the rise is impassable.
 
-Stairs are never a legal vehicle ascent.
+A stepped surface is a chain of such rises, each read on its own (`07-movement.md`, MOVE-013).
 
 A vehicle descending a full slope or ramp is driving, not falling. Any other descent is a fall (`VEH-026`).
-
-A walker may cross a rise or stairs directly when its Terrain Threshold permits it.
 
 ---
 
@@ -382,13 +380,13 @@ Adding Visual Geometry does not change vehicle height or legality.
 
 ---
 
-# VEH-031 — Wounded Pilot
+# VEH-031 — Reduced Movement
 
-A vehicle with a Wounded Pilot (`VEH-013`) moves **twice its own length** per movement action instead of three times (`VEH-004`).
+A vehicle moves **twice its own length** per movement action instead of three times (`VEH-004`) when its Pilot is Wounded (`VEH-013`) or a locomotion component is Dead (`16-damage-system.md`, DMG-002).
 
 Facing, measurement and Action Point cost are unchanged.
 
-| Vehicle         |   Normal | Wounded Pilot |
+| Vehicle         |   Normal |       Reduced |
 | --------------- | -------: | ------------: |
 | Bike            | 18 studs |      12 studs |
 | Buggy           | 24 studs |      16 studs |
@@ -396,9 +394,11 @@ Facing, measurement and Action Point cost are unchanged.
 | Tank            | 45 studs |      30 studs |
 | Heavy Transport | 72 studs |      48 studs |
 
-Only the Pilot's Wounded state affects movement. A Wounded locomotion component does not change movement distance.
+The reduction is not cumulative. A vehicle moves twice its own length whether one cause applies or both, and however many locomotion components are Dead.
 
-A destroyed locomotion component is governed by VEH-019.
+A Wounded locomotion component does not change movement distance.
+
+A vehicle whose locomotion is entirely destroyed cannot move and is Immobilized (`VEH-019`).
 
 ---
 
@@ -419,7 +419,7 @@ Terrain capability comes from the locomotion's construction.
 
 Height is bounded by the agreed Deployment Volume ceiling.
 
-A Wounded Pilot reduces movement from three lengths to two.
+A Wounded Pilot or a Dead locomotion component reduces movement from three lengths to two.
 
 ---
 

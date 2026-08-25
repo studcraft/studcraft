@@ -140,8 +140,7 @@ number is never reused either.
 
 A rule may be deleted. Its number is retired, never reissued, and no stub is
 left in its place — the diff records that the rule was there. Where the rule
-stays and only its design was superseded, the note goes inside that rule:
-`CBT-011` and `WPN-021` (`system/proposal-review.md`).
+stays and only its design was superseded, the note goes inside that rule.
 
 Image filenames are a separate namespace owned by `assets/IMAGES.md`.
 `scripts/lint_ruleset.py` checks them against that convention and against the

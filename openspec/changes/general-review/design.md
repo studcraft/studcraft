@@ -449,3 +449,359 @@ disguise, and reverting the renumbering reopens Decision 3.
 `main` will carry the new numbering once this merges, leaving no retitles to
 find, so the check lands green in the next pull request. **Scheduled, not
 dropped** — this note is the schedule.
+
+---
+
+## Decision 13 — A staircase is a chain of obstacles, for every domain
+
+**This is the first of five decisions here that change what a rule means** —
+Decisions 14 through 17 are the others, and every other task in this change
+repairs something the compression broke. All five are separated into `tasks.md`'s
+Part C so a reviewer is never asked to read one as a repair.
+
+The audit found `VEH-027` contradicting itself: "Stairs are never a legal
+vehicle ascent", and four lines later "A walker may cross a rise or stairs
+directly when its Terrain Threshold permits it". A walker is a vehicle
+(`VEH-010`, `VEH-012`, `VEH-023`), so the rule gave one question two answers.
+
+Two ways out. **Restore the absolute** — delete the walker sentence, and put
+back the deleted clause explaining that a tall walker steps *over* a staircase
+under `VEH-021` rather than ascending it, reading the flight as one obstacle of
+its total rise. **Or drop the absolute** — a stepped surface is a chain of
+obstacles, each read on its own, and a vehicle climbs the steps its Terrain
+Threshold covers.
+
+The maintainer chose the second. The reasoning is the project's own: a step is a
+physical height and a Terrain Threshold is a physical height, and the model
+already answers whether one clears the other. The absolute was an abstraction
+laid over an answer the plastic gives — `CODE_OF_DESIGN.md` Principle 1.
+
+### What it costs, stated rather than discovered
+
+**A vehicle with a tall enough threshold now climbs a staircase.** A wheeled
+vehicle's threshold is half its wheel diameter (`VEH-022`), so a large wheel
+clears a low step, and a domestic staircase built from plates is climbable by
+much of the motor pool. That was the reason the absolute existed, and it is
+accepted knowingly rather than overlooked. What it buys is one rule instead of
+two, and no case where the ruleset and the model disagree.
+
+**Nothing is added to pay for it.** No stair-specific Action Point cost, no
+per-step charge on the vehicle side. A step above the threshold stops the climb
+exactly as any other rise does, and the rest of `VEH-027` is unchanged.
+
+### Why the shared half goes to `MOVE-013`
+
+Once both domains resolve a staircase the same way, "each step is an obstacle in
+its own right" is one rule with two readers, and
+`system/documentation-standards.md` gives it one owner. `MOVE-013` already
+states what a stepped surface *is*; it now states how it is read, and each
+domain document states only what its own domain charges — Action Points in
+`INF-009`, the Terrain Threshold in `VEH-027`.
+
+That also removes the sentence in `INF-009` describing what vehicles do, which
+the audit had separately found citing `VEH-027` for a claim `VEH-027` no longer
+carried. **Two findings, one deletion** — an infantry rule stops answering a
+vehicle's question, and the dead citation goes with it.
+
+### Rejected: keeping "vehicles never" as a special case for wheels
+
+Stairs legal for walkers and hover, illegal for wheels and tracks. It reads
+plausibly and is worse on every count: it needs a rule of its own, it splits a
+question the Terrain Threshold already answers, and it puts the ruleset back in
+the business of deciding what a model can obviously do. A wheel that clears the
+step clears the step.
+
+### What this reopens
+
+`system/proposal-review.md` used this very pair — `VEH-021` pointing a vehicle
+at an infantry rule that permits stairs, which `VEH-027` forbids — as its
+canonical example of a rule contradicting one three documents away. The example
+dies with the contradiction. Task 23.5 deletes it and leaves the three live
+examples in the same sentence, rather than inventing a replacement.
+
+---
+
+## Decision 14 — Two signposted gaps are closed by defining them
+
+`main` marked two rules as unfinished, and the compression deleted both markers
+while keeping the sentences around them. That is worse than either state: an
+acknowledged gap became an exception a player will reach for.
+
+- `VEH-013` — "unless another crew member takes over **(future rules)**". The
+  parenthesis went. What survived reads as a usable exception with no cost, no
+  timing and no requirement anywhere in the ruleset.
+- `VEH-031` — *"What `VEH-019` calls 'locomotion damage' is named there and
+  defined by no rule; this rule does not define it either."* That went, while
+  `VEH-019` kept "locomotion damage" among its causes of immobilization and
+  `VEH-031` kept a pointer at `VEH-019` for it.
+
+**The obvious repair was to restore both markers**, matching `VEH-025`, which
+still says "Freeing a stranded vehicle is not currently defined". The maintainer
+chose to define both instead. Neither needed a large rule.
+
+### The Pilot handover
+
+> Any team member may take control for 1 Action Point. Without a Pilot the
+> vehicle does not move — someone has to take the controls.
+
+One Action Point, in the form `VEH-008` through `VEH-011` already use, and the
+handover is a physical act because `VEH-013` already requires the Pilot to occupy
+a visible operating position. Nothing is added to enforce that.
+
+**Crew and passengers both, deliberately.** `VEH-015` and `VEH-016` are separate
+rules; restricting the handover to crew would strand a full transport whose Pilot
+is gone, for no reason a player would recognise.
+
+**"or with a Dead Pilot" is deleted rather than kept.** A Dead component is
+removed from the model (`16-damage-system.md`, DMG-002), so a vehicle with a
+Dead Pilot is a vehicle without one. The clause named a state that cannot
+persist — a contradiction the audit had not caught.
+
+**Rejected: an ownership clause.** The maintainer said "same team", and `docs/`
+has no word for it — no "friendly", no "same army", nowhere. Crew and passengers
+are inside their own player's vehicle by construction and no boarding rule
+exists, so the clause would introduce vocabulary to state something already true.
+
+### Locomotion damage
+
+> If the locomotion dies — wheels, tracks, legs, hover emitters — the vehicle
+> loses one step, like infantry. Not cumulative. And if the locomotion means is
+> destroyed, the vehicle is Immobilized.
+
+**The infantry parallel is loose and the vehicle rule is exact.** `INF-002` gives
+12 studs in steps of 3 and `INF-012` leaves a Wounded model at 2 steps, so
+infantry loses two steps forward and one sideways. On the vehicle side a step is
+one vehicle length — `VEH-004` is three, `VEH-031` is two — so "one step" writes
+itself, and it lands on the reduction `VEH-031` already defines.
+
+**Not cumulative, as instructed.** One rule, one reduced distance, whatever
+combination of causes applies. That is why `VEH-031` is retitled from *Wounded
+Pilot* to *Reduced Movement*: it now states the reduced distance and the two ways
+to reach it.
+
+**The two rulings meet at the component/system line.** One destroyed locomotion
+component costs a step; the locomotion system entirely destroyed immobilizes the
+vehicle (`VEH-012` — every vehicle represents one locomotion system). Without
+that line the two rulings answer the same question twice, and a vehicle with no
+wheels left would still roll two lengths a turn — the ruleset contradicting the
+model, which is `CODE_OF_DESIGN.md` Principle 1 exactly.
+
+**`VEH-019`'s list gains an owner per cause** rather than keeping the vague
+"locomotion damage": Pilot loss is `VEH-013`, destroyed locomotion is `VEH-031`,
+stranding is `VEH-025`.
+
+### The third marker: a stranded vehicle stays stranded
+
+> If it is in a hole it CANNOT be recovered. Full stop. If it is abandoned, what
+> we said before.
+
+`VEH-025` said "Freeing a stranded vehicle is not currently defined". It now says
+a stranded vehicle cannot be freed.
+
+**The two cases were reachable from the same sentence, and they are not the same
+case.** A vehicle nobody is driving is answered by the handover above. A vehicle
+in a depression deeper than its Terrain Threshold is answered by the model: it is
+in the hole, and nothing in the ruleset lifts a model out of one. "Not currently
+defined" invited a house rule for a question the plastic had already settled.
+
+**Rejected: recovery by a second vehicle, a tow or a ramp.** None of those exist
+in the ruleset, each would need construction rules of its own, and the maintainer
+ruled the case closed rather than deferred.
+
+`docs/08-vehicles.md` therefore carries no "not yet defined" marker after this
+section, and `TODO.md` loses the two entries that quoted the deleted sentences.
+That is a required check rather than tidying: `scripts/check_todo_quotes.py`
+verifies every `TODO.md` quote against the document it cites, so a closed gap
+must leave the file in the same commit that closes it.
+
+---
+
+## Decision 15 — Nothing is repaired, and infantry stands back up
+
+The audit found `DMG-018` ambiguous rather than wrong. It charges 1 Action Point
+once per activation to repair one of a unit's own Wounded components, then lists
+what "repairing another unit requires" without saying whether that cost still
+applies. `main` carried the word that decided it — *"Repairing a **different**
+unit's Wounded component **additionally** requires..."* — and the compression
+deleted it, leaving a block that reads as easily as a replacement set of
+conditions as an addition.
+
+**Restoring "additionally" was the obvious repair, and it is not what happened.**
+
+> I would remove the ability to repair anything. If it is broken, it broke, full
+> stop. It cannot be repaired. The exception is infantry, which for 1 AP reverts
+> the state machine.
+
+Repair goes entirely. One reversal survives: a Wounded infantry model spends 1
+Action Point to stand back up.
+
+### Why this fits rather than merely being shorter
+
+`DMG-002` already maps the three states to poses — upright, seated, removed.
+Standing a minifigure back up **is** the state change, performed on the model
+rather than tracked beside it, which is `CODE_OF_DESIGN.md` Principle 1 doing the
+work a mechanic was doing before. Nothing equivalent exists for a wheel or a
+door: a broken plate does not un-break by being looked at.
+
+It also removes the ruleset's only mechanic that needed a second unit, a tool and
+an adjacency check to resolve — three conditions supporting one state change.
+
+**"Once per activation" goes with it.** The old rule let a unit choose among its
+own components; the new one has a single subject, and a model that is standing
+cannot stand again. The clause guarded a choice that no longer exists.
+
+**`CORE-014` is untouched.** It states that equipment must be physically present
+on the model, and it was never about repairs — `DMG-018` cited it, not the other
+way round.
+
+### Blast radius, checked rather than assumed
+
+`python3 scripts/rule.py refs DMG-018` reports **cited by nothing**.
+`docs/14-glossary.md` has no *Repair* entry. No document outside
+`16-damage-system.md` uses the word at all. Two edits, one file: the rule and one
+Summary bullet.
+
+### A Pilot recovers, and the rule says so rather than implying it
+
+> The Pilot is an infantry model, so it follows infantry rules.
+
+> I think the exception framing is unnecessary. The Pilot is an infantry model — I am not sure it reads as being curable.
+
+Both are the maintainer's, and the second is why the first is not enough.
+`CORE-003` makes every minifigure an infantry model, so a Pilot recovered
+already — **by inference, from a rule two documents away**. A rule that a reader
+has to derive is a rule a reader will get wrong, so `DMG-018` names the case:
+infantry on foot, and a Pilot or crew member inside a vehicle alike. A recovered
+Pilot also lifts `VEH-031`'s reduced movement.
+
+**The "exception" framing goes with it.** It described the rule's history — that
+repair used to be general and now is not — rather than the rule. A reader meeting
+`DMG-018` fresh needs to know who recovers, not what used to be possible.
+
+**"Return to Operational", not "stand back up".** `DMG-002` owns the mapping from
+state to pose; repeating it inside `DMG-018` would give one rule two owners, and
+the standing wording reads wrong for a minifigure seated in a cockpit.
+
+### Found while writing this, and left alone
+
+`DMG-002` shows an infantry model's state by pose — upright, seated, removed —
+and a Pilot is seated in its operating position whether Operational or Wounded.
+The pose therefore distinguishes nothing for a crewed vehicle.
+
+**This is true on `main` and no task here changes it.** It is recorded because a
+later reader will meet it and should know it was seen, not because this change
+is the place to solve it (`system/proposal-review.md`, "Record What You Decided
+Not to Do").
+
+---
+
+## Decision 16 — A minifigure's shoulder is a rotating mount, and rotation has reach
+
+`CBT-007` lets a weapon system split its Attack Dice between targets only when
+its mount rotates to re-aim independently of the platform, naming a turntable, a
+ball joint and a swivel mount. `WPN-009` lists **Hands** among valid mounts, and
+a minifigure's arm turns at the shoulder.
+
+**The rule reads both ways for every infantry model in the game**, and the
+difference is not a nuance: a minifigure with a four-muzzle weapon engages four
+targets or one, for the same single Action Point.
+
+The retired `DMG-018` had answered it — *"minifig torso, turntable, ball joint,
+swivel mount. This deliberately puts all infantry-carried weapon systems under
+the exception ... this is intentional, not an oversight."* Consolidating that
+into `CBT-007` was right. Dropping the decision while consolidating was the
+defect, and it is the one `system/proposal-review.md` names by section title.
+
+> Go to the human. Without turning the body, the arm can aim at several targets
+> as long as those targets are in front of the minifigure. The rotation point is
+> not the HAND, it is the SHOULDER.
+
+### The ruling is narrower than the text it replaces
+
+The retired wording named the **torso**. Turning the torso is turning the body,
+which this ruling excludes: the arm alone re-aims, so an infantry weapon covers
+what is in front of the model and nothing behind it. Restoring the old sentence
+would have been the easy repair and the wrong rule.
+
+### Rotation has reach, and that is general
+
+A turret turning 360° is limited by nothing. A swivel mount with short travel is
+limited by its travel. An arm is limited to the front. `CBT-007` had the
+permission and not the limit, so the limit is written once, generally, and the
+minifigure is its worked instance rather than an exception beside it.
+
+**Rejected: an arc in degrees.** The ruleset has no angular measure anywhere —
+`WPN-011` says only "Weapon position determines its firing arc", and `CBT-002`
+resolves visibility physically from the attacker's point of view. A number would
+be the first, would need a protractor at the table, and would replace a check the
+model already makes: point the arm at the target and see whether it reaches.
+
+**`WPN-011` is left alone.** It states the same idea for a mounted weapon, in the
+document that owns weapon position. Writing the limit into `CBT-007` gives the
+splitting rule what it was missing without giving the idea two owners.
+
+---
+
+## Decision 17 — Resistance is a physical check, not a measured value
+
+The audit reported `GEO-002` and `DMG-003` contradicting each other over
+decorative armour: `GEO-002` lists cosmetic armour as Visual Geometry, `GEO-003`
+says Visual Geometry is ignored when calculating Resistance, and `DMG-003` says
+Resistance is what an Impact must cross — which a bolted-on plate plainly is.
+
+**The reported contradiction is milder than stated.** `DMG-003` says "smallest
+**structural** section", and that word already excludes decoration. The real
+defect is that nothing decides whether a plate added outside a wall is
+structural, and `GEO-002`'s surviving sentence restates the question — "becomes
+Gameplay Geometry if it physically forms part of the structure".
+
+`main` answered it: armour *bolted on top of* a wall does not add Resistance. The
+maintainer ruled the other way.
+
+> If it has "something" in front of the brick it adds to the path. A brick with a
+> plate outside it — that is part of the hull, not decoration. Decoration is a
+> tile with a print on it, a sticker.
+
+### Why the fix is a move between categories, not a better sentence
+
+`15-geometry-layers.md` sorts everything into two boxes. `GEO-003` holds measured
+values, which **ignore** Visual Geometry. `GEO-004` holds physical checks, which
+use the model **exactly as it exists on the table, Visual Geometry included**.
+
+Under the ruling, Resistance is read from whatever plastic sits in the Impact's
+path. That is `GEO-004`'s definition word for word — and Resistance was in
+`GEO-003`'s list. **The term was in the wrong box, and every attempt to patch
+`GEO-002` was working around that.** Any wording that leaves Resistance among the
+measured values discards decoration before the direction of travel is considered.
+
+`GEO-001` loses "Component structural thickness" and drops Resistance from its
+derived-values sentence for the same reason. `DMG-003` and the glossary lose the
+word "structural", which was the whole of the old answer.
+
+### What deliberately does not change
+
+**Decorative armour is not promoted to Gameplay Geometry.** It stays Visual, and
+`GEO-002`'s example list is untouched: cosmetic armour still changes no weapon
+Range, no Attack Dice (`GEO-005`), and still counts toward no height limit
+(`VEH-030` lists it Visual). What changed is that Visual Geometry stops being
+discarded when something has to cross it.
+
+**Direction of travel now decides the number, and that is correct.** A wall
+plated on one face resists more from that face than from the bare one. `DMG-003`
+already said "in its direction of travel"; only now does the sentence have
+consequences. The glossary's *Resistance* entry gains the phrase, which it never
+carried.
+
+### The consequence, taken knowingly
+
+**Plating a hull with cheap plates is real armour.** A player who wraps a vehicle
+in decorative plating is harder to hurt from the plated side. That is the model
+deciding the value, which is Principle 1 — and it is an optimisation the ruleset
+did not previously offer. The maintainer was shown the case as a build and
+confirmed it.
+
+**Rejected: restoring `main`'s bolted-on / forming-part distinction.** It is the
+smaller edit and it answers the question, but it asks a player to judge whether a
+piece is part of a wall or attached to it — a construction opinion two players
+can hold differently about one build. Thickness in the path is measured, not
+judged.

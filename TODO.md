@@ -32,22 +32,6 @@ What would have to be decided: whether structures can suffer whole-structure eff
 
 What would have to be decided: whether hover vehicles should gain a side-movement action distinct from their current forward, backward and turning movement, and at what AP cost.
 
-### A crew member taking over from a dead Pilot
-
-`VEH-013` (`docs/08-vehicles.md`):
-
-> A vehicle without a Pilot, or with a Dead Pilot, cannot move unless another crew member takes over.
-
-What would have to be decided: which crew positions are eligible to take over, whether taking over costs AP, and whether it requires a dedicated action or happens automatically.
-
-### Freeing a stranded vehicle
-
-`VEH-025` (`docs/08-vehicles.md`):
-
-> Freeing a stranded vehicle is not currently defined.
-
-What would have to be decided: whether a stranded vehicle can be freed at all, by whom, and what action or cost would be required.
-
 ### Reverse movement restrictions
 
 `VEH-006` (`docs/08-vehicles.md`):

@@ -34,7 +34,7 @@ Look for these specifically. They recur.
   `TODO.md`, `scripts/` and `system/` all cite rule IDs. Archived changes
   under `openspec/changes/archive/` are history and are left as they are.
 - **A changed rule's own ID never grepped, only the ones it retired** — #126
-  emptied `CORE-006` and wrote into `WPN-017`, and `TODO.md` quoted both;
+  emptied one rule and wrote into another, and `TODO.md` quoted both;
   `check_todo_quotes.py` is a required check, so the stale quote is a red
   gate, not a reading defect.
 - **A duplicate in a document that defines no rules** — `01-foundations.md`
@@ -118,8 +118,6 @@ Verification greps confirm instructions were followed. They cannot see that a
 correctly-inserted paragraph now reads as part of the wrong example, that two
 paragraphs now say the same thing, or that a rule now contradicts one three
 documents away. All of these were found only by reading the file end to end:
-`VEH-021` pointing a vehicle at an infantry rule that permits stairs, which
-`VEH-027` forbids; `MOVE-016` stating "each die is a Damage Roll" twice;
 `DMG-004`'s closing paragraph displaced three times by later examples; a new
 `VEH-004` table reintroducing `VEH-001`'s footprints as a parenthetical.
 
@@ -148,9 +146,9 @@ because nobody wrote down the reason — one re-proposed a reordering that had
 been applied and reverted days earlier.
 
 A rejection and its reasoning belong in `design.md`, and if the question will
-recur for a reader of the ruleset, in the rule itself. `CBT-011` and `WPN-021`
-keep the superseded thing visible and say why, rather than leaving a clean
-surface that invites the same suggestion again.
+recur for a reader of the ruleset, in the rule itself: keep the superseded thing
+visible and say why, rather than leaving a clean surface that invites the same
+suggestion again.
 
 ---
 
@@ -166,7 +164,7 @@ a rule saying "a weapon reaching 90 studs" uses a figure its own table shows.
 # Multipliers Set Early Get Falsified by Numbers Added Later
 
 `VEH-004`'s `1.5×` and `WPN-005`'s `× 2` were both reasonable when written and
-both wrong once `MOVE-004`, `WPN-004` and `CORE-001` existed to check them
+both wrong once `INF-002`, `WPN-004` and `CORE-001` existed to check them
 against: an infantry weapon reaching 8 studs against a 12-stud move, a
 motorbike slower than a walking soldier, half-stud distances on a stud grid.
 
@@ -178,9 +176,9 @@ granularity of what it multiplies.
 
 # Do Not Cap What the Model Already Bounds
 
-The instinct to add a maximum is usually wrong here. `WPN-021` wrote the
-argument: *"No component is unconditionally invulnerable; it is only safe from
-whatever can't be mounted on the attacker's current platform."*
+The instinct to add a maximum is usually wrong here. Nothing is unconditionally
+invulnerable; a component is only safe from whatever cannot be mounted on the
+attacker's current platform.
 
 Look for the chain that already exists. For weapon Range it is complete, and
 every link is read from the model or agreed by the players:

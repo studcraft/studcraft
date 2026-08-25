@@ -121,4 +121,4 @@ a batch in directory order with no dependency resolution.
 A `#### Scenario:` heading is matched by name, so renaming one inside a
 `MODIFIED` block reads as a deletion plus an addition and is refused. When a
 scenario's content becomes wrong, **keep the name and correct the body** — the
-same convention `CBT-011` and `WPN-021` follow in the ruleset.
+same convention a superseded rule follows in the ruleset.

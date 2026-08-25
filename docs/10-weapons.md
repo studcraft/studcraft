@@ -68,9 +68,9 @@ Melee weapons use a functional striking end in place of a muzzle, as defined in 
 
 ---
 
-# WPN-003 — Weapon Length
+# WPN-003 — Weapon Dimensions
 
-Weapon Length is the longest dimension of the functional Weapon Body, measured along its firing axis.
+Weapon Length is the longest dimension of the functional Weapon Body, measured along its firing axis. Weapon Width is the Weapon Body's smallest dimension.
 
 Mounting hardware and decorative elements are ignored.
 

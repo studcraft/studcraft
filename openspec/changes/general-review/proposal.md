@@ -80,7 +80,7 @@ rule than it did:
 | Damage Roll | `DMG-015` | `DMG-014` |
 | Multiple Impacts | `DMG-016` | `DMG-015` |
 | Penetration | `DMG-017` | `DMG-016` |
-| Repairs | `DMG-019` | `DMG-018` |
+| Repairs → Recovery | `DMG-019` | `DMG-018` |
 
 **`system/documentation-standards.md` (Naming Conventions) forbids exactly
 this**: "Rule identifiers are never renumbered and never reused." The
@@ -112,6 +112,135 @@ made two changes ago. `DEP-001` still carries one clause from that change —
 `DEP-002` disagree**. `design.md` (Decision 5) records the choice this proposal
 makes and `tasks.md` (section 1) carries the repair.
 
+### Stairs: one rule with two readers, instead of two answers
+
+**The first of five rule changes in this proposal** — the others are the vehicle
+gaps, Recovery, dice-splitting and Resistance, each with its own subsection
+below. `VEH-027` both forbade stairs to vehicles and permitted them to walkers,
+four lines apart, and a walker is a vehicle. The absolute goes: a stepped surface is a chain of obstacles, each read
+on its own against the moving unit's own threshold, for infantry and vehicles
+alike.
+
+The shared half moves to `MOVE-013`, which already owns what a stepped surface
+is. `VEH-027` keeps the Terrain Threshold, `INF-009` keeps the Action Points,
+and `INF-009` stops describing vehicles at all — which also removes a citation
+aimed at a claim `VEH-027` no longer carried.
+
+Consequence, accepted rather than overlooked: a vehicle whose Terrain Threshold
+covers the step climbs the staircase. `design.md` (Decision 13) records why that
+is the better trade; `tasks.md` (section 23, its own Part C) carries the edits.
+
+### `08-vehicles.md`: three signposted gaps are ruled on instead of marked
+
+`main` marked two rules unfinished and the compression deleted both markers,
+leaving an exception a player would reach for and a term no rule defined. A third
+marker survived intact. All three are now answered rather than re-marked.
+
+- **The Pilot handover.** Any minifigure aboard — crew or passenger — may take
+  the controls for **1 Action Point**, moving physically into the operating
+  position. "Or with a Dead Pilot" goes with it: a Dead component is removed from
+  the model, so that state cannot persist.
+- **Locomotion damage.** A Dead locomotion component reduces movement to twice
+  the vehicle's length, the same reduction a Wounded Pilot causes and **not
+  cumulative** with it — which is why `VEH-031` is retitled from *Wounded Pilot*
+  to *Reduced Movement*. Locomotion destroyed **entirely** immobilizes the
+  vehicle, and `VEH-019`'s list of causes now names a rule for each.
+
+- **Stranded vehicles.** `VEH-025` said freeing one was "not currently defined";
+  it now says a stranded vehicle cannot be freed. The model already answered it —
+  the vehicle is in the hole.
+
+`docs/08-vehicles.md` carries no "not yet defined" marker afterwards, and
+`TODO.md` loses the two entries that quoted the deleted sentences —
+`scripts/check_todo_quotes.py` is a required check, so that travels in the same
+commit. `design.md` (Decision 14) records the three rulings; `tasks.md`
+(section 27) carries the edits.
+
+### `16-damage-system.md`: nothing is repaired, and infantry stands back up
+
+`DMG-018` charged 1 Action Point to repair a Wounded component, then listed what
+repairing *another* unit requires without saying whether that cost still applied.
+The word that decided it — "**additionally**" — was deleted by the compression.
+
+Repair is removed rather than clarified. `DMG-018` becomes **Recovery**: a
+damaged component is not repaired, and a Wounded infantry model may spend 1
+Action Point to stand back up. `DMG-002` already maps the states to poses, so
+standing up *is* the state change rather than a mechanic beside it.
+
+Two edits in one file — `DMG-018` is cited by nothing, the glossary has no
+*Repair* entry, and no other document uses the word. `design.md` (Decision 15).
+
+### `11-combat.md`: an infantry weapon may split its dice, within the arm's reach
+
+`CBT-007` allows a weapon system to split its Attack Dice only when its mount
+rotates independently of the platform. `WPN-009` lists **Hands** as a mount, and
+a minifigure's arm turns at the shoulder — so the rule read both ways for every
+infantry model, and the retired rule that had decided it was dropped when its
+content was consolidated.
+
+`CBT-007` now names **a minifigure's shoulder** among the rotating mounts, and
+adds the limit it never carried: a target must be one the mount reaches by
+rotating alone. An arm therefore covers what is in front of the model and nothing
+behind it — narrower than the retired wording, which named the torso. No arc in
+degrees: the check is made on the model. `design.md` (Decision 16).
+
+### `15-geometry-layers.md`: Resistance moves to the physical checks
+
+`GEO-003` listed Resistance among the measured values, which ignore Visual
+Geometry, while `DMG-003` measures it as what an Impact must cross. Nothing
+decided whether a plate added outside a wall counted, and `GEO-002`'s surviving
+sentence restated the question rather than answering it.
+
+**Resistance moves from `GEO-003` to `GEO-004`** — from the values that ignore
+Visual Geometry to the checks that use the model exactly as built. Material in
+the Impact's path counts, whatever it looks like; what is decorative is the
+printing on a piece, not the piece. `GEO-001` drops "Component structural
+thickness", and `DMG-003` and the glossary drop the word "structural".
+
+Decorative armour is **not** promoted to Gameplay Geometry: it still changes no
+Range, no Attack Dice and no height. And the same wall now resists differently
+from its plated and its bare face, which is what "in its direction of travel"
+always meant. `design.md` (Decision 17).
+
+### `10-weapons.md`: `Weapon Width` is defined, and `WPN-003` is retitled
+
+The compression deleted *"Weapon Width is the smallest dimension of the Weapon
+Body"* from `WPN-018`, leaving a term that `WPN-018`, `WPN-019` and `WPN-020` all
+read and no rule defines — and the Weapon Front Footprint is Width × Width, so
+every muzzle count and Impact Strength derives from it.
+
+The definition lands in **`WPN-003`, retitled *Weapon Length* → *Weapon
+Dimensions***, rather than back where it was: `WPN-018` is cited by nothing, and
+`WPN-003` is the rule that says which dimension of the Weapon Body is which.
+`MEL-014` and the glossary's *Weapon Body* keep citing it and both stay true.
+
+**The rule keeps its number while its title and content widen** — the one thing
+`design.md` (Decision 12) records that no script reports. `tasks.md` (section 25).
+
+### Repairs found by a later reading
+
+Six more sections repair text without changing what a rule means. Each is a
+deletion except the last:
+
+- **`DEP-008`** — the compression invented a `5 × 4 × 2 UB` Deployment Volume for
+  its worked example and the arithmetic does not hold: two Tanks fill the whole
+  floor, leaving the eight infantry nowhere to stand. `main` named no volume. The
+  volume and its three qualifying clauses go (section 24).
+- **`DEP-001`** — one sentence of the counting model outlives the clause it
+  illustrated, which task 1.1 already deleted (section 26).
+- **`15-geometry-layers.md`'s Vehicle example** listed **tracks** as Visual
+  Geometry, against four rules that read them as locomotion. `tracks` becomes
+  `track details`, matching `CMP-004`. **Pre-existing on `main`** (section 32).
+- **`01-foundations.md`** closes with one motto where
+  `system/documentation-standards.md` requires two, and the linter reads only the
+  last line (section 33).
+- **Three glossary entries** contradicted the rules they cite — *Muzzle* forbade
+  a build `WPN-002` permits, *Access Opening* was the ruleset's only source of a
+  rule `CMP-018` no longer states, *Weapon Range* named a platform chain
+  `WPN-005` lost (section 34).
+- **`assets/IMAGES.md`** loses three sections and two entries; see "Outside
+  `docs/`" above (section 30).
+
 ### `03-game-flow.md`: the Turn Sequence diagram is removed
 
 The fenced flow diagram restated `FLOW-002` and `FLOW-003` in ASCII. The
@@ -123,6 +252,15 @@ document's own Summary now carries the sequence as a numbered list.
   the penetration row is renumbered `DMG-017` → `DMG-016`. `system/repository-strategy.md`
   (Branch Naming) allows a ruleset branch to carry a non-`docs/` file when
   `design.md` names it; Decision 7 does.
+
+  **A second pass cuts it to what is still true.** Every character grid left the
+  ruleset in this change, and three whole sections of this file discussed them,
+  two image entries had been promoted into the list because of them, and five
+  "Why text alone is not enough" columns quoted sentences their rules no longer
+  carry. The sections and the two entries go — **22 images become 20** — and the
+  five columns are rewritten from the current rules. The rejected list keeps both
+  entries, saying what changed, per the file's own Reclassifying convention.
+  `tasks.md` (section 30).
 - **`TODO.md`** — the quoted-ruleset section is cut to match. `Docs must not
   edit CHANGELOG.md directly` and `TODO.md quotes the ruleset verbatim` are both
   required checks and both pass.
@@ -131,6 +269,19 @@ document's own Summary now carries the sequence as a numbered list.
   `system/proposal-review.md`, `scripts/check_delta_coverage.py`,
   `.claude/agents/ruleset-auditor.md`** — all five cite `MEL-010` as the one
   retired-but-kept number. Amended, not the rule restored. Decision 10.
+- **`system/proposal-review.md`, a second time** — its canonical example of a
+  rule contradicting one three documents away was the `VEH-021` / `VEH-027`
+  stairs pair, which section 23 removes. The example is deleted; the three live
+  examples in the same sentence stay. Decision 13.
+- **`system/documentation-standards.md`, `system/proposal-review.md` and the
+  three `.claude/agents/` definitions** — nothing outside `docs/` may name a rule
+  that exists. Three files claimed `CBT-011` and `WPN-021` demonstrate the
+  supersession convention; `WPN-021` never did, on `main` or since. A fourth
+  reference quoted a `WPN-021` sentence this change deleted. All go, and the
+  auditors switch to a **BASE form** — `ABC-001`, `` `NN-document.md`` — that
+  cannot resolve and so cannot rot. Operational exemptions that must name a real
+  document stay, or the agents would report false findings. `tasks.md`
+  (section 35).
 - **`tests/test_ruleset_ast.py`, `tests/test_build_index.py`** — two tests
   pinned rule bodies against named rules in `docs/` and broke when a rule gained
   a sub-heading. They now pin the behaviour and check the invariant across all

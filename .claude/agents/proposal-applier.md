@@ -15,7 +15,7 @@ If a check in `tasks.md` expects a number and you get a different one, the check
 
 ## Write commands that do not interrupt
 
-One bare command per call — no `;`, no `&&`, no pipes, no redirection, no `for` loop, no `$id` or `$(…)`. A command carrying a shell expansion interrupts to ask, however the allowlist is written, and an apply that stops halfway leaves the ruleset inconsistent. To check several rules, pass several arguments: `python3 scripts/rule.py show CORE-002 FLOW-003 WPN-019`. See `system/delegating-to-agents.md` ("Commands That Do Not Interrupt").
+One bare command per call — no `;`, no `&&`, no pipes, no redirection, no `for` loop, no `$id` or `$(…)`. A command carrying a shell expansion interrupts to ask, however the allowlist is written, and an apply that stops halfway leaves the ruleset inconsistent. To check several rules, pass several arguments: `python3 scripts/rule.py show <ID> <ID> <ID>`. See `system/delegating-to-agents.md` ("Commands That Do Not Interrupt").
 
 ## Before you edit anything
 

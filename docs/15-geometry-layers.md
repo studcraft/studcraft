@@ -29,7 +29,7 @@ Not every LEGO element, however, contributes to a measured gameplay value.
 
 This separation allows players to build models with different levels of visual detail while preserving the same measured gameplay values.
 
-Visual Geometry is still physically present on the table. It may therefore affect direct physical checks such as Line of Sight, Cover and access, even though it does not modify measured values.
+Visual Geometry is still physically present on the table. It may therefore affect direct physical checks such as Line of Sight, Cover, access and the Resistance an Impact crosses, even though it does not modify measured values.
 
 The goal is simple:
 
@@ -48,9 +48,8 @@ Examples include:
 * Muzzle count and size
 * Transport volume
 * Movement geometry
-* Component structural thickness
 
-Derived values such as Range, Attack Dice, Impact Strength, Resistance and Capacity are calculated from Gameplay Geometry by their respective rules.
+Derived values such as Range, Attack Dice, Impact Strength and Capacity are calculated from Gameplay Geometry by their respective rules.
 
 Gameplay Geometry is objective: the same model produces the same measurements.
 
@@ -73,20 +72,19 @@ Examples include:
 
 Visual Geometry does not change a measured gameplay value.
 
-A decorative element becomes Gameplay Geometry if it physically forms part of the structure or functional geometry measured by another rule.
+Material an Impact must cross is never ignored: a plate or panel outside a wall is part of what the Impact crosses and adds to its Resistance (`16-damage-system.md`, DMG-003; `GEO-004`). What is decorative is the printing on a piece, not the piece.
 
 ---
 
 # GEO-003 — Measured Values
 
-Only Gameplay Geometry is used when calculating measured rule values.
+Only Gameplay Geometry is used when calculating measured rule values. Resistance is not one of them — it is read from the model as built (`GEO-004`).
 
 Examples include:
 
 * Range
 * Attack Dice
 * Impact Strength
-* Resistance
 * Weapon Capacity
 * Transport Capacity
 * Movement distance
@@ -105,8 +103,9 @@ This applies to checks such as:
 * Target visibility
 * Cover
 * Access openings
+* Resistance
 
-Therefore, Visual Geometry can physically block sight or access even though it does not modify a measured value.
+Therefore, Visual Geometry can physically block sight or access, and material an Impact crosses counts toward Resistance, even though none of it modifies a measured value.
 
 A partially visible component is simply visible; Visual Geometry does not create an abstract cover bonus.
 
@@ -135,8 +134,8 @@ The weapon produces the same measured values regardless of its visual detail.
 
 ## Vehicle
 
-**Gameplay Geometry:** Platform dimensions, weapon locations, movement geometry and transport capacity.
-**Visual Geometry:** tracks, fenders, lights, exhausts and decorative armour.
+**Gameplay Geometry:** Platform dimensions, locomotion, weapon locations, movement geometry and transport capacity.
+**Visual Geometry:** track details, fenders, lights, exhausts and decorative armour.
 
 The vehicle's measured values remain unchanged by its visual detail.
 

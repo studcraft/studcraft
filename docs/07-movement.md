@@ -73,9 +73,9 @@ Whether a given unit may ascend one is its own domain's question — infantry (`
 
 ## MOVE-013 — Stairs
 
-A stepped surface is terrain built from discrete steps, whatever the steps are built from, and each step has a measurable height.
+A stepped surface is terrain built from discrete steps, whatever the steps are built from, and each step has a measurable height. Each step is an obstacle in its own right, read individually.
 
-Whether a given unit may climb one is its own domain's question — infantry (`17-infantry.md`, INF-009), vehicles never (`08-vehicles.md`, VEH-027).
+Whether a given unit may climb one is its own domain's question — infantry (`17-infantry.md`, INF-009), vehicles (`08-vehicles.md`, VEH-027).
 
 ---
 
