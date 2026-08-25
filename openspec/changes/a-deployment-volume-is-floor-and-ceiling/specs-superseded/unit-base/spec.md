@@ -1,3 +1,23 @@
+<!--
+SUPERSEDED — retained as a record, not applied at archive time.
+
+This delta modified "Unit Base Projections" on the `unit-base` capability.
+`general-review` (#130) modified the same requirement afterwards and is the
+later change, so it now carries the authoritative version
+(`system/workflow.md`, "When several changes modified the same requirement").
+
+Applying both would conflict, and `scripts/archive_cut.py` processes a batch in
+directory order with no dependency resolution — it would abort on the first.
+
+`general-review`'s delta is written against `openspec/specs/unit-base/spec.md`
+as it stands, which is the pre-#129 text, so it is complete on its own and does
+not need this one applied first.
+
+It is moved out of `specs/` rather than deleted so the archive still shows what
+this change proposed. The reasoning that produced it lives in this change's own
+proposal.md and design.md, and in git history.
+-->
+
 # unit-base Specification Delta
 
 ## MODIFIED Requirements
