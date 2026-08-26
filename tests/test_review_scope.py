@@ -15,7 +15,11 @@ from __future__ import annotations
 import review_scope
 
 INDEX = {
-    "documents": {},
+    "documents": {
+        "aaa.md": {"rules": ["AAA-001"], "prefixes": ["AAA"], "outline": []},
+        "bbb.md": {"rules": ["BBB-002"], "prefixes": ["BBB"], "outline": []},
+        "ccc.md": {"rules": ["CCC-003"], "prefixes": ["CCC"], "outline": []},
+    },
     "rules": {
         "AAA-001": {
             "id": "AAA-001", "doc": "aaa.md", "line": 10, "line_end": 18,
@@ -107,6 +111,89 @@ class TestScope:
         assert review_scope.scope("not-a-change", INDEX) == 1
 
         assert "a-change" in capsys.readouterr().err
+
+
+class TestDeltas:
+    def test_a_delta_the_change_ships_is_listed(self, tmp_path, monkeypatch, capsys):
+        change = make_change(tmp_path, monkeypatch, "Rewrites AAA-001.")
+        spec = tmp_path / "changes" / change / "specs" / "a-capability"
+        spec.mkdir(parents=True)
+        (spec / "spec.md").write_text("## MODIFIED Requirements\n")
+
+        review_scope.scope(change, INDEX)
+
+        out = capsys.readouterr().out
+        assert "Deltas — 1 spec delta(s)" in out
+        assert "specs/a-capability/spec.md" in out
+
+    def test_a_superseded_delta_is_listed_too(self, tmp_path, monkeypatch, capsys):
+        # A superseded delta is the one nobody opens, because the change that
+        # owns the requirement now is somewhere else entirely.
+        change = make_change(tmp_path, monkeypatch, "Rewrites AAA-001.")
+        spec = tmp_path / "changes" / change / "specs-superseded" / "a-capability"
+        spec.mkdir(parents=True)
+        (spec / "spec.md").write_text("Superseded.\n")
+
+        review_scope.scope(change, INDEX)
+
+        assert "specs-superseded/a-capability/spec.md" in capsys.readouterr().out
+
+    def test_a_change_shipping_no_delta_says_so(self, tmp_path, monkeypatch, capsys):
+        change = make_change(tmp_path, monkeypatch, "Rewrites AAA-001.")
+        review_scope.scope(change, INDEX)
+
+        out = capsys.readouterr().out
+        assert "Deltas — 0 spec delta(s)" in out
+
+    def test_a_change_naming_no_live_rule_still_lists_its_delta(self, tmp_path, monkeypatch, capsys):
+        # The rule half and the delta half are printed by different branches.
+        # A change whose rules were all retired has no rules to list and a delta
+        # that still has to be read.
+        change = make_change(tmp_path, monkeypatch, "Prose only, naming AAA-009.")
+        spec = tmp_path / "changes" / change / "specs" / "a-capability"
+        spec.mkdir(parents=True)
+        (spec / "spec.md").write_text("## MODIFIED Requirements\n")
+
+        review_scope.scope(change, INDEX)
+
+        out = capsys.readouterr().out
+        assert "Names no rule that exists" in out
+        assert "specs/a-capability/spec.md" in out
+        assert 'git grep -n "AAA-009"' in out
+
+
+class TestDeadIds:
+    def test_a_retired_id_under_a_real_prefix_is_listed(self, tmp_path, monkeypatch, capsys):
+        change = make_change(tmp_path, monkeypatch, "Retires AAA-009 and rewrites AAA-001.")
+        review_scope.scope(change, INDEX)
+
+        out = capsys.readouterr().out
+        assert 'git grep -n "AAA-009"' in out
+
+    def test_an_illustration_prefix_is_not_listed(self, tmp_path, monkeypatch, capsys):
+        # ZZZ names nothing by construction, so grepping it is noise — and a
+        # section of noise is a section an auditor learns to skim.
+        change = make_change(tmp_path, monkeypatch, "Illustrated with ZZZ-001, and rewrites AAA-001.")
+        review_scope.scope(change, INDEX)
+
+        out = capsys.readouterr().out
+        assert "ZZZ-001" not in out
+
+    def test_a_high_number_under_a_real_prefix_survives(self, tmp_path, monkeypatch, capsys):
+        # Deliberate: an invented number under a real prefix is a sanctioned
+        # illustration, and so is every genuinely retired number. Nothing tells
+        # them apart, and dropping a real retirement is the costlier mistake.
+        change = make_change(tmp_path, monkeypatch, "Illustrated with AAA-099, and rewrites AAA-001.")
+        review_scope.scope(change, INDEX)
+
+        assert 'git grep -n "AAA-099"' in capsys.readouterr().out
+
+    def test_a_live_rule_is_not_listed_as_retired(self, tmp_path, monkeypatch, capsys):
+        change = make_change(tmp_path, monkeypatch, "Rewrites AAA-001.")
+        review_scope.scope(change, INDEX)
+
+        out = capsys.readouterr().out
+        assert "Retired IDs — 0 named here" in out
 
 
 class TestChecklist:
