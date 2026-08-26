@@ -44,6 +44,8 @@ CHECKLIST = [
     "The same rule asserted twice in two documents",
     "A task citing a spec section that was never written",
     "Requirement order not matching the described sequence",
+    "Every delta describes docs/ as it now reads, not as it read when written",
+    "Every file outside docs/ the change carries is named in design.md",
     "The Summary of every document touched",
     "The glossary entry of every term touched",
     "A stated count recomputed rather than trusted",
@@ -82,6 +84,58 @@ def named_rules(change_dir: Path, index: dict) -> dict[str, set[str]]:
     return found
 
 
+def dead_ids(change_dir: Path, index: dict) -> list[str]:
+    """Rule IDs the change names that do not exist in docs/.
+
+    A change that retires a rule keeps naming it — in its own prose, and in the
+    `tasks.md` that removed it. Those are the IDs worth a repository-wide grep,
+    because the linter reads `docs/` and `assets/IMAGES.md` only and the index
+    is built from `docs/`: neither can see `CODE_OF_DESIGN.md`, `README.md`,
+    `system/` or `scripts/` still citing one.
+
+    An ID under a prefix no document uses is an illustration — `AAA-001`,
+    `ABC-001` — and is dropped: `system/documentation-standards.md` (Naming
+    Conventions) mandates that form precisely so it names nothing.
+
+    **An invented number under a real prefix survives the filter**, and that is
+    deliberate. `VEH-099` is the third sanctioned illustration form, but so is
+    every genuinely retired number, and no rule tells them apart. Two lines of
+    noise cost a glance; dropping a real retirement costs what this section
+    exists to prevent.
+    """
+    live_prefixes = {
+        prefix
+        for document in index["documents"].values()
+        for prefix in document["prefixes"]
+    }
+
+    named: set[str] = set()
+    for path in sorted(change_dir.rglob("*.md")):
+        named.update(RULE_ID_RE.findall(path.read_text()))
+
+    return sorted(
+        name
+        for name in named
+        if name not in index["rules"] and name.rsplit("-", 1)[0] in live_prefixes
+    )
+
+
+def delta_files(change_dir: Path) -> list[str]:
+    """Every spec delta the change ships, live and superseded.
+
+    A delta is written against `docs/` at proposal time and archived weeks
+    later, by which point `docs/` has moved — `system/workflow.md` ("Refresh
+    every delta against `docs/` before archiving"). Nothing else lists these,
+    so nothing else prompts anyone to re-read them.
+    """
+    found = [
+        path.relative_to(change_dir).as_posix()
+        for directory in ("specs", "specs-superseded")
+        for path in sorted((change_dir / directory).rglob("*.md"))
+    ]
+    return found
+
+
 def scope(change: str, index: dict) -> int:
     change_dir = CHANGES_DIR / change
     if not change_dir.is_dir():
@@ -109,6 +163,9 @@ def scope(change: str, index: dict) -> int:
         for entry in index["glossary"]
         if any(cited in named for cited in entry["cites"])
     ]
+
+    deltas = delta_files(change_dir)
+    dead = dead_ids(change_dir, index)
 
     print(f"# Review scope — {change}\n")
 
@@ -142,6 +199,27 @@ def scope(change: str, index: dict) -> int:
                 print(f"  14-glossary.md:{entry['line']:<5d} {entry['term']}")
         else:
             print("  none")
+
+    print(f"\n## Deltas — {len(deltas)} spec delta(s) this change ships\n")
+    if deltas:
+        print("Written against docs/ at proposal time and archived later, by which")
+        print("point docs/ has moved. Read each beside the rule it describes.\n")
+        for name in deltas:
+            print(f"  {name}")
+    else:
+        print("  none")
+
+    print(f"\n## Retired IDs — {len(dead)} named here and absent from docs/\n")
+    if dead:
+        print("Grep the whole repository for each. The linter reads docs/ and")
+        print("assets/IMAGES.md only, and the index is built from docs/, so neither")
+        print("sees CODE_OF_DESIGN.md, README.md, system/ or scripts/ still citing one.")
+        print("A high number under a real prefix is an illustration, not a retirement —")
+        print("it is listed because no rule tells the two apart.\n")
+        for name in dead:
+            print(f"  git grep -n \"{name}\"")
+    else:
+        print("  none")
 
     print(f"\n## Checklist — answer every line\n")
     print("CLEAN, FINDING or N/A with the reason. No line is skipped in silence:")

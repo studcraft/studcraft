@@ -13,9 +13,16 @@ python3 scripts/review_scope.py <change-name>
 
 It prints what the review reads — the rules the change names, the rules that
 cite them, the Summary of every document touched, the glossary entry of every
-term touched — and the numbered checklist to answer. **Two reviews of one
-change read the same text and answer the same questions**, which is what
+term touched, **the spec deltas it ships, and the retired IDs worth a
+repository-wide grep** — and the numbered checklist to answer. **Two reviews of
+one change read the same text and answer the same questions**, which is what
 deciding both per invocation used to prevent.
+
+The last two are there because nothing else prompts them. A delta is written
+against `docs/` at proposal time and read again only at archive time, weeks
+later; and a retired ID is invisible to both `scripts/lint_ruleset.py`, which
+reads `docs/` and `assets/IMAGES.md`, and `scripts/rule.py`, which reads an
+index built from `docs/`.
 
 **Every item gets a verdict**: `CLEAN`, `FINDING`, or `N/A` with the reason. An
 item nobody answered is indistinguishable from an item nobody checked, and

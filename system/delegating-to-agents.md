@@ -30,6 +30,11 @@ judgement goes into writing and auditing, transcription goes to the applier.
 the audit: the second pass costs what the first did and reports only what you
 added.
 
+**An edit made after the last audit is unaudited, and a repair is an edit.**
+Steps 4 and 5 produce findings, and applying them changes the text the audit
+ran against — including the deltas, which no repair updates on its own. Either
+the pass runs again, or the change ships with a part nobody read. Say which.
+
 **When the edits came first** (`system/workflow.md`), step 3 has already
 happened for Part A. Raise `ruleset-auditor` on that text as step 2, and
 `proposal-auditor` on the Part B tasks it returns.
