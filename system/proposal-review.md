@@ -5,20 +5,49 @@ again on the applied text before archiving. This is what that pass looks for.
 
 ---
 
+# The Scope and the Checklist Are Computed, Not Decided
+
+```bash
+python3 scripts/review_scope.py <change-name>
+```
+
+It prints what the review reads — the rules the change names, the rules that
+cite them, the Summary of every document touched, the glossary entry of every
+term touched — and the numbered checklist to answer. **Two reviews of one
+change read the same text and answer the same questions**, which is what
+deciding both per invocation used to prevent.
+
+**Every item gets a verdict**: `CLEAN`, `FINDING`, or `N/A` with the reason. An
+item nobody answered is indistinguishable from an item nobody checked, and
+"what I checked and found clean" written as prose is where a skipped class
+hides.
+
+The sections below say why each class recurs; the script holds the list to
+walk. **Adding a class here means adding a line to `CHECKLIST` in the script**,
+or the review stops covering it.
+
+**A review ends when a pass returns no finding above an observation.** A second
+pass returning new blockers means the first was incomplete or the scope moved
+after it ran — `system/delegating-to-agents.md` forbids the second, so report
+which it was.
+
+---
+
 # Review Against the Shipped Ruleset, Not Just Internally
 
 A proposal can be perfectly self-consistent and still contradict a rule that
 already shipped. Every real contradiction found here came from not
-cross-checking siblings: a new muzzle-adjacency rule against `WPN-007`, a new
-"Weapon Distribution" rule against `CBT-007`, "Visual Geometry is always
-ignored" against `CORE-008`/`CORE-010`.
+cross-checking siblings: a new muzzle-adjacency rule against the rule already
+governing muzzle placement, a new dice-distribution rule against the one
+already splitting Attack Dice, "Visual Geometry is always ignored" against the
+two Core Rules that read the physical model.
 
 **Before applying, read every document the subject matter touches, not just the
 ones the proposal cites.** Weapons means combat and melee too; damage means
 combat, melee and vehicles. The contradiction is almost never in the document
-the proposal is about. Grep repo-wide, not scoped to the obvious neighbours —
-`VEH-014` restated `WPN-008`/`CBT-006` for years and only a repo-wide grep
-caught it.
+the proposal is about. Grep repo-wide, not scoped to the obvious neighbours — a
+vehicle rule restated the universal Weapon System rules for years and only a
+repo-wide grep caught it.
 
 ---
 
@@ -33,20 +62,21 @@ Look for these specifically. They recur.
   `docs/` and `assets/IMAGES.md`, and `README.md`, `CODE_OF_DESIGN.md`,
   `TODO.md`, `scripts/` and `system/` all cite rule IDs. Archived changes
   under `openspec/changes/archive/` are history and are left as they are.
-- **A changed rule's own ID never grepped, only the ones it retired** — #126
-  emptied one rule and wrote into another, and `TODO.md` quoted both;
-  `check_todo_quotes.py` is a required check, so the stale quote is a red
-  gate, not a reading defect.
+- **A changed rule's own ID never grepped, only the ones it retired** —
+  `action-points-have-one-owner` emptied one rule and wrote into another, and
+  `TODO.md` quoted both; `check_todo_quotes.py` is a required check, so the
+  stale quote is a red gate, not a reading defect.
 - **A duplicate in a document that defines no rules** — `01-foundations.md`
-  held a fourth copy of the list #126 was deduplicating and was never
+  held a fourth copy of the list that change was deduplicating and was never
   opened, because the sweep looked for rules; it and `14-glossary.md` define
   none and restate plenty.
 - **Absolute claims falsified by a later fix** — once you make one exception
   explicit, re-scan for every place the old absolute claim still stands
   unqualified.
-- **The same rule asserted twice in two documents** — `CBT-009` and `MAT-017`
-  both said "prefer physical representation". A proposal touching either is the
-  moment to consolidate, not to add a third near-duplicate.
+- **The same rule asserted twice in two documents** — a combat rule and a
+  materials rule both said "prefer physical representation" until the materials
+  document was removed. A proposal touching either is the moment to
+  consolidate, not to add a third near-duplicate.
 - **A task referencing a spec section that was never written** — grep the spec
   files for a section name before trusting a task that cites it.
 - **Requirement order not matching the described sequence** — if the design
@@ -117,9 +147,9 @@ proposal was wrong.
 Verification greps confirm instructions were followed. They cannot see that a
 correctly-inserted paragraph now reads as part of the wrong example, that two
 paragraphs now say the same thing, or that a rule now contradicts one three
-documents away. All of these were found only by reading the file end to end:
-`DMG-004`'s closing paragraph displaced three times by later examples; a new
-`VEH-004` table reintroducing `VEH-001`'s footprints as a parenthetical.
+documents away. All of these were found only by reading the file end to end: a
+rule's closing paragraph displaced three times by later examples; a new
+movement table reintroducing another rule's footprints as a parenthetical.
 
 After applying, read every rule the change touched in full, plus the rules it
 cites and the document's Summary. Budget for it: it is where the findings are.
@@ -129,10 +159,10 @@ cites and the document's Summary. Budget for it: it is where the findings are.
 # The Summary Is Part of the Rule
 
 A document's `# Summary` restates the rules above it and nothing enforces that
-it stays true. It has gone stale after almost every substantive change —
-`07-movement.md` omitted every AP cost and listed "five principles" that had
-become six; `09-transport.md` still said "Embarking costs 1 AP" after the rule
-became 1 AP per Unit Base.
+it stays true. It has gone stale after almost every substantive change — one
+Summary omitted every AP cost and listed "five principles" that had become six;
+another still charged a flat Action Point for an action whose rule had become a
+cost per Unit Base.
 
 **Any change touching a rule checks that document's Summary and its glossary
 entry in the same pass.** Both are restatements, and restatements drift.
@@ -163,10 +193,11 @@ a rule saying "a weapon reaching 90 studs" uses a figure its own table shows.
 
 # Multipliers Set Early Get Falsified by Numbers Added Later
 
-`VEH-004`'s `1.5×` and `WPN-005`'s `× 2` were both reasonable when written and
-both wrong once `INF-002`, `WPN-004` and `CORE-001` existed to check them
-against: an infantry weapon reaching 8 studs against a 12-stud move, a
-motorbike slower than a walking soldier, half-stud distances on a stud grid.
+A vehicle movement multiplier and a weapon range multiplier were both reasonable
+when written and both wrong once the infantry, weapon-capacity and Unit Base
+rules existed to check them against: an infantry weapon reaching 8 studs against
+a 12-stud move, a motorbike slower than a walking soldier, half-stud distances
+on a stud grid.
 
 **When a change adds a number, check it against every number it can be compared
 with** — especially movement against range, and any multiplier against the
@@ -184,13 +215,15 @@ Look for the chain that already exists. For weapon Range it is complete, and
 every link is read from the model or agreed by the players:
 
 ```
-Range ≤ 6 × Weapon Length ≤ 6 × Platform Length (WPN-004)
-      ≤ what fits the Deployment Volume (VEH-001, DEP-003)
-      ≤ the battlefield agreed first (FLOW-001, step 2)
+Range ≤ a multiple of Weapon Length
+      ≤ a multiple of Platform Length
+      ≤ what fits the agreed Deployment Volume
+      ≤ the battlefield agreed before the forces were built
 ```
 
-What is worth adding instead is a paragraph stating the chain, so a reader who
-computes an alarming figure finds the answer where they already are.
+What is worth adding instead is a paragraph in `docs/` stating the chain with
+its current multipliers, so a reader who computes an alarming figure finds the
+answer where they already are.
 
 ---
 

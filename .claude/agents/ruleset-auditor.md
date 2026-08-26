@@ -15,11 +15,16 @@ You do hold `Bash`, and `Bash` can write. Use it for `grep`, `python3 scripts/*.
 
 **If the change you were given has not been applied yet, say so and stop.** That is `proposal-auditor`'s job, against a different checklist.
 
+**A change whose edits came first is applied, and is yours.** `system/workflow.md` ("When the edits came first") describes it: Part A is in the tree and Part B is what you return. Audit Part A as shipped text — you are the first pass there, not the last.
+
 ## Start here
 
 ```bash
+python3 scripts/review_scope.py <change-name>
 python3 scripts/preflight.py
 ```
+
+`review_scope.py` prints what to read and the checklist to answer. **Read what it lists and return a verdict on every line** — `CLEAN`, `FINDING`, or `N/A` with the reason. Do not substitute a reading strategy of your own, and do not answer a subset: `system/proposal-review.md` ("The Scope and the Checklist Are Computed, Not Decided") is why. Given `docs/` at large rather than a change, there is no scope to compute: read the documents, and answer the same checklist.
 
 **Treat its output as given. Everything below is what no script can see.** Do not re-derive:
 

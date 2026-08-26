@@ -26,6 +26,14 @@ Across every delegated change so far, **every defect found afterwards was in
 the proposal, not in the execution.** That is the whole argument for the split:
 judgement goes into writing and auditing, transcription goes to the applier.
 
+**Settle the scope before step 2.** Widening the change afterwards invalidates
+the audit: the second pass costs what the first did and reports only what you
+added.
+
+**When the edits came first** (`system/workflow.md`), step 3 has already
+happened for Part A. Raise `ruleset-auditor` on that text as step 2, and
+`proposal-auditor` on the Part B tasks it returns.
+
 ## Transcription is a script now
 
 `scripts/apply_tasks.py` applies every anchor-and-replacement pair a `tasks.md`
@@ -186,6 +194,12 @@ per-invocation prompt that says "go document by document, every heading" throws
 that away. One such sentence took a `ruleset-auditor` pass from the scoped read
 its definition describes to all fifteen documents. State the change and the
 question; leave the reading strategy where it is already written down.
+
+**An audit prompt carries the change name and nothing about what to read.**
+`scripts/review_scope.py` computes the scope and prints the checklist, so a
+prompt listing questions of its own replaces a fixed list with an invented one
+and makes two passes incomparable. Add to it only what the agent could not
+infer: a decision already taken, or a constraint that is not in the repository.
 
 **The report is the only thing that crosses back.** Whatever an agent prints
 while working stays in its own context — the caller receives the final report
