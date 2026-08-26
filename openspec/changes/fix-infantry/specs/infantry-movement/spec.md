@@ -73,7 +73,7 @@ An obstacle of 4 to 6 plate layers SHALL cost 1 additional Action Point for each
 
 #### Scenario: A climb does not extend the move
 - **WHEN** a movement action climbs an obstacle
-- **THEN** the distance travelled up counts against the unit's normal limit of 4 UB, or against a Wounded model's shorter limit
+- **THEN** the distance travelled up counts against the limit the move's own direction sets — 4 UB forward or backward, 3 UB sideways — or against a Wounded model's shorter limit
 
 ### Requirement: A Wounded Infantry Model Moves At Most Two Unit Bases
 A Wounded infantry model (`16-damage-system.md`, DMG-002) SHALL move at most 2 UB in whichever direction it travels, each direction reading its own axis of the Unit Base. Nothing else about the move SHALL change: it SHALL still cost 1 Action Point, still travel in a single direction, and still charge a climb the additional Action Point that climb costs. The limit SHALL be counted in whole Unit Bases rather than taken as a fraction of the normal distance.
