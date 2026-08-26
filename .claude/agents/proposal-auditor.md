@@ -16,10 +16,13 @@ You are reading the proposal cold, and that is the point: **every defect found a
 ## Start here
 
 ```bash
+python3 scripts/review_scope.py <change-name>
 python3 scripts/preflight.py
 python3 scripts/verify_tasks.py <change-name>
 python3 scripts/apply_tasks.py --check <change-name>
 ```
+
+`review_scope.py` prints what to read and the checklist to answer. **Read what it lists and return a verdict on every line** — `CLEAN`, `FINDING`, or `N/A` with the reason. Do not substitute a reading strategy of your own, and do not answer a subset: `system/proposal-review.md` ("The Scope and the Checklist Are Computed, Not Decided") is why.
 
 `preflight.py` runs every mechanical check this repository owns. **Treat its output as given and do not re-derive it** — in particular anchor uniqueness, every task announcing an anchor carrying its fenced pair, every coverage-table row naming a task that exists, a `tasks.md` instructing anyone to edit `CHANGELOG.md` or a `**Version:**` header, and cross-document citation existence in both citation forms.
 
@@ -70,6 +73,8 @@ The intuitive check is backwards: **a change that alters behaviour must not bump
 ## Out of scope
 
 `system/proposal-review.md` ("What an Audit Reports, and What It Does Not") has the list. One addition specific to you: **the applied text**. You run before it exists; `ruleset-auditor` reads it afterwards.
+
+Where the edits came first (`system/workflow.md`), the tasks in front of you are Part B and `ruleset-auditor` has already read Part A. Audit Part B; do not re-audit what its findings came from.
 
 ## Reporting
 

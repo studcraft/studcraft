@@ -134,9 +134,10 @@ Document Boundaries").
 
 # Naming Conventions
 
-Rule identifiers are never renumbered and never reused: `MOVE-001`, `WPN-001`,
-`CBT-001`, `FLOW-001`. Each document owns its own prefix. A removed document's
-number is never reused either.
+Rule identifiers are never renumbered and never reused, and take the form
+`ABC-001` — a prefix each document owns, and a three-digit number. A removed
+document's number is never reused either. `python3 scripts/rule.py doc <file>`
+prints the prefix a document actually uses.
 
 A rule may be deleted. Its number is retired, never reissued, and no stub is
 left in its place — the diff records that the rule was there. Where the rule
@@ -158,6 +159,20 @@ inside one is local by construction and names nothing in `docs/`. What a test
 must not do is reach into `docs/` for a *real* rule — that is the dependency,
 and it is what `tests/test_ruleset_ast.py` and `tests/test_build_index.py` were
 repaired for.
+
+**`system/` and `.claude/` are held to the same rule as `scripts/`.** They
+describe the process, not the ruleset, so an example that names a live rule ID
+makes a flow depend on a rule that can be retired — one such example cited a
+prefix whose document had been removed and nothing reported it. Illustrate a
+past defect by naming what the rule *did*: "the rule already governing muzzle
+placement" is recognised as easily as its ID and cannot rot.
+
+**A past change is named by its change name, not by a pull-request number.** A
+name is a directory under `openspec/changes/` and survives archiving, a move to
+another forge, and a reader with no network; `#NN` resolves only on the host
+that issued it. Write the name and put the number in parentheses after it if it
+helps — `action-points-have-one-owner` (#126). Where no change directory exists,
+the name is the commit subject.
 
 ---
 

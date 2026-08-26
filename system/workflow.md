@@ -8,6 +8,19 @@ A proposal is three artifacts: `proposal.md` (what and why), `design.md` (the
 decisions, and what was rejected), `tasks.md` (how to apply it, in verifiable
 steps). See `openspec/config.yaml` for per-artifact rules.
 
+## When the edits came first
+
+A rule edited at the table is proposed afterwards, not reverted. The sequence
+forces the proposal's shape, so write it that way rather than improvising it:
+
+- **Part A** — what is already in the tree. Boxes ticked, each entry naming the
+  command that verifies the claim rather than asserting it.
+- **Part B** — what auditing that text returns, as anchor pairs.
+
+Every finding then costs two edits, one to `docs/` and one to the `tasks.md`
+that records it. That is the price of the order, and it is why the audit order
+changes too — `system/delegating-to-agents.md` ("The Order").
+
 ## Ruleset linter
 
 `scripts/lint_ruleset.py` runs on every PR as `Docs ruleset linter`, with no
@@ -89,6 +102,16 @@ touch `docs/*.md`; any other PR must not touch `openspec/specs/` at all.
 concurrent writes; it is not permission to accumulate. A backlog is what turns
 this script into a project: with sixteen changes waiting, four had modified the
 same requirement and the run aborted on the first.
+
+**Check the precondition before dispatching the run**, or it archives nothing
+and exits 1:
+
+```bash
+grep -rn "^- \[ \]" openspec/changes/*/tasks.md
+```
+
+A box left unticked because its work belongs in a later pull request blocks the
+archive until that pull request lands and the box follows it.
 
 ## Refresh every delta against `docs/` before archiving
 
