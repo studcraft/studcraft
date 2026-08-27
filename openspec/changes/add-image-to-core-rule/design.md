@@ -19,6 +19,7 @@ The files, and why each has to be here:
 | `scripts/preflight.py` | The local mirror gains `--check`. `.claude/rules/tooling.md`: editing a workflow means checking the mirror against it. |
 | `.github/workflows/docs-ruleset-linter.yml` | The `--check` step. A checker landing a release later than the thing it checks is a window where deriva is invisible. |
 | `.claude/rules/assets.md` | It names the script that checks images and says to run it. There are two commands now, one of which writes. |
+| `AGENTS.md` | One row routing to `assets/IMAGES.md`. The image flow starts with a file appearing in `assets/images/` — a `git status` line, not an edit — so the path-triggered rule above never fires for it, and `AGENTS.md` is the only thing always loaded. It routes; it does not restate. |
 | `assets/IMAGES.md` | Its statement that no listed file exists is falsified by this change. |
 | `assets/images/core-001-unit-base-volume.png` | The image itself. |
 | `tests/test_insert_images.py`, `tests/test_images_index.py`, `tests/test_build_index.py`, `tests/test_lint_ruleset.py` | `Tests` is a required check, and `.claude/rules/tooling.md` puts a script's test in the same commit as the script. |
