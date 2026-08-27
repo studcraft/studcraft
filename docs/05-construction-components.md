@@ -100,6 +100,8 @@ The check is made against the model as physically built and is repeated whenever
 
 > **If it fits, it passes.**
 
+![CMP-018 — clear opening](../assets/images/cmp-018-clear-opening.png)
+
 ---
 
 # CMP-019 — Interactive Elements
