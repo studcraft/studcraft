@@ -47,6 +47,17 @@ PATH_RE = re.compile(r"`(assets/images/[^`]+)`")
 # a file nobody can see in the document: a .psd, a .blend, a .pdf.
 RENDERABLE = ("png", "jpg", "jpeg", "gif", "svg", "webp")
 
+# What one image may weigh. Git keeps every version of a binary forever and
+# stores no deltas between them, so a re-exported image is a whole new copy in
+# the history — and this repository forbids rewriting history, which is the only
+# way to take one back out.
+#
+# The number is deliberately far above ordinary work rather than near it: it is
+# an accident guard, not a budget. A flat render of a build is a few hundred
+# kilobytes, so nothing legitimate meets this. What meets it is the 8K export or
+# the uncompressed master uploaded by mistake.
+MAX_BYTES = 3 * 1024 * 1024
+
 # The convention, defined in assets/IMAGES.md: a lowercase hyphen-separated slug
 # under assets/images/, prefixed by the lowercased rule ID for a numbered rule
 # or by the document number for an unnumbered section.

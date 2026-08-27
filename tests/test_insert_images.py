@@ -258,6 +258,29 @@ def test_a_file_no_renderer_draws_is_reported(temp_repo: Path) -> None:
     assert "no reader can see it" in result.stdout
 
 
+def test_an_image_over_the_weight_limit_is_reported(temp_repo: Path) -> None:
+    """Git keeps every version of a binary forever, and this repository does not
+    rewrite history — so the check has to happen before the file lands."""
+    build(temp_repo, ROW, ())
+    oversized = temp_repo / "assets" / "images" / "veh-001-footprint-studs.png"
+    oversized.write_bytes(b"\x89PNG" + b"\0" * (3 * 1024 * 1024 + 1))
+
+    result = run(temp_repo, "--check")
+
+    assert result.returncode == 1
+    assert "over the 3 MB an image may weigh" in result.stdout
+
+
+def test_an_image_at_ordinary_weight_passes(temp_repo: Path) -> None:
+    build(temp_repo, ROW, ())
+    ordinary = temp_repo / "assets" / "images" / "veh-001-footprint-studs.png"
+    ordinary.write_bytes(b"\x89PNG" + b"\0" * (400 * 1024))
+    on_a_change_branch(temp_repo)
+
+    assert run(temp_repo, "--write").returncode == 0
+    assert "veh-001-footprint-studs.png" in document_of(temp_repo)
+
+
 def test_a_renderable_format_that_is_not_png_is_treated_as_an_image(
     temp_repo: Path,
 ) -> None:

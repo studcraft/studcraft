@@ -306,6 +306,18 @@ def orphan_files(entries: list[images_index.Entry]) -> list[Finding]:
             ))
             continue
 
+        size = path.stat().st_size
+        if size > images_index.MAX_BYTES:
+            findings.append(Finding(
+                relative,
+                f"weighs {size / 1024 / 1024:.1f} MB, over the "
+                f"{images_index.MAX_BYTES // 1024 // 1024} MB an image may weigh",
+                "Export it smaller. Git keeps every version of a binary forever "
+                "and this repository does not rewrite history, so an oversized "
+                "image that lands cannot be taken back out.",
+            ))
+            continue
+
         if relative in listed:
             continue
 
