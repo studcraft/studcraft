@@ -107,8 +107,13 @@ same requirement and the run aborted on the first.
 and exits 1:
 
 ```bash
-grep -rn "^- \[ \]" openspec/changes/*/tasks.md
+python3 scripts/archive_cut.py --check
 ```
+
+It names what is ready and, for anything blocked, the line holding it back. Ask
+the script that decides rather than a grep of your own: a hand-written one
+anchored at column 0, missed an indented task, and counted a checkbox quoted
+inside a fenced block as real work.
 
 A box left unticked because its work belongs in a later pull request blocks the
 archive until that pull request lands and the box follows it.
