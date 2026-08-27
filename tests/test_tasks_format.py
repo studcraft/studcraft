@@ -14,6 +14,42 @@ import pytest
 import tasks_format
 
 
+class TestUncheckedTasksIgnoresWhatIsQuoted:
+    def test_an_unticked_task_is_found(self):
+        lines = ["- [ ] 1.1 Do it"]
+        assert tasks_format.unchecked_tasks(lines) == [(1, "- [ ] 1.1 Do it")]
+
+    def test_a_ticked_task_is_not(self):
+        assert tasks_format.unchecked_tasks(["- [x] 1.1 Done"]) == []
+
+    def test_an_indented_task_is_found(self):
+        # The hand-written grep this replaced anchored at column 0.
+        lines = ["      - [ ] 1.1 Do it"]
+        assert len(tasks_format.unchecked_tasks(lines)) == 1
+
+    def test_a_checkbox_inside_a_fence_is_not_a_task(self):
+        # A tasks.md quotes the edits it makes, so an anchor or a replacement
+        # can be a checkbox. Counting one kept a fully-applied change out of
+        # the archive.
+        lines = [
+            "- [x] 1.1 In `scripts/tasks_format.py`, replace this anchor:",
+            "",
+            "```",
+            "    - [ ] 2.1 In `AAA-001`, replace this anchor:",
+            "```",
+        ]
+        assert tasks_format.unchecked_tasks(lines) == []
+
+    def test_a_task_after_a_closed_fence_is_found_again(self):
+        lines = [
+            "```",
+            "- [ ] 9.9 Quoted, not real",
+            "```",
+            "- [ ] 1.1 Real",
+        ]
+        assert tasks_format.unchecked_tasks(lines) == [(4, "- [ ] 1.1 Real")]
+
+
 class TestTargetForResolvesPathsWithAndWithoutADirectory:
     def test_a_task_naming_a_docs_path_resolves_to_it(self):
         lines = ["- [ ] 1.1 In `docs/07-movement.md`, replace this anchor:"]

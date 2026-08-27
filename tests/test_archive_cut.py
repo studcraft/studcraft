@@ -119,3 +119,67 @@ def test_nothing_to_archive_is_not_a_success(changes, monkeypatch, capsys):
 
     assert archive_cut.main() == 1
     assert "Nothing to archive" in capsys.readouterr().out
+
+
+QUOTED = """- [x] 1.1 In `scripts/tasks_format.py`, replace this anchor:
+
+```
+    - [ ] 2.1 In `AAA-001`, replace this anchor:
+```
+
+with:
+
+```
+    - [ ] 2.1 In `BBB-002`, replace this anchor:
+```
+"""
+
+
+def test_a_checkbox_quoted_in_a_fence_does_not_block_archiving(changes, monkeypatch, capsys):
+    # A fully-applied change that documents a checkbox — as an anchor and as
+    # its replacement — was read as two unticked tasks and skipped for two
+    # days. The substring this replaced could not tell quoted from real.
+    add_change(changes, "a-change", QUOTED)
+    fake = FakeOpenSpec()
+    monkeypatch.setattr(subprocess, "run", fake)
+
+    assert archive_cut.main() == 0
+    assert fake.calls == ["a-change"]
+    assert "Archived: a-change" in capsys.readouterr().out
+
+
+def test_an_indented_task_still_blocks_archiving(changes, monkeypatch):
+    # The other half: fence-awareness must not become blindness to a real task
+    # that happens to sit under a bullet.
+    add_change(changes, "a-change", "- [x] 1.1 Apply it\n      - [ ] 1.2 Verify it\n")
+    fake = FakeOpenSpec()
+    monkeypatch.setattr(subprocess, "run", fake)
+
+    archive_cut.main()
+    assert fake.calls == []
+
+
+def test_check_names_the_line_holding_a_change_back(changes, capsys):
+    add_change(changes, "a-change", PENDING)
+    add_change(changes, "b-change", DONE)
+
+    assert archive_cut.check() == 0
+    out = capsys.readouterr().out
+    assert "Ready to archive: b-change" in out
+    assert "Blocked — a-change, 1 unticked task(s)" in out
+    assert "tasks.md:2: - [ ] 1.2 Verify it" in out
+
+
+def test_check_writes_nothing(changes, monkeypatch):
+    add_change(changes, "a-change", DONE)
+
+    def refuse(*args, **kwargs):
+        raise AssertionError("--check must not invoke openspec")
+
+    monkeypatch.setattr(subprocess, "run", refuse)
+    assert archive_cut.check() == 0
+
+
+def test_check_reports_an_empty_queue(changes, capsys):
+    assert archive_cut.check() == 0
+    assert "No unarchived changes." in capsys.readouterr().out

@@ -110,6 +110,32 @@ def blocks(lines: list[str]) -> list[tuple[int, str, str]]:
     return found
 
 
+def unchecked_tasks(lines: list[str]) -> list[tuple[int, str]]:
+    """Every unticked task line, as (line number, text). Fenced blocks excluded.
+
+    A `tasks.md` states its edits by quoting them, so a fenced block can hold a
+    line shaped exactly like a task. One change edited this module's own
+    docstring example — an unticked checkbox — and quoting it twice, as anchor
+    and as replacement, blocked that change from archiving for two days.
+
+    `scripts/archive_cut.py` had decided with a bare substring what this module
+    decides with a parser, which is the drift the docstring above warns about.
+    """
+    found: list[tuple[int, str]] = []
+    inside = False
+
+    for number, line in enumerate(lines, start=1):
+        if FENCE_RE.match(line):
+            inside = not inside
+            continue
+        if inside:
+            continue
+        if TASK_LINE_RE.match(line) and not TASK_DONE_RE.match(line):
+            found.append((number, line.rstrip()))
+
+    return found
+
+
 def owning_task(lines: list[str], upto: int) -> tuple[int, str, bool] | None:
     """The task owning whatever sits above line `upto`, as (index, number, ticked).
 
