@@ -18,6 +18,14 @@ from the rule `assets/IMAGES.md` states about when an embed exists. Read that
 file before placing one by hand. `--write` edits `docs/` and therefore runs on a
 proposal branch; `--check` writes nothing and is what CI runs.
 
+`scripts/check_image_change.py` asks the other question — not whether the tree
+agrees with itself but whether this branch only placed its image. It fires on
+any branch touching `assets/images/`, and the edit it refuses first is one to
+`assets/IMAGES.md`: an entry narrowed to fit a drawing the maintainer already
+accepted leaves every other check green. `scripts/preflight.py` runs it. The six
+steps it guards are in `assets/IMAGES.md` ("When an image appears, or
+disappears") — read them before starting, not after.
+
 The parsing of `assets/IMAGES.md` is `scripts/images_index.py`'s, shared by
 those two and by `scripts/build_index.py`, which publishes each entry in
 `.studcraft/index.json` for whoever draws the images.

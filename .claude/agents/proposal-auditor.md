@@ -70,6 +70,10 @@ That lists every rule the change names and — under `read also` — every rule 
 
 The intuitive check is backwards: **a change that alters behaviour must not bump anything and must not write a changelog entry.** The script catches the `tasks.md` half. Yours is a `design.md` or `proposal.md` that *reasons* about a version number — the proposal planning to do the forbidden thing, one document earlier.
 
+### 8. A change that only places a drawn image
+
+Your brief is narrower than everything above, and `assets/IMAGES.md` ("When an image appears, or disappears", step 5) states it. The maintainer accepted the drawing before the proposal was written, so the image, the entry's wording and the rule's wording are settled. Answer the two questions that file names and stop; `scripts/check_image_change.py` has already answered the scope half mechanically.
+
 ## Out of scope
 
 `system/proposal-review.md` ("What an Audit Reports, and What It Does Not") has the list. One addition specific to you: **the applied text**. You run before it exists; `ruleset-auditor` reads it afterwards.
