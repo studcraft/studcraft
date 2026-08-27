@@ -121,6 +121,9 @@ fires blocks a merge forever (`system/ci-gates.md`).
   one by hand meets, in the file they are reading. `.claude/rules/assets.md`
   points at it rather than restating it.
 - The paragraph closing "Both were stale" now closes a list of five.
+- **The four steps an image goes through** are written down: check, read the
+  image against its entry, ask the maintainer, then propose. The order is the
+  point — this change got it wrong, and the section says so.
 - **`CORE-001`'s entry narrows to the image that was drawn.** It asked for three
   panels; the render is one — the volume, its three dimensions, and the two
   measures laid beside it. The entry now asks for that, and its *Why* column

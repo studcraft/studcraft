@@ -43,6 +43,17 @@ If a rejected candidate is later accepted, or an accepted one dropped, **do not 
 
 Files are added as they are drawn, and `scripts/insert_images.py` places each one under the section that specifies it. The rule it keeps is exact in both directions: **an image is embedded in `docs/` exactly when the file exists in `assets/images/` and this file lists it for that section.** An embed placed by hand, with no entry here, is therefore removed — the entry is where the argument for the image is written, and the *Why text alone is not enough* column is that argument. `--check` reports each departure and prints the row to add; `--write` repairs them, and because it edits `docs/` it runs on a proposal branch. `assets/images/.gitkeep` holds the directory.
 
+## When an image appears, or disappears
+
+Four steps, in this order:
+
+1. **`python3 scripts/insert_images.py --check`.** It says what changed and in which direction — a file nobody listed, an entry whose image is drawn but not placed, an embed whose file or entry is gone. This step is mechanical and settles nothing else.
+2. **Read the new image against its entry.** Does it show what the *What it must show* column asked for? No script can answer this: `insert_images.py` checks that a file exists, never what is in it.
+3. **Ask the maintainer whether the image is accepted.** If the image and its entry disagree, the maintainer decides which of the two changes — and narrowing an entry to fit a drawing is only legitimate when the narrowed entry still argues for the image on its own terms.
+4. **Then propose.** The proposal places the image, and `--write` runs on its branch.
+
+**Step 3 comes before step 4, and it is written down because it was got wrong.** `add-image-to-core-rule` wrote the proposal first, audited it, and only then read the image against its entry — so the entry had to be rewritten afterwards and the audit was paid for twice. Asking first costs one question; asking last costs the proposal.
+
 ---
 
 ## docs/02-core-rules.md
