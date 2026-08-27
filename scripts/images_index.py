@@ -180,7 +180,17 @@ def entries() -> list[Entry]:
 
 
 def drawn_files() -> list[Path]:
-    """Every image on disk, sorted, whatever the index says about it."""
+    """Every file on disk under `assets/images/`, sorted, `.gitkeep` aside.
+
+    **Not `*.png`.** The naming convention requires that extension, so a `.jpg`
+    dropped here is invalid — and globbing for `.png` made it invisible to every
+    check instead of failing one: not an orphan, not a name to validate, not a
+    file any entry could name. A checker that cannot see the wrong thing is not
+    checking. The caller decides what to say about a file that is not a `.png`.
+    """
     if not IMAGES_DIR.is_dir():
         return []
-    return sorted(path for path in IMAGES_DIR.glob("*.png") if path.is_file())
+    return sorted(
+        path for path in IMAGES_DIR.iterdir()
+        if path.is_file() and path.name != ".gitkeep"
+    )

@@ -246,6 +246,25 @@ def test_a_drawn_file_no_entry_names_is_reported(temp_repo: Path) -> None:
     assert "veh-001-footprint-studs.png" in document_of(temp_repo)
 
 
+def test_a_file_that_is_not_a_png_is_reported(temp_repo: Path) -> None:
+    """The convention admits only `.png`, so anything else is invalid — and the
+    scan globbed `*.png`, which made it invisible rather than failing."""
+    build(temp_repo, ROW, ("veh-001-footprint-studs.png",))
+    (temp_repo / "assets" / "images" / "veh-002-facing.jpg").write_bytes(b"\xff\xd8\xff")
+
+    result = run(temp_repo, "--check")
+
+    assert result.returncode == 1
+    assert "is not a .png" in result.stdout
+
+
+def test_the_gitkeep_holding_the_directory_is_not_reported(temp_repo: Path) -> None:
+    build(temp_repo, ROW, ())
+    (temp_repo / "assets" / "images" / ".gitkeep").write_text("")
+
+    assert run(temp_repo, "--check").returncode == 0
+
+
 def test_an_entry_naming_no_section_is_reported(temp_repo: Path) -> None:
     rows = (
         "| VEH-004 | `assets/images/veh-004-nowhere.png` | Something. "

@@ -293,8 +293,22 @@ def orphan_files(entries: list[images_index.Entry]) -> list[Finding]:
 
     for path in images_index.drawn_files():
         relative = path.relative_to(REPO_ROOT).as_posix()
+
+        # The extension first: a file that is not a `.png` cannot be named by a
+        # valid entry, so reporting it as unlisted would send someone to write
+        # an entry `lint_ruleset.py` then rejects.
+        if path.suffix != ".png":
+            findings.append(Finding(
+                relative,
+                f"is in assets/images/ and is not a .png. The naming convention "
+                f"in assets/IMAGES.md admits no other extension",
+                "Convert it, or delete it.",
+            ))
+            continue
+
         if relative in listed:
             continue
+
         findings.append(Finding(
             relative,
             "is in assets/images/ and no entry in assets/IMAGES.md names it",
