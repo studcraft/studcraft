@@ -2,7 +2,9 @@
 
 ## Purpose
 TBD - created by archiving change component-damage-system. Update Purpose after archive.
+
 ## Requirements
+
 ### Requirement: Component Targeting
 Every attack SHALL target one visible component, never an entire unit. A vehicle or building SHALL be represented as a collection of independent components, each resolving Impacts on its own.
 
@@ -15,7 +17,7 @@ Every attack SHALL target one visible component, never an entire unit. A vehicle
 - **THEN** only that component is affected; the vehicle itself does not possess or lose any unit-level health value
 
 ### Requirement: Components Have No Hit Points
-Components SHALL NOT possess Hit Points, Armor Values, or any hidden numeric health statistic. A component's structural integrity SHALL be represented only by the Component State (see Component State Progression).
+Components SHALL NOT possess Hit Points, Armor Values, or any hidden numeric health statistic. A component's structural integrity SHALL be represented only by the Component State. This SHALL be stated by the same rule that states Component State Progression, since the absence of a health value and the presence of the three states are one statement read from two sides.
 
 #### Scenario: No hidden health value exists
 - **WHEN** a player inspects any component
@@ -104,4 +106,3 @@ A component SHALL be able to protect another component positioned behind it. An 
 #### Scenario: Protected component becomes exposed after penetration
 - **WHEN** the protecting component has been penetrated or destroyed
 - **THEN** the Impact may continue toward the previously protected component
-

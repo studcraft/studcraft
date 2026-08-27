@@ -29,11 +29,11 @@ The Unit Base (UB) SHALL be StudCraft's universal measurement, equal to a volume
 - **THEN** the space must admit the model's Unit Base volume, even where the loose model would slip into something smaller
 
 ### Requirement: Unit Base Projections
-A rule SHALL read whichever projection of the Unit Base volume it requires: the horizontal projection (4 × 3 studs) for distances, movement, deployment floors and footprints; the volume itself for transport capacity, interior space, and the Deployment Volume a model must fit inside; and the vertical projection across the front (4 studs × 13 plate layers) for whether something passes through an opening. A projection SHALL supply a measured value only. A projection SHALL NOT replace a physical check: Line of Sight and Cover SHALL be resolved against the physical model on the table, never against a Unit Base silhouette.
+A rule SHALL read whichever projection of the Unit Base volume it requires: the horizontal projection (4 × 3 studs) for distances, movement, deployment floors and footprints; the volume itself for transport capacity, interior space, and the Deployment Volume a model must be placed inside; and the vertical projection across the front (4 studs × 13 plate layers) for whether something passes through an opening. A projection SHALL supply a measured value only. A projection SHALL NOT replace a physical check: Line of Sight and Cover SHALL be resolved against the physical model on the table, never against a Unit Base silhouette, and an army's legality SHALL be resolved by placing its models inside the agreed Deployment Volume rather than by summing a cost.
 
 #### Scenario: Deployment reads the horizontal projection
-- **WHEN** a vehicle's Deployment Volume cost is computed
-- **THEN** it is read from the horizontal projection of the Unit Bases it covers, and its height is charged nothing
+- **WHEN** the floor space a vehicle occupies is read
+- **THEN** it is the horizontal projection of the Unit Bases its footprint covers, and its height is read against the ceiling instead of adding to that floor space
 
 #### Scenario: An opening is measured against the vertical projection
 - **WHEN** an access opening is checked against an infantry model
@@ -46,6 +46,10 @@ A rule SHALL read whichever projection of the Unit Base volume it requires: the 
 #### Scenario: The agreed ceiling reads the volume
 - **WHEN** a model is checked against the height agreed for the Deployment Volume
 - **THEN** the reading is the volume itself rather than a projection of it, and the model's own height is measured from the surface it rests on to the top of its Gameplay Geometry
+
+#### Scenario: An army is legal when its models can all be placed at once
+- **WHEN** a player's whole force is checked against the agreed Deployment Volume
+- **THEN** it is legal exactly when every model can be physically placed inside that volume at the same time without overlapping another, and no separate arithmetic on footprint totals is performed
 
 ### Requirement: Cargo Divides a Unit Base
 Cargo SHALL be permitted to share one Unit Base, each object occupying a slice measuring 4 × 3 studs by its own height, with the slices sharing a Unit Base totalling no more than the Unit Base's height. An object narrower than 4 × 3 studs SHALL still occupy a whole slice of its own height, and an object whose footprint covers more than one Unit Base SHALL occupy a slice of its own height in each Unit Base it covers. Infantry SHALL never share a Unit Base.

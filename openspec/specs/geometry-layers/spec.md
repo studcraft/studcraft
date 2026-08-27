@@ -2,7 +2,9 @@
 
 ## Purpose
 TBD - created by archiving change gameplay-visual-geometry. Update Purpose after archive.
+
 ## Requirements
+
 ### Requirement: Geometry Layer Split
 Every model SHALL be classified into two layers: Gameplay Geometry and Visual Geometry. Gameplay Geometry SHALL consist only of measurable properties that feed a rule's measured value. Visual Geometry SHALL consist of every other physical element.
 
@@ -56,14 +58,14 @@ Two models with identical Gameplay Geometry SHALL produce identical measured val
 - **THEN** their Line of Sight and Cover outcomes are permitted to differ
 
 ### Requirement: Minimum Representation
-Every model SHALL have a valid minimum representation consisting only of the Gameplay Geometry required by the rules, with no Visual Geometry.
+Every model SHALL have a valid minimum representation consisting only of the Gameplay Geometry required by the rules, with no Visual Geometry. This SHALL be stated by the same rule that states Functional Equivalence, since a minimum representation is the case of that equivalence with one side empty.
 
 #### Scenario: Minimum representation is playable
 - **WHEN** a player builds a model containing only the Gameplay Geometry required for its type (e.g. Weapon Body, Weapon Front, muzzles for a weapon)
 - **THEN** the model is fully valid and playable
 
 ### Requirement: Detailed Representation
-A model built with Visual Geometry added on top of a valid Minimum Representation SHALL remain valid, provided its Gameplay Geometry is unchanged. A model SHALL NOT become invalid, and its measured values SHALL NOT change, solely as a result of adding Visual Geometry.
+A model built with Visual Geometry added on top of a valid Minimum Representation SHALL remain valid, provided its Gameplay Geometry is unchanged. A model SHALL NOT become invalid, and its measured values SHALL NOT change, solely as a result of adding Visual Geometry. This SHALL be stated by the same rule that states Minimum Representation, so that the two halves of one permission are read together.
 
 #### Scenario: Adding detail preserves validity
 - **WHEN** a player adds Visual Geometry (e.g. slopes, printed parts, greebling) to an already-valid model without altering its Gameplay Geometry
@@ -72,4 +74,3 @@ A model built with Visual Geometry added on top of a valid Minimum Representatio
 #### Scenario: Adding detail does not change measured values
 - **WHEN** a player adds Visual Geometry to an already-valid model without altering its Gameplay Geometry
 - **THEN** every measured value of that model (Range, Attack Dice, Impact Strength, Resistance, Weapon Capacity, Transport Capacity, Movement distance) stays exactly the same
-
