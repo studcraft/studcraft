@@ -246,16 +246,35 @@ def test_a_drawn_file_no_entry_names_is_reported(temp_repo: Path) -> None:
     assert "veh-001-footprint-studs.png" in document_of(temp_repo)
 
 
-def test_a_file_that_is_not_a_png_is_reported(temp_repo: Path) -> None:
-    """The convention admits only `.png`, so anything else is invalid — and the
-    scan globbed `*.png`, which made it invisible rather than failing."""
+def test_a_file_no_renderer_draws_is_reported(temp_repo: Path) -> None:
+    """The format rule is about whether a reader can see the image, not about
+    which tool made it. A source file cannot be seen in the document."""
     build(temp_repo, ROW, ("veh-001-footprint-studs.png",))
-    (temp_repo / "assets" / "images" / "veh-002-facing.jpg").write_bytes(b"\xff\xd8\xff")
+    (temp_repo / "assets" / "images" / "veh-002-facing.psd").write_bytes(b"8BPS")
 
     result = run(temp_repo, "--check")
 
     assert result.returncode == 1
-    assert "is not a .png" in result.stdout
+    assert "no reader can see it" in result.stdout
+
+
+def test_a_renderable_format_that_is_not_png_is_treated_as_an_image(
+    temp_repo: Path,
+) -> None:
+    """A `.webp` or an `.svg` is an image like any other: reported as unlisted
+    when no entry names it, and placed normally when one does."""
+    rows = ROW + (
+        "| VEH-002 | `assets/images/veh-002-facing-arc.svg` | An arc. "
+        "| Arcs are spatial. |\n"
+    )
+    build(temp_repo, rows, ("veh-001-footprint-studs.png", "veh-002-facing-arc.svg"))
+    on_a_change_branch(temp_repo)
+
+    run(temp_repo, "--write")
+
+    assert "![VEH-002 — facing arc](../assets/images/veh-002-facing-arc.svg)" in (
+        document_of(temp_repo)
+    )
 
 
 def test_the_gitkeep_holding_the_directory_is_not_reported(temp_repo: Path) -> None:

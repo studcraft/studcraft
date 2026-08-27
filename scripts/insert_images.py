@@ -294,15 +294,15 @@ def orphan_files(entries: list[images_index.Entry]) -> list[Finding]:
     for path in images_index.drawn_files():
         relative = path.relative_to(REPO_ROOT).as_posix()
 
-        # The extension first: a file that is not a `.png` cannot be named by a
+        # The extension first: a file no renderer draws cannot be named by a
         # valid entry, so reporting it as unlisted would send someone to write
         # an entry `lint_ruleset.py` then rejects.
-        if path.suffix != ".png":
+        if path.suffix.lower().lstrip(".") not in images_index.RENDERABLE:
             findings.append(Finding(
                 relative,
-                f"is in assets/images/ and is not a .png. The naming convention "
-                f"in assets/IMAGES.md admits no other extension",
-                "Convert it, or delete it.",
+                f"is in assets/images/ and no reader can see it. The document "
+                f"renders {', '.join('.' + s for s in images_index.RENDERABLE)}",
+                "Export it to one of those, or keep the source file elsewhere.",
             ))
             continue
 

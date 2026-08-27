@@ -220,6 +220,19 @@ class TestTheImageIndexIsChecked:
         )
         assert "should start with 'wpn-020-'" in error
 
+    def test_every_renderable_extension_is_accepted(self, tmp_path, monkeypatch):
+        rows = "".join(
+            f"| WPN-020 | `assets/images/wpn-020-muzzle-{index}.{suffix}` |\n"
+            for index, suffix in enumerate(images_index.RENDERABLE)
+        )
+        assert self.errors(tmp_path, monkeypatch, rows) == []
+
+    def test_a_source_file_extension_is_not(self, tmp_path, monkeypatch):
+        errors = self.errors(
+            tmp_path, monkeypatch, "| WPN-020 | `assets/images/wpn-020-muzzle.psd` |\n"
+        )
+        assert any("does not follow the naming convention" in e for e in errors)
+
     def test_an_unnumbered_entry_takes_the_document_number(self, tmp_path, monkeypatch):
         assert self.errors(
             tmp_path, monkeypatch,

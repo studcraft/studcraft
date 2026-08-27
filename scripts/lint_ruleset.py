@@ -126,7 +126,7 @@ def check_image_index(ids_by_file: dict[str, set[str]]) -> list[str]:
         # "Terrain Movement (AAA-009 – AAA-011)" — is the unnumbered case and
         # takes the document number instead. `Entry.expected_prefix` decides it.
         expected = entry.expected_prefix
-        stem = entry.path[len("assets/images/"):].removesuffix(".png")
+        stem = entry.stem
 
         if expected and not stem.startswith(f"{expected}-"):
             errors.append(

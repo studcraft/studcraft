@@ -37,10 +37,22 @@ IMAGES_DIR = REPO_ROOT / "assets" / "images"
 SECTION_RE = re.compile(r"^## docs/([\w.-]+\.md)\s*$")
 PATH_RE = re.compile(r"`(assets/images/[^`]+)`")
 
+# Every extension a reader can actually see: what GitHub and any ordinary
+# Markdown renderer draw inline. That is the whole of what the format rule is
+# for. It is **not** a quality bar — a magnificent illustration arrives in
+# whatever its author works in, and lossy compression is an argument about how
+# an image was produced rather than about its container. What decides whether an
+# image is good enough is reading it against its entry and the maintainer
+# accepting it, which is steps 2 and 3 in assets/IMAGES.md. What this rejects is
+# a file nobody can see in the document: a .psd, a .blend, a .pdf.
+RENDERABLE = ("png", "jpg", "jpeg", "gif", "svg", "webp")
+
 # The convention, defined in assets/IMAGES.md: a lowercase hyphen-separated slug
 # under assets/images/, prefixed by the lowercased rule ID for a numbered rule
 # or by the document number for an unnumbered section.
-NAME_RE = re.compile(r"^assets/images/[a-z0-9]+(?:-[a-z0-9]+)+\.png$")
+NAME_RE = re.compile(
+    r"^assets/images/[a-z0-9]+(?:-[a-z0-9]+)+\.(?:" + "|".join(RENDERABLE) + r")$"
+)
 DOC_NUMBER_RE = re.compile(r"^(\d{2})-")
 
 # An unnumbered Rule cell names a heading and may qualify it with the rules it
@@ -96,6 +108,15 @@ class Entry:
         return number.group(1) if number else None
 
     @property
+    def stem(self) -> str:
+        """The filename without its directory or extension, whichever it is."""
+        if not self.path.startswith("assets/images/"):
+            return ""
+        name = self.path[len("assets/images/"):]
+        suffix = name.rsplit(".", 1)
+        return suffix[0] if len(suffix) == 2 else name
+
+    @property
     def slug(self) -> str:
         """The filename without its directory, prefix and extension.
 
@@ -104,11 +125,9 @@ class Entry:
         carry the prefix its entry requires — a checker reports that; this
         returns nothing rather than a half-stripped guess.
         """
-        if not self.path.startswith("assets/images/") or not self.path.endswith(".png"):
-            return ""
-        stem = self.path[len("assets/images/"):-len(".png")]
+        stem = self.stem
         prefix = self.expected_prefix
-        if not prefix or not stem.startswith(f"{prefix}-"):
+        if not stem or not prefix or not stem.startswith(f"{prefix}-"):
             return ""
         return stem[len(prefix) + 1:]
 
