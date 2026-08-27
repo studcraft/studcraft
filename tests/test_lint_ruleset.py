@@ -208,6 +208,24 @@ class TestTheImageIndexIsChecked:
         )
         assert any("is already used at line" in error for error in errors)
 
+    def test_one_slug_listed_under_two_extensions(self, tmp_path, monkeypatch):
+        """Different paths, same image. Both would carry the same alt text."""
+        errors = self.errors(
+            tmp_path, monkeypatch,
+            "| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` |\n"
+            "| WPN-020 | `assets/images/wpn-020-muzzle-placement.svg` |\n",
+        )
+        assert any("repeats the slug used at line" in error for error in errors)
+
+    def test_two_images_for_one_rule_with_different_slugs_are_fine(
+        self, tmp_path, monkeypatch
+    ):
+        assert self.errors(
+            tmp_path, monkeypatch,
+            "| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` |\n"
+            "| WPN-020 | `assets/images/wpn-020-front-footprint.svg` |\n",
+        ) == []
+
     def test_a_rule_that_is_not_in_the_document(self, tmp_path, monkeypatch):
         errors = self.errors(
             tmp_path, monkeypatch, "| WPN-004 | `assets/images/wpn-004-gone.png` |\n"

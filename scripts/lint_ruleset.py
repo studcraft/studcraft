@@ -92,6 +92,7 @@ def check_image_index(ids_by_file: dict[str, set[str]]) -> list[str]:
     """
     errors: list[str] = []
     seen_paths: dict[str, int] = {}
+    seen_stems: dict[str, int] = {}
 
     for entry in images_index.entries():
         where = f"assets/IMAGES.md:{entry.lineno}"
@@ -115,7 +116,20 @@ def check_image_index(ids_by_file: dict[str, set[str]]) -> list[str]:
             errors.append(
                 f"{where}: {entry.path} is already used at line {seen_paths[entry.path]}"
             )
+        # The same slug under two extensions is one image listed twice, and
+        # comparing whole paths cannot see it: `aaa-001-volume.png` and
+        # `aaa-001-volume.svg` are different paths. The slug describes the
+        # content shown, so a repeat is a repeat whatever it was exported to —
+        # and both entries would produce the same alt text, which is how a
+        # reader would meet it: the same picture twice, named identically.
+        elif entry.stem in seen_stems:
+            errors.append(
+                f"{where}: {entry.path} repeats the slug used at line "
+                f"{seen_stems[entry.stem]}, in another format. A slug names the "
+                f"content, so this is one image listed twice — keep one."
+            )
         seen_paths[entry.path] = entry.lineno
+        seen_stems[entry.stem] = entry.lineno
 
         for rule_id in entry.cited:
             if rule_id not in ids_by_file[entry.doc]:
