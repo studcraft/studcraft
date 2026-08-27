@@ -18,20 +18,23 @@ where the two disagree, the workflow wins.
 What it runs:
 
   1. scripts/lint_ruleset.py          (Docs ruleset linter)
-  2. scripts/check_delta_coverage.py  (OpenSpec change is coherent, part 2)
-  3. scripts/check_task_anchors.py    (no CI gate — a proposal defect, caught here)
-  4. scripts/check_id_stability.py    (no CI gate — IDs are never renumbered or reused)
-  5. scripts/check_todo_quotes.py     (no CI gate — TODO.md must not misquote docs/)
-  6. openspec validate                (OpenSpec change is coherent, part 1)
-  7. pytest                           (Tests — skipped when pytest is absent)
-  8. scripts/build_index.py           (no CI gate — keeps the query index current)
-  9. branch name                      (Branch name follows the convention)
- 10. CHANGELOG.md untouched by a ruleset PR
+  2. scripts/insert_images.py --check (Docs ruleset linter — same job, second step)
+  3. scripts/check_delta_coverage.py  (OpenSpec change is coherent, part 2)
+  4. scripts/check_task_anchors.py    (no CI gate — a proposal defect, caught here)
+  5. scripts/check_id_stability.py    (no CI gate — IDs are never renumbered or reused)
+  6. scripts/check_todo_quotes.py     (no CI gate — TODO.md must not misquote docs/)
+  7. openspec validate                (OpenSpec change is coherent, part 1)
+  8. pytest                           (Tests — skipped when pytest is absent)
+  9. scripts/build_index.py           (no CI gate — keeps the query index current)
+ 10. branch name                      (Branch name follows the convention)
+ 11. CHANGELOG.md untouched by a ruleset PR
                                       (Docs must not edit CHANGELOG.md directly)
- 11. one complete proposal per change  (Docs require OpenSpec proposal)
- 12. archive is separate from apply    (OpenSpec archive must be separate from apply)
+ 12. one complete proposal per change  (Docs require OpenSpec proposal)
+ 13. archive is separate from apply    (OpenSpec archive must be separate from apply)
 
-Five of those mirror no gate at all. Anchor uniqueness is a defect CI cannot
+Check 2 runs as a second step of the `Docs ruleset linter` job rather than as a
+gate of its own — `system/ci-gates.md`, and `design.md` in the change that added
+it. Five of the others mirror no gate at all. Anchor uniqueness is a defect CI cannot
 see — by the time a change is applied wrongly, the diff looks deliberate.
 ID stability needs a base revision to compare against, which a single-revision
 linter has not got. A TODO.md quote drifts when the rule it quotes is reworded,
@@ -40,7 +43,7 @@ The index is a local cache with nothing to enforce, and the tests cover
 `scripts/` rather than the ruleset. All of them belong to the moment before a
 push rather than after one, which is what this script is.
 
-Checks 9-12 compare the working tree against the merge base with `origin/main`,
+Checks 10-13 compare the working tree against the merge base with `origin/main`,
 which is the closest local equivalent of the base/head pair a pull request
 gives CI. Uncommitted work is included: the point is to fail before the commit,
 not after it.
@@ -81,10 +84,15 @@ class Result:
         self.detail = detail or []
 
 
-def run_script(name: str, script: str) -> Result:
-    """Run one of this repository's own checkers and forward its output."""
+def run_script(name: str, script: str, *args: str) -> Result:
+    """Run one of this repository's own checkers and forward its output.
+
+    `args` is for a checker whose reporting mode is not its default. Only
+    `insert_images.py` has one, and passing `--check` explicitly here says which
+    mode a preflight run is in — this script never writes.
+    """
     proc = subprocess.run(
-        [sys.executable, str(REPO_ROOT / "scripts" / script)],
+        [sys.executable, str(REPO_ROOT / "scripts" / script), *args],
         cwd=REPO_ROOT,
         capture_output=True,
         text=True,
@@ -391,6 +399,7 @@ def check_tests() -> Result:
 def main() -> int:
     results: list[Result] = [
         run_script("Docs ruleset linter", "lint_ruleset.py"),
+        run_script("Images match their index", "insert_images.py", "--check"),
         run_script("Deltas must not drop scenarios", "check_delta_coverage.py"),
         run_script("Task anchors are unique", "check_task_anchors.py"),
         run_script("Rule IDs are stable", "check_id_stability.py"),

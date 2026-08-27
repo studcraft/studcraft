@@ -18,3 +18,10 @@ jobs:
 
       - name: Run structural linter
         run: python3 scripts/lint_ruleset.py
+
+      # A step of this job rather than a gate of its own: a new required check
+      # does nothing until branch protection is changed, and one that never
+      # fires blocks every merge forever (system/ci-gates.md). This job is
+      # already required and already runs on every pull request.
+      - name: Images match their index
+        run: python3 scripts/insert_images.py --check

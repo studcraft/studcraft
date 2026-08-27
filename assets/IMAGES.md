@@ -41,7 +41,7 @@ If a rejected candidate is later accepted, or an accepted one dropped, **do not 
   Example: `assets/images/07-terrain-thresholds.png`
 - The slug is lowercase, hyphen-separated, 2-4 words, and describes the content shown, not the rule's title.
 
-None of the files listed below exist yet. `assets/images/.gitkeep` holds the directory until they are added.
+Files are added as they are drawn, and `scripts/insert_images.py` places each one under the section that specifies it. The rule it keeps is exact in both directions: **an image is embedded in `docs/` exactly when the file exists in `assets/images/` and this file lists it for that section.** An embed placed by hand, with no entry here, is therefore removed — the entry is where the argument for the image is written, and the *Why text alone is not enough* column is that argument. `--check` reports each departure and prints the row to add; `--write` repairs them, and because it edits `docs/` it runs on a proposal branch. `assets/images/.gitkeep` holds the directory.
 
 ---
 
@@ -49,7 +49,7 @@ None of the files listed below exist yet. `assets/images/.gitkeep` holds the dir
 
 | Rule | Filename | What it must show | Why text alone is not enough |
 |---|---|---|---|
-| CORE-001 | `assets/images/core-001-unit-base-volume.png` | Three panels. First, the Unit Base as a volume, dimensioned 4 studs wide × 3 studs deep × 13 plate layers tall, with a model inside it and the base it stands on drawn within the volume rather than below it. Second, the same volume seen from above, dimensioned `4 × 3` studs. Last, a `2 × 3 UB` footprint measuring 8 × 9 studs, with the multiplication marked on both axes. | Two geometric facts here are carried by prose alone: that the unit encloses space rather than covering it, and that the base a model stands on is inside the volume rather than the floor under it — the rule says the height is measured from that base's underside, which a reader has to picture to apply. |
+| CORE-001 | `assets/images/core-001-unit-base-volume.png` | One Unit Base built as a stack of plates: 4 studs across the front face, 3 studs deep, 13 plate layers tall, with the layers alternating in colour so a reader can count them. Beside it, on the surface it stands on, the two measures as loose pieces — one 4 studs long for the width, one 3 studs long for the depth. | The height is given in plate layers, and thirteen of them is a quantity nobody converts to a brick in the hand at a glance — the same conversion this file accepts an image for at `Terrain (INF-006 – INF-008)`. Alternating layers make the count readable off the build, and the loose pieces put each horizontal figure beside a real element rather than beside the other number. The rule also calls a Unit Base a volume, which a reader arriving from a game of flat bases reads as a footprint. |
 
 ## docs/05-construction-components.md
 
@@ -127,6 +127,12 @@ The remaining 7 documents (`01-foundations.md`, `03-game-flow.md`, `06-deploymen
 
 **The firing arcs the entry also specified are gone, and are not drawn anywhere.** `CORE-002`'s bullet list was the only thing tying an arc to a unit's orientation, and it never said what an arc spanned or decided; `WPN-011` and `TRN-011` each derive one from a physical thing instead. Nothing was lost that had ever been defined, and a diagram cannot illustrate a term no rule owns.
 
+### Rewritten because the drawing settled the scope
+
+**`CORE-001`** specified three panels and the image drawn for it is one: the volume, its three dimensions, and the two measures laid beside it. The panels asking for a model inside the volume and for a `2 × 3 UB` footprint are gone, and the entry no longer argues from them — the maintainer's judgement is that a stack of counted plates already shows that a Unit Base encloses space, and that a model inside adds nothing a reader needs.
+
+**Two facts are now carried by prose alone**, knowingly. That the base a model stands on is inside the volume rather than the floor beneath it, which `CORE-001` states and no image shows; and the footprint arithmetic, `2 × 3 UB` measuring `8 × 9` studs. The rejections at `TRN-003`, `TRN-020`, `DEP-003` and `DEP-004` are unaffected: each leans on the dimensioned volume or on the horizontal `4 × 3` figure, and the image carries both.
+
 ### Rewritten because the rule changed under them
 
 Five entries described rules that had moved on, and `scripts/lint_ruleset.py` could not see any of it: it checks that a named rule ID exists in the document its section names, and every one of these IDs still existed.
@@ -137,7 +143,7 @@ Five entries described rules that had moved on, and `scripts/lint_ruleset.py` co
 - **`INF-002`** argued that "the rule works this out algebraically; a diagram shows it directly". `fix-infantry` restated the limits in Unit Bases, so nothing is worked out any more — the rule states `4 UB` and gives the conversion. The image is needed for a different reason now, and a stronger one: `4 UB` forward and `3 UB` sideways are the same twelve studs, and the numbers say otherwise.
 - **`VEH-027`** quoted the rule as turning on whether a ramp "physically covers the entire rise". `general-review` reworded it, and the quotation marks made the drift a misquotation rather than a paraphrase. The entry states the condition instead of quoting it, and adds that the angle is not measured.
 
-**Both were stale before the change that noticed them**, which is the argument for reading this file whenever a rule it names is edited: nothing mechanical will report it.
+**All five were stale before the change that noticed them**, which is the argument for reading this file whenever a rule it names is edited: nothing mechanical will report it.
 
 Rules considered and rejected, with reasons:
 

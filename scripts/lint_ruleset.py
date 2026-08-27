@@ -43,10 +43,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import images_index  # noqa: E402
 from repo import DOCS_DIR, REPO_ROOT, RULE_ID_RE  # noqa: E402
 from ruleset_ast import Section, parse_text  # noqa: E402
 
-IMAGES_INDEX = REPO_ROOT / "assets" / "IMAGES.md"
 SCRIPTS_DIR = REPO_ROOT / "scripts"
 
 VERSION_RE = re.compile(r"^\*\*Version:\*\*\s*(\d+\.\d+\.\d+)\s*(.*)$", re.MULTILINE)
@@ -78,53 +78,6 @@ REQUIRED_SECTIONS = ("Purpose", "Design Philosophy", "Summary")
 SECTION_DEBT = {"02-core-rules.md": ("Summary",)}
 
 
-# assets/IMAGES.md groups its entries under one "## docs/<file>.md" heading per
-# document, each holding a single table whose first two columns are the rule and
-# the image filename. Only tables under such a heading are entries; the file's
-# other tables (the entry-format template, the weapon-grid symbol legend) are
-# prose about the format and are skipped by anchoring on the heading.
-IMAGE_SECTION_RE = re.compile(r"^## docs/([\w.-]+\.md)\s*$")
-IMAGE_PATH_RE = re.compile(r"`(assets/images/[^`]+)`")
-
-# The convention, defined in assets/IMAGES.md: a lowercase hyphen-separated slug
-# under assets/images/, prefixed by the lowercased rule ID for a numbered rule
-# (wpn-020-muzzle-placement.png) or by the document number for an unnumbered
-# section (07-terrain-thresholds.png).
-IMAGE_NAME_RE = re.compile(r"^assets/images/[a-z0-9]+(?:-[a-z0-9]+)+\.png$")
-DOC_NUMBER_RE = re.compile(r"^(\d{2})-")
-
-
-def parse_image_entries(text: str) -> list[tuple[int, str, str, str]]:
-    """Pull (line number, document, rule cell, filename) out of assets/IMAGES.md.
-
-    Returns raw cells rather than validated ones so the checker below can report
-    each kind of breakage separately; a row that names no filename at all is
-    still returned, with an empty filename, so it is reported and not skipped.
-    """
-    entries: list[tuple[int, str, str, str]] = []
-    current_doc: str | None = None
-
-    for lineno, line in enumerate(text.splitlines(), start=1):
-        heading = IMAGE_SECTION_RE.match(line)
-        if heading:
-            current_doc = heading.group(1)
-            continue
-        if line.startswith("#"):
-            current_doc = None
-            continue
-        if current_doc is None or not line.startswith("|"):
-            continue
-
-        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        if len(cells) < 2 or cells[0] in ("Rule", "---") or set(cells[0]) <= {"-", ":"}:
-            continue
-
-        path_match = IMAGE_PATH_RE.search(cells[1])
-        entries.append((lineno, current_doc, cells[0], path_match.group(1) if path_match else ""))
-
-    return entries
-
-
 def check_image_index(ids_by_file: dict[str, set[str]]) -> list[str]:
     """Check assets/IMAGES.md against its own naming convention and against docs/.
 
@@ -132,54 +85,53 @@ def check_image_index(ids_by_file: dict[str, set[str]]) -> list[str]:
     directories, and nothing else verifies it: an image specified for a rule that
     was renumbered or removed would otherwise sit in the index until someone came
     to draw it. Absent index, nothing to check — the file is not required to exist.
-    """
-    if not IMAGES_INDEX.exists():
-        return []
 
+    **The parsing is `scripts/images_index.py`'s, not this file's.** Three scripts
+    read that index now, and a parser here would be one of three answers to what
+    an entry is. What stays here is the checking, which is this script's job.
+    """
     errors: list[str] = []
     seen_paths: dict[str, int] = {}
 
-    for lineno, doc, rule_cell, path in parse_image_entries(IMAGES_INDEX.read_text()):
-        where = f"assets/IMAGES.md:{lineno}"
+    for entry in images_index.entries():
+        where = f"assets/IMAGES.md:{entry.lineno}"
 
-        if doc not in ids_by_file:
-            errors.append(f"{where}: section names docs/{doc}, which does not exist")
+        if entry.doc not in ids_by_file:
+            errors.append(f"{where}: section names docs/{entry.doc}, which does not exist")
             continue
 
-        if not path:
-            errors.append(f"{where}: entry for {rule_cell!r} names no assets/images/ file")
-            continue
-
-        if not IMAGE_NAME_RE.match(path):
+        if not entry.path:
             errors.append(
-                f"{where}: {path} does not follow the naming convention in "
+                f"{where}: entry for {entry.rule_cell!r} names no assets/images/ file"
+            )
+            continue
+
+        if not images_index.NAME_RE.match(entry.path):
+            errors.append(
+                f"{where}: {entry.path} does not follow the naming convention in "
                 f"assets/IMAGES.md (assets/images/<prefix>-<lowercase-slug>.png)"
             )
-        if path in seen_paths:
-            errors.append(f"{where}: {path} is already used at line {seen_paths[path]}")
-        seen_paths[path] = lineno
+        if entry.path in seen_paths:
+            errors.append(
+                f"{where}: {entry.path} is already used at line {seen_paths[entry.path]}"
+            )
+        seen_paths[entry.path] = entry.lineno
 
-        stem = path[len("assets/images/"):-len(".png")]
-        cited = RULE_ID_RE.findall(rule_cell)
-
-        for rule_id in cited:
-            if rule_id not in ids_by_file[doc]:
-                errors.append(f"{where}: {rule_id} does not exist in docs/{doc}")
+        for rule_id in entry.cited:
+            if rule_id not in ids_by_file[entry.doc]:
+                errors.append(f"{where}: {rule_id} does not exist in docs/{entry.doc}")
 
         # A row whose Rule cell is exactly one ID is the numbered case and takes
         # that ID as its prefix. Anything else — a heading, or a range such as
         # "Terrain Movement (AAA-009 – AAA-011)" — is the unnumbered case and
-        # takes the document number instead.
-        if len(cited) == 1 and rule_cell == cited[0]:
-            expected = cited[0].lower()
-        else:
-            doc_number = DOC_NUMBER_RE.match(doc)
-            expected = doc_number.group(1) if doc_number else None
+        # takes the document number instead. `Entry.expected_prefix` decides it.
+        expected = entry.expected_prefix
+        stem = entry.path[len("assets/images/"):].removesuffix(".png")
 
         if expected and not stem.startswith(f"{expected}-"):
             errors.append(
-                f"{where}: {path} should start with '{expected}-' for an entry "
-                f"under {rule_cell!r} in docs/{doc}"
+                f"{where}: {entry.path} should start with '{expected}-' for an entry "
+                f"under {entry.rule_cell!r} in docs/{entry.doc}"
             )
 
     return errors

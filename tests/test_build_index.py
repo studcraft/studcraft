@@ -12,6 +12,7 @@ import os
 import re
 
 import build_index
+import images_index
 import pytest
 import ruleset_ast
 from repo import DOCS_DIR, RULE_ID_RE
@@ -272,6 +273,57 @@ class TestTheMigrationOnlyGrowsBodiesWithSubHeadings:
         shrunk = {rid for rid in new if new[rid]["line_end"] < old[rid]["line_end"]}
         assert grown == sub_sectioned
         assert shrunk == set()
+
+
+class TestImages:
+    """What `assets/IMAGES.md` specifies, published to whoever draws the images.
+
+    They are drawn outside this repository, so the index is the contract: which
+    rule wants one, what it must show, under what filename, and whether it has
+    been drawn yet.
+    """
+
+    INDEX = """## docs/08-vehicles.md
+
+| Rule | Filename | What it must show | Why text alone is not enough |
+|---|---|---|---|
+| VEH-001 | `assets/images/veh-001-footprint-studs.png` | Whole studs. | Not obvious. |
+| Terrain (VEH-006) | `assets/images/08-terrain-thresholds.png` | Three heights. | A conversion. |
+"""
+
+    def attached(self):
+        documents = {"08-vehicles.md": {"rules": ["VEH-001"]}}
+        rules = {"VEH-001": {"id": "VEH-001"}}
+        build_index.attach_images(documents, rules, images_index.parse(self.INDEX))
+        return documents, rules
+
+    def test_a_document_carries_every_entry_naming_it(self):
+        documents, _ = self.attached()
+        assert [image["path"] for image in documents["08-vehicles.md"]["images"]] == [
+            "assets/images/veh-001-footprint-studs.png",
+            "assets/images/08-terrain-thresholds.png",
+        ]
+
+    def test_an_entry_carries_what_to_draw_and_whether_it_is_drawn(self):
+        documents, _ = self.attached()
+        first = documents["08-vehicles.md"]["images"][0]
+        assert first["must_show"] == "Whole studs."
+        assert first["why"] == "Not obvious."
+        assert first["exists"] is False
+
+    def test_a_rule_carries_the_paths_that_illustrate_it(self):
+        _, rules = self.attached()
+        assert rules["VEH-001"]["images"] == ["assets/images/veh-001-footprint-studs.png"]
+
+    def test_an_entry_naming_a_heading_hangs_off_the_document_alone(self):
+        documents, rules = self.attached()
+        assert documents["08-vehicles.md"]["images"][1]["anchor"] == "Terrain"
+        assert list(rules["VEH-001"]) == ["id", "images"]
+
+    def test_a_document_with_no_entries_carries_an_empty_list(self):
+        documents = {"08-vehicles.md": {}, "09-transport.md": {}}
+        build_index.attach_images(documents, {}, images_index.parse(self.INDEX))
+        assert documents["09-transport.md"]["images"] == []
 
 
 class TestWritingTheIndex:
