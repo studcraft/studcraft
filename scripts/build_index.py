@@ -39,6 +39,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import images_index  # noqa: E402
 from repo import DOCS_DIR, REPO_ROOT, RULE_ID_RE  # noqa: E402
 from ruleset_ast import Document, parse_text  # noqa: E402
 
@@ -173,6 +174,45 @@ def parse_glossary(text: str) -> list[dict]:
     return entries
 
 
+def attach_images(documents: dict[str, dict], rules: dict[str, dict],
+                  entries: list[images_index.Entry] | None = None) -> None:
+    """Hang what `assets/IMAGES.md` specifies off the documents and rules it names.
+
+    The images are drawn outside this repository, and until this existed the
+    index answered only one of the four questions that work needs: it gave the
+    document and the rule's span — where a finished image lands — and nothing
+    about which rule wants one, what it must show, or under what filename.
+
+    A document carries the full entries, because an entry may name a heading
+    (`# Terrain`) rather than a rule and there is no rule to hang it on. A rule
+    carries the paths only: a second copy of the two prose columns would be a
+    second thing to keep true, and `assets/IMAGES.md` is where they are written.
+
+    `entries` defaults to the repository's own index. It is a parameter so a
+    test can hand over entries of its own rather than assert against whichever
+    images this repository happens to specify today.
+    """
+    for document in documents.values():
+        document["images"] = []
+
+    for entry in images_index.entries() if entries is None else entries:
+        document = documents.get(entry.doc)
+        if document is None:
+            continue
+
+        document["images"].append({
+            "anchor": entry.anchor,
+            "path": entry.path,
+            "exists": entry.exists,
+            "must_show": entry.must_show,
+            "why": entry.why,
+        })
+
+        rule = rules.get(entry.anchor) if entry.is_numbered else None
+        if rule is not None:
+            rule.setdefault("images", []).append(entry.path)
+
+
 def build() -> dict:
     documents: dict[str, dict] = {}
     rules: dict[str, dict] = {}
@@ -194,6 +234,8 @@ def build() -> dict:
         for target in rules[rule_id]["cites"]:
             if target in rules:
                 rules[target]["cited_by"].append(rule_id)
+
+    attach_images(documents, rules)
 
     glossary_path = DOCS_DIR / GLOSSARY
     glossary = parse_glossary(glossary_path.read_text()) if glossary_path.exists() else []

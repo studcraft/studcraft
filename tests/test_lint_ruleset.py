@@ -6,6 +6,7 @@ directories.
 
 from __future__ import annotations
 
+import images_index
 import lint_ruleset
 
 COMPLETE = """# 08-vehicles.md
@@ -157,44 +158,104 @@ class TestRuleIds:
         assert lint_ruleset.collect_rule_ids(text) == [("VEH", 1), ("VEH", 2)]
 
 
-IMAGES = """# Image index
+class TestTheImageIndexIsChecked:
+    """The checking stayed here when the parsing moved to `images_index.py`.
 
-| Column | Meaning |
-|---|---|
-| Rule | the rule illustrated |
+    Nothing else compares a filename against a rule ID across two directories,
+    so an image specified for a rule that was renumbered or removed sits in the
+    index until someone comes to draw it. These are the messages that say so.
+    """
 
-## docs/10-weapons.md
+    IDS = {"10-weapons.md": {"WPN-018", "WPN-019", "WPN-020"}}
 
-| Rule | File |
-|---|---|
-| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` |
-| Terrain (WPN-018 – WPN-019) | `assets/images/10-weapon-grid.png` |
+    def errors(self, tmp_path, monkeypatch, rows: str) -> list[str]:
+        index = tmp_path / "IMAGES.md"
+        index.write_text(f"## docs/10-weapons.md\n\n| Rule | File |\n|---|---|\n{rows}")
+        monkeypatch.setattr(images_index, "IMAGES_INDEX", index)
+        return lint_ruleset.check_image_index(self.IDS)
 
-## Not a document heading
+    def test_a_well_formed_entry_reports_nothing(self, tmp_path, monkeypatch):
+        assert self.errors(
+            tmp_path, monkeypatch,
+            "| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` |\n",
+        ) == []
 
-| Rule | File |
-|---|---|
-| WPN-001 | `assets/images/wpn-001-ignored.png` |
-"""
+    def test_a_section_naming_a_document_that_does_not_exist(self, tmp_path, monkeypatch):
+        index = tmp_path / "IMAGES.md"
+        index.write_text(
+            "## docs/99-nowhere.md\n\n| Rule | File |\n|---|---|\n"
+            "| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` |\n"
+        )
+        monkeypatch.setattr(images_index, "IMAGES_INDEX", index)
+        (error,) = lint_ruleset.check_image_index(self.IDS)
+        assert "which does not exist" in error
 
+    def test_an_entry_naming_no_file(self, tmp_path, monkeypatch):
+        (error,) = self.errors(tmp_path, monkeypatch, "| WPN-020 | to be drawn |\n")
+        assert "names no assets/images/ file" in error
 
-class TestTheImageIndex:
-    def test_only_rows_under_a_document_heading_are_entries(self):
-        entries = lint_ruleset.parse_image_entries(IMAGES)
-        assert [entry[3] for entry in entries] == [
-            "assets/images/wpn-020-muzzle-placement.png",
-            "assets/images/10-weapon-grid.png",
-        ]
+    def test_a_filename_breaking_the_convention(self, tmp_path, monkeypatch):
+        errors = self.errors(
+            tmp_path, monkeypatch, "| WPN-020 | `assets/images/WPN_020.png` |\n"
+        )
+        assert any("does not follow the naming convention" in e for e in errors)
 
-    def test_each_entry_carries_the_document_it_sits_under(self):
-        assert {entry[1] for entry in lint_ruleset.parse_image_entries(IMAGES)} == {
-            "10-weapons.md"
-        }
+    def test_one_file_used_by_two_entries(self, tmp_path, monkeypatch):
+        errors = self.errors(
+            tmp_path, monkeypatch,
+            "| WPN-019 | `assets/images/wpn-019-front-footprint.png` |\n"
+            "| WPN-020 | `assets/images/wpn-019-front-footprint.png` |\n",
+        )
+        assert any("is already used at line" in error for error in errors)
 
-    def test_a_row_naming_no_file_is_still_returned(self):
-        text = "## docs/10-weapons.md\n\n| Rule | File |\n|---|---|\n| WPN-020 | to be drawn |\n"
-        (entry,) = lint_ruleset.parse_image_entries(text)
-        assert entry[3] == ""
+    def test_one_slug_listed_under_two_extensions(self, tmp_path, monkeypatch):
+        """Different paths, same image. Both would carry the same alt text."""
+        errors = self.errors(
+            tmp_path, monkeypatch,
+            "| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` |\n"
+            "| WPN-020 | `assets/images/wpn-020-muzzle-placement.svg` |\n",
+        )
+        assert any("repeats the slug used at line" in error for error in errors)
+
+    def test_two_images_for_one_rule_with_different_slugs_are_fine(
+        self, tmp_path, monkeypatch
+    ):
+        assert self.errors(
+            tmp_path, monkeypatch,
+            "| WPN-020 | `assets/images/wpn-020-muzzle-placement.png` |\n"
+            "| WPN-020 | `assets/images/wpn-020-front-footprint.svg` |\n",
+        ) == []
+
+    def test_a_rule_that_is_not_in_the_document(self, tmp_path, monkeypatch):
+        errors = self.errors(
+            tmp_path, monkeypatch, "| WPN-004 | `assets/images/wpn-004-gone.png` |\n"
+        )
+        assert any("WPN-004 does not exist in docs/10-weapons.md" in e for e in errors)
+
+    def test_a_filename_without_its_rules_prefix(self, tmp_path, monkeypatch):
+        (error,) = self.errors(
+            tmp_path, monkeypatch, "| WPN-020 | `assets/images/wpn-019-muzzle.png` |\n"
+        )
+        assert "should start with 'wpn-020-'" in error
+
+    def test_every_renderable_extension_is_accepted(self, tmp_path, monkeypatch):
+        rows = "".join(
+            f"| WPN-020 | `assets/images/wpn-020-muzzle-{index}.{suffix}` |\n"
+            for index, suffix in enumerate(images_index.RENDERABLE)
+        )
+        assert self.errors(tmp_path, monkeypatch, rows) == []
+
+    def test_a_source_file_extension_is_not(self, tmp_path, monkeypatch):
+        errors = self.errors(
+            tmp_path, monkeypatch, "| WPN-020 | `assets/images/wpn-020-muzzle.psd` |\n"
+        )
+        assert any("does not follow the naming convention" in e for e in errors)
+
+    def test_an_unnumbered_entry_takes_the_document_number(self, tmp_path, monkeypatch):
+        assert self.errors(
+            tmp_path, monkeypatch,
+            "| Grids (WPN-018 – WPN-019) | `assets/images/10-weapon-grids.png` |\n",
+        ) == []
 
 
 class TestCitations:

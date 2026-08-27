@@ -60,6 +60,20 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 | [`system/repository-strategy.md`](system/repository-strategy.md) | BLOCKER git history rules: no force-push, no rewriting history, linear-only; squash-merge consequences for branch cleanup and conflicts |
 | [`system/communication.md`](system/communication.md) | Language, tone, proposal framing |
 
+One process document lives outside `system/`, because the file that owns it is
+not a `system/` file:
+
+| Document | Covers |
+|---|---|
+| [`assets/IMAGES.md`](assets/IMAGES.md) | Which rules need an example image, what each must show, and the four steps an image goes through when one appears or disappears |
+
+**Read it when an image is added, removed or placed** — that flow begins with a
+file appearing in `assets/images/`, which is a line in `git status` rather than
+an edit, so nothing else will route you there. `scripts/insert_images.py --check`
+reports the mechanical half on every `preflight` run; the two steps it cannot
+make — reading the image against its entry, and asking the maintainer whether it
+is accepted — are the reason the document exists.
+
 ---
 
 # Delegating Work

@@ -71,6 +71,8 @@ A distance written `N UB` counts N Unit Bases along the single axis its rule nam
 
 Each rule states which dimensions of the Unit Base it reads. A measured value never replaces a physical check (`15-geometry-layers.md`, GEO-003, GEO-004).
 
+![CORE-001 — unit base volume](../assets/images/core-001-unit-base-volume.png)
+
 ---
 
 # CORE-002 — Facing

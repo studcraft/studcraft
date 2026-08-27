@@ -35,13 +35,30 @@ If a rejected candidate is later accepted, or an accepted one dropped, **do not 
 
 ## Naming convention
 
-- For a numbered rule: `assets/images/<rule-id-lowercase>-<short-slug>.png`
+- For a numbered rule: `assets/images/<rule-id-lowercase>-<short-slug>.<ext>`
   Example: `assets/images/wpn-020-muzzle-placement.png`
-- For an unnumbered section: `assets/images/<doc-number>-<short-slug>.png`
+- For an unnumbered section: `assets/images/<doc-number>-<short-slug>.<ext>`
   Example: `assets/images/07-terrain-thresholds.png`
 - The slug is lowercase, hyphen-separated, 2-4 words, and describes the content shown, not the rule's title.
 
-None of the files listed below exist yet. `assets/images/.gitkeep` holds the directory until they are added.
+**Format: `.png`, `.jpg`, `.jpeg`, `.gif`, `.svg` or `.webp`.** The rule is about one thing — that a reader can see the image where the ruleset is read. Those are what GitHub and any ordinary Markdown renderer draw inline; a `.psd`, a `.blend` or a `.pdf` is a source file, and belongs somewhere that is not `assets/images/`.
+
+**Weight: 3 MB per image.** Git keeps every version of a binary for ever and stores no deltas between them, so each re-export is a whole new copy — and `system/repository-strategy.md` forbids rewriting history, which is the only way to take one back out. The number sits far above ordinary work on purpose: it is an accident guard, not a budget. A flat render of a build is a few hundred kilobytes, so nothing legitimate meets it.
+
+**Neither rule is a quality bar, and neither must be used as one.** An illustration arrives in whatever its author works in, and lossy compression is a fact about how an image was made rather than about its container. What decides whether an image is good enough is step 2 below — reading it against its entry — and step 3, the maintainer accepting it. As guidance and not as a gate: where a reader counts something, plate layers or studs, a lossless export keeps the edges countable.
+
+Files are added as they are drawn, and `scripts/insert_images.py` places each one under the section that specifies it. The rule it keeps is exact in both directions: **an image is embedded in `docs/` exactly when the file exists in `assets/images/` and this file lists it for that section.** An embed placed by hand, with no entry here, is therefore removed — the entry is where the argument for the image is written, and the *Why text alone is not enough* column is that argument. `--check` reports each departure and prints the row to add; `--write` repairs them, and because it edits `docs/` it runs on a proposal branch. `assets/images/.gitkeep` holds the directory.
+
+## When an image appears, or disappears
+
+Four steps, in this order:
+
+1. **`python3 scripts/insert_images.py --check`.** It says what changed and in which direction — a file nobody listed, an entry whose image is drawn but not placed, an embed whose file or entry is gone. This step is mechanical and settles nothing else.
+2. **Read the new image against its entry.** Does it show what the *What it must show* column asked for? No script can answer this: `insert_images.py` checks that a file exists, never what is in it.
+3. **Ask the maintainer whether the image is accepted.** If the image and its entry disagree, the maintainer decides which of the two changes — and narrowing an entry to fit a drawing is only legitimate when the narrowed entry still argues for the image on its own terms.
+4. **Then propose.** The proposal places the image, and `--write` runs on its branch.
+
+**Step 3 comes before step 4, and it is written down because it was got wrong.** `add-image-to-core-rule` wrote the proposal first, audited it, and only then read the image against its entry — so the entry had to be rewritten afterwards and the audit was paid for twice. Asking first costs one question; asking last costs the proposal.
 
 ---
 
@@ -49,7 +66,7 @@ None of the files listed below exist yet. `assets/images/.gitkeep` holds the dir
 
 | Rule | Filename | What it must show | Why text alone is not enough |
 |---|---|---|---|
-| CORE-001 | `assets/images/core-001-unit-base-volume.png` | Three panels. First, the Unit Base as a volume, dimensioned 4 studs wide × 3 studs deep × 13 plate layers tall, with a model inside it and the base it stands on drawn within the volume rather than below it. Second, the same volume seen from above, dimensioned `4 × 3` studs. Last, a `2 × 3 UB` footprint measuring 8 × 9 studs, with the multiplication marked on both axes. | Two geometric facts here are carried by prose alone: that the unit encloses space rather than covering it, and that the base a model stands on is inside the volume rather than the floor under it — the rule says the height is measured from that base's underside, which a reader has to picture to apply. |
+| CORE-001 | `assets/images/core-001-unit-base-volume.png` | One Unit Base built as a stack of plates: 4 studs across the front face, 3 studs deep, 13 plate layers tall, with the layers alternating in colour so a reader can count them. Beside it, on the surface it stands on, the two measures as loose pieces — one 4 studs long for the width, one 3 studs long for the depth. | The height is given in plate layers, and thirteen of them is a quantity nobody converts to a brick in the hand at a glance — the same conversion this file accepts an image for at `Terrain (INF-006 – INF-008)`. Alternating layers make the count readable off the build, and the loose pieces put each horizontal figure beside a real element rather than beside the other number. The rule also calls a Unit Base a volume, which a reader arriving from a game of flat bases reads as a footprint. |
 
 ## docs/05-construction-components.md
 
@@ -127,6 +144,12 @@ The remaining 7 documents (`01-foundations.md`, `03-game-flow.md`, `06-deploymen
 
 **The firing arcs the entry also specified are gone, and are not drawn anywhere.** `CORE-002`'s bullet list was the only thing tying an arc to a unit's orientation, and it never said what an arc spanned or decided; `WPN-011` and `TRN-011` each derive one from a physical thing instead. Nothing was lost that had ever been defined, and a diagram cannot illustrate a term no rule owns.
 
+### Rewritten because the drawing settled the scope
+
+**`CORE-001`** specified three panels and the image drawn for it is one: the volume, its three dimensions, and the two measures laid beside it. The panels asking for a model inside the volume and for a `2 × 3 UB` footprint are gone, and the entry no longer argues from them — the maintainer's judgement is that a stack of counted plates already shows that a Unit Base encloses space, and that a model inside adds nothing a reader needs.
+
+**Two facts are now carried by prose alone**, knowingly. That the base a model stands on is inside the volume rather than the floor beneath it, which `CORE-001` states and no image shows; and the footprint arithmetic, `2 × 3 UB` measuring `8 × 9` studs. The rejections at `TRN-003`, `TRN-020`, `DEP-003` and `DEP-004` are unaffected: each leans on the dimensioned volume or on the horizontal `4 × 3` figure, and the image carries both.
+
 ### Rewritten because the rule changed under them
 
 Five entries described rules that had moved on, and `scripts/lint_ruleset.py` could not see any of it: it checks that a named rule ID exists in the document its section names, and every one of these IDs still existed.
@@ -137,7 +160,7 @@ Five entries described rules that had moved on, and `scripts/lint_ruleset.py` co
 - **`INF-002`** argued that "the rule works this out algebraically; a diagram shows it directly". `fix-infantry` restated the limits in Unit Bases, so nothing is worked out any more — the rule states `4 UB` and gives the conversion. The image is needed for a different reason now, and a stronger one: `4 UB` forward and `3 UB` sideways are the same twelve studs, and the numbers say otherwise.
 - **`VEH-027`** quoted the rule as turning on whether a ramp "physically covers the entire rise". `general-review` reworded it, and the quotation marks made the drift a misquotation rather than a paraphrase. The entry states the condition instead of quoting it, and adds that the angle is not measured.
 
-**Both were stale before the change that noticed them**, which is the argument for reading this file whenever a rule it names is edited: nothing mechanical will report it.
+**All five were stale before the change that noticed them**, which is the argument for reading this file whenever a rule it names is edited: nothing mechanical will report it.
 
 Rules considered and rejected, with reasons:
 
