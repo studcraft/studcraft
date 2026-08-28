@@ -12,7 +12,19 @@ these tests do not move when `docs/` does.
 
 from __future__ import annotations
 
+import pytest
+
 import review_scope
+
+
+@pytest.fixture(autouse=True)
+def not_a_placement(monkeypatch):
+    """No test here runs on an image-placement branch unless it says it does.
+
+    `scope` asks git which images the branch touches, so without this the
+    answer would come from whatever branch the suite happens to run on.
+    """
+    monkeypatch.setattr(review_scope, "placement_images", lambda: [])
 
 INDEX = {
     "documents": {
@@ -208,3 +220,66 @@ class TestChecklist:
     def test_the_checklist_is_not_empty(self):
         # A checklist that emptied itself would still let every test above pass.
         assert len(review_scope.CHECKLIST) >= 10
+
+
+class TestPlacementBanner:
+    """An auditor raised on a placement is told so by the script, not by a reader.
+
+    This is the one case the `add-image` skill cannot reach: a session that
+    raised an auditor without ever invoking it. Both auditors run this script
+    first, so it is the last place the narrow brief can still arrive.
+    """
+
+    def placement(self, monkeypatch, images=("assets/images/cmp-018-clear-opening.png",)):
+        monkeypatch.setattr(review_scope, "placement_images", lambda: list(images))
+
+    def test_the_banner_leads_the_output(self, tmp_path, monkeypatch, capsys):
+        change = make_change(tmp_path, monkeypatch, "This change places CMP-018's image.")
+        self.placement(monkeypatch)
+
+        review_scope.scope(change, INDEX)
+        out = capsys.readouterr().out
+
+        assert out.index("image placement") < out.index("# Review scope")
+        assert "cmp-018-clear-opening.png" in out
+
+    def test_it_names_the_agent_that_must_return(self, tmp_path, monkeypatch, capsys):
+        change = make_change(tmp_path, monkeypatch, "This change places CMP-018's image.")
+        self.placement(monkeypatch)
+
+        review_scope.scope(change, INDEX)
+        out = capsys.readouterr().out
+
+        assert "ruleset-auditor — STOP" in out
+        assert "without auditing" in out
+
+    def test_it_carries_the_two_questions_verbatim(self, tmp_path, monkeypatch, capsys):
+        change = make_change(tmp_path, monkeypatch, "This change places CMP-018's image.")
+        self.placement(monkeypatch)
+
+        review_scope.scope(change, INDEX)
+        out = capsys.readouterr().out
+
+        assert "Why text alone is not enough" in out
+        assert "the embed line, the image file and this directory" in out
+        assert ".claude/skills/add-image" in out
+
+    def test_an_ordinary_change_gets_no_banner(self, tmp_path, monkeypatch, capsys):
+        change = make_change(tmp_path, monkeypatch, "This change rewrites AAA-001.")
+
+        review_scope.scope(change, INDEX)
+        out = capsys.readouterr().out
+
+        assert "image placement" not in out
+        assert "STOP" not in out
+
+    def test_the_checklist_still_prints_under_a_banner(self, tmp_path, monkeypatch, capsys):
+        """The banner narrows what an answer says, never which lines are answered."""
+        change = make_change(tmp_path, monkeypatch, "This change places CMP-018's image.")
+        self.placement(monkeypatch)
+
+        review_scope.scope(change, INDEX)
+        out = capsys.readouterr().out
+
+        for number, item in enumerate(review_scope.CHECKLIST, start=1):
+            assert f"{number:2d}. [ ] {item}" in out

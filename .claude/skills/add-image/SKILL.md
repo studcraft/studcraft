@@ -99,12 +99,22 @@ Raise `proposal-auditor` (AGENTS.md, "Delegating Work") on this brief:
 **A second audit of the same proposal asks the same two questions twice.** If a
 finding changes the proposal, re-audit that finding, not the change.
 
-**`ruleset-auditor` is not raised at all** — AGENTS.md, "Raising these four is
-mandatory", records the exemption and its limits. Its seven checks all read rule
-text and a placement writes none. Its one real risk, the embed landing under the
-wrong rule, is covered three times over: `insert_images.py` computes the position
-from the document's own structure, `check_image_change.py` proves no other line
-moved, and step 9 is you reading it.
+**`ruleset-auditor` is not raised at all.** AGENTS.md ("Raising these four is
+mandatory") carries the exemption; this is the reason for it.
+
+Its seven checks are the fifteen principles, the Summary and mottos, where
+citations aim, rule-ID stability, glossary coverage, one-idea-stated-once and
+determinism. Every one reads rule text, and a placement writes none — so left
+in, it reads a whole ruleset document looking for defects this change could not
+have introduced, which is where an out-of-scope finding comes from.
+
+Its one real risk, the embed landing under the wrong rule, is covered three
+times over: `insert_images.py` computes the position from the document's own
+structure, `check_image_change.py` proves no other line moved, and step 9 is you
+reading it.
+
+`scripts/review_scope.py` prints this at the top of its output on a placement
+branch, so an auditor raised without this skill is still told.
 
 ## 7. Apply
 

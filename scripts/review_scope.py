@@ -13,6 +13,12 @@ Prints the scope and the checklist. It reports; it judges nothing and it
 answers nothing. `system/proposal-review.md` owns the checklist items and this
 prints them so an auditor fills verdicts in rather than reconstructing the list.
 
+One thing it does judge, because both auditors run it first and nothing else
+reaches an auditor raised without the skill: whether the branch is an image
+placement. It says so at the top, tells `ruleset-auditor` to return without
+auditing — AGENTS.md exempts it there — and prints `proposal-auditor`'s two
+questions verbatim, so the narrow brief arrives even when nobody handed it over.
+
 Takes as many change names as you like, and runs once per name.
 """
 
@@ -25,6 +31,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import check_image_change  # noqa: E402
 from repo import CHANGES_DIR, DOCS_DIR, REPO_ROOT, RULE_ID_RE  # noqa: E402
 
 INDEX_PATH = REPO_ROOT / ".studcraft" / "index.json"
@@ -53,6 +60,49 @@ CHECKLIST = [
     "A cap added where the model already bounds the value",
     "The six principles that catch most defects here",
 ]
+
+
+PLACEMENT_BANNER = """\
+{bar}
+This change is an image placement: {images}
+
+Its whole diff is one embed line per image, the image file, and this change
+directory. scripts/check_image_change.py enforces that. It states no rule,
+retires no ID and moves no citation.
+
+  ruleset-auditor — STOP. You are not raised for a placement (AGENTS.md,
+  "Raising these four is mandatory"). Every check you own reads rule text and
+  this change writes none. Say so and return without auditing.
+
+  proposal-auditor — your brief is two questions, and only these two:
+    1. Does the entry for this rule in assets/IMAGES.md still argue for the
+       image on its own terms — the "Why text alone is not enough" column?
+    2. Is the diff exactly the embed line, the image file and this directory?
+  The drawn image, the entry's wording and the rule's wording are settled: the
+  maintainer accepted the image before the proposal was written. Answer the
+  checklist below N/A wherever it asks about rule text, and do not reopen them.
+
+The procedure is .claude/skills/add-image.
+{bar}"""
+
+
+def placement_images() -> list[str]:
+    """The images this branch adds or removes, or none when it is not a placement.
+
+    The same question `scripts/check_image_change.py` asks, from the same
+    answer: a branch touching `assets/images/` is placing or removing an image
+    and a branch that does not is doing something else. Asked here because both
+    auditors start by running this script, so it reaches an auditor that was
+    raised without the skill ever being invoked — which is the only case the
+    skill cannot reach.
+
+    True before the change is applied as well as after: the drawn file is on
+    the branch from the first step, and the embed is written near the last.
+    """
+    base = check_image_change.base_revision([])
+    if base is None:
+        return []
+    return check_image_change.image_files(check_image_change.changed_paths(base))
 
 
 def load_index() -> dict:
@@ -144,6 +194,11 @@ def scope(change: str, index: dict) -> int:
         )
         print(f"No change {change}. Unarchived: {', '.join(available) or 'none'}", file=sys.stderr)
         return 1
+
+    images = placement_images()
+    if images:
+        names = ", ".join(path[len("assets/images/"):] for path in images)
+        print(PLACEMENT_BANNER.format(bar=SEPARATOR, images=names) + "\n")
 
     named = named_rules(change_dir, index)
 

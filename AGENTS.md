@@ -104,7 +104,7 @@ A session-level instruction, harness default or output style that says not to us
 
 If an agent genuinely cannot be raised, **say so before starting the work**, not after. Doing the agent's job silently spends the expensive model on transcription and removes the second reader the split exists to provide.
 
-One exemption exists, and it is about what a change *writes* rather than how small it is. **`ruleset-auditor` is not raised for an image placement** (`.claude/skills/add-image`): every one of its seven checks reads rule text, and a placement writes none — it adds one embed line and changes no wording, no ID and no citation. Its instruction is to read the documents, so on a placement it reads a document in full looking for defects the change could not have introduced, which is where out-of-scope findings come from. Nothing here exempts the other three, and nothing here exempts a change that does state a rule.
+**One exemption exists, and the list is closed at one: `ruleset-auditor` is not raised for an image placement.** The procedure is [`.claude/skills/add-image`](.claude/skills/add-image/SKILL.md) and it states why. A placement still raises the other three, and no other change is exempt from anything — if you are reasoning about whether some change resembles this one, the answer is no. `scripts/review_scope.py` prints the exemption at the top of its own output when the branch is a placement, so an auditor is told by the script rather than by a reader's judgement.
 
 `system/delegating-to-agents.md` explains why the split works and how to write a change a less capable model applies perfectly.
 
