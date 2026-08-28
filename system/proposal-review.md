@@ -131,6 +131,32 @@ problems leaves the reviewer unable to tell thoroughness from luck. Finding
 nothing is a result — say what was looked at, and never manufacture a finding
 to justify the run.
 
+## Silence Is Not Contradiction, and They Are Not the Same Severity
+
+**Two rules that disagree, and one question no rule answers, are different
+findings.** Say which one you have.
+
+A contradiction quotes both sides. If a finding claims the ruleset states two
+incompatible things, the report carries the two passages and they must
+*actually* be incompatible as written — not once a reasonable assumption is
+added to one of them.
+
+Where a passage only supports the finding under a particular reading, **say
+what the reading assumes and what text would settle it.** A rule that is silent
+on who acts does not take a side by being silent, and reporting it as though it
+did makes an argument look like a conflict.
+
+This is written down because an audit reported that "the two readings are both
+anchored in the shipped text" when one of them rested on an assumption no rule
+stated — that only a transport may open its own ramp. The gap it found was real
+and the evidence for one half was not, which cost the maintainer a verification
+the report should have made unnecessary.
+
+Silence usually matters less, and not always: a question asked on every attack
+is worse than a contradiction between two rules nobody reaches. Rank by how
+often a reader meets it and whether they can proceed without an answer, and say
+which of the two you are ranking.
+
 Out of scope for every audit here:
 
 - **Balance.** This ruleset has no points system by design; deployment size in
