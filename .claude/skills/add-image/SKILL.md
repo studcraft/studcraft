@@ -99,6 +99,13 @@ Raise `proposal-auditor` (AGENTS.md, "Delegating Work") on this brief:
 **A second audit of the same proposal asks the same two questions twice.** If a
 finding changes the proposal, re-audit that finding, not the change.
 
+**`ruleset-auditor` is not raised at all** — AGENTS.md, "Raising these four is
+mandatory", records the exemption and its limits. Its seven checks all read rule
+text and a placement writes none. Its one real risk, the embed landing under the
+wrong rule, is covered three times over: `insert_images.py` computes the position
+from the document's own structure, `check_image_change.py` proves no other line
+moved, and step 9 is you reading it.
+
 ## 7. Apply
 
 Raise `proposal-applier`. There is nothing to transcribe: it runs
@@ -115,19 +122,12 @@ Every check, including `check_image_change.py`. Then
 `python3 scripts/insert_images.py --write` a second time: it must print no
 `Wrote` line at all. A second write that changes something is a defect.
 
-## 9. Audit the applied text
-
-Raise `ruleset-auditor`. AGENTS.md makes all four roles mandatory and does not
-exempt a small change, so it is raised here even though an embed line states no
-rule, moves no ID and adds no citation. Point it at the one document the
-placement touched and at the rule the image now sits under.
-
-## 10. Read the result yourself
+## 9. Read the result yourself
 
 Never an agent's step (AGENTS.md). The embed sits under the rule's own prose,
 before the `---` that closes it — not under the next rule.
 
-## 11. Hand the commands to `git-operator`
+## 10. Hand the commands to `git-operator`
 
 Give it the branch name, the message text and the paths by name: the image, the
 document, the change directory. **The image is committed with the embed**, or

@@ -104,6 +104,8 @@ A session-level instruction, harness default or output style that says not to us
 
 If an agent genuinely cannot be raised, **say so before starting the work**, not after. Doing the agent's job silently spends the expensive model on transcription and removes the second reader the split exists to provide.
 
+One exemption exists, and it is about what a change *writes* rather than how small it is. **`ruleset-auditor` is not raised for an image placement** (`.claude/skills/add-image`): every one of its seven checks reads rule text, and a placement writes none — it adds one embed line and changes no wording, no ID and no citation. Its instruction is to read the documents, so on a placement it reads a document in full looking for defects the change could not have introduced, which is where out-of-scope findings come from. Nothing here exempts the other three, and nothing here exempts a change that does state a rule.
+
 `system/delegating-to-agents.md` explains why the split works and how to write a change a less capable model applies perfectly.
 
 ---

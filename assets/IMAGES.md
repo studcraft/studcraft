@@ -25,6 +25,12 @@ This column must not contain:
 
 **Why text alone is not enough** — the argument. What is genuinely hard to picture, ambiguous, or unstated in the prose. This is where reasoning goes, and it is what a reviewer checks when deciding whether the entry belongs at all.
 
+### An entry describes a rule as it currently reads
+
+So **check the entry whenever the rule it names is reworded**, and re-check it before drawing. Nothing mechanical reports the drift: the linter verifies that the rule ID exists in the document the section names, and a reworded rule keeps its ID. Five entries here were describing rules that had moved on, and every one had passed every check the whole time.
+
+An entry drifting is worse than a stale argument. The *What it must show* column is an instruction to an illustrator, so an image drawn from a stale entry contradicts the rule it was drawn for.
+
 ### Rejecting a candidate
 
 Rules considered and turned down go in the final section, each with the reason. That record is the point: without it, the same candidate gets re-proposed by whoever next reads the ruleset and notices the same thing.
@@ -40,6 +46,8 @@ If a rejected candidate is later accepted, or an accepted one dropped, **do not 
 - For an unnumbered section: `assets/images/<doc-number>-<short-slug>.<ext>`
   Example: `assets/images/07-terrain-thresholds.png`
 - The slug is lowercase, hyphen-separated, 2-4 words, and describes the content shown, not the rule's title.
+
+**A filename follows its rule.** The prefix is the rule ID, or the document number where the Rule cell names a heading — so a rule that is renumbered into another document takes its image's filename with it, and `scripts/lint_ruleset.py` rejects the old name from the moment the entry moves. Rename the drawn file in the same change, or there is nothing to place.
 
 **Format: `.png`, `.jpg`, `.jpeg`, `.gif`, `.svg` or `.webp`.** The rule is about one thing — that a reader can see the image where the ruleset is read. Those are what GitHub and any ordinary Markdown renderer draw inline; a `.psd`, a `.blend` or a `.pdf` is a source file, and belongs somewhere that is not `assets/images/`.
 
@@ -119,45 +127,8 @@ The split is the one this repository makes everywhere. **This file owns what an 
 
 ---
 
-## Total and rejected candidates
+## Rules considered and rejected
 
-**20 images** specified, across 8 of the 15 ruleset documents (`02-core-rules.md`, `05-construction-components.md`, `08-vehicles.md`, `09-transport.md`, `10-weapons.md`, `15-geometry-layers.md`, `16-damage-system.md`, `17-infantry.md`).
-
-`02-core-rules.md` holds one entry and `17-infantry.md` four, after `CORE-002`'s moved to `INF-001` — see below.
-
-The remaining 7 documents (`01-foundations.md`, `03-game-flow.md`, `06-deployment.md`, `07-movement.md`, `11-combat.md`, `12-melee.md`, `14-glossary.md`) need no images of their own: they either restate rules already illustrated above, or are procedural/definitional throughout.
-
-### Moved when their rules moved
-
-`docs/07-movement.md` had three entries and now has none. All three illustrated infantry rules, which is what the move of those rules to `docs/17-infantry.md` established, and all three moved with them: `MOVE-003` became `INF-002`, `Terrain Movement (MOVE-009 – MOVE-011)` became `Terrain (INF-006 – INF-008)`, and `MOVE-016` became `INF-011`.
-
-**Each filename changed too, and had to.** `check_image_index` requires a filename to start with the lowercased rule ID where the Rule cell is exactly one ID, and with the document number otherwise, so `move-003-…`, `move-016-…` and `07-…` all fail the moment the entries sit under a document numbered 17. None of the three images had been drawn, so nothing was orphaned.
-
-`MOVE-003` survives as a rule and keeps its number, but it no longer says which face leads — that is `INF-002`, and the image shows a base measured from its leading face. The entry follows the claim, not the number.
-
-**`CORE-002` moved to `INF-001` the same way**, and its filename with it — `core-002-facing-orientation.png` became `inf-001-base-and-front.png`. `CORE-002` now says a unit has a facing and every model an obvious front, and defers which part of a model that is to the domain. The 4-stud edge and the four directions labelled around it are infantry's, so the diagram is.
-
-**The firing arcs the entry also specified are gone, and are not drawn anywhere.** `CORE-002`'s bullet list was the only thing tying an arc to a unit's orientation, and it never said what an arc spanned or decided; `WPN-011` and `TRN-011` each derive one from a physical thing instead. Nothing was lost that had ever been defined, and a diagram cannot illustrate a term no rule owns.
-
-### Rewritten because the drawing settled the scope
-
-**`CORE-001`** specified three panels and the image drawn for it is one: the volume, its three dimensions, and the two measures laid beside it. The panels asking for a model inside the volume and for a `2 × 3 UB` footprint are gone, and the entry no longer argues from them — the maintainer's judgement is that a stack of counted plates already shows that a Unit Base encloses space, and that a model inside adds nothing a reader needs.
-
-**Two facts are now carried by prose alone**, knowingly. That the base a model stands on is inside the volume rather than the floor beneath it, which `CORE-001` states and no image shows; and the footprint arithmetic, `2 × 3 UB` measuring `8 × 9` studs. The rejections at `TRN-003`, `TRN-020`, `DEP-003` and `DEP-004` are unaffected: each leans on the dimensioned volume or on the horizontal `4 × 3` figure, and the image carries both.
-
-### Rewritten because the rule changed under them
-
-Five entries described rules that had moved on, and `scripts/lint_ruleset.py` could not see any of it: it checks that a named rule ID exists in the document its section names, and every one of these IDs still existed.
-
-- **`CORE-001`** specified six panels, including a derivation of the 13 plate layers from a minifigure and one panel per *projection* of the volume. `core-states-only-what-it-owns` had removed both — the derivation because the number is stated outright, and the word *projection* from the ruleset entirely, each rule naming the dimensions it reads instead. Three panels remain, for the facts `CORE-001` still carries.
-- **`CMP-018`** specified "the Unit Base's vertical projection" fitting a clear opening. Same removal; the rule now measures the model that uses the opening, and the entry says so.
-- **`WPN-003`** told the illustrator to mark Weapon Width as "the body's smallest dimension", which `general-review` had replaced with the side of the front face, built square — the old wording left three candidates on a physical body and disagreed with `WPN-020`'s `8 × 4` example. **An image drawn from the entry would have contradicted the rule**, which is worse than a stale argument: the What column is an instruction. The entry now names the face, and shows the `8 × 4` body where the two readings agree on the number and differ on the reason.
-- **`INF-002`** argued that "the rule works this out algebraically; a diagram shows it directly". `fix-infantry` restated the limits in Unit Bases, so nothing is worked out any more — the rule states `4 UB` and gives the conversion. The image is needed for a different reason now, and a stronger one: `4 UB` forward and `3 UB` sideways are the same twelve studs, and the numbers say otherwise.
-- **`VEH-027`** quoted the rule as turning on whether a ramp "physically covers the entire rise". `general-review` reworded it, and the quotation marks made the drift a misquotation rather than a paraphrase. The entry states the condition instead of quoting it, and adds that the angle is not measured.
-
-**All five were stale before the change that noticed them**, which is the argument for reading this file whenever a rule it names is edited: nothing mechanical will report it.
-
-Rules considered and rejected, with reasons:
 
 - **CORE-010 (Cover)** — Binary rule (a component is hidden or it isn't, no partial cover). The nuance is conceptual ("no cover bonus exists"), not spatial; there is nothing to draw that the sentence doesn't already say.
 - **MOVE-017 (Collision)** — "Models may not overlap" is a self-evident physical fact from any tabletop photo. Recorded explicitly because a collision diagram is the first thing a reader of `07-movement.md` reaches for; on review it does not meet the bar.
