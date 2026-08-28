@@ -190,3 +190,74 @@ class TestAHandWrittenUnreleasedSection:
     def test_no_version_header_was_touched(self, repo):
         cut(repo)
         assert "**Version:** 0.4.0" in (repo / "docs" / "08-vehicles.md").read_text()
+
+
+class TestTheEntryListsOnlyTheRuleset:
+    """A release exists because `docs/` changed, so its entry says what changed
+    in `docs/`. v0.2.0's entry listed "Fix Gemfile.lock: bump pinned Bundler"
+    and "Apply just-the-docs default layout" in the changelog of a tabletop
+    wargame, and by the release after it three commits in four touched no rule.
+
+    CHANGELOG.md is append-only in practice — no pull request may edit it — so
+    an entry that lists the wrong thing stays wrong."""
+
+    @pytest.fixture
+    def mixed_repo(self, released_repo: Path) -> Path:
+        """The docs/ commit from the fixture, with tooling commits either side."""
+        (released_repo / "scripts").mkdir(exist_ok=True)
+        (released_repo / "scripts" / "tool.py").write_text("# a tool\n")
+        commit_all(released_repo, "Add a script nobody reading the rules cares about")
+
+        (released_repo / "README.md").write_text("# Readme\n")
+        commit_all(released_repo, "Fix Gemfile.lock: bump pinned Bundler to 2.5.6")
+        return released_repo
+
+    def test_a_commit_touching_docs_is_listed(self, mixed_repo):
+        cut(mixed_repo)
+
+        changelog = (mixed_repo / "CHANGELOG.md").read_text()
+        assert "- docs(vehicles): measure VEH-001 on the grid" in changelog
+
+    def test_a_commit_touching_no_document_is_not(self, mixed_repo):
+        cut(mixed_repo)
+
+        changelog = (mixed_repo / "CHANGELOG.md").read_text()
+        assert "Add a script nobody reading the rules cares about" not in changelog
+        assert "Gemfile.lock" not in changelog
+
+    def test_the_release_still_happens(self, mixed_repo):
+        """The tooling commits neither add to the entry nor block the cut."""
+        result = cut(mixed_repo)
+
+        assert result.returncode == 0, result.stderr
+        assert result.stdout.strip() == "0.5.0"
+
+
+class TestSeverityStillReadsEveryCommit:
+    """A `**Bump:** major` marker is a claim about the release wherever it was
+    written. Dropping a declared major because its commit touched no ruleset
+    file is worse than listing one line too few: a version is permanent, and
+    correcting it would mean rewriting history."""
+
+    @pytest.fixture
+    def flagged_elsewhere(self, released_repo: Path) -> Path:
+        (released_repo / "scripts").mkdir(exist_ok=True)
+        (released_repo / "scripts" / "tool.py").write_text("# a tool\n")
+        commit_all(
+            released_repo,
+            "Change how a rule is read\n\n**Bump:** major\n",
+        )
+        return released_repo
+
+    def test_the_marker_escalates_the_bump(self, flagged_elsewhere):
+        result = cut(flagged_elsewhere)
+
+        assert result.returncode == 0, result.stderr
+        assert result.stdout.strip() == "1.0.0"
+
+    def test_and_its_commit_is_still_not_listed(self, flagged_elsewhere):
+        cut(flagged_elsewhere)
+
+        changelog = (flagged_elsewhere / "CHANGELOG.md").read_text()
+        assert "Change how a rule is read" not in changelog
+        assert "- docs(vehicles): measure VEH-001 on the grid" in changelog

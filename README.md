@@ -209,9 +209,11 @@ Targets resolve those Impacts according to their construction (`16-damage-system
 
 # Current Status
 
-Current development stage:
-
-**Version 0.1**
+The current version is the latest `v*` tag, and every ruleset document carries
+it in its own `**Version:**` header. Both are written by the `Release cut`
+workflow; neither is written here, because a number copied into this file goes
+stale at the next release and nothing checks it. [`CHANGELOG.md`](CHANGELOG.md)
+has what each release changed.
 
 Implemented systems:
 

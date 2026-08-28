@@ -71,8 +71,13 @@ it survives), and an explicit `severity` input at dispatch time.
 1. A maintainer runs the `Release cut` action. Timing is the only judgement
    call.
 2. `scripts/release_cut.py` resolves the severity, computes the version,
-   rewrites `CHANGELOG.md` from the commit subjects since the last tag, and
-   updates every `**Version:**` header.
+   rewrites `CHANGELOG.md` from the commit subjects **that changed `docs/`**,
+   and updates every `**Version:**` header.
+
+   The entry is narrower than the severity scan on purpose. A release exists
+   because `docs/` changed, so it describes what changed in `docs/`; severity
+   still reads every commit, because a `**Bump:** major` marker is a claim
+   about the release wherever it was written, and a version is permanent.
 3. It pushes a `release/v*` branch, writes the compare URL to the step summary
    and stops — Actions cannot open PRs here (`system/ci-gates.md`). A human
    opens and merges it.
