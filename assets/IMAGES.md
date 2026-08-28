@@ -51,14 +51,20 @@ Files are added as they are drawn, and `scripts/insert_images.py` places each on
 
 ## When an image appears, or disappears
 
-Four steps, in this order:
+Six steps, in this order. **What they produce is one embed line per image in the one document that specifies it, the image file, and the change directory — nothing else.** `scripts/check_image_change.py` refuses the rest.
 
-1. **`python3 scripts/insert_images.py --check`.** It says what changed and in which direction — a file nobody listed, an entry whose image is drawn but not placed, an embed whose file or entry is gone. This step is mechanical and settles nothing else.
-2. **Read the new image against its entry.** Does it show what the *What it must show* column asked for? No script can answer this: `insert_images.py` checks that a file exists, never what is in it.
-3. **Ask the maintainer whether the image is accepted.** If the image and its entry disagree, the maintainer decides which of the two changes — and narrowing an entry to fit a drawing is only legitimate when the narrowed entry still argues for the image on its own terms.
-4. **Then propose.** The proposal places the image, and `--write` runs on its branch.
+1. **The drawn file goes to `assets/images/`, under the name its entry already gave it.** Not into the change directory, not into `docs/`: the path was decided when the entry was written, and it is the only path an embed can point at.
+2. **`python3 scripts/insert_images.py --check`.** It says what changed and in which direction — a file nobody listed, an entry whose image is drawn but not placed, an embed whose file or entry is gone. This step is mechanical and settles nothing else.
+3. **Read the new image against its entry.** Does it show what the *What it must show* column asked for? No script can answer this: `insert_images.py` checks that a file exists, never what is in it.
+4. **Ask the maintainer, and take the answer as settled.** The question has two answers — the image is accepted, or it is redrawn — and **an accepted image does not change its entry**: the *What it must show* column was the instruction given to whoever drew it, and it stays as the record of what was asked for. Changing the entry itself is a separate change on its own branch, if the maintainer wants one at all.
+5. **Then propose, and propose only the placement.** The proposal states no rule, moves no citation and does not touch this file; `--write` writes the embed on its branch. `proposal-auditor` is raised **once**, on this brief:
 
-**Step 3 comes before step 4, and it is written down because it was got wrong.** `add-image-to-core-rule` wrote the proposal first, audited it, and only then read the image against its entry — so the entry had to be rewritten afterwards and the audit was paid for twice. Asking first costs one question; asking last costs the proposal.
+   > The change places one image the maintainer has already accepted. Two questions: does the entry for this rule still argue for the image on its own terms — the *Why text alone is not enough* column — and is the diff exactly the embed line, the image file and the change directory? The drawn image, the entry's wording and the rule's wording are out of scope; step 4 settled them.
+
+   A second audit of the same proposal asks the same two questions twice.
+6. **`python3 scripts/check_image_change.py`.** It reads the branch against its base and reports anything the placement did besides place its image. `scripts/preflight.py` runs it.
+
+**Each of steps 1, 4 and 5 is written down because it was got wrong.** `add-image-to-core-rule` proposed before reading the image, so the entry was rewritten afterwards and the audit was paid for twice; `add-image-to-clear-opening-rule` then asked where the file belonged, proposed rewriting an entry the maintainer had already accepted, and audited twice again. Asking first costs one question; asking last costs the proposal.
 
 ---
 

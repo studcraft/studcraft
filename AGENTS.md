@@ -65,14 +65,15 @@ not a `system/` file:
 
 | Document | Covers |
 |---|---|
-| [`assets/IMAGES.md`](assets/IMAGES.md) | Which rules need an example image, what each must show, and the four steps an image goes through when one appears or disappears |
+| [`assets/IMAGES.md`](assets/IMAGES.md) | Which rules need an example image, what each must show, and the six steps an image goes through when one appears or disappears |
 
-**Read it when an image is added, removed or placed** — that flow begins with a
+**Read it before an image is added, removed or placed** — that flow begins with a
 file appearing in `assets/images/`, which is a line in `git status` rather than
 an edit, so nothing else will route you there. `scripts/insert_images.py --check`
-reports the mechanical half on every `preflight` run; the two steps it cannot
-make — reading the image against its entry, and asking the maintainer whether it
-is accepted — are the reason the document exists.
+reports the mechanical half on every `preflight` run and
+`scripts/check_image_change.py` refuses a placement that did anything else; the
+two steps neither can make — reading the image against its entry, and asking the
+maintainer whether it is accepted — are the reason the document exists.
 
 ---
 
