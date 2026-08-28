@@ -187,11 +187,30 @@ def test_removing_an_image_is_the_same_shape_backwards(temp_repo: Path) -> None:
     assert "1 image file(s)" in result.stdout
 
 
-def test_an_unresolvable_base_skips(temp_repo: Path) -> None:
+def test_a_base_named_and_missing_is_an_error(temp_repo: Path) -> None:
+    """CI names the pull request's base. A base that is not there is a wrong
+    answer, not a missing one — skipping would report the placement clean
+    without comparing it against anything."""
     repo = placement_repo(temp_repo)
     draw_and_place(repo)
 
     result = check(repo, "no-such-revision")
+
+    assert result.returncode == 1
+    assert "no-such-revision" in result.stderr
+    assert "Skipping" not in result.stdout
+
+
+def test_no_base_to_find_skips(temp_repo: Path, tmp_path: Path) -> None:
+    """A fresh clone with neither origin/main nor main legitimately has nothing
+    to compare against, and that is not a failure."""
+    repo = placement_repo(temp_repo)
+    draw_and_place(repo)
+    # Leave `main` behind: an orphan branch shares no history with it, so no
+    # merge base exists and auto-detection finds nothing.
+    run_git(repo, "checkout", "--orphan", "detached-work")
+
+    result = check(repo)
 
     assert result.returncode == 0
     assert "Skipping" in result.stdout

@@ -23,7 +23,7 @@ What it runs:
   4. scripts/check_task_anchors.py    (no CI gate — a proposal defect, caught here)
   5. scripts/check_id_stability.py    (no CI gate — IDs are never renumbered or reused)
   6. scripts/check_todo_quotes.py     (no CI gate — TODO.md must not misquote docs/)
-  7. scripts/check_image_change.py    (no CI gate — a placement places its image only)
+  7. scripts/check_image_change.py    (Docs ruleset linter — same job, third step)
   8. openspec validate                (OpenSpec change is coherent, part 1)
   9. pytest                           (Tests — skipped when pytest is absent)
  10. scripts/build_index.py           (no CI gate — keeps the query index current)
@@ -33,19 +33,20 @@ What it runs:
  13. one complete proposal per change  (Docs require OpenSpec proposal)
  14. archive is separate from apply    (OpenSpec archive must be separate from apply)
 
-Check 2 runs as a second step of the `Docs ruleset linter` job rather than as a
-gate of its own — `system/ci-gates.md`, and `design.md` in the change that added
-it. Six of the others mirror no gate at all. Anchor uniqueness is a defect CI cannot
+Checks 2 and 7 run as further steps of the `Docs ruleset linter` job rather than
+as gates of their own — `system/ci-gates.md`, and `design.md` in the change that
+added the first. A new required check does nothing until branch protection is
+changed, and one that never fires blocks every merge for ever; that job is
+already required and already runs on every pull request.
+
+Four of the others mirror no gate at all. Anchor uniqueness is a defect CI cannot
 see — by the time a change is applied wrongly, the diff looks deliberate.
 ID stability needs a base revision to compare against, which a single-revision
 linter has not got. A TODO.md quote drifts when the rule it quotes is reworded,
 so the branch that breaks it is a ruleset branch that never touches TODO.md.
-An image placement that also edits its own entry leaves every other check green,
-because the tree it produces is consistent — what is wrong with it is the scope,
-which only a diff against the base can see. The index is a local cache with
-nothing to enforce, and the tests cover `scripts/` rather than the ruleset. All
-of them belong to the moment before a push rather than after one, which is what
-this script is.
+The index is a local cache with nothing to enforce, and the tests cover
+`scripts/` rather than the ruleset. All of them belong to the moment before a
+push rather than after one, which is what this script is.
 
 Checks 10-13 compare the working tree against the merge base with `origin/main`,
 which is the closest local equivalent of the base/head pair a pull request

@@ -31,18 +31,9 @@ If the answer is no, reconsider the proposal.
 
 # Guiding Principles
 
-Every contribution should respect these principles:
+**There are fifteen, and [`CODE_OF_DESIGN.md`](CODE_OF_DESIGN.md) defines them — `Principle 1` through `Principle 15`. Read them there.**
 
-- The model is the rules.
-- Every Brick Matters.
-- Construction over abstraction.
-- Components over statistics.
-- Impacts over damage.
-- Physical state over tokens.
-- Simplicity before complexity.
-- Modular design.
-
-These principles are described in detail in `CODE_OF_DESIGN.md`.
+Every contribution should reinforce all fifteen. A proposal that conflicts with any of them gets redesigned rather than argued for.
 
 ---
 
@@ -107,177 +98,93 @@ Examples include:
 
 # Before Creating a New Rule
 
-Ask yourself:
+**The questions are the Design Checklist closing [`CODE_OF_DESIGN.md`](CODE_OF_DESIGN.md). There are seven. Ask them there.** Any "no" means reconsidering the design.
 
-- Can this already be represented using existing rules?
-- Can this be solved by construction instead?
-- Is this introducing unnecessary complexity?
-- Is this reusable?
-- Is it intuitive?
-
-The simplest solution is usually the best one.
+[`system/design-process.md`](system/design-process.md) adds what the checklist does not: when several solutions would work, which to reach for first — construction before an existing rule, an existing rule before a new one, a new subsystem last.
 
 Check [`TODO.md`](TODO.md) too: if the ruleset already declares your gap, the entry quotes the rule that declares it, and closing it means editing that rule rather than adding one beside it.
 
 ---
 
-# Rule Design Checklist
-
-A proposed rule should:
-
-- Have a single responsibility.
-- Reuse existing systems whenever possible.
-- Avoid creating exceptions.
-- Be easy to explain.
-- Be easy to remember.
-- Be physically represented whenever possible.
-
----
-
 # Writing Style
 
-Documentation should be:
+**How a rule is written is [`system/documentation-standards.md`](system/documentation-standards.md)** — one imperative sentence, the reason in one clause, no over-explanation. It also owns the skeleton every ruleset document carries, and `python3 scripts/lint_ruleset.py` checks that skeleton.
 
-- Clear
-- Concise
-- Modular
-- Consistent
-
-Avoid ambiguous language.
-
-Whenever possible:
-
-Use:
-
-> "A vehicle moves 1.5 times its own length."
-
-Instead of:
-
-> "Vehicles generally move a considerable distance."
-
-Rules should be precise.
+Rules are precise. Write "a vehicle moves 1.5 times its own length", never "vehicles generally move a considerable distance".
 
 ---
 
 # Repository Structure
 
-Please keep new documents organized.
+The tree is in [`README.md`](README.md), and
+[`system/documentation-standards.md`](system/documentation-standards.md) owns
+what may be added to it — including the checklist for adding a new numbered
+document, which touches more files than the document itself.
 
-```
-docs/
-
-01-foundations.md
-
-02-core-rules.md
-
-03-game-flow.md
-
-05-construction-components.md
-
-06-deployment.md
-
-07-movement.md
-
-08-vehicles.md
-
-09-transport.md
-
-10-weapons.md
-
-11-combat.md
-
-12-melee.md
-
-14-glossary.md
-
-15-geometry-layers.md
-
-16-damage-system.md
-```
-
-Large systems should receive their own document.
-
-Avoid mixing unrelated mechanics.
+Large systems get their own document. Avoid mixing unrelated mechanics.
 
 ---
 
 # Naming Conventions
 
-Rule identifiers should follow this format:
+**Owned by
+[`system/documentation-standards.md`](system/documentation-standards.md).** In
+short: a rule identifier is `ABC-001`, each document owns its prefix, and **an
+identifier is never renumbered and never reused** — a deleted rule's number is
+retired rather than handed on, and `scripts/check_id_stability.py` compares
+every push against the base to prove it.
 
-```
-MOV-001
-
-WPN-001
-
-CBT-001
-
-TRN-001
-```
-
-Each document owns its own namespace.
+Do not guess a prefix. `python3 scripts/rule.py doc <file>` prints the one a
+document actually uses.
 
 ---
 
 # Versioning
 
-StudCraft follows semantic versioning.
+**Nobody edits a version by hand — not `CHANGELOG.md`, and not a `**Version:**`
+header in a ruleset document.** The `Release cut` workflow reads the latest tag
+and the `docs/` changes since it, computes the bump, and writes both. A pull
+request that edits `CHANGELOG.md` alongside `docs/` is refused by a CI gate,
+which is what stops two proposal branches colliding on it.
 
-```
-Major.Minor.Patch
-```
-
-Examples:
-
-```
-0.1.0
-
-0.2.0
-
-1.0.0
-```
-
-Major
-
-Breaking changes.
-
-Minor
-
-New features.
-
-Patch
-
-Corrections and clarifications.
+Nothing has to be declared: a `docs/` change defaults to a **minor** release.
+[`system/workflow.md`](system/workflow.md) has the mechanism and the one
+override.
 
 ---
 
 # Pull Requests
 
-A good contribution explains:
+**Every change goes on a branch. Nothing is committed to `main` directly.** A
+change to `docs/*.md` — the ruleset itself — additionally needs an OpenSpec
+proposal, on its own branch named for it. Everything else (`README.md`,
+`AGENTS.md`, `system/*.md`) needs a branch and no proposal.
+[`system/workflow.md`](system/workflow.md) is the whole of it, and
+[`system/repository-strategy.md`](system/repository-strategy.md) carries the
+branch-naming table the CI gates read.
 
-- What changed.
-- Why it changed.
-- Which documents are affected.
-- Which Design Principles are reinforced.
+Before pushing:
 
-Whenever possible, include gameplay examples.
+```bash
+python3 scripts/preflight.py
+```
+
+It runs every gate that can be answered without a push, so a red check is not
+the first thing your pull request tells you.
+
+A good contribution explains what changed, why it changed, which documents are
+affected, and which Design Principles it reinforces. Include gameplay examples
+wherever they help.
 
 ---
 
 # AI Contributions
 
-StudCraft is designed to be developed with both human and AI collaborators.
+StudCraft is designed to be developed with both human and AI collaborators, and AI-generated contributions are welcome.
 
-AI-generated contributions are welcome.
+**[`AGENTS.md`](AGENTS.md) governs them, and it is binding rather than advisory.** It names which `system/` document owns each part of the work, and which of the four repository agents in `.claude/agents/` is raised at which step. An agent that applies a proposal itself, or issues its own git commands, has skipped the control the split exists to be.
 
-However, every proposal should:
-
-- Follow the Design Code.
-- Be internally consistent.
-- Avoid inventing unnecessary mechanics.
-- Reuse existing systems.
-
-Human review is always recommended.
+A human reads the result before it is pushed. That step belongs to no agent.
 
 ---
 
