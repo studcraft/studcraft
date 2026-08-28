@@ -58,30 +58,39 @@ These principles are fully described in:
 ```
 /
 ├── README.md
-├── CODE_OF_DESIGN.md
+├── CODE_OF_DESIGN.md          the fifteen principles
 ├── CONTRIBUTING.md
-├── CHANGELOG.md
-├── LICENSE
-├── AGENTS.md
+├── AGENTS.md                  binding on AI contributors
+├── CHANGELOG.md               written by the Release cut, never by hand
 ├── TODO.md
+├── LICENSE
 │
-└── docs/
-    ├── 01-foundations.md
-    ├── 02-core-rules.md
-    ├── 03-game-flow.md
-    ├── 05-construction-components.md
-    ├── 06-deployment.md
-    ├── 07-movement.md
-    ├── 08-vehicles.md
-    ├── 09-transport.md
-    ├── 10-weapons.md
-    ├── 11-combat.md
-    ├── 12-melee.md
-    ├── 14-glossary.md
-    ├── 15-geometry-layers.md
-    ├── 16-damage-system.md
-    └── 17-infantry.md
+├── docs/                      the ruleset — the only thing a proposal changes
+│   ├── 01-foundations.md
+│   ├── 02-core-rules.md
+│   ├── 03-game-flow.md
+│   ├── 05-construction-components.md
+│   ├── 06-deployment.md
+│   ├── 07-movement.md
+│   ├── 08-vehicles.md
+│   ├── 09-transport.md
+│   ├── 10-weapons.md
+│   ├── 11-combat.md
+│   ├── 12-melee.md
+│   ├── 14-glossary.md
+│   ├── 15-geometry-layers.md
+│   ├── 16-damage-system.md
+│   └── 17-infantry.md
+│
+├── system/                    how this repository is changed, one topic per file
+├── openspec/                  proposals, live and archived
+├── scripts/                   the checks and the index — python3, stdlib only
+├── tests/                     covers scripts/, not the ruleset
+├── assets/                    IMAGES.md and the drawn images
+└── .claude/                   agents, skills, path-scoped rules, hooks
 ```
+
+Only `docs/` is the game. Everything beside it exists so that changing `docs/` is repeatable — `system/` states the rules for doing it, `scripts/` checks them, and `.github/workflows/` gates them on every pull request.
 
 `04-*.md` and `13-*.md` are deliberate gaps, not missing files — `docs/04-construction-standard.md` was removed (its five rules folded into `02-core-rules.md` and `07-movement.md`) and `docs/13-materials.md` before it (its content folded into `16-damage-system.md`), and per this repo's rule-ID-stability convention, document numbers are not reused or renumbered after removal.
 

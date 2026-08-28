@@ -12,14 +12,16 @@ StudCraft is a specification-driven project.
 
 Agents are expected to preserve the project's philosophy, maintain consistency and extend the rules without introducing unnecessary complexity.
 
-Before making any contribution, every agent should read:
+**What to read depends on what you are about to do**, and the list is short on purpose: a reading list nobody follows teaches that the rules here are approximate.
 
-1. `README.md`
-2. `CODE_OF_DESIGN.md`
-3. `CONTRIBUTING.md`
-4. This file, plus the relevant `system/*.md` documents below.
+| You are | Read |
+|---|---|
+| Designing a change to `docs/` — the ruleset | [`CODE_OF_DESIGN.md`](CODE_OF_DESIGN.md), this file, and the `system/*.md` documents named below for the task |
+| Changing this repository's own prose, scripts or gates | This file, and the `system/*.md` document that owns the file you are editing |
+| A repository agent in `.claude/agents/` | Your own definition, and whatever it sends you to. Nothing else — the definition is the scope |
+| New here, and unsure which of those you are | [`README.md`](README.md), then [`CONTRIBUTING.md`](CONTRIBUTING.md) |
 
-These documents define the project's identity.
+Two things nobody skips: **`CODE_OF_DESIGN.md` before proposing a rule**, because a proposal conflicting with a principle is redesigned rather than reviewed; and **the `system/` document that owns the file in front of you** before editing it. `.claude/rules/` names that owner per path and loads on its own.
 
 ---
 
