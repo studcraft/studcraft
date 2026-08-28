@@ -16,8 +16,21 @@ No commit or PR is required to declare anything. This script:
      rare case where the person cutting the release knows better than
      the default.
 4. Bumps the version, rewrites CHANGELOG.md with an auto-generated entry
-   built from the commit subjects since the last tag, and updates every
+   built from the commit subjects **that changed docs/**, and updates every
    docs/*.md **Version:** header.
+
+Step 4 lists a narrower set than step 3 reads, and the asymmetry is
+deliberate. A release exists because `docs/` changed — step 2 refuses to cut
+one otherwise — so the entry describes what changed in `docs/`. Listing every
+commit made the changelog of a tabletop ruleset carry "Fix Gemfile.lock: bump
+pinned Bundler" and "Remove paths filter from docs-ruleset-linter trigger",
+which is what v0.2.0's entry actually says. By the release after it, three
+commits in four touched no rule at all.
+
+Severity still reads **every** commit. A `**Bump:** major` marker is a claim
+about the release, and dropping a declared major because its commit happened
+to touch no ruleset file is a worse failure than listing one line too few —
+the version is permanent and cannot be corrected without rewriting history.
 
 No individual PR ever touches CHANGELOG.md; only this script does, and it
 only runs as part of the separate, serialized release-cut workflow.
@@ -64,10 +77,20 @@ def latest_tag() -> str | None:
     return tags[0] if tags else None
 
 
-def commits_since(tag: str | None) -> list[tuple[str, str, str]]:
+def commits_since(tag: str | None, path: str | None = None) -> list[tuple[str, str, str]]:
+    """Every commit since `tag`, newest first. With `path`, only those touching it.
+
+    Two callers want two different sets. Severity reads all of them, because a
+    `**Bump:** major` marker is a claim about the release wherever it was
+    written. The changelog entry reads `docs/` only, because that is what the
+    release is of.
+    """
     rev_range = f"{tag}..HEAD" if tag else "HEAD"
+    command = ["git", "log", rev_range, f"--format=%H{FIELD_SEP}%s{FIELD_SEP}%b{RECORD_SEP}"]
+    if path:
+        command += ["--", path]
     result = subprocess.run(
-        ["git", "log", rev_range, f"--format=%H{FIELD_SEP}%s{FIELD_SEP}%b{RECORD_SEP}"],
+        command,
         cwd=REPO_ROOT,
         capture_output=True,
         text=True,
@@ -149,13 +172,25 @@ def main() -> None:
     if not docs_changed_since(tag):
         sys.exit("Nothing to release: no docs/*.md changes since the last release tag.")
 
-    commits = commits_since(tag)
-    severity = resolve_severity(commits)
+    severity = resolve_severity(commits_since(tag))
     current_version = tag.lstrip("v") if tag else "0.0.0"
     next_version = bump_version(current_version, severity)
     today = date.today().isoformat()
 
-    changes = "\n".join(f"- {subject}" for _, subject, _ in reversed(commits))
+    released = commits_since(tag, "docs/")
+    if not released:
+        # Unreachable through the check above, which already refused a release
+        # with no docs/ change — and worth stating anyway. An empty entry under
+        # a version heading is the one output nobody could read as a mistake,
+        # and CHANGELOG.md is append-only in practice: no pull request may edit
+        # it, so a wrong entry is permanent.
+        sys.exit(
+            "docs/*.md changed since the last tag, but no commit since it touched "
+            "docs/. Nothing could be written under the version heading. Refusing "
+            "to cut a release whose entry would be empty."
+        )
+
+    changes = "\n".join(f"- {subject}" for _, subject, _ in reversed(released))
 
     text = CHANGELOG.read_text()
     if UNRELEASED_HEADER not in text:
