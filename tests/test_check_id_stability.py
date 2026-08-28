@@ -174,3 +174,33 @@ class TestFencedHeadingsAreNotRules:
 
         assert result.returncode == 0, result.stdout
         assert "none renumbered or reused" in result.stdout
+
+
+class TestTheBaseMustBeThere:
+    """CI names the pull request's base. A base that is not there must not read
+    as a clean comparison — under a skip, every identifier would be reported
+    stable without being compared against anything."""
+
+    def test_a_base_named_and_unreadable_is_an_error(self, temp_repo):
+        repo = based_repo(temp_repo)
+
+        result = check(repo, "no-such-revision")
+
+        assert result.returncode == 1
+        assert "no-such-revision" in result.stderr
+        assert "Skipping" not in result.stdout
+
+    def test_no_base_to_find_skips(self, temp_repo):
+        """A fresh clone with no `origin/main` legitimately has nothing to
+        compare against, and that is not a failure."""
+        repo = based_repo(temp_repo)
+
+        result = subprocess.run(
+            [sys.executable, str(repo / "scripts" / "check_id_stability.py")],
+            cwd=repo,
+            capture_output=True,
+            text=True,
+        )
+
+        assert result.returncode == 0, result.stdout + result.stderr
+        assert "Skipping" in result.stdout

@@ -39,6 +39,10 @@ Usage:
 
     python3 scripts/check_id_stability.py              against origin/main
     python3 scripts/check_id_stability.py <revision>   against anything else
+
+A revision passed explicitly and unreadable is an error rather than a skip: CI
+names the pull request's base, and a base that is not there would otherwise
+report every identifier stable without comparing it to anything.
 """
 
 from __future__ import annotations
@@ -87,6 +91,18 @@ def main(argv: list[str]) -> int:
 
     before = ids_at_revision(base)
     if before is None:
+        # A base that was *asked for* and cannot be read is a wrong answer, not
+        # a missing one: in CI it would report every rule ID stable without
+        # comparing them against anything. `origin/main` failing is different —
+        # a fresh clone with no remote legitimately has nothing to compare to.
+        if argv:
+            print(
+                f"::error::Cannot read {base}, which was named explicitly. "
+                f"Refusing to report the rule IDs stable without comparing them "
+                f"against anything.",
+                file=sys.stderr,
+            )
+            return 1
         print(f"Cannot read {base}; nothing to compare against. Skipping.")
         return 0
 
