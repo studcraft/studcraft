@@ -25,6 +25,12 @@ This column must not contain:
 
 **Why text alone is not enough** — the argument. What is genuinely hard to picture, ambiguous, or unstated in the prose. This is where reasoning goes, and it is what a reviewer checks when deciding whether the entry belongs at all.
 
+### An entry describes a rule as it currently reads
+
+So **check the entry whenever the rule it names is reworded**, and re-check it before drawing. Nothing mechanical reports the drift: the linter verifies that the rule ID exists in the document the section names, and a reworded rule keeps its ID. Five entries here were describing rules that had moved on, and every one had passed every check the whole time.
+
+An entry drifting is worse than a stale argument. The *What it must show* column is an instruction to an illustrator, so an image drawn from a stale entry contradicts the rule it was drawn for.
+
 ### Rejecting a candidate
 
 Rules considered and turned down go in the final section, each with the reason. That record is the point: without it, the same candidate gets re-proposed by whoever next reads the ruleset and notices the same thing.
@@ -41,30 +47,21 @@ If a rejected candidate is later accepted, or an accepted one dropped, **do not 
   Example: `assets/images/07-terrain-thresholds.png`
 - The slug is lowercase, hyphen-separated, 2-4 words, and describes the content shown, not the rule's title.
 
+**A filename follows its rule.** The prefix is the rule ID, or the document number where the Rule cell names a heading — so a rule that is renumbered into another document takes its image's filename with it, and `scripts/lint_ruleset.py` rejects the old name from the moment the entry moves. Rename the drawn file in the same change, or there is nothing to place.
+
 **Format: `.png`, `.jpg`, `.jpeg`, `.gif`, `.svg` or `.webp`.** The rule is about one thing — that a reader can see the image where the ruleset is read. Those are what GitHub and any ordinary Markdown renderer draw inline; a `.psd`, a `.blend` or a `.pdf` is a source file, and belongs somewhere that is not `assets/images/`.
 
 **Weight: 3 MB per image.** Git keeps every version of a binary for ever and stores no deltas between them, so each re-export is a whole new copy — and `system/repository-strategy.md` forbids rewriting history, which is the only way to take one back out. The number sits far above ordinary work on purpose: it is an accident guard, not a budget. A flat render of a build is a few hundred kilobytes, so nothing legitimate meets it.
 
-**Neither rule is a quality bar, and neither must be used as one.** An illustration arrives in whatever its author works in, and lossy compression is a fact about how an image was made rather than about its container. What decides whether an image is good enough is step 2 below — reading it against its entry — and step 3, the maintainer accepting it. As guidance and not as a gate: where a reader counts something, plate layers or studs, a lossless export keeps the edges countable.
+**Neither rule is a quality bar, and neither must be used as one.** An illustration arrives in whatever its author works in, and lossy compression is a fact about how an image was made rather than about its container. What decides whether an image is good enough is reading it against its entry, and the maintainer accepting it — the `add-image` skill, steps 3 and 4. As guidance and not as a gate: where a reader counts something, plate layers or studs, a lossless export keeps the edges countable.
 
 Files are added as they are drawn, and `scripts/insert_images.py` places each one under the section that specifies it. The rule it keeps is exact in both directions: **an image is embedded in `docs/` exactly when the file exists in `assets/images/` and this file lists it for that section.** An embed placed by hand, with no entry here, is therefore removed — the entry is where the argument for the image is written, and the *Why text alone is not enough* column is that argument. `--check` reports each departure and prints the row to add; `--write` repairs them, and because it edits `docs/` it runs on a proposal branch. `assets/images/.gitkeep` holds the directory.
 
 ## When an image appears, or disappears
 
-Six steps, in this order. **What they produce is one embed line per image in the one document that specifies it, the image file, and the change directory — nothing else.** `scripts/check_image_change.py` refuses the rest.
+**The procedure is the `add-image` skill** — `.claude/skills/add-image/SKILL.md`. It owns the order: where the drawn file goes, reading it against its entry, asking the maintainer, the proposal that places the image and nothing else, and who is raised for each remaining step.
 
-1. **The drawn file goes to `assets/images/`, under the name its entry already gave it.** Not into the change directory, not into `docs/`: the path was decided when the entry was written, and it is the only path an embed can point at.
-2. **`python3 scripts/insert_images.py --check`.** It says what changed and in which direction — a file nobody listed, an entry whose image is drawn but not placed, an embed whose file or entry is gone. This step is mechanical and settles nothing else.
-3. **Read the new image against its entry.** Does it show what the *What it must show* column asked for? No script can answer this: `insert_images.py` checks that a file exists, never what is in it.
-4. **Ask the maintainer, and take the answer as settled.** The question has two answers — the image is accepted, or it is redrawn — and **an accepted image does not change its entry**: the *What it must show* column was the instruction given to whoever drew it, and it stays as the record of what was asked for. Changing the entry itself is a separate change on its own branch, if the maintainer wants one at all.
-5. **Then propose, and propose only the placement.** The proposal states no rule, moves no citation and does not touch this file; `--write` writes the embed on its branch. `proposal-auditor` is raised **once**, on this brief:
-
-   > The change places one image the maintainer has already accepted. Two questions: does the entry for this rule still argue for the image on its own terms — the *Why text alone is not enough* column — and is the diff exactly the embed line, the image file and the change directory? The drawn image, the entry's wording and the rule's wording are out of scope; step 4 settled them.
-
-   A second audit of the same proposal asks the same two questions twice.
-6. **`python3 scripts/check_image_change.py`.** It reads the branch against its base and reports anything the placement did besides place its image. `scripts/preflight.py` runs it.
-
-**Each of steps 1, 4 and 5 is written down because it was got wrong.** `add-image-to-core-rule` proposed before reading the image, so the entry was rewritten afterwards and the audit was paid for twice; `add-image-to-clear-opening-rule` then asked where the file belonged, proposed rewriting an entry the maintainer had already accepted, and audited twice again. Asking first costs one question; asking last costs the proposal.
+The split is the one this repository makes everywhere. **This file owns what an entry is; the skill owns what to do about one.** A procedure written down here would be read only by whoever was already reading the index — and the flow begins with a file appearing in `git status`, which sends nobody anywhere.
 
 ---
 
@@ -130,45 +127,8 @@ Six steps, in this order. **What they produce is one embed line per image in the
 
 ---
 
-## Total and rejected candidates
+## Rules considered and rejected
 
-**20 images** specified, across 8 of the 15 ruleset documents (`02-core-rules.md`, `05-construction-components.md`, `08-vehicles.md`, `09-transport.md`, `10-weapons.md`, `15-geometry-layers.md`, `16-damage-system.md`, `17-infantry.md`).
-
-`02-core-rules.md` holds one entry and `17-infantry.md` four, after `CORE-002`'s moved to `INF-001` — see below.
-
-The remaining 7 documents (`01-foundations.md`, `03-game-flow.md`, `06-deployment.md`, `07-movement.md`, `11-combat.md`, `12-melee.md`, `14-glossary.md`) need no images of their own: they either restate rules already illustrated above, or are procedural/definitional throughout.
-
-### Moved when their rules moved
-
-`docs/07-movement.md` had three entries and now has none. All three illustrated infantry rules, which is what the move of those rules to `docs/17-infantry.md` established, and all three moved with them: `MOVE-003` became `INF-002`, `Terrain Movement (MOVE-009 – MOVE-011)` became `Terrain (INF-006 – INF-008)`, and `MOVE-016` became `INF-011`.
-
-**Each filename changed too, and had to.** `check_image_index` requires a filename to start with the lowercased rule ID where the Rule cell is exactly one ID, and with the document number otherwise, so `move-003-…`, `move-016-…` and `07-…` all fail the moment the entries sit under a document numbered 17. None of the three images had been drawn, so nothing was orphaned.
-
-`MOVE-003` survives as a rule and keeps its number, but it no longer says which face leads — that is `INF-002`, and the image shows a base measured from its leading face. The entry follows the claim, not the number.
-
-**`CORE-002` moved to `INF-001` the same way**, and its filename with it — `core-002-facing-orientation.png` became `inf-001-base-and-front.png`. `CORE-002` now says a unit has a facing and every model an obvious front, and defers which part of a model that is to the domain. The 4-stud edge and the four directions labelled around it are infantry's, so the diagram is.
-
-**The firing arcs the entry also specified are gone, and are not drawn anywhere.** `CORE-002`'s bullet list was the only thing tying an arc to a unit's orientation, and it never said what an arc spanned or decided; `WPN-011` and `TRN-011` each derive one from a physical thing instead. Nothing was lost that had ever been defined, and a diagram cannot illustrate a term no rule owns.
-
-### Rewritten because the drawing settled the scope
-
-**`CORE-001`** specified three panels and the image drawn for it is one: the volume, its three dimensions, and the two measures laid beside it. The panels asking for a model inside the volume and for a `2 × 3 UB` footprint are gone, and the entry no longer argues from them — the maintainer's judgement is that a stack of counted plates already shows that a Unit Base encloses space, and that a model inside adds nothing a reader needs.
-
-**Two facts are now carried by prose alone**, knowingly. That the base a model stands on is inside the volume rather than the floor beneath it, which `CORE-001` states and no image shows; and the footprint arithmetic, `2 × 3 UB` measuring `8 × 9` studs. The rejections at `TRN-003`, `TRN-020`, `DEP-003` and `DEP-004` are unaffected: each leans on the dimensioned volume or on the horizontal `4 × 3` figure, and the image carries both.
-
-### Rewritten because the rule changed under them
-
-Five entries described rules that had moved on, and `scripts/lint_ruleset.py` could not see any of it: it checks that a named rule ID exists in the document its section names, and every one of these IDs still existed.
-
-- **`CORE-001`** specified six panels, including a derivation of the 13 plate layers from a minifigure and one panel per *projection* of the volume. `core-states-only-what-it-owns` had removed both — the derivation because the number is stated outright, and the word *projection* from the ruleset entirely, each rule naming the dimensions it reads instead. Three panels remain, for the facts `CORE-001` still carries.
-- **`CMP-018`** specified "the Unit Base's vertical projection" fitting a clear opening. Same removal; the rule now measures the model that uses the opening, and the entry says so.
-- **`WPN-003`** told the illustrator to mark Weapon Width as "the body's smallest dimension", which `general-review` had replaced with the side of the front face, built square — the old wording left three candidates on a physical body and disagreed with `WPN-020`'s `8 × 4` example. **An image drawn from the entry would have contradicted the rule**, which is worse than a stale argument: the What column is an instruction. The entry now names the face, and shows the `8 × 4` body where the two readings agree on the number and differ on the reason.
-- **`INF-002`** argued that "the rule works this out algebraically; a diagram shows it directly". `fix-infantry` restated the limits in Unit Bases, so nothing is worked out any more — the rule states `4 UB` and gives the conversion. The image is needed for a different reason now, and a stronger one: `4 UB` forward and `3 UB` sideways are the same twelve studs, and the numbers say otherwise.
-- **`VEH-027`** quoted the rule as turning on whether a ramp "physically covers the entire rise". `general-review` reworded it, and the quotation marks made the drift a misquotation rather than a paraphrase. The entry states the condition instead of quoting it, and adds that the angle is not measured.
-
-**All five were stale before the change that noticed them**, which is the argument for reading this file whenever a rule it names is edited: nothing mechanical will report it.
-
-Rules considered and rejected, with reasons:
 
 - **CORE-010 (Cover)** — Binary rule (a component is hidden or it isn't, no partial cover). The nuance is conceptual ("no cover bonus exists"), not spatial; there is nothing to draw that the sentence doesn't already say.
 - **MOVE-017 (Collision)** — "Models may not overlap" is a self-evident physical fact from any tabletop photo. Recorded explicitly because a collision diagram is the first thing a reader of `07-movement.md` reaches for; on review it does not meet the bar.

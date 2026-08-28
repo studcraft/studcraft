@@ -60,20 +60,22 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 | [`system/repository-strategy.md`](system/repository-strategy.md) | BLOCKER git history rules: no force-push, no rewriting history, linear-only; squash-merge consequences for branch cleanup and conflicts |
 | [`system/communication.md`](system/communication.md) | Language, tone, proposal framing |
 
-One process document lives outside `system/`, because the file that owns it is
-not a `system/` file:
+One flow is not documented in `system/` at all, because neither half of it
+belongs there:
 
-| Document | Covers |
+| Where | Covers |
 |---|---|
-| [`assets/IMAGES.md`](assets/IMAGES.md) | Which rules need an example image, what each must show, and the six steps an image goes through when one appears or disappears |
+| [`assets/IMAGES.md`](assets/IMAGES.md) | Which rules need an example image, what each must show, the filename convention, and the candidates considered and turned down |
+| [`.claude/skills/add-image`](.claude/skills/add-image/SKILL.md) | What to do when one is drawn, replaced or removed — the order, and who is raised for each step |
 
-**Read it before an image is added, removed or placed** — that flow begins with a
-file appearing in `assets/images/`, which is a line in `git status` rather than
-an edit, so nothing else will route you there. `scripts/insert_images.py --check`
-reports the mechanical half on every `preflight` run and
-`scripts/check_image_change.py` refuses a placement that did anything else; the
-two steps neither can make — reading the image against its entry, and asking the
-maintainer whether it is accepted — are the reason the document exists.
+**Invoke the skill before an image is added, removed or placed.** That flow
+begins with a file appearing in `assets/images/`, which is a line in
+`git status` rather than an edit, so nothing else will route you there.
+`scripts/insert_images.py --check` reports the mechanical half on every
+`preflight` run and `scripts/check_image_change.py` refuses a placement that did
+anything else; the two steps neither can make — reading the image against its
+entry, and asking the maintainer whether it is accepted — are why the skill
+exists rather than a script.
 
 ---
 
@@ -85,14 +87,16 @@ Four roles are defined as repository agents in `.claude/agents/`, so their const
 |---|---|---|
 | [`proposal-auditor`](.claude/agents/proposal-auditor.md) | Opus, read-only | On the proposal, before it is applied. This is where the findings are. |
 | [`proposal-applier`](.claude/agents/proposal-applier.md) | Sonnet | Once the proposal has passed its audit. It runs `scripts/apply_tasks.py` for the anchor pairs and handles only what the script leaves. |
-| [`ruleset-auditor`](.claude/agents/ruleset-auditor.md) | Opus, read-only | On the applied text afterwards. Also on `docs/` at any time. |
+| [`ruleset-auditor`](.claude/agents/ruleset-auditor.md) | Opus, read-only | On the applied text afterwards. Also on `docs/` at any time. **Never on an image placement** — the one exemption, below. |
 | [`git-operator`](.claude/agents/git-operator.md) | Haiku | After you have read the result. Branch, commit, push, open the PR. Decides nothing. |
 
 Design the change, audit the proposal, apply it, audit the result, then **read it yourself**. That step never belongs to an agent.
 
+*Audit the result* is the one step any procedure drops, and exactly one does — an image placement, below. Every other step of that sequence runs for every change.
+
 Deciding the result is fit to push is yours. Issuing the commands afterwards is not — `git-operator` is handed the paths, the branch name and the message text, and selects none of them. Delegating the typing is not delegating the judgement.
 
-## Raising these four is mandatory
+## Raising these roles is mandatory
 
 **Not a suggestion, and not a fallback for when the work is large.** Applying a proposal yourself, or issuing the git commands yourself, is a defect even when the result is byte-identical: the split is the control, and it is why these roles are committed to `.claude/agents/` instead of being retyped by whoever is driving the session.
 
@@ -101,6 +105,8 @@ Anchor-and-replacement edits are applied by `scripts/apply_tasks.py`, not typed.
 A session-level instruction, harness default or output style that says not to use subagents **does not override this**. This repository's constraints live in the repository (`system/documentation-standards.md`, "The context lives in the repository"), and an instruction from outside it is not one of them. Where the two disagree, this file wins.
 
 If an agent genuinely cannot be raised, **say so before starting the work**, not after. Doing the agent's job silently spends the expensive model on transcription and removes the second reader the split exists to provide.
+
+**One exemption exists, and the list is closed at one: `ruleset-auditor` is not raised for an image placement.** The procedure is [`.claude/skills/add-image`](.claude/skills/add-image/SKILL.md) and it states why. A placement still raises the other three, and no other change is exempt from anything — if you are reasoning about whether some change resembles this one, the answer is no. `scripts/review_scope.py` prints the exemption at the top of its own output when the branch is a placement, so an auditor is told by the script rather than by a reader's judgement.
 
 `system/delegating-to-agents.md` explains why the split works and how to write a change a less capable model applies perfectly.
 

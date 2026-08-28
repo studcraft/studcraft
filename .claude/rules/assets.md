@@ -22,9 +22,12 @@ proposal branch; `--check` writes nothing and is what CI runs.
 agrees with itself but whether this branch only placed its image. It fires on
 any branch touching `assets/images/`, and the edit it refuses first is one to
 `assets/IMAGES.md`: an entry narrowed to fit a drawing the maintainer already
-accepted leaves every other check green. `scripts/preflight.py` runs it. The six
-steps it guards are in `assets/IMAGES.md` ("When an image appears, or
-disappears") — read them before starting, not after.
+accepted leaves every other check green. `scripts/preflight.py` runs it.
+
+**The procedure it guards is the `add-image` skill** —
+`.claude/skills/add-image/SKILL.md`. Invoke it before starting, not after: it
+holds the order, and every defect this flow has shipped came from assembling
+that order rather than following it.
 
 The parsing of `assets/IMAGES.md` is `scripts/images_index.py`'s, shared by
 those two and by `scripts/build_index.py`, which publishes each entry in

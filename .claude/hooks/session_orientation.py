@@ -39,6 +39,23 @@ def git(*args: str) -> str:
     return proc.stdout.strip() if proc.returncode == 0 else ""
 
 
+def unplaced_images(status: str) -> list[str]:
+    """Every image sitting under `assets/images/` that no commit has placed yet.
+
+    The one flow in this repository that begins with a file rather than with a
+    prompt. `assets/IMAGES.md` says as much — a line in `git status` is not an
+    edit, so nothing routes anyone to the procedure — and both placements that
+    wandered had the file in front of them the whole time. Naming it here costs
+    a string scan of output already read.
+    """
+    found = []
+    for line in status.splitlines():
+        path = line[3:].strip().strip('"')
+        if path.startswith("assets/images/") and not path.endswith("/.gitkeep"):
+            found.append(path[len("assets/images/"):])
+    return sorted(found)
+
+
 def main() -> int:
     lines: list[str] = []
 
@@ -55,6 +72,15 @@ def main() -> int:
         lines.append(f"Working tree: {count} uncommitted path(s)")
     elif branch:
         lines.append("Working tree: clean")
+
+    images = unplaced_images(dirty)
+    if images:
+        lines.append(
+            "Uncommitted under assets/images/: "
+            + ", ".join(images)
+            + " — that is the add-image flow. Invoke the add-image skill before "
+            "editing anything, including assets/IMAGES.md"
+        )
 
     if CHANGES_DIR.is_dir():
         changes = sorted(
