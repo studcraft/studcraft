@@ -103,7 +103,7 @@ What a vehicle can do, and how it must be built, is defined by `08-vehicles.md`.
 
 ---
 
-## CORE-005 — Structures
+# CORE-005 — Structures
 
 Buildings, fortifications and scenery are permanent battlefield elements.
 

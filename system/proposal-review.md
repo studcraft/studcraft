@@ -131,6 +131,19 @@ problems leaves the reviewer unable to tell thoroughness from luck. Finding
 nothing is a result — say what was looked at, and never manufacture a finding
 to justify the run.
 
+## Size the Fix Before You Rank the Finding
+
+**Find the repair before writing the severity down.** A defect fixed by one
+heading level is not a blocker, whatever the symptom looked like from the other
+end. Sizing costs one search, and it is the difference between "the ruleset has
+no concept of a unit" and "one chapter lists a rule that is not one" — the same
+gap, reported twice, with opposite consequences for whoever reads the report.
+
+It also decides what a gap *is*. This ruleset is executed by a person holding a
+build, not compiled: it may leave to common language what a specification would
+have to close. The section below ranks by whether a reader can proceed; sizing
+is how you find out.
+
 ## Silence Is Not Contradiction, and They Are Not the Same Severity
 
 **Two rules that disagree, and one question no rule answers, are different
