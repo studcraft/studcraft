@@ -45,26 +45,15 @@ If a rejected candidate is later accepted, or an accepted one dropped, **do not 
 
 **Weight: 3 MB per image.** Git keeps every version of a binary for ever and stores no deltas between them, so each re-export is a whole new copy — and `system/repository-strategy.md` forbids rewriting history, which is the only way to take one back out. The number sits far above ordinary work on purpose: it is an accident guard, not a budget. A flat render of a build is a few hundred kilobytes, so nothing legitimate meets it.
 
-**Neither rule is a quality bar, and neither must be used as one.** An illustration arrives in whatever its author works in, and lossy compression is a fact about how an image was made rather than about its container. What decides whether an image is good enough is step 2 below — reading it against its entry — and step 3, the maintainer accepting it. As guidance and not as a gate: where a reader counts something, plate layers or studs, a lossless export keeps the edges countable.
+**Neither rule is a quality bar, and neither must be used as one.** An illustration arrives in whatever its author works in, and lossy compression is a fact about how an image was made rather than about its container. What decides whether an image is good enough is reading it against its entry, and the maintainer accepting it — the `add-image` skill, steps 3 and 4. As guidance and not as a gate: where a reader counts something, plate layers or studs, a lossless export keeps the edges countable.
 
 Files are added as they are drawn, and `scripts/insert_images.py` places each one under the section that specifies it. The rule it keeps is exact in both directions: **an image is embedded in `docs/` exactly when the file exists in `assets/images/` and this file lists it for that section.** An embed placed by hand, with no entry here, is therefore removed — the entry is where the argument for the image is written, and the *Why text alone is not enough* column is that argument. `--check` reports each departure and prints the row to add; `--write` repairs them, and because it edits `docs/` it runs on a proposal branch. `assets/images/.gitkeep` holds the directory.
 
 ## When an image appears, or disappears
 
-Six steps, in this order. **What they produce is one embed line per image in the one document that specifies it, the image file, and the change directory — nothing else.** `scripts/check_image_change.py` refuses the rest.
+**The procedure is the `add-image` skill** — `.claude/skills/add-image/SKILL.md`. It owns the order: where the drawn file goes, reading it against its entry, asking the maintainer, the proposal that places the image and nothing else, and who is raised for each remaining step.
 
-1. **The drawn file goes to `assets/images/`, under the name its entry already gave it.** Not into the change directory, not into `docs/`: the path was decided when the entry was written, and it is the only path an embed can point at.
-2. **`python3 scripts/insert_images.py --check`.** It says what changed and in which direction — a file nobody listed, an entry whose image is drawn but not placed, an embed whose file or entry is gone. This step is mechanical and settles nothing else.
-3. **Read the new image against its entry.** Does it show what the *What it must show* column asked for? No script can answer this: `insert_images.py` checks that a file exists, never what is in it.
-4. **Ask the maintainer, and take the answer as settled.** The question has two answers — the image is accepted, or it is redrawn — and **an accepted image does not change its entry**: the *What it must show* column was the instruction given to whoever drew it, and it stays as the record of what was asked for. Changing the entry itself is a separate change on its own branch, if the maintainer wants one at all.
-5. **Then propose, and propose only the placement.** The proposal states no rule, moves no citation and does not touch this file; `--write` writes the embed on its branch. `proposal-auditor` is raised **once**, on this brief:
-
-   > The change places one image the maintainer has already accepted. Two questions: does the entry for this rule still argue for the image on its own terms — the *Why text alone is not enough* column — and is the diff exactly the embed line, the image file and the change directory? The drawn image, the entry's wording and the rule's wording are out of scope; step 4 settled them.
-
-   A second audit of the same proposal asks the same two questions twice.
-6. **`python3 scripts/check_image_change.py`.** It reads the branch against its base and reports anything the placement did besides place its image. `scripts/preflight.py` runs it.
-
-**Each of steps 1, 4 and 5 is written down because it was got wrong.** `add-image-to-core-rule` proposed before reading the image, so the entry was rewritten afterwards and the audit was paid for twice; `add-image-to-clear-opening-rule` then asked where the file belonged, proposed rewriting an entry the maintainer had already accepted, and audited twice again. Asking first costs one question; asking last costs the proposal.
+The split is the one this repository makes everywhere. **This file owns what an entry is; the skill owns what to do about one.** A procedure written down here would be read only by whoever was already reading the index — and the flow begins with a file appearing in `git status`, which sends nobody anywhere.
 
 ---
 

@@ -60,20 +60,22 @@ Detailed rules live in `system/`. Read the ones relevant to the task at hand.
 | [`system/repository-strategy.md`](system/repository-strategy.md) | BLOCKER git history rules: no force-push, no rewriting history, linear-only; squash-merge consequences for branch cleanup and conflicts |
 | [`system/communication.md`](system/communication.md) | Language, tone, proposal framing |
 
-One process document lives outside `system/`, because the file that owns it is
-not a `system/` file:
+One flow is not documented in `system/` at all, because neither half of it
+belongs there:
 
-| Document | Covers |
+| Where | Covers |
 |---|---|
-| [`assets/IMAGES.md`](assets/IMAGES.md) | Which rules need an example image, what each must show, and the six steps an image goes through when one appears or disappears |
+| [`assets/IMAGES.md`](assets/IMAGES.md) | Which rules need an example image, what each must show, the filename convention, and the candidates considered and turned down |
+| [`.claude/skills/add-image`](.claude/skills/add-image/SKILL.md) | What to do when one is drawn, replaced or removed — the order, and who is raised for each step |
 
-**Read it before an image is added, removed or placed** — that flow begins with a
-file appearing in `assets/images/`, which is a line in `git status` rather than
-an edit, so nothing else will route you there. `scripts/insert_images.py --check`
-reports the mechanical half on every `preflight` run and
-`scripts/check_image_change.py` refuses a placement that did anything else; the
-two steps neither can make — reading the image against its entry, and asking the
-maintainer whether it is accepted — are the reason the document exists.
+**Invoke the skill before an image is added, removed or placed.** That flow
+begins with a file appearing in `assets/images/`, which is a line in
+`git status` rather than an edit, so nothing else will route you there.
+`scripts/insert_images.py --check` reports the mechanical half on every
+`preflight` run and `scripts/check_image_change.py` refuses a placement that did
+anything else; the two steps neither can make — reading the image against its
+entry, and asking the maintainer whether it is accepted — are why the skill
+exists rather than a script.
 
 ---
 
