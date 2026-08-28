@@ -31,6 +31,49 @@ maintainer had already accepted the drawing, and two audits paid for one
 proposal. Every fact needed to avoid all four was already written down. What was
 missing was the order.
 
+**Step 0 exists because this file was first written without one.** Every step
+below assumes there is an image waiting, so a reader invoked with none had ten
+imperatives and no exit — and the first of them says a file goes into
+`assets/images/`, which is an instruction to manufacture the subject. Stopping
+is an outcome of this procedure, not a failure to carry it out.
+
+---
+
+## 0. Is there anything to place?
+
+**Ask before step 1, every time — including when someone invoked this skill by
+name.** Being asked to run a procedure is not evidence that the procedure has a
+subject.
+
+```bash
+python3 scripts/insert_images.py --check
+git status --short assets/images/ docs/
+```
+
+**If the first says `docs/`, `assets/images/` and `assets/IMAGES.md` agree, and
+the second prints nothing: stop. There is nothing to place.** Say so and end —
+that is a complete and correct answer, not a failure to find the work.
+
+What must not happen next, because each is a way of manufacturing a subject:
+
+- **Do not create a file under `assets/images/`.** An image is drawn by a
+  person. A placeholder written to satisfy step 1 sends every later step, and
+  every gate, running over a file that illustrates nothing.
+- **Do not pick an undrawn entry and propose its placement.** Most entries in
+  `assets/IMAGES.md` name images nobody has drawn. That is their normal state,
+  not a backlog to work through.
+- **Do not edit `assets/IMAGES.md`.** Adding or changing an entry is a separate
+  editorial change on its own branch, and it is decided before anything is
+  drawn.
+
+`--check` reporting a disagreement is the opposite answer: something is drawn
+and unplaced, or an embed has lost its file or its entry — a removal reads this
+way too. Continue to step 1.
+
+`git status` printing something while `--check` is green means a placement is
+already under way in this tree, not that there is nothing to do. Find which step
+it reached and resume there.
+
 ---
 
 ## 1. The file goes to `assets/images/`
@@ -46,10 +89,12 @@ where the argument for an image is written, and writing one is an editorial
 change on its own branch, decided before anything is drawn. Placement comes
 after.
 
-## 2. `python3 scripts/insert_images.py --check`
+## 2. Read what `insert_images.py --check` reported
 
-It says what changed and in which direction: a file nobody listed, an entry
-whose image is drawn but not placed, an embed whose file or entry is gone.
+The run at step 0. Read it now for *what* it found rather than for whether it
+found anything: a file nobody listed, an entry whose image is drawn but not
+placed, an embed whose file or entry is gone. Each is a different job, and the
+rest of this procedure assumes the second.
 
 Mechanical. It settles nothing else — it checks that a file exists, never what
 is in it.
