@@ -39,3 +39,11 @@ jobs:
       # it, which is why the checkout above is not shallow.
       - name: An image placement places its image only
         run: python3 scripts/check_image_change.py "${{ github.event.pull_request.base.sha }}"
+
+      # Same job, same reason, and the same base. A rule identifier is never
+      # renumbered and never reused — a stated invariant of the ruleset, and
+      # one no single revision can see: lint_ruleset.py catches duplicates
+      # within a revision, and only a comparison against the base catches a
+      # number that quietly changed document or came back on a new rule.
+      - name: Rule IDs are stable
+        run: python3 scripts/check_id_stability.py "${{ github.event.pull_request.base.sha }}"
