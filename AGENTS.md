@@ -87,14 +87,16 @@ Four roles are defined as repository agents in `.claude/agents/`, so their const
 |---|---|---|
 | [`proposal-auditor`](.claude/agents/proposal-auditor.md) | Opus, read-only | On the proposal, before it is applied. This is where the findings are. |
 | [`proposal-applier`](.claude/agents/proposal-applier.md) | Sonnet | Once the proposal has passed its audit. It runs `scripts/apply_tasks.py` for the anchor pairs and handles only what the script leaves. |
-| [`ruleset-auditor`](.claude/agents/ruleset-auditor.md) | Opus, read-only | On the applied text afterwards. Also on `docs/` at any time. |
+| [`ruleset-auditor`](.claude/agents/ruleset-auditor.md) | Opus, read-only | On the applied text afterwards. Also on `docs/` at any time. **Never on an image placement** — the one exemption, below. |
 | [`git-operator`](.claude/agents/git-operator.md) | Haiku | After you have read the result. Branch, commit, push, open the PR. Decides nothing. |
 
 Design the change, audit the proposal, apply it, audit the result, then **read it yourself**. That step never belongs to an agent.
 
+*Audit the result* is the one step any procedure drops, and exactly one does — an image placement, below. Every other step of that sequence runs for every change.
+
 Deciding the result is fit to push is yours. Issuing the commands afterwards is not — `git-operator` is handed the paths, the branch name and the message text, and selects none of them. Delegating the typing is not delegating the judgement.
 
-## Raising these four is mandatory
+## Raising these roles is mandatory
 
 **Not a suggestion, and not a fallback for when the work is large.** Applying a proposal yourself, or issuing the git commands yourself, is a defect even when the result is byte-identical: the split is the control, and it is why these roles are committed to `.claude/agents/` instead of being retyped by whoever is driving the session.
 

@@ -99,7 +99,7 @@ Raise `proposal-auditor` (AGENTS.md, "Delegating Work") on this brief:
 **A second audit of the same proposal asks the same two questions twice.** If a
 finding changes the proposal, re-audit that finding, not the change.
 
-**`ruleset-auditor` is not raised at all.** AGENTS.md ("Raising these four is
+**`ruleset-auditor` is not raised at all.** AGENTS.md ("Raising these roles is
 mandatory") carries the exemption; this is the reason for it.
 
 Its seven checks are the fifteen principles, the Summary and mottos, where

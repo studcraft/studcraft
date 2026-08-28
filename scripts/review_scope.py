@@ -71,7 +71,7 @@ directory. scripts/check_image_change.py enforces that. It states no rule,
 retires no ID and moves no citation.
 
   ruleset-auditor — STOP. You are not raised for a placement (AGENTS.md,
-  "Raising these four is mandatory"). Every check you own reads rule text and
+  "Raising these roles is mandatory"). Every check you own reads rule text and
   this change writes none. Say so and return without auditing.
 
   proposal-auditor — your brief is two questions, and only these two:
