@@ -22,7 +22,9 @@ proposal branch; `--check` writes nothing and is what CI runs.
 agrees with itself but whether this branch only placed its image. It fires on
 any branch touching `assets/images/`, and the edit it refuses first is one to
 `assets/IMAGES.md`: an entry narrowed to fit a drawing the maintainer already
-accepted leaves every other check green. `scripts/preflight.py` runs it.
+accepted leaves every other check green. `scripts/preflight.py` runs it, and so
+does the `Docs ruleset linter` job on every pull request — which is why that
+job's checkout is not shallow: this check needs the base to diff against.
 
 **The procedure it guards is the `add-image` skill** —
 `.claude/skills/add-image/SKILL.md`. Invoke it before starting, not after: it

@@ -10,7 +10,13 @@ jobs:
     name: Docs ruleset linter
     runs-on: ubuntu-latest
     steps:
+      # Full history: the placement check below diffs against the pull
+      # request's base, and a shallow checkout does not contain it. With a base
+      # it cannot resolve, that check would report every placement clean
+      # without comparing it to anything.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -25,3 +31,11 @@ jobs:
       # already required and already runs on every pull request.
       - name: Images match their index
         run: python3 scripts/insert_images.py --check
+
+      # Same argument, and the same job for the same reason. This one asks
+      # about scope rather than consistency: a placement that also rewrote its
+      # own entry in assets/IMAGES.md leaves the step above green, because the
+      # tree it produces agrees with itself. Only a diff against the base sees
+      # it, which is why the checkout above is not shallow.
+      - name: An image placement places its image only
+        run: python3 scripts/check_image_change.py "${{ github.event.pull_request.base.sha }}"
