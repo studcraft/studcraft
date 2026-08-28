@@ -292,4 +292,10 @@ The middle Component State: the component still functions, and where the capabil
 
 ---
 
+## Unit
+
+What activates and receives Action Points: infantry or a vehicle. A structure is not a unit. A model a vehicle carries is a unit of its own. See `02-core-rules.md`, CORE-003, CORE-004, CORE-005, CORE-006, and `09-transport.md`, TRN-021.
+
+---
+
 > **Every Brick Matters.**

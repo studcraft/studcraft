@@ -292,6 +292,16 @@ The number of levels a vehicle can contain is limited by its construction and de
 
 ---
 
+# TRN-021 — An Embarked Model Is Its Own Unit
+
+A model a vehicle carries, or is about to carry, remains its own unit. It activates in its own right and receives its own Action Points (`02-core-rules.md`, CORE-006).
+
+Those are the Action Points it spends to embark (`TRN-005`), to disembark (`TRN-006`), and to open or close the access point it uses (`TRN-008`).
+
+While embarked it counts as part of its transport for Deployment Volume (`06-deployment.md`, DEP-006). Carried on the outside it is not embarked, and occupies its own (`08-vehicles.md`, VEH-030).
+
+---
+
 # Summary
 
 Transport in StudCraft follows these principles:
@@ -305,6 +315,7 @@ Transport in StudCraft follows these principles:
 7. Open transports expose passengers.
 8. Closed transports protect passengers according to their construction.
 9. Interior construction determines available capacity and access.
+10. A model a transport carries is its own unit and spends its own Action Points.
 
 ---
 
