@@ -44,7 +44,9 @@ Usage:
     python3 scripts/check_image_change.py <revision>  against anything else
 
 Exit code 0 when the branch is not a placement or is only a placement, 1
-otherwise.
+otherwise. A revision passed explicitly and not resolvable is an error rather
+than a skip: CI names the pull request's base, and a base that is not there
+would otherwise report every placement clean without comparing it to anything.
 """
 
 from __future__ import annotations
@@ -183,8 +185,22 @@ def survey(base: str, paths: list[str]) -> list[str]:
 def main(argv: list[str]) -> int:
     base = base_revision(argv)
     if base is None:
-        target = argv[0] if argv else " or ".join(BASES)
-        print(f"Cannot resolve {target}; nothing to compare against. Skipping.")
+        # A base that was *asked for* and is not there is a wrong answer, not a
+        # missing one: in CI it would pass this check without running it, which
+        # is the one outcome worse than not having the check. Auto-detection
+        # failing is different — a fresh clone with no remote legitimately has
+        # nothing to compare against.
+        if argv:
+            print(
+                f"::error::Cannot resolve {argv[0]}, which was named explicitly. "
+                f"Refusing to report a placement as clean without comparing it "
+                f"against anything.",
+                file=sys.stderr,
+            )
+            return 1
+        print(
+            f"Cannot resolve {' or '.join(BASES)}; nothing to compare against. Skipping."
+        )
         return 0
 
     paths = changed_paths(base)

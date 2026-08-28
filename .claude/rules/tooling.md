@@ -53,7 +53,7 @@ path outside the repository. A new script that writes repository files inherits
 that obligation — the hook will not cover it.
 
 `scripts/preflight.py` is the same bargain in script form: it mirrors four of
-the workflows plus both checker scripts so a push is not the first thing to
+the workflows plus all three checker scripts so a push is not the first thing to
 report a red gate. **Editing a workflow means checking the mirror against it.**
 
 **`tests/` covers `scripts/`, and a change to a script belongs in the same

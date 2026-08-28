@@ -77,13 +77,29 @@ the proposal.
 
 Branch from current `main` (`system/repository-strategy.md`, "Creating a new
 branch"), named for the change directory — the branch and the directory must
-match, or `insert_images.py --write` refuses.
+match, or both this command and `insert_images.py --write` refuse.
+
+**Do not write the three artifacts by hand:**
+
+```bash
+python3 scripts/propose_placement.py <change-name>
+```
+
+It writes `proposal.md`, `design.md` and `tasks.md`, with every value that is
+computable taken from the index: the embed line, the line in `docs/` it must
+land after, how many entries exist and how many are drawn. A `tasks.md` naming
+an expected value nobody derived is where a placement goes wrong quietly, and
+that is the value an auditor then has to judge.
+
+**It leaves exactly one thing unwritten**, and no script could write it: task
+3.1, the image read against its entry. It carries a loud placeholder until you
+replace it with what the entry asked for, what the image shows, and the
+maintainer's verdict from step 4. A placeholder reaching the audit is a finding,
+because the brief below asks about that entry.
 
 The proposal states no rule, retires no ID, moves no citation and does not touch
-`assets/IMAGES.md`. `design.md` names the image file as the non-`docs/` path the
-branch carries and says why, which `system/repository-strategy.md` ("Branch
-Naming") requires. `tasks.md` has no anchor pairs: the embed is written by a
-command, not transcribed.
+`assets/IMAGES.md`; the generated text says so, and saying otherwise is an edit
+somebody made.
 
 ## 6. Audit — once
 
